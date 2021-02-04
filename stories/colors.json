@@ -1,0 +1,114 @@
+[
+  {
+    "colorName": "Yellow",
+    "colorCode": {
+      "hex": "#FAC62D",
+      "rgba": "( 250, 198, 45 )"
+    },
+    "use": ["버튼", "중간 점수"]
+  },
+  {
+    "colorName": "Light-Yellow",
+    "colorCode": {
+      "hex": "#FEF4CE",
+      "rgba": "(254, 244, 206)"
+    },
+    "use": ["table head", "dashboard nav hover"]
+  },
+  {
+    "colorName": "Bold-Yellow",
+    "colorCode": {
+      "hex": "#F2AB28",
+      "rgba": "(242, 171, 40)"
+    },
+    "use": ["설문번호", "dashboard nav text hover"]
+  },
+  {
+    "colorName": "Blue",
+    "colorCode": {
+      "hex": "#59C4DB",
+      "rgba": "(89, 196, 219)"
+    },
+    "use": ["분기설정", "개인별 리포트"]
+  },
+  {
+    "colorName": "Bold-Blue",
+    "colorCode": {
+      "hex": "#57ADF2",
+      "rgba": "(87, 173, 242)"
+    },
+    "use": ["Background"]
+  },
+  {
+    "colorName": "Beige",
+    "colorCode": {
+      "hex": "#E9E1D5",
+      "rgba": "(233, 225, 213)"
+    },
+    "use": ["border", "버튼"]
+  },
+  {
+    "colorName": "Light-Beige",
+    "colorCode": {
+      "hex": "#FBFAF7",
+      "rgba": "(251, 249, 247)"
+    },
+    "use": ["Background"]
+  },
+  {
+    "colorName": "Bold-Beige",
+    "colorCode": {
+      "hex": "#D2CBC0",
+      "rgba": "(210, 203, 192)"
+    },
+    "use": ["Shadow"]
+  },
+  {
+    "colorName": "Red",
+    "colorCode": {
+      "hex": "#FF5724",
+      "rgba": "(255, 87, 36)"
+    },
+    "use": ["warning 텍스트", "낮은 점수"]
+  },
+  {
+    "colorName": "Green",
+    "colorCode": {
+      "hex": "#59BF51",
+      "rgba": "(89, 191, 81)"
+    },
+    "use": ["높은 점수"]
+  },
+  {
+    "colorName": "gray-01",
+    "colorCode": {
+      "hex": "#F0F0F0",
+      "rgba": "(240, 240, 240)"
+    },
+    "use": ["취소 버튼"]
+  },
+  {
+    "colorName": "gray-02",
+    "colorCode": {
+      "hex": "#DFDEDD",
+      "rgba": "(223, 222, 221)"
+    },
+    "use": ["응답하지 않은 문항", "background"]
+  },
+  {
+    "colorName": "gray-03",
+    "colorCode": {
+      "hex": "#818282",
+      "rgba": "(129, 130, 130)"
+    },
+    "use": ["화면 오른쪽 상단 버튼 hover 전"]
+  },
+  {
+    "colorName": "gray-04",
+    "colorCode": {
+      "hex": "#2b2e33",
+      "rgba": "(43, 46, 51)"
+    },
+    "use": ["default 텍스트"]
+  }
+]
