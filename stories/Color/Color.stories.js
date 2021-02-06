@@ -5,7 +5,7 @@ import ColorSet from "./colors.json"
 
 export default {
   component: Color,
-  title: "Example/Color",
+  title: "Core/Colors",
 }
 
 export const Index = () => <Color colors={ColorSet} />
