@@ -1,0 +1,11 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.2 14.2">
+    <defs>
+        <style>.cls-1,.cls-2{fill:none;stroke:#231f20;stroke-linecap:round;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linejoin:round;}</style>
+    </defs>
+    <path class="cls-1" d="M13.7,8.88V1.33A.83.83,0,0,0,12.87.5H1.33a.83.83,0,0,0-.83.83V12.87a.83.83,0,0,0,.83.83H8.88" />
+    <line class="cls-1" x1="11.87" y1="9.99" x2="11.87" y2="13.64" />
+    <line class="cls-1" x1="13.7" y1="11.81" x2="10.05" y2="11.81" />
+    <circle class="cls-2" cx="3.9" cy="3.94" r="0.87" />
+    <polyline class="cls-2" points="2.75 9.45 4.49 6.88 8 9.47" />
+    <polyline class="cls-2" points="7.37 8.63 9.2 6.88 11.52 8.37" />
+</svg>
