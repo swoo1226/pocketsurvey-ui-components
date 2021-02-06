@@ -1,20 +1,32 @@
 import React from 'react';
+import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 
 import { Button, ButtonType } from './Button';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta } from '@storybook/react/types-6-0';
 
 export default {
   component: Button,
   title: 'Components/Button',
+  decorators: [withKnobs], // 애드온 적용
 } as Meta;
 
-const Template: Story<ButtonType> = (args) => <Button {...args} />;
+export const Index = () => {
+  const theme = select(
+    'theme',
+    ['primary', 'secondary', 'tertiary'],
+    'primary',
+  );
+  const size = select('size', ['small', 'medium', 'big'], 'small');
+  const disabled = boolean('disabled', false);
 
-export const BasicSmallButton = Template.bind({});
-BasicSmallButton.args = {
-  onClick: () => alert('BasicButton'),
-  theme: 'primary',
-  size: 'small',
-  disabled: false,
-  children: '버튼',
+  return (
+    <Button
+      theme={theme}
+      size={size}
+      disabled={disabled}
+      onClick={() => alert('BasicButton')}
+    >
+      버튼
+    </Button>
+  );
 };

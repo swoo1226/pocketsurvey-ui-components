@@ -100,8 +100,8 @@ export const Button = ({
     }
   }
 
-  const { width, height, fontSize } = switchSize();
-  const { backgroundColor, hoverBackgroundColor } = switchTheme();
+  const { width, height, fontSize } = switchSize()!;
+  const { backgroundColor, hoverBackgroundColor } = switchTheme()!;
 
   return (
     <ButtonContainer
