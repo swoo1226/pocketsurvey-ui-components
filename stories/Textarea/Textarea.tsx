@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 
 type typeProps = 'basic' | 'line';
 type sizeProps = 'big' | 'medium' | 'small';
@@ -7,9 +8,16 @@ type sizeProps = 'big' | 'medium' | 'small';
 const TextareaContainer = styled.textarea<{
     borderStyle: FlattenSimpleInterpolation;
     fontStyle: FlattenSimpleInterpolation;
+    widthStyle: FlattenSimpleInterpolation;
 }>`
+    resize: none;
     ${(props) => props.borderStyle}
     ${(props) => props.fontStyle}
+    ${(props) => props.widthStyle}
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
@@ -62,20 +70,10 @@ export const Textarea = ({ type, size, children }: TextareaPropsType) => {
     const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
     const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
 
-    const resizeHeight = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (dom.current) {
-            dom.current.style.height = '1px';
-            dom.current.style.height = dom.current.scrollHeight + 'px';
-        } else {
-            console.log('dom.current is null');
-        }
-    };
-
     return (
         <TextareaContainer
             fontStyle={fontStyle}
             borderStyle={borderStyle}
-            onChange={resizeHeight}
             ref={dom}
         >
             {children}
