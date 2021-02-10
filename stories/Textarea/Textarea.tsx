@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 type typeProps = 'basic' | 'line';
 type sizeProps = 'big' | 'medium' | 'small';
 
-const TextareaContainer = styled.textarea<{
+const TextareaContainer = styled(TextareaAutosize)<{
     borderStyle: FlattenSimpleInterpolation;
     fontStyle: FlattenSimpleInterpolation;
     widthStyle: FlattenSimpleInterpolation;
@@ -59,6 +59,28 @@ const BorderSwitch = (type: typeProps) => {
     }
 };
 
+const WidthSwitch = (type: typeProps, size?: sizeProps) => {
+    if (type === 'line') {
+        return css`
+            width: 350px;
+        `;
+    } else {
+        switch (size) {
+            case 'big':
+            case 'medium':
+                return css`
+                    width: 630px;
+                `;
+            default:
+            case 'small':
+                return css`
+                    width: 500px;
+                    height: 52px;
+                `;
+        }
+    }
+};
+
 type TextareaPropsType = {
     type: typeProps;
     size?: sizeProps;
@@ -69,11 +91,13 @@ export const Textarea = ({ type, size, children }: TextareaPropsType) => {
     const dom = useRef<HTMLTextAreaElement>(null);
     const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
     const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
+    const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size);
 
     return (
         <TextareaContainer
             fontStyle={fontStyle}
             borderStyle={borderStyle}
+            widthStyle={widthStyle}
             ref={dom}
         >
             {children}
