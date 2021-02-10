@@ -50,3 +50,35 @@ const BorderSwitch = (type: typeProps) => {
             `;
     }
 };
+
+type TextareaPropsType = {
+    type: typeProps;
+    size?: sizeProps;
+    children?: React.ReactNode;
+};
+
+export const Textarea = ({ type, size, children }: TextareaPropsType) => {
+    const dom = useRef<HTMLTextAreaElement>(null);
+    const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
+    const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
+
+    const resizeHeight = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (dom.current) {
+            dom.current.style.height = '1px';
+            dom.current.style.height = dom.current.scrollHeight + 'px';
+        } else {
+            console.log('dom.current is null');
+        }
+    };
+
+    return (
+        <TextareaContainer
+            fontStyle={fontStyle}
+            borderStyle={borderStyle}
+            onChange={resizeHeight}
+            ref={dom}
+        >
+            {children}
+        </TextareaContainer>
+    );
+};
