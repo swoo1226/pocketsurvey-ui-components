@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import TextareaAutosize from 'react-textarea-autosize';
 
 type typeProps = 'basic' | 'line';
 type sizeProps = 'big' | 'medium' | 'small';
 type widthProps = string;
+
 const TextareaContainer = styled(TextareaAutosize)<{
     borderStyle: FlattenSimpleInterpolation;
     fontStyle: FlattenSimpleInterpolation;
@@ -100,7 +101,6 @@ export const Textarea = ({
     width,
     children,
 }: TextareaPropsType) => {
-    const dom = useRef<HTMLTextAreaElement>(null);
     const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
     const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
     const widthStyle: FlattenSimpleInterpolation = WidthSwitch(
@@ -114,7 +114,6 @@ export const Textarea = ({
             fontStyle={fontStyle}
             borderStyle={borderStyle}
             widthStyle={widthStyle}
-            ref={dom}
         >
             {children}
         </TextareaContainer>
