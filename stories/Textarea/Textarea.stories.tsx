@@ -13,8 +13,9 @@ export const Index = () => {
     const type = select('타입', ['basic', 'line'], 'basic');
     const size = select('사이즈', ['small', 'medium', 'big'], 'small');
     const children = text('텍스트', '가나다라마바사아자차카타파하');
+    const width = text('가로 크기', '');
     return (
-        <Textarea type={type} size={size}>
+        <Textarea type={type} size={size} width={width}>
             {children}
         </Textarea>
     );

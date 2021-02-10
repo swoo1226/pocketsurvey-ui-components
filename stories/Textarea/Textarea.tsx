@@ -4,7 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 type typeProps = 'basic' | 'line';
 type sizeProps = 'big' | 'medium' | 'small';
-
+type widthProps = string;
 const TextareaContainer = styled(TextareaAutosize)<{
     borderStyle: FlattenSimpleInterpolation;
     fontStyle: FlattenSimpleInterpolation;
@@ -17,6 +17,7 @@ const TextareaContainer = styled(TextareaAutosize)<{
 
     &:focus {
         outline: none;
+        border-color: #FAC62D;
     }
 `;
 
@@ -59,7 +60,12 @@ const BorderSwitch = (type: typeProps) => {
     }
 };
 
-const WidthSwitch = (type: typeProps, size?: sizeProps) => {
+const WidthSwitch = (type: typeProps, size?: sizeProps, width?: widthProps) => {
+    if (width) {
+        return css`
+            width: ${width};
+        `;
+    }
     if (type === 'line') {
         return css`
             width: 350px;
@@ -84,14 +90,24 @@ const WidthSwitch = (type: typeProps, size?: sizeProps) => {
 type TextareaPropsType = {
     type: typeProps;
     size?: sizeProps;
+    width?: widthProps;
     children?: React.ReactNode;
 };
 
-export const Textarea = ({ type, size, children }: TextareaPropsType) => {
+export const Textarea = ({
+    type,
+    size,
+    width,
+    children,
+}: TextareaPropsType) => {
     const dom = useRef<HTMLTextAreaElement>(null);
     const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
     const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
-    const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size);
+    const widthStyle: FlattenSimpleInterpolation = WidthSwitch(
+        type,
+        size,
+        width,
+    );
 
     return (
         <TextareaContainer
