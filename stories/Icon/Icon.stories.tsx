@@ -1,17 +1,26 @@
 import React from 'react';
+import { withKnobs, select, number } from '@storybook/addon-knobs';
 
-import { Icon, IconType } from './Icon';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import Icon, { iconTypes } from './Icon';
+import { Meta } from '@storybook/react/types-6-0';
 
 export default {
   component: Icon,
   title: 'Core/Icon',
+  decorators: [withKnobs],
 } as Meta;
 
-const Template: Story<IconType> = (args) => <Icon {...args} />;
+export const Index = () => {
+  const theme = select('icon name', iconTypes, 'singleChoice');
+  const width = number('width', 50);
 
-export const Icons = Template.bind({});
-Icons.args = {
-  stroke: 'blue',
-  width: '20px',
+  return (
+    <Icon icon={theme} width={width} css={{ color: 'red', width: '4rem' }} />
+  );
+};
+
+export const All = () => {
+  return iconTypes.map((item) => (
+    <Icon icon={item} width={50} css={{ color: 'red', width: '4rem' }} />
+  ));
 };
