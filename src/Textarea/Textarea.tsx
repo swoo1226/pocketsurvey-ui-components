@@ -7,9 +7,9 @@ type sizeProps = 'big' | 'medium' | 'small';
 type widthProps = string;
 
 const TextareaContainer = styled(TextareaAutosize)<{
-    borderStyle: FlattenSimpleInterpolation;
-    fontStyle: FlattenSimpleInterpolation;
-    widthStyle: FlattenSimpleInterpolation;
+  borderStyle: FlattenSimpleInterpolation;
+  fontStyle: FlattenSimpleInterpolation;
+  widthStyle: FlattenSimpleInterpolation;
 }>`
     resize: none;
     ${(props) => props.borderStyle}
@@ -23,99 +23,92 @@ const TextareaContainer = styled(TextareaAutosize)<{
 `;
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
-    if (type === 'line') {
-        return css`
-            font-family: Noto Sans CJK KR;
-            font-size: 18px;
-        `;
-    }
-    switch (size) {
-        case 'big':
-            return css`
-                font-family: Noto Sans CJK KR;
-                font-size: 28px;
-            `;
-        case 'medium':
-        case 'small':
-        default:
-            return css`
-                font-family: Noto Sans CJK KR;
-                font-size: 14px;
-            `;
-    }
+  if (type === 'line') {
+    return css`
+      font-family: Noto Sans CJK KR;
+      font-size: 18px;
+    `;
+  }
+  switch (size) {
+    case 'big':
+      return css`
+        font-family: Noto Sans CJK KR;
+        font-size: 28px;
+      `;
+    case 'medium':
+    case 'small':
+    default:
+      return css`
+        font-family: Noto Sans CJK KR;
+        font-size: 14px;
+      `;
+  }
 };
 
 const BorderSwitch = (type: typeProps) => {
-    switch (type) {
-        case 'line':
-            return css`
-                border: none;
-                border-bottom: 1px solid #dfdedd;
-                border-radius: 0px;
-            `;
-        case 'basic':
-            return css`
-                border: 1px solid #dfdedd;
-                border-radius: 3px;
-            `;
-    }
+  switch (type) {
+    case 'line':
+      return css`
+        border: none;
+        border-bottom: 1px solid #dfdedd;
+        border-radius: 0px;
+      `;
+    case 'basic':
+      return css`
+        border: 1px solid #dfdedd;
+        border-radius: 3px;
+      `;
+  }
 };
 
 const WidthSwitch = (type: typeProps, size?: sizeProps, width?: widthProps) => {
-    if (width) {
+  if (width) {
+    return css`
+      width: ${width};
+    `;
+  }
+  if (type === 'line') {
+    return css`
+      width: 350px;
+    `;
+  } else {
+    switch (size) {
+      case 'big':
+      case 'medium':
         return css`
-            width: ${width};
+          width: 630px;
+        `;
+      default:
+      case 'small':
+        return css`
+          width: 500px;
+          height: 52px;
         `;
     }
-    if (type === 'line') {
-        return css`
-            width: 350px;
-        `;
-    } else {
-        switch (size) {
-            case 'big':
-            case 'medium':
-                return css`
-                    width: 630px;
-                `;
-            default:
-            case 'small':
-                return css`
-                    width: 500px;
-                    height: 52px;
-                `;
-        }
-    }
+  }
 };
 
 type TextareaPropsType = {
-    type: typeProps;
-    size?: sizeProps;
-    width?: widthProps;
-    children?: React.ReactNode;
+  type: typeProps;
+  size?: sizeProps;
+  width?: widthProps;
+  children?: React.ReactNode;
 };
 
-export const Textarea = ({
-    type,
-    size,
-    width,
-    children,
-}: TextareaPropsType) => {
-    const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
-    const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
-    const widthStyle: FlattenSimpleInterpolation = WidthSwitch(
-        type,
-        size,
-        width,
-    );
+const Textarea = ({ type, size, width, children }: TextareaPropsType) => {
+  const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
+  const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
+  const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size, width);
 
-    return (
-        <TextareaContainer
-            fontStyle={fontStyle}
-            borderStyle={borderStyle}
-            widthStyle={widthStyle}
-        >
-            {children}
-        </TextareaContainer>
-    );
+  return (
+    <TextareaContainer
+      fontStyle={fontStyle}
+      borderStyle={borderStyle}
+      widthStyle={widthStyle}
+    >
+      {children}
+    </TextareaContainer>
+  );
 };
+
+export default Textarea;

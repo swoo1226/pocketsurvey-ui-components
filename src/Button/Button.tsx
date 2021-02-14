@@ -35,7 +35,7 @@ export type ButtonType = {
   className?: string;
 };
 
-export const Button = ({
+const Button = ({
   children,
   onClick,
   theme,
@@ -118,3 +118,5 @@ export const Button = ({
     </ButtonContainer>
   );
 };
+
+export default Button;

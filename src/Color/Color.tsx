@@ -1,10 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 
-interface ColorBoxType {
-  color: string
-}
-
 const ColorContainer = styled.div`
   width: 100%;
   display: flex;

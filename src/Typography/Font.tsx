@@ -23,7 +23,7 @@ export type FontType = {
   fontColor: string;
 };
 
-export const Font = ({
+const Font = ({
   children,
   fontFace,
   fontWeight,
@@ -42,3 +42,5 @@ export const Font = ({
     </FontContainer>
   );
 };
+
+export default Font;

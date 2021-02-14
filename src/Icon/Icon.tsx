@@ -8,9 +8,9 @@ export type IconProps = {
   /** 사용 할 아이콘 타입 */
   icon: IconType;
   /** 아이콘 색상 */
-  color?: string;
+  // color?: string;
   /** 아이콘 크기 */
-  size?: string | number;
+  // size?: string | number;
   width: number;
   className?: string;
 };
@@ -21,16 +21,10 @@ export type IconProps = {
  *
  * 스타일로 모양새를 설정 할 때에는 `color`로 색상을 설정하고 `width`로 크기를 설정하세요.
  */
-const Icon = ({ icon, color, size, className, width }: IconProps) => {
+const Icon = ({ icon, className, width }: IconProps) => {
   const SVGIcon = icons[icon];
 
-  return (
-    <SVGIcon
-      css={{ fill: color || 'currentColor', width: size, height: 'auto' }}
-      style={{ width: `${width}px` }}
-      className={className}
-    />
-  );
+  return <SVGIcon style={{ width: `${width}px` }} className={className} />;
 };
 
 export default Icon;
