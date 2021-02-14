@@ -1,12 +1,12 @@
 import React from 'react';
 import { withKnobs, boolean, select, color } from '@storybook/addon-knobs';
 
-import { QuestionTypeSelector } from './QuestionTypeSelector';
+import DropDown from './DropDown';
 import { Meta } from '@storybook/react/types-6-0';
 import singleChoice from './singleChoice.svg';
 
 export default {
-  component: QuestionTypeSelector,
+  component: DropDown,
   title: 'Components/DropDown',
   decorators: [withKnobs], // 애드온 적용
 } as Meta;
@@ -18,7 +18,7 @@ export const TypeSelector = () => {
   const subColor = color('light color', '#fef4ce');
 
   return (
-    <QuestionTypeSelector
+    <DropDown
       list={[
         {
           selectionName: '객관식 (단일 선택)',
@@ -47,7 +47,7 @@ export const BranchSelector = () => {
   const subColor = color('light color', '#DEF3F8');
 
   return (
-    <QuestionTypeSelector
+    <DropDown
       list={[
         {
           selectionName: '다음 문항',
