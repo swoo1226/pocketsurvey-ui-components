@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 
-import { Button, ButtonType } from './Button';
+import Button, { ButtonType } from './Button';
 import { Meta } from '@storybook/react/types-6-0';
 
 export default {
