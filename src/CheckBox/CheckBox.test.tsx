@@ -26,10 +26,10 @@ describe('체크박스 컴포넌트 테스트', () => {
   });
 
   it('클릭하면 인덱스 값을 가진 alert가 뜨는지', async () => {
-    const { getByText } = renderResult;
+    const { getByTestId} = renderResult;
 
     jest.spyOn(window, 'alert').mockImplementation(() => {});
-    userEvent.click(getByText('mango'));
+    userEvent.click(getByTestId('checkbox-1'));
     await waitFor(() => expect(window.alert).toBeCalledWith(1));
   });
 

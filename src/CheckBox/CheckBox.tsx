@@ -55,12 +55,13 @@ const CheckBox = ({
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
-            <CheckBoxItem onClick={() => onItemClick(index)}>
+            <CheckBoxItem key={index}>
               <CheckBoxSelectionItem
                 data-testid={`checkbox-${index}`}
                 type="checkbox"
                 name={name}
                 checked={selected.includes(index.toString())}
+                onChange={() => onItemClick(index)}
               />
               <CheckBoxSelectionLabel htmlFor={name}>
                 {item.label}
