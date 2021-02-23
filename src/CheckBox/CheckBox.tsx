@@ -57,6 +57,7 @@ const CheckBox = ({
           return (
             <CheckBoxItem onClick={() => onItemClick(index)}>
               <CheckBoxSelectionItem
+                data-testid={`checkbox-${index}`}
                 type="checkbox"
                 name={name}
                 checked={selected.includes(index.toString())}
