@@ -39,7 +39,7 @@ export const Index = () => {
       disabled={disabled}
       siblingCount={siblingCount}
       boundaryCount={boundaryCount}
-      onChange={(e)=>{alert(e.target.textContent)}}
+      onChangeFn={(e: any)=>{alert(e.target.textContent)}}
       selectedBackgroundColor={selectedBackgroundColor}
       hoveredBackgroundColor={hoveredBackgroundColor}
       selectedTextColor={selectedTextColor}
