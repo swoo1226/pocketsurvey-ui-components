@@ -9,8 +9,8 @@ const InputBox = styled.div<{
   disabled: boolean;
   mode: "line" | "basic";
 }>`
-  padding: 6px ${(props) => props.width * 0.04}px;
-  ${(props) =>
+  padding: 6px ${props => props.width * 0.04}px;
+  ${props =>
     `${
       props.mode == "line"
         ? `
@@ -21,7 +21,7 @@ const InputBox = styled.div<{
             `
     }`}
   &:hover {
-    ${(props) =>
+    ${props =>
     !props.disabled
       ? props.mode == "line"
         ? `border-bottom: 1px solid ${props.disabled ? "#dfdedd" : "#fac62d"}`
@@ -30,10 +30,10 @@ const InputBox = styled.div<{
   }
   display: flex;
   align-items: center;
-  width: ${(props) => props.width}px;
-  border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
+  width: ${props => props.width}px;
+  border-radius: ${props => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
-  ${(props) =>
+  ${props =>
     `${
       props.mode == "line"
         ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
@@ -42,7 +42,7 @@ const InputBox = styled.div<{
 `
 const InputElement = styled.input<{ width: number }>`
   all: unset;
-  width: ${(props) => props.width}px;
+  width: ${props => props.width}px;
   &::placeholder {
     color: #dfdedd;
   }
@@ -77,12 +77,17 @@ function Input({
   useCancleButton = false,
 }: InputType): JSX.Element {
   return (
-    <InputContainer>
-      <InputBox width={width} disabled={disabled} mode={mode}>
+    <InputContainer data-testid="inputcontainer">
+      <InputBox
+        data-testid="inputbox"
+        width={width}
+        disabled={disabled}
+        mode={mode}
+      >
         <InputElement
           type="text"
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           width={width * 0.9}
           disabled={disabled}

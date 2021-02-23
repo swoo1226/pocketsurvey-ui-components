@@ -34,24 +34,36 @@ const CheckBoxSelectionItem = styled.input`
 `
 
 export type CheckBoxType = {
-  name: string
+  name: string;
   selections: {
-    label: string
-  }[]
-  selected: string[]
-  onItemClick: (index: number) => void
-  className?: string
-}
+    label: string;
+  }[];
+  selected: string[];
+  onItemClick: (index: number) => void;
+  className?: string;
+};
 
-function CheckBox({ name, selections, selected, onItemClick, className }: CheckBoxType): JSX.Element {
+function CheckBox({
+  name,
+  selections,
+  selected,
+  onItemClick,
+  className,
+}: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
             <CheckBoxItem onClick={() => onItemClick(index)} key={index}>
-              <CheckBoxSelectionItem type="checkbox" name={name} checked={selected.includes(index.toString())} />
-              <CheckBoxSelectionLabel htmlFor={name}>{item.label}</CheckBoxSelectionLabel>
+              <CheckBoxSelectionItem
+                type="checkbox"
+                name={name}
+                checked={selected.includes(index.toString())}
+              />
+              <CheckBoxSelectionLabel htmlFor={name}>
+                {item.label}
+              </CheckBoxSelectionLabel>
             </CheckBoxItem>
           )
         })}

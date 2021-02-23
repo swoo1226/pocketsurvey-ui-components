@@ -36,6 +36,7 @@
     "babel-preset-react-app": "^10.0.0",
     "echarts": "^5.0.2",
     "echarts-for-react": "^3.0.0",
+    "jest-svg-transformer": "^1.0.0",
     "react": "^17.0.1",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.1",
@@ -47,6 +48,6 @@
     "storybook": "start-storybook -s ./public -p 9001",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint ./src"
   }
 }
