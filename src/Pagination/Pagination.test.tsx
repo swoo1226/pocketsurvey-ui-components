@@ -41,6 +41,6 @@ describe("페이지네이션 컴포넌트 테스트", () => {
 
     jest.spyOn(window, "alert").mockImplementation()
     userEvent.click(getByText("2"))
-    await waitFor(() => expect(window.alert).toBeCalledWith("2"))
+    await waitFor(() => expect(window.alert).toBeCalledWith(2))
   })
 })
