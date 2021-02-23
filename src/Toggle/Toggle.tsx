@@ -55,7 +55,7 @@ function Toggle({
     >
       <ToggleButton isToggleOn={isToggleOn} />
     </ToggleContainer>
-  );
+  )
 }
 
 export default Toggle
