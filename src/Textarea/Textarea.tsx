@@ -105,6 +105,7 @@ function Textarea({ type, size, width, children }: TextareaPropsType): JSX.Eleme
       fontStyle={fontStyle}
       borderStyle={borderStyle}
       widthStyle={widthStyle}
+      data-testid="textarea-testid"
     >
       {children}
     </TextareaContainer>
