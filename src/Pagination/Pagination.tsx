@@ -1,34 +1,77 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+// import styled from 'styled-components';
+import {makeStyles} from '@material-ui/core/styles'
+import Pagination from '@material-ui/lab/Pagination'
+// import Icon from '../Icon/Icon';
 
-import Icon from "../Icon/Icon"
+// const PaginationContainer = styled.div``;
 
-const PaginationContainer = styled.div``
-
-type ThemeType = "primary" | "secondary" | "tertiary";
+type SizeType = 'normal' | 'small' | 'large';
 
 export type PaginationType = {
   count: number;
-  selected: number;
-  theme: ThemeType;
-  onClickNext: () => void;
-  onClickPrev: () => void;
+  size: SizeType;
+  defaultPage: number;
+  onChangeFn: any;
+  disabled: boolean;
+  siblingCount: number;
+  boundaryCount: number;
+  selectedBackgroundColor: string;
+  hoveredBackgroundColor: string;
+  selectedTextColor: string;
+  hoveredTextColor: string;
 };
 
-function Pagination({
+
+
+const PaginationComponent = ({
   count,
-  selected,
-  theme,
-  onClickNext,
-  onClickPrev,
-}: PaginationType) {
+  size,
+  disabled,
+  defaultPage,
+  onChangeFn,
+  siblingCount,
+  boundaryCount,
+  selectedBackgroundColor,
+  hoveredBackgroundColor,
+  selectedTextColor,
+  hoveredTextColor
+}: PaginationType) => {
+  const useStyles = makeStyles({
+    root: {
+      '& > *': {
+        color: '#2B2E33',
+      },
+      '& .MuiPaginationItem-page:hover': {
+        backgroundColor: hoveredBackgroundColor,
+        color: hoveredTextColor
+      },
+      '& .Mui-selected': {
+        backgroundColor: selectedBackgroundColor,
+        color: selectedTextColor,
+      },
+      '& .Mui-selected:hover': {
+        backgroundColor: '#FAC62D',
+        color: selectedTextColor,
+      },
+    },
+  });
+  const classes = useStyles();
   return (
-    <PaginationContainer>
-      <Icon icon="paginationArrow" width={50} rotate={0} />
+    <div className={classes.root}>
+      <Pagination
+        count={count}
+        defaultPage={defaultPage}
+        siblingCount={siblingCount}
+        boundaryCount={boundaryCount}
+        size={size != 'normal' ? size : undefined}
+        onChange={(event: React.ChangeEvent<any>) => {
+          return onChangeFn(event);
+        }}
+        disabled={disabled}
+      />
+    </div>
+  );
+};
 
-      <Icon icon="paginationArrow" width={50} rotate={180} />
-    </PaginationContainer>
-  )
-}
-
-export default Pagination
+export default PaginationComponent;
