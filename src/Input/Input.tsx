@@ -1,18 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
-import Icon from '../Icon/Icon';
+import Icon from "../Icon/Icon"
 
-const InputContainer = styled.div``;
+const InputContainer = styled.div``
 const InputBox = styled.div<{
   width: number;
   disabled: boolean;
-  mode: 'line' | 'basic';
+  mode: "line" | "basic";
 }>`
   padding: 6px ${(props) => props.width * 0.04}px;
   ${(props) =>
     `${
-      props.mode == 'line'
+      props.mode == "line"
         ? `
                 border-bottom: 1px solid #dfdedd;
             `
@@ -22,39 +22,39 @@ const InputBox = styled.div<{
     }`}
   &:hover {
     ${(props) =>
-      !props.disabled
-        ? props.mode == 'line'
-          ? `border-bottom: 1px solid ${props.disabled ? '#dfdedd' : '#fac62d'}`
-          : `border: 1px solid ${props.disabled ? '#dfdedd' : '#fac62d'}`
-        : ''}
+    !props.disabled
+      ? props.mode == "line"
+        ? `border-bottom: 1px solid ${props.disabled ? "#dfdedd" : "#fac62d"}`
+        : `border: 1px solid ${props.disabled ? "#dfdedd" : "#fac62d"}`
+      : ""}
   }
   display: flex;
   align-items: center;
   width: ${(props) => props.width}px;
-  border-radius: ${(props) => (props.mode == 'line' ? '0px' : '3px')};
+  border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
   ${(props) =>
     `${
-      props.mode == 'line'
-        ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
-        : props.disabled && 'background-color: #F0F0F0;'
+      props.mode == "line"
+        ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
+        : props.disabled && "background-color: #F0F0F0;"
     }`}
-`;
+`
 const InputElement = styled.input<{ width: number }>`
   all: unset;
   width: ${(props) => props.width}px;
   &::placeholder {
     color: #dfdedd;
   }
-`;
+`
 const SubText = styled.p`
   margin-top: 4px;
   color: #ff5724;
   font-size: 11px;
-`;
+`
 
 export type InputType = {
-  mode: 'line' | 'basic';
+  mode: "line" | "basic";
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
@@ -65,7 +65,7 @@ export type InputType = {
   useCancleButton?: boolean;
 };
 
-const Input = ({
+function Input({
   mode,
   placeholder,
   value,
@@ -75,7 +75,7 @@ const Input = ({
   errorMessage,
   disabled = false,
   useCancleButton = false,
-}: InputType) => {
+}: InputType): JSX.Element {
   return (
     <InputContainer>
       <InputBox width={width} disabled={disabled} mode={mode}>
@@ -93,7 +93,7 @@ const Input = ({
       </InputBox>
       {isError && <SubText>{errorMessage}</SubText>}
     </InputContainer>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

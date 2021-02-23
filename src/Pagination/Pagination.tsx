@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
-import Icon from '../Icon/Icon';
+import Icon from "../Icon/Icon"
 
-const PaginationContainer = styled.div``;
+const PaginationContainer = styled.div``
 
-type ThemeType = 'primary' | 'secondary' | 'tertiary';
+type ThemeType = "primary" | "secondary" | "tertiary";
 
 export type PaginationType = {
   count: number;
@@ -15,20 +15,20 @@ export type PaginationType = {
   onClickPrev: () => void;
 };
 
-const Pagination = ({
+function Pagination({
   count,
   selected,
   theme,
   onClickNext,
   onClickPrev,
-}: PaginationType) => {
+}: PaginationType) {
   return (
     <PaginationContainer>
       <Icon icon="paginationArrow" width={50} rotate={0} />
 
       <Icon icon="paginationArrow" width={50} rotate={180} />
     </PaginationContainer>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

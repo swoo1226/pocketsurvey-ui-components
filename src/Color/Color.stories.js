@@ -8,4 +8,6 @@ export default {
   title: "Core/Colors",
 }
 
-export const Index = () => <Color colors={ColorSet} />
+export function Index() {
+  return <Color colors={ColorSet} />
+}

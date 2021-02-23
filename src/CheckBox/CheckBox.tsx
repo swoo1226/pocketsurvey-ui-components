@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import checkImage from './check.svg';
+import React from "react"
+import styled from "styled-components"
+import checkImage from "./check.svg"
 
-const CheckBoxContainer = styled.div``;
-const CheckBoxList = styled.div``;
+const CheckBoxContainer = styled.div``
+const CheckBoxList = styled.div``
 const CheckBoxItem = styled.div`
   display: flex;
   margin-bottom: 14px;
-`;
+`
 const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
-`;
+`
 const CheckBoxSelectionItem = styled.input`
   margin: 0;
   opacity: 0;
@@ -31,45 +31,33 @@ const CheckBoxSelectionItem = styled.input`
     background-image: url(${checkImage});
     background-repeat: no-repeat;
   }
-`;
+`
 
 export type CheckBoxType = {
-  name: string;
+  name: string
   selections: {
-    label: string;
-  }[];
-  selected: string[];
-  onItemClick: (index: number) => void;
-  className?: string;
-};
+    label: string
+  }[]
+  selected: string[]
+  onItemClick: (index: number) => void
+  className?: string
+}
 
-const CheckBox = ({
-  name,
-  selections,
-  selected,
-  onItemClick,
-  className,
-}: CheckBoxType) => {
+function CheckBox({ name, selections, selected, onItemClick, className }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
-            <CheckBoxItem onClick={() => onItemClick(index)}>
-              <CheckBoxSelectionItem
-                type="checkbox"
-                name={name}
-                checked={selected.includes(index.toString())}
-              />
-              <CheckBoxSelectionLabel htmlFor={name}>
-                {item.label}
-              </CheckBoxSelectionLabel>
+            <CheckBoxItem onClick={() => onItemClick(index)} key={index}>
+              <CheckBoxSelectionItem type="checkbox" name={name} checked={selected.includes(index.toString())} />
+              <CheckBoxSelectionLabel htmlFor={name}>{item.label}</CheckBoxSelectionLabel>
             </CheckBoxItem>
-          );
+          )
         })}
       </CheckBoxList>
     </CheckBoxContainer>
-  );
-};
+  )
+}
 
-export default CheckBox;
+export default CheckBox

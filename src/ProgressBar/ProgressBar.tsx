@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
 const ProgressBarDiv = styled.div<{
   percent: number;
@@ -13,7 +13,7 @@ const ProgressBarDiv = styled.div<{
   transition: width 0.2s;
   border-radius: 0 ${(props) => props.thickness / 1.7}px
     ${(props) => props.thickness / 1.7}px ${(props) => props.thickness / 1.7}px;
-`;
+`
 
 type ProgressBarType = {
   percent: number;
@@ -21,14 +21,14 @@ type ProgressBarType = {
   thickness: number;
 };
 
-const ProgressBar = ({ percent, barColor, thickness }: ProgressBarType) => {
+function ProgressBar({ percent, barColor, thickness }: ProgressBarType): JSX.Element {
   return (
     <ProgressBarDiv
       percent={percent}
       barColor={barColor}
       thickness={thickness}
     />
-  );
-};
+  )
+}
 
-export default ProgressBar;
+export default ProgressBar

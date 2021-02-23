@@ -45,7 +45,7 @@ type ColorType = {
   colors: ColorsType
 }
 
-export const Color = ({ colors }: ColorType) => {
+export function Color({ colors }: ColorType): JSX.Element {
   return (
     <ColorContainer>
       {colors.map((item, index) => (

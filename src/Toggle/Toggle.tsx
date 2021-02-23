@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
 const ToggleContainer = styled.div<{
   backgroundColor: string;
@@ -17,11 +17,11 @@ const ToggleContainer = styled.div<{
   position: relative;
   &:hover {
     ${(props) =>
-      !props.isToggleOn
-        ? `background-color: ${props.hoveredBackgroundColor}`
-        : ''};
+    !props.isToggleOn
+      ? `background-color: ${props.hoveredBackgroundColor}`
+      : ""};
   }
-`;
+`
 const ToggleButton = styled.div<{ isToggleOn: boolean }>`
   width: 24px;
   height: 24px;
@@ -29,8 +29,8 @@ const ToggleButton = styled.div<{ isToggleOn: boolean }>`
   background-color: #fff;
   border-radius: 50%;
   position: absolute;
-  ${(props) => (props.isToggleOn ? 'left : 23px;' : 'left: 3px;')}
-`;
+  ${(props) => (props.isToggleOn ? "left : 23px;" : "left: 3px;")}
+`
 
 type ToggleType = {
   toggleOnBackgroundColor: string;
@@ -39,22 +39,22 @@ type ToggleType = {
   setIsToggleOn: (isToggleOn: boolean) => void;
 };
 
-const Toggle = ({
+function Toggle({
   toggleOnBackgroundColor,
   hoveredBackgroundColor,
   isToggleOn,
   setIsToggleOn,
-}: ToggleType) => {
+}: ToggleType): JSX.Element {
   return (
     <ToggleContainer
-      backgroundColor={isToggleOn ? toggleOnBackgroundColor : '#d6d6d6'}
+      backgroundColor={isToggleOn ? toggleOnBackgroundColor : "#d6d6d6"}
       hoveredBackgroundColor={hoveredBackgroundColor}
       isToggleOn={isToggleOn}
       onClick={() => setIsToggleOn(!isToggleOn)}
     >
       <ToggleButton isToggleOn={isToggleOn} />
     </ToggleContainer>
-  );
-};
+  )
+}
 
-export default Toggle;
+export default Toggle
