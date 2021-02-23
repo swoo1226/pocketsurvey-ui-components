@@ -51,6 +51,7 @@ function Toggle({
       hoveredBackgroundColor={hoveredBackgroundColor}
       isToggleOn={isToggleOn}
       onClick={() => setIsToggleOn(!isToggleOn)}
+      data-testid="ToggleContainer"
     >
       <ToggleButton isToggleOn={isToggleOn} />
     </ToggleContainer>
