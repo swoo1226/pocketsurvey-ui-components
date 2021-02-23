@@ -1,30 +1,28 @@
-import React from 'react';
+import React from "react"
 // import styled from 'styled-components';
-import {makeStyles} from '@material-ui/core/styles'
-import Pagination from '@material-ui/lab/Pagination'
+import { makeStyles } from "@material-ui/core/styles"
+import Pagination from "@material-ui/lab/Pagination"
 // import Icon from '../Icon/Icon';
 
 // const PaginationContainer = styled.div``;
 
-type SizeType = 'normal' | 'small' | 'large';
+type SizeType = "normal" | "small" | "large"
 
 export type PaginationType = {
-  count: number;
-  size: SizeType;
-  defaultPage: number;
-  onChangeFn: any;
-  disabled: boolean;
-  siblingCount: number;
-  boundaryCount: number;
-  selectedBackgroundColor: string;
-  hoveredBackgroundColor: string;
-  selectedTextColor: string;
-  hoveredTextColor: string;
-};
+  count: number
+  size: SizeType
+  defaultPage: number
+  onChangeFn: (page: number) => void
+  disabled: boolean
+  siblingCount: number
+  boundaryCount: number
+  selectedBackgroundColor: string
+  hoveredBackgroundColor: string
+  selectedTextColor: string
+  hoveredTextColor: string
+}
 
-
-
-const PaginationComponent = ({
+function PaginationComponent({
   count,
   size,
   disabled,
@@ -35,28 +33,28 @@ const PaginationComponent = ({
   selectedBackgroundColor,
   hoveredBackgroundColor,
   selectedTextColor,
-  hoveredTextColor
-}: PaginationType) => {
+  hoveredTextColor,
+}: PaginationType): JSX.Element {
   const useStyles = makeStyles({
     root: {
-      '& > *': {
-        color: '#2B2E33',
+      "& > *": {
+        color: "#2B2E33",
       },
-      '& .MuiPaginationItem-page:hover': {
+      "& .MuiPaginationItem-page:hover": {
         backgroundColor: hoveredBackgroundColor,
-        color: hoveredTextColor
+        color: hoveredTextColor,
       },
-      '& .Mui-selected': {
+      "& .Mui-selected": {
         backgroundColor: selectedBackgroundColor,
         color: selectedTextColor,
       },
-      '& .Mui-selected:hover': {
-        backgroundColor: '#FAC62D',
+      "& .Mui-selected:hover": {
+        backgroundColor: "#FAC62D",
         color: selectedTextColor,
       },
     },
-  });
-  const classes = useStyles();
+  })
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <Pagination
@@ -64,14 +62,14 @@ const PaginationComponent = ({
         defaultPage={defaultPage}
         siblingCount={siblingCount}
         boundaryCount={boundaryCount}
-        size={size != 'normal' ? size : undefined}
-        onChange={(event: React.ChangeEvent<any>) => {
-          return onChangeFn(event);
+        size={size != "normal" ? size : undefined}
+        onChange={(_, page: number) => {
+          onChangeFn(page)
         }}
         disabled={disabled}
       />
     </div>
-  );
-};
+  )
+}
 
-export default PaginationComponent;
+export default PaginationComponent
