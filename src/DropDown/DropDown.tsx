@@ -90,12 +90,12 @@ function DropDown({ list, selected, disable, themeColor, onItemClick }: DropDown
 
   return (
     <DropDownContainer ref={selectionListRef}>
-      <DropDownBox onClick={() => setIsShowList(!isShowList)} disable={disable} themeColor={themeColor.mainColor}>
-        {list[selected].icon && <Icon icon="singleChoice" width={18} />}
+      <DropDownBox onClick={() => setIsShowList(!isShowList)} disable={disable} themeColor={themeColor.mainColor} data-testid="dropdownbox-testid">
+        {list[selected].icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
         <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
       </DropDownBox>
 
-      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" }}>
+      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" } } data-testid="dropdownlist-testid">
         {list.map((item, index) => (
           <DropDownItem
             key={index}
@@ -107,7 +107,7 @@ function DropDown({ list, selected, disable, themeColor, onItemClick }: DropDown
               setIsShowList(false)
             }}
           >
-            {item.icon && <Icon icon="singleChoice" width={18} />}
+            {item.icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
             <DropDownItemText>{item.selectionName}</DropDownItemText>
           </DropDownItem>
         ))}
