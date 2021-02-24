@@ -2,6 +2,7 @@ import React from "react";
 import { render, RenderResult, waitFor } from '@testing-library/react';
 import "@testing-library/jest-dom";
 import Textarea from './Textarea';
+import userEvent from "@testing-library/user-event"
 
 describe('Textarea Test', () => {
     var renderResult: RenderResult;
@@ -24,9 +25,8 @@ describe('Textarea Test', () => {
     it("textarea focus 테스트", async() => {
         const { getByTestId } = renderResult;
         const txtArea = getByTestId("textarea-testid")
-        txtArea.focus();
-        //userEvent.type(txtArea,"aaa")
-
+        userEvent.click(txtArea)
+        
         await waitFor(()=>expect(txtArea).toHaveFocus())
 
     })
