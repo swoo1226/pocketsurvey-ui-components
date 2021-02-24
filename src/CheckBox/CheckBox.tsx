@@ -1,7 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-import checkImage from "./check.svg"
 
+const CheckBoxImage = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5px;
+`
 const CheckBoxContainer = styled.div``
 const CheckBoxList = styled.div``
 const CheckBoxItem = styled.div`
@@ -11,61 +17,43 @@ const CheckBoxItem = styled.div`
 const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
 `
-const CheckBoxSelectionItem = styled.input`
-  margin: 0;
-  opacity: 0;
-  width: 17px;
-  height: 17px;
-  all: unset;
-  padding-left: 17px;
-  border: 0;
+const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
+  width: 18px;
+  height: 18px;
   border-radius: 3px;
-  border: 1px solid #dfdedd;
+  box-sizing: border-box;
+  padding: 2px;
+  background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
   &:hover {
-    border: 1px solid #f2ab28;
+    ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
   }
-  &:checked {
-    padding-left: 11px;
-    border: 4px solid #f2ab28;
-    background-color: #f2ab28;
-    background-image: url(${checkImage});
-    background-repeat: no-repeat;
+  ${CheckBoxImage} {
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
   }
 `
 
 export type CheckBoxType = {
-  name: string;
   selections: {
-    label: string;
-  }[];
-  selected: string[];
-  onItemClick: (index: number) => void;
-  className?: string;
-};
+    label: string
+  }[]
+  selected: number[]
+  onItemClick: (index: number) => void
+  className?: string
+}
 
-function CheckBox({
-  name,
-  selections,
-  selected,
-  onItemClick,
-  className,
-}: CheckBoxType): JSX.Element {
+function CheckBox({ selections, selected, onItemClick, className }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
-            <CheckBoxItem key={index}>
-              <CheckBoxSelectionItem
-                data-testid={`checkbox-${index}`}
-                type="checkbox"
-                name={name}
-                checked={selected.includes(index.toString())}
-                onChange={() => onItemClick(index)}
-              />
-              <CheckBoxSelectionLabel htmlFor={name}>
-                {item.label}
-              </CheckBoxSelectionLabel>
+            <CheckBoxItem key={index} onClick={() => onItemClick(index)} data-testid="checkbox-item">
+              <CheckBoxSelectionItem data-testid={`checkbox-${index}`} checked={selected.includes(index)}>
+                <CheckBoxImage viewBox="0 0 11.51 10.81">
+                  <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
+                </CheckBoxImage>
+              </CheckBoxSelectionItem>
+              <CheckBoxSelectionLabel>{item.label}</CheckBoxSelectionLabel>
             </CheckBoxItem>
           )
         })}

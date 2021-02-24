@@ -38,7 +38,6 @@ describe("라디오 테스트", () => {
     await waitFor(() => {
       expect(radiobtn).toHaveAttribute("checked", "")
       expect(radiobtn).toHaveStyle("border: 4px solid #f2ab28")
-
     })
     afterEach(cleanup)
   })

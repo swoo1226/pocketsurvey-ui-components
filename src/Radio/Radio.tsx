@@ -30,41 +30,24 @@ const RadioSelectionItem = styled.input`
 `
 
 export type RadioType = {
-  name: string;
+  name: string
   selections: {
-    label: string;
-  }[];
-  selected: number;
-  onItemClick: (index: number) => void;
-  className?: string;
-};
+    label: string
+  }[]
+  selected: number
+  onItemClick: (index: number) => void
+  className?: string
+}
 
-function Radio({
-  name,
-  selections,
-  selected,
-  onItemClick,
-  className,
-}: RadioType): JSX.Element {
+function Radio({ name, selections, selected, onItemClick, className }: RadioType): JSX.Element {
   return (
     <RadioContainer className={className}>
       <RadioList>
         {selections.map((item, index) => {
           return (
-            <RadioItem
-              onClick={() => onItemClick(index)}
-              key={index}
-              data-testid={`radio-item-${index}`}
-            >
-              <RadioSelectionItem
-                type="radio"
-                name={name}
-                checked={index == selected}
-                data-testid={`radio-selection-item-${index}`}
-              />
-              <RadioSelectionLabel htmlFor={name}>
-                {item.label}
-              </RadioSelectionLabel>
+            <RadioItem key={index} data-testid={`radio-item-${index}`}>
+              <RadioSelectionItem type="radio" name={name} checked={index == selected} onChange={() => onItemClick(index)} data-testid={`radio-selection-item-${index}`} />
+              <RadioSelectionLabel htmlFor={name}>{item.label}</RadioSelectionLabel>
             </RadioItem>
           )
         })}
