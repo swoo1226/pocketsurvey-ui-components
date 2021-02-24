@@ -52,7 +52,6 @@ type ModalType = {
 };
 
 function Modal({ children, title, buttonName, onClick, hasBorderTop }: ModalType): JSX.Element {
-  console.log(hasBorderTop)
   return (
     <ModalContainer hasBorderTop={hasBorderTop}>
       <ModalTitleContainer>
