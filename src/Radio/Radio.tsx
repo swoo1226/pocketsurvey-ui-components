@@ -51,11 +51,16 @@ function Radio({
       <RadioList>
         {selections.map((item, index) => {
           return (
-            <RadioItem onClick={() => onItemClick(index)} key={index}>
+            <RadioItem
+              onClick={() => onItemClick(index)}
+              key={index}
+              data-testid={`radio-item-${index}`}
+            >
               <RadioSelectionItem
                 type="radio"
                 name={name}
                 checked={index == selected}
+                data-testid={`radio-selection-item-${index}`}
               />
               <RadioSelectionLabel htmlFor={name}>
                 {item.label}
