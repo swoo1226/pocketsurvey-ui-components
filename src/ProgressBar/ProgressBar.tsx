@@ -7,12 +7,12 @@ const ProgressBarDiv = styled.div<{
   thickness: number;
 }>`
   position: absolute;
-  height: ${(props) => props.thickness}px;
-  width: ${(props) => props.percent}%;
-  background-color: ${(props) => props.barColor};
+  height: ${props => props.thickness}px;
+  width: ${props => props.percent}%;
+  background-color: ${props => props.barColor};
   transition: width 0.2s;
-  border-radius: 0 ${(props) => props.thickness / 1.7}px
-    ${(props) => props.thickness / 1.7}px ${(props) => props.thickness / 1.7}px;
+  border-radius: 0 ${props => props.thickness / 1.7}px
+    ${props => props.thickness / 1.7}px ${props => props.thickness / 1.7}px;
 `
 
 type ProgressBarType = {
@@ -21,9 +21,14 @@ type ProgressBarType = {
   thickness: number;
 };
 
-function ProgressBar({ percent, barColor, thickness }: ProgressBarType): JSX.Element {
+function ProgressBar({
+  percent,
+  barColor,
+  thickness,
+}: ProgressBarType): JSX.Element {
   return (
     <ProgressBarDiv
+      data-testid="progressbar"
       percent={percent}
       barColor={barColor}
       thickness={thickness}
