@@ -11,7 +11,7 @@ describe("모달 컴포넌트 테스트", () => {
 
   beforeEach(() => {
     renderResult = render(
-      <Modal title="모달 타이틀" buttonName="버튼클릭" onClick={fakeOnClickFn}>
+      <Modal title="모달 타이틀" buttonName="버튼클릭" onClick={fakeOnClickFn} hasBorderTop={false}>
         <p>버튼을 클릭해주세요.</p>
       </Modal>
     )
