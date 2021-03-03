@@ -1,7 +1,7 @@
 import React from "react"
 import { withKnobs, select, boolean, color } from "@storybook/addon-knobs"
 
-import PaginationComponent, { PaginationType } from "./Pagination"
+import PaginationComponent from "./Pagination"
 import { Meta } from "@storybook/react/types-6-0"
 
 export default {

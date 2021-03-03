@@ -1,7 +1,7 @@
 import React from "react"
 import { withKnobs, text, number } from "@storybook/addon-knobs"
 
-import Radio, { RadioType } from "./Radio"
+import Radio from "./Radio"
 import { Meta } from "@storybook/react/types-6-0"
 
 export default {

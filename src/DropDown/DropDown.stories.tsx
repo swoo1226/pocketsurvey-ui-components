@@ -1,5 +1,5 @@
 import React from "react"
-import { withKnobs, boolean, select, color } from "@storybook/addon-knobs"
+import { withKnobs, boolean, color } from "@storybook/addon-knobs"
 
 import DropDown from "./DropDown"
 import { Meta } from "@storybook/react/types-6-0"

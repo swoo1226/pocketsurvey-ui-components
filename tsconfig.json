@@ -1,12 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "dist",
     "target": "es5",
     "module": "esnext",
     "types": ["node"],
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "typeRoots": ["./@types", "./node_modules/@types"],
+    "typeRoots": ["src/@types", "node_modules/@types"],
     "lib": ["dom", "es2015", "es2017"],
     "jsx": "react",
     "sourceMap": true,
@@ -24,6 +25,6 @@
       "@turn/styled": ["src/styled"]
     }
   },
-  "include": ["./"],
+  "include": ["./", "src/**/*"],
   "exclude": ["node_modules"]
 }
