@@ -22,8 +22,10 @@
     "paths": {
       "~/*": ["src/*"],
       "@turn/styled": ["src/styled"]
-    }
+    },
+    "declaration": true,
+    "declarationDir": "dist/types"
   },
   "include": ["./"],
-  "exclude": ["node_modules"]
+  "exclude": ["**/*.stories.tsx", "node_modules"]
 }
