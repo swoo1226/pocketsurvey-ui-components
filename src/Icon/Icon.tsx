@@ -2,6 +2,7 @@ import React from "react"
 import * as icons from "./svg"
 
 export type IconType = keyof typeof icons;
+export const iconTypes: IconType[] = Object.keys(icons) as any[];
 
 export type IconProps = {
   /** 사용 할 아이콘 타입 */
