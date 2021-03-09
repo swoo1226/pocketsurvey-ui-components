@@ -1,6 +1,6 @@
 {
-  "name": "pk-ui-kit",
-  "version": "0.2.0",
+  "name": "@earlysloth/pocketsurvey-ui-components",
+  "version": "0.3.0",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",
   "author": "earlysloth <survey@earlysloth.com>",
