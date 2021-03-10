@@ -22,6 +22,7 @@ export default {
       include: "node_modules/**",
       namedExports: {
         "node_modules/react-is/index.js": ["ForwardRef", "Memo"],
+        "node_modules/prop-types/index.js": ["elementType"]
       },
     }), // CommonJS 형태로 만들어진 모듈도 불러와서 사용 할 수 있게 해줌. 현재 프로젝트 상황에서는 없어도 무방함
     babel({ extensions, include: ["src/**/*"], runtimeHelpers: true }), // Babel을 사용 할 수 있게 해줌
