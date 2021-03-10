@@ -25,9 +25,7 @@ export function Index() {
         setValue(data)
       }}
       value={value}
-    >
-      {value}
-    </Textarea>
+    />
   )
 }
 
