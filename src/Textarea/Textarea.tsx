@@ -12,9 +12,9 @@ const TextareaContainer = styled(TextareaAutosize)<{
   widthStyle: FlattenSimpleInterpolation;
 }>`
     resize: none;
-    ${(props) => props.borderStyle}
-    ${(props) => props.fontStyle}
-    ${(props) => props.widthStyle}
+    ${props => props.borderStyle}
+    ${props => props.fontStyle}
+    ${props => props.widthStyle}
 
     &:focus {
         outline: none;
@@ -93,9 +93,18 @@ type TextareaPropsType = {
   size?: sizeProps;
   width?: widthProps;
   children?: React.ReactNode;
+  onChange: (value: string) => void;
+  className?: string;
 };
 
-function Textarea({ type, size, width, children }: TextareaPropsType): JSX.Element {
+function Textarea({
+  type,
+  size,
+  width,
+  children,
+  onChange,
+  className,
+}: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
   const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size, width)
@@ -105,6 +114,8 @@ function Textarea({ type, size, width, children }: TextareaPropsType): JSX.Eleme
       fontStyle={fontStyle}
       borderStyle={borderStyle}
       widthStyle={widthStyle}
+      onChange={e => onChange(e.target.value)}
+      className={className}
     >
       {children}
     </TextareaContainer>
