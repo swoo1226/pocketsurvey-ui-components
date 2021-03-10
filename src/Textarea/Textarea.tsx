@@ -2,14 +2,14 @@ import React from "react"
 import styled, { css, FlattenSimpleInterpolation } from "styled-components"
 import TextareaAutosize from "react-textarea-autosize"
 
-type typeProps = "basic" | "line";
-type sizeProps = "big" | "medium" | "small";
-type widthProps = string;
+type typeProps = "basic" | "line"
+type sizeProps = "big" | "medium" | "small"
+type widthProps = string
 
 const TextareaContainer = styled(TextareaAutosize)<{
-  borderStyle: FlattenSimpleInterpolation;
-  fontStyle: FlattenSimpleInterpolation;
-  widthStyle: FlattenSimpleInterpolation;
+  borderStyle: FlattenSimpleInterpolation
+  fontStyle: FlattenSimpleInterpolation
+  widthStyle: FlattenSimpleInterpolation
 }>`
     resize: none;
     ${props => props.borderStyle}
@@ -89,13 +89,14 @@ const WidthSwitch = (type: typeProps, size?: sizeProps, width?: widthProps) => {
 }
 
 type TextareaPropsType = {
-  type: typeProps;
-  size?: sizeProps;
-  width?: widthProps;
-  children?: React.ReactNode;
-  onChange: (value: string) => void;
-  className?: string;
-};
+  type: typeProps
+  size?: sizeProps
+  width?: widthProps
+  children?: string
+  onChange: (value: string) => void
+  className?: string
+  value: string
+}
 
 function Textarea({
   type,
@@ -116,6 +117,7 @@ function Textarea({
       widthStyle={widthStyle}
       onChange={e => onChange(e.target.value)}
       className={className}
+      value={children}
     >
       {children}
     </TextareaContainer>
