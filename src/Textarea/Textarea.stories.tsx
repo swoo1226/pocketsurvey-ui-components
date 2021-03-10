@@ -15,7 +15,6 @@ export function Index() {
   const width = text('가로 크기', '')
 
   const [value, setValue] = useState('')
-  const children = text('텍스트', value)
   return (
     <Textarea
       type={type}

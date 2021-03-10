@@ -92,7 +92,6 @@ type TextareaPropsType = {
   type: typeProps
   size?: sizeProps
   width?: widthProps
-  children?: string
   onChange: (value: string) => void
   className?: string
   value: string
@@ -102,9 +101,9 @@ function Textarea({
   type,
   size,
   width,
-  children,
   onChange,
   className,
+  value,
 }: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
@@ -117,9 +116,9 @@ function Textarea({
       widthStyle={widthStyle}
       onChange={e => onChange(e.target.value)}
       className={className}
-      value={children}
+      value={value}
     >
-      {children}
+      {value}
     </TextareaContainer>
   )
 }
