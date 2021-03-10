@@ -1,21 +1,22 @@
 import React from "react"
 import * as icons from "./svg"
 
-export type IconType = keyof typeof icons;
-export const iconTypes: IconType[] = Object.keys(icons) as any[];
+export type IconType = keyof typeof icons
+export const iconTypes: IconType[] = Object.keys(icons) as any[]
 
 export type IconProps = {
   /** 사용 할 아이콘 타입 */
-  icon: IconType;
+  icon: IconType
   /** 아이콘 색상 */
   // color?: string;
   /** 아이콘 크기 */
   // size?: string | number;
-  width: number;
-  className?: string;
-  rotate?: number;
-  color: string;
-};
+  width: number
+  className?: string
+  rotate?: number
+  color: string
+  onClick?: () => void
+}
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
  *
@@ -23,7 +24,7 @@ export type IconProps = {
  *
  * 스타일로 모양새를 설정 할 때에는 `color`로 색상을 설정하고 `width`로 크기를 설정하세요.
  */
-function Icon({ icon, className, width, rotate, color }: IconProps): JSX.Element {
+function Icon({ icon, className, width, rotate, color, onClick }: IconProps): JSX.Element {
   const SVGIcon = icons[icon]
 
   return (
@@ -34,6 +35,7 @@ function Icon({ icon, className, width, rotate, color }: IconProps): JSX.Element
         fill: color,
       }}
       className={className}
+      onClick={onClick}
     />
   )
 }

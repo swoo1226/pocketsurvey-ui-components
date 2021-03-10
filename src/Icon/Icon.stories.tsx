@@ -17,5 +17,5 @@ export function Index() {
   const rotate = number("rotate", 0)
 
   console.log(theme, color)
-  return <Icon icon={theme} width={width} color={color} rotate={rotate} />
+  return <Icon icon={theme} width={width} color={color} rotate={rotate} onClick={() => alert("Hello!")} />
 }

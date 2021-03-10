@@ -20,6 +20,9 @@ export default {
     resolve({ extensions }), // node_modules 에서 모듈을 불러올 수 있게 해줌. ts/tsx 파일도 불러올 수 있게 해줌
     commonjs({
       include: "node_modules/**",
+      namedExports: {
+        "node_modules/react-is/index.js": ["ForwardRef", "Memo"],
+      },
     }), // CommonJS 형태로 만들어진 모듈도 불러와서 사용 할 수 있게 해줌. 현재 프로젝트 상황에서는 없어도 무방함
     babel({ extensions, include: ["src/**/*"], runtimeHelpers: true }), // Babel을 사용 할 수 있게 해줌
     url(), // 미디어 파일을 dataURI 형태로 불러와서 사용 할 수 있게 해줌.
@@ -31,4 +34,4 @@ export default {
       format: "es", // ES Module 형태로 번들링함
     },
   ],
-}
+};
