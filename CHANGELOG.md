@@ -5,6 +5,10 @@
 - onChange props 추가
 - className props 추가
 
+## config
+
+- 변경
+
 # 0.3.2 (2021.03.10)
 
 ## Icon
