@@ -2,19 +2,19 @@ import React from "react"
 import styled, { css, FlattenSimpleInterpolation } from "styled-components"
 import TextareaAutosize from "react-textarea-autosize"
 
-type typeProps = "basic" | "line";
-type sizeProps = "big" | "medium" | "small";
-type widthProps = string;
+type typeProps = "basic" | "line"
+type sizeProps = "big" | "medium" | "small"
+type widthProps = string
 
 const TextareaContainer = styled(TextareaAutosize)<{
-  borderStyle: FlattenSimpleInterpolation;
-  fontStyle: FlattenSimpleInterpolation;
-  widthStyle: FlattenSimpleInterpolation;
+  borderStyle: FlattenSimpleInterpolation
+  fontStyle: FlattenSimpleInterpolation
+  widthStyle: FlattenSimpleInterpolation
 }>`
     resize: none;
-    ${(props) => props.borderStyle}
-    ${(props) => props.fontStyle}
-    ${(props) => props.widthStyle}
+    ${props => props.borderStyle}
+    ${props => props.fontStyle}
+    ${props => props.widthStyle}
 
     &:focus {
         outline: none;
@@ -89,13 +89,22 @@ const WidthSwitch = (type: typeProps, size?: sizeProps, width?: widthProps) => {
 }
 
 type TextareaPropsType = {
-  type: typeProps;
-  size?: sizeProps;
-  width?: widthProps;
-  children?: React.ReactNode;
-};
+  type: typeProps
+  size?: sizeProps
+  width?: widthProps
+  onChange: (value: string) => void
+  className?: string
+  value: string
+}
 
-function Textarea({ type, size, width, children }: TextareaPropsType): JSX.Element {
+function Textarea({
+  type,
+  size,
+  width,
+  onChange,
+  className,
+  value,
+}: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
   const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size, width)
@@ -105,8 +114,11 @@ function Textarea({ type, size, width, children }: TextareaPropsType): JSX.Eleme
       fontStyle={fontStyle}
       borderStyle={borderStyle}
       widthStyle={widthStyle}
+      onChange={e => onChange(e.target.value)}
+      className={className}
+      value={value}
     >
-      {children}
+      {value}
     </TextareaContainer>
   )
 }
