@@ -21,11 +21,12 @@ export type FontType = {
   fontWeight: string
   fontSize: string
   fontColor: string
+  className?: string
 }
 
-function Font({ children, fontFace, fontWeight, fontColor, fontSize }: FontType): JSX.Element {
+function Font({ children, fontFace, fontWeight, fontColor, fontSize, className }: FontType): JSX.Element {
   return (
-    <FontContainer fontFace={fontFace} fontWeight={fontWeight} fontSize={fontSize} fontColor={fontColor} lineHeight="140%">
+    <FontContainer fontFace={fontFace} fontWeight={fontWeight} fontSize={fontSize} fontColor={fontColor} lineHeight="140%" className={className}>
       {children}
     </FontContainer>
   )

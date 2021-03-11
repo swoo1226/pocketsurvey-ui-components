@@ -20,6 +20,7 @@ export type PaginationType = {
   hoveredBackgroundColor: string
   selectedTextColor: string
   hoveredTextColor: string
+  className?: string
 }
 
 function PaginationComponent({
@@ -34,6 +35,7 @@ function PaginationComponent({
   hoveredBackgroundColor,
   selectedTextColor,
   hoveredTextColor,
+  className,
 }: PaginationType): JSX.Element {
   const useStyles = makeStyles({
     root: {
@@ -56,7 +58,7 @@ function PaginationComponent({
   })
   const classes = useStyles()
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} ${className}`}>
       <Pagination
         count={count}
         defaultPage={defaultPage}

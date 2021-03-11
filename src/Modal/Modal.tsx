@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const ModalContainer = styled.div<{hasBorderTop: boolean}>`
+const ModalContainer = styled.div<{ hasBorderTop: boolean }>`
   width: 460px;
   padding: 30px;
   box-sizing: border-box;
@@ -9,7 +9,7 @@ const ModalContainer = styled.div<{hasBorderTop: boolean}>`
   flex-direction: column;
   border-radius: 3px;
   background-color: white;
-  border-top: ${props => props.hasBorderTop ? "7px solid #FAC609" : undefined}
+  border-top: ${(props) => (props.hasBorderTop ? "7px solid #FAC609" : undefined)};
 `
 const ModalTitleContainer = styled.div`
   width: 100%;
@@ -44,16 +44,17 @@ const ModalButton = styled.button<{ backgroundColor: string }>`
 `
 
 type ModalType = {
-  children: JSX.Element;
-  title: string;
-  buttonName: string;
-  onClick: () => void;
+  children: JSX.Element
+  title: string
+  buttonName: string
+  onClick: () => void
   hasBorderTop: boolean
-};
+  className?: string
+}
 
-function Modal({ children, title, buttonName, onClick, hasBorderTop }: ModalType): JSX.Element {
+function Modal({ children, title, buttonName, onClick, hasBorderTop, className }: ModalType): JSX.Element {
   return (
-    <ModalContainer hasBorderTop={hasBorderTop}>
+    <ModalContainer hasBorderTop={hasBorderTop} className={className}>
       <ModalTitleContainer>
         <ModalTitle>{title}</ModalTitle>
       </ModalTitleContainer>

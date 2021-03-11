@@ -48,26 +48,6 @@ const DropDownItemText = styled.p`
   margin-left: 6px;
 `
 
-function useOutsideAlerter(ref: React.RefObject<HTMLElement>, func: () => void) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        func()
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [ref])
-}
-
 export type DropDownType = {
   list: {
     selectionName: string
@@ -80,22 +60,39 @@ export type DropDownType = {
     subColor: string
   }
   onItemClick: (index: number) => void
+  className?: string
 }
 
-function DropDown({ list, selected, disable, themeColor, onItemClick }: DropDownType): JSX.Element {
+function DropDown({ list, selected, disable, themeColor, onItemClick, className }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
 
-  useOutsideAlerter(selectionListRef, () => setIsShowList(false))
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event: any) {
+      if (selectionListRef.current && !selectionListRef.current.contains(event.target)) {
+        setIsShowList(false)
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [selectionListRef])
 
   return (
-    <DropDownContainer ref={selectionListRef}>
+    <DropDownContainer ref={selectionListRef} className={className}>
       <DropDownBox onClick={() => setIsShowList(!isShowList)} disable={disable} themeColor={themeColor.mainColor} data-testid="dropdownbox-testid">
         {list[selected].icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
         <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
       </DropDownBox>
 
-      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" } } data-testid="dropdownlist-testid">
+      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" }} data-testid="dropdownlist-testid">
         {list.map((item, index) => (
           <DropDownItem
             key={index}

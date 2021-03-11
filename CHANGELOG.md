@@ -1,3 +1,11 @@
+# 0.3.6 (2021.03.11)
+
+## All Components
+- 클래스 이름 props로 추가할 수 있게 수정
+
+## Dropdown
+- 드롭다운에 hook error 수정
+
 # 0.3.5
 
 ## Textarea
