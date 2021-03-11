@@ -48,26 +48,6 @@ const DropDownItemText = styled.p`
   margin-left: 6px;
 `
 
-function useOutsideAlerter(ref: React.RefObject<HTMLElement>, func: () => void) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        func()
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [ref])
-}
-
 export type DropDownType = {
   list: {
     selectionName: string
@@ -87,7 +67,23 @@ function DropDown({ list, selected, disable, themeColor, onItemClick, className 
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
 
-  useOutsideAlerter(selectionListRef, () => setIsShowList(false))
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event: any) {
+      if (selectionListRef.current && !selectionListRef.current.contains(event.target)) {
+        setIsShowList(false)
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [selectionListRef])
 
   return (
     <DropDownContainer ref={selectionListRef} className={className}>
