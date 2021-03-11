@@ -48,11 +48,12 @@ type ModalType = {
   title: string
   buttonName: string
   onClick: () => void
+  onCancel: () => void
   hasBorderTop: boolean
   className?: string
 }
 
-function Modal({ children, title, buttonName, onClick, hasBorderTop, className }: ModalType): JSX.Element {
+function Modal({ children, title, buttonName, onClick, onCancel, hasBorderTop, className }: ModalType): JSX.Element {
   return (
     <ModalContainer hasBorderTop={hasBorderTop} className={className}>
       <ModalTitleContainer>
@@ -61,7 +62,9 @@ function Modal({ children, title, buttonName, onClick, hasBorderTop, className }
       <ModalContentContainer>{children}</ModalContentContainer>
       <ModalBottomContainer>
         <ModalBottomButtonContainer>
-          <ModalButton backgroundColor={"#FFFFFF"}>취소</ModalButton>
+          <ModalButton backgroundColor={"#FFFFFF"} onClick={() => onCancel()}>
+            취소
+          </ModalButton>
           <ModalButton backgroundColor={"#FAC62D"} onClick={() => onClick()}>
             {buttonName}
           </ModalButton>
