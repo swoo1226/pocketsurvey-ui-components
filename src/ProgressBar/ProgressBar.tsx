@@ -12,6 +12,8 @@ const ProgressBarDiv = styled.div<{
   background-color: ${(props) => props.barColor};
   transition: width 0.2s;
   border-radius: 0 ${(props) => props.thickness / 1.7}px ${(props) => props.thickness / 1.7}px ${(props) => props.thickness / 1.7}px;
+  top: 0;
+  left: 0;
 `
 
 type ProgressBarType = {
