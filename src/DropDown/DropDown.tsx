@@ -80,22 +80,23 @@ export type DropDownType = {
     subColor: string
   }
   onItemClick: (index: number) => void
+  className?: string
 }
 
-function DropDown({ list, selected, disable, themeColor, onItemClick }: DropDownType): JSX.Element {
+function DropDown({ list, selected, disable, themeColor, onItemClick, className }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
 
   useOutsideAlerter(selectionListRef, () => setIsShowList(false))
 
   return (
-    <DropDownContainer ref={selectionListRef}>
+    <DropDownContainer ref={selectionListRef} className={className}>
       <DropDownBox onClick={() => setIsShowList(!isShowList)} disable={disable} themeColor={themeColor.mainColor} data-testid="dropdownbox-testid">
         {list[selected].icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
         <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
       </DropDownBox>
 
-      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" } } data-testid="dropdownlist-testid">
+      <DropDownList isShowList={isShowList} style={!isShowList ? { display: "none" } : { opacity: "1" }} data-testid="dropdownlist-testid">
         {list.map((item, index) => (
           <DropDownItem
             key={index}
