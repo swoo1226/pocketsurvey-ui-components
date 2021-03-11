@@ -49,8 +49,6 @@ const DropDownItemText = styled.p`
 `
 
 export type DropDownType = {
-  isShowList: boolean
-  setIsShowList: (isShowList: boolean) => void
   list: {
     selectionName: string
     icon?: string
@@ -65,7 +63,8 @@ export type DropDownType = {
   className?: string
 }
 
-function DropDown({ list, selected, disable, themeColor, onItemClick, className, isShowList, setIsShowList }: DropDownType): JSX.Element {
+function DropDown({ list, selected, disable, themeColor, onItemClick, className }: DropDownType): JSX.Element {
+  const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
