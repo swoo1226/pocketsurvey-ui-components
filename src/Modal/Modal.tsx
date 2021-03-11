@@ -1,7 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 
-const ModalContainer = styled.div<{ hasBorderTop: boolean }>`
+import ProgressBar from "../ProgressBar/ProgressBar"
+
+const ModalContainer = styled.div<{ hasBorderTop: boolean; isProgressBar: boolean }>`
   width: 460px;
   padding: 30px;
   box-sizing: border-box;
@@ -9,7 +11,8 @@ const ModalContainer = styled.div<{ hasBorderTop: boolean }>`
   flex-direction: column;
   border-radius: 3px;
   background-color: white;
-  border-top: ${(props) => (props.hasBorderTop ? "7px solid #FAC609" : undefined)};
+  border-top: ${(props) => (props.hasBorderTop && !props.isProgressBar ? "7px solid #FAC609" : undefined)};
+  position: relative;
 `
 const ModalTitleContainer = styled.div`
   width: 100%;
@@ -48,20 +51,27 @@ type ModalType = {
   title: string
   buttonName: string
   onClick: () => void
+  onCancel: () => void
   hasBorderTop: boolean
   className?: string
+  isProgressBar?: boolean
+  percent?: number
+  barColor?: string
 }
 
-function Modal({ children, title, buttonName, onClick, hasBorderTop, className }: ModalType): JSX.Element {
+function Modal({ children, title, buttonName, onClick, onCancel, hasBorderTop, className, percent, barColor, isProgressBar }: ModalType): JSX.Element {
   return (
-    <ModalContainer hasBorderTop={hasBorderTop} className={className}>
+    <ModalContainer hasBorderTop={hasBorderTop} className={className} isProgressBar={isProgressBar!}>
+      {isProgressBar && <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />}
       <ModalTitleContainer>
         <ModalTitle>{title}</ModalTitle>
       </ModalTitleContainer>
       <ModalContentContainer>{children}</ModalContentContainer>
       <ModalBottomContainer>
         <ModalBottomButtonContainer>
-          <ModalButton backgroundColor={"#FFFFFF"}>취소</ModalButton>
+          <ModalButton backgroundColor={"#FFFFFF"} onClick={() => onCancel()}>
+            취소
+          </ModalButton>
           <ModalButton backgroundColor={"#FAC62D"} onClick={() => onClick()}>
             {buttonName}
           </ModalButton>

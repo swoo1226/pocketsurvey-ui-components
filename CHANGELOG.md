@@ -1,9 +1,22 @@
+# 0.3.8
+
+## Dropdown
+
+- 드롭다운 호버 스타일 문법 수정
+
+## Modal
+
+- 취소 버튼 onclick 함수 추가
+- ProgressBar 컴포넌트 추가
+
 # 0.3.6 (2021.03.11)
 
 ## All Components
+
 - 클래스 이름 props로 추가할 수 있게 수정
 
 ## Dropdown
+
 - 드롭다운에 hook error 수정
 
 # 0.3.5
