@@ -41,7 +41,7 @@ const DropDownItem = styled.div<{
   padding: 0 10px;
   background-color: ${(props) => (props.selected == props.index ? "#F0F0F0" : "white")};
   &:hover {
-    background-color: ${(props) => (props.selected == props.index ? "#F0F0F0" : `${props.themeColor}`)};
+    background-color: ${(props) => (props.selected == props.index ? "#F0F0F0" : props.themeColor)};
   }
 `
 const DropDownItemText = styled.p`
