@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 
-import Icon from "../Icon/Icon"
+import Icon, { IconType } from "../Icon/Icon"
 
 const DropDownContainer = styled.div`
   width: 170px;
@@ -51,8 +51,9 @@ const DropDownItemText = styled.p`
 export type DropDownType = {
   list: {
     selectionName: string
-    icon?: string
+    icon?: IconType
   }[]
+  iconColor?: string
   selected: number
   disable: boolean
   themeColor: {
@@ -63,7 +64,7 @@ export type DropDownType = {
   className?: string
 }
 
-function DropDown({ list, selected, disable, themeColor, onItemClick, className }: DropDownType): JSX.Element {
+function DropDown({ list, selected, disable, themeColor, onItemClick, className, iconColor }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
 
@@ -88,7 +89,7 @@ function DropDown({ list, selected, disable, themeColor, onItemClick, className 
   return (
     <DropDownContainer ref={selectionListRef} className={className}>
       <DropDownBox onClick={() => setIsShowList(!isShowList)} disable={disable} themeColor={themeColor.mainColor} data-testid="dropdownbox-testid">
-        {list[selected].icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
+        {list[selected].icon && <Icon color={iconColor!} icon={list[selected].icon!} width={18} />}
         <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
       </DropDownBox>
 
@@ -104,7 +105,7 @@ function DropDown({ list, selected, disable, themeColor, onItemClick, className 
               setIsShowList(false)
             }}
           >
-            {item.icon && <Icon color={"#FAC62D"} icon="singleChoice" width={18} />}
+            {item.icon && <Icon color={iconColor!} icon={item.icon} width={18} />}
             <DropDownItemText>{item.selectionName}</DropDownItemText>
           </DropDownItem>
         ))}
