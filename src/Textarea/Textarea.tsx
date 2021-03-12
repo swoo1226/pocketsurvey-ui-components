@@ -10,14 +10,14 @@ const TextareaContainer = styled(TextareaAutosize)<{
   borderStyle: FlattenSimpleInterpolation
   fontStyle: FlattenSimpleInterpolation
 }>`
-    resize: none;
-    ${(props) => props.borderStyle}
-    ${(props) => props.fontStyle}
+  resize: none;
+  ${(props) => props.borderStyle}
+  ${(props) => props.fontStyle}
 
     &:focus {
-        outline: none;
-        border-color: #FAC62D;
-    }
+    outline: none;
+    border-color: #fac62d;
+  }
 `
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
@@ -65,16 +65,15 @@ type TextareaPropsType = {
   onChange: (value: string) => void
   className?: string
   value: string
-
-  tabIndex: number
-  readOnly: boolean
-  placeholder: string
-  onFocus: () => void
-  onKeyDown: () => void
-  onKeyUp: () => void
-  onBlur: () => void
-  rows: number
-  cols: number
+  tabIndex?: number
+  readOnly?: boolean
+  placeholder?: string
+  onFocus?: () => void
+  onKeyDown?: () => void
+  onKeyUp?: () => void
+  onBlur?: () => void
+  rows?: number
+  cols?: number
 }
 
 function Textarea({ type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols }: TextareaPropsType): JSX.Element {
