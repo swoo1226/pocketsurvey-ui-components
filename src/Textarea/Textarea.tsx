@@ -9,17 +9,15 @@ type widthProps = string
 const TextareaContainer = styled(TextareaAutosize)<{
   borderStyle: FlattenSimpleInterpolation
   fontStyle: FlattenSimpleInterpolation
-  widthStyle: FlattenSimpleInterpolation
 }>`
-    resize: none;
-    ${props => props.borderStyle}
-    ${props => props.fontStyle}
-    ${props => props.widthStyle}
+  resize: none;
+  ${(props) => props.borderStyle}
+  ${(props) => props.fontStyle}
 
     &:focus {
-        outline: none;
-        border-color: #FAC62D;
-    }
+    outline: none;
+    border-color: #fac62d;
+  }
 `
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
@@ -30,15 +28,15 @@ const FontSwitch = (type: typeProps, size?: sizeProps) => {
     `
   }
   switch (size) {
-  case "big":
-    return css`
+    case "big":
+      return css`
         font-family: Noto Sans CJK KR;
         font-size: 28px;
       `
-  case "medium":
-  case "small":
-  default:
-    return css`
+    case "medium":
+    case "small":
+    default:
+      return css`
         font-family: Noto Sans CJK KR;
         font-size: 14px;
       `
@@ -47,76 +45,57 @@ const FontSwitch = (type: typeProps, size?: sizeProps) => {
 
 const BorderSwitch = (type: typeProps) => {
   switch (type) {
-  case "line":
-    return css`
+    case "line":
+      return css`
         border: none;
         border-bottom: 1px solid #dfdedd;
         border-radius: 0px;
       `
-  case "basic":
-    return css`
+    case "basic":
+      return css`
         border: 1px solid #dfdedd;
         border-radius: 3px;
       `
   }
 }
 
-const WidthSwitch = (type: typeProps, size?: sizeProps, width?: widthProps) => {
-  if (width) {
-    return css`
-      width: ${width};
-    `
-  }
-  if (type === "line") {
-    return css`
-      width: 350px;
-    `
-  } else {
-    switch (size) {
-    case "big":
-    case "medium":
-      return css`
-          width: 630px;
-        `
-    default:
-    case "small":
-      return css`
-          width: 500px;
-          height: 52px;
-        `
-    }
-  }
-}
-
 type TextareaPropsType = {
   type: typeProps
   size?: sizeProps
-  width?: widthProps
   onChange: (value: string) => void
   className?: string
   value: string
+  tabIndex?: number
+  readOnly?: boolean
+  placeholder?: string
+  onFocus?: () => void
+  onKeyDown?: () => void
+  onKeyUp?: () => void
+  onBlur?: () => void
+  rows?: number
+  cols?: number
 }
 
-function Textarea({
-  type,
-  size,
-  width,
-  onChange,
-  className,
-  value,
-}: TextareaPropsType): JSX.Element {
+function Textarea({ type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols }: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
-  const widthStyle: FlattenSimpleInterpolation = WidthSwitch(type, size, width)
 
   return (
     <TextareaContainer
       fontStyle={fontStyle}
       borderStyle={borderStyle}
-      widthStyle={widthStyle}
-      onChange={e => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
       className={className}
       value={value}
+      tabIndex={tabIndex}
+      readOnly={readOnly}
+      placeholder={placeholder}
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
+      onBlur={onBlur}
+      rows={rows}
+      cols={cols}
     >
       {value}
     </TextareaContainer>

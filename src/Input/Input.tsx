@@ -52,16 +52,54 @@ export type InputType = {
   isError: boolean
   errorMessage: string
   disabled?: boolean
-  useCancleButton?: boolean
+  useCancelButton?: boolean
+  tabIndex?: number
+  readOnly?: boolean
+  onFocus?: () => void
+  onClick?: () => void
+  onKeyDown?: () => void
+  onBlur?: () => void
+  onClickCancelButton?: () => void
   className?: string
 }
 
-function Input({ mode, placeholder, value, onChange, width, isError, errorMessage, disabled = false, useCancleButton = false, className }: InputType): JSX.Element {
+function Input({
+  mode,
+  placeholder,
+  value,
+  onChange,
+  width,
+  isError,
+  errorMessage,
+  disabled = false,
+  useCancelButton = false,
+  readOnly = false,
+  tabIndex,
+  onFocus,
+  onClick,
+  onKeyDown,
+  onBlur,
+  onClickCancelButton,
+  className,
+}: InputType): JSX.Element {
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
       <InputBox data-testid="inputbox" width={width} disabled={disabled} mode={mode}>
-        <InputElement type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} width={width * 0.9} disabled={disabled} />
-        {value && useCancleButton && <Icon icon="singleChoice" width={20} color="#DFDEDD" />}
+        <InputElement
+          type="text"
+          value={value}
+          readOnly={readOnly}
+          tabIndex={tabIndex}
+          onChange={(e) => onChange(e.target.value)}
+          onFocus={onFocus}
+          onClick={onClick}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          width={width * 0.9}
+          disabled={disabled}
+        />
+        {value && useCancelButton && <Icon icon="exit" width={20} color="#DFDEDD" onClick={onClickCancelButton} />}
       </InputBox>
       {isError && <SubText>{errorMessage}</SubText>}
     </InputContainer>
