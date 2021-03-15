@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { withKnobs, number, boolean, text, select } from "@storybook/addon-knobs"
+import { withKnobs, number, boolean, text, select, color } from "@storybook/addon-knobs"
 
 import Input from "./Input"
 import { Meta } from "@storybook/react/types-6-0"
@@ -22,7 +22,7 @@ export function Index() {
   const mode = select("mode", ["line", "basic"], "line")
   const readOnly = boolean("readOnly", false)
   const tabIndex = number("tabIndex", 10)
-
+  const borderColor = color("borderColor", "#FAC609")
   return (
     <Input
       mode={mode}
@@ -51,6 +51,7 @@ export function Index() {
       onKeyDown={() => {
         console.log("onKeyDown")
       }}
+      borderColor={borderColor}
     />
   )
 }

@@ -1,3 +1,11 @@
+# 0.3.10 (2021.03.15)
+
+## Input
+- props 추가
+
+## Textarea
+- props추가
+
 # 0.3.9 (2021.03.12)
 
 ## Dropdown

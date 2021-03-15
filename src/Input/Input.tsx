@@ -8,6 +8,7 @@ const InputBox = styled.div<{
   width: number
   disabled: boolean
   mode: "line" | "basic"
+  borderColor: string
 }>`
   padding: 6px ${(props) => props.width * 0.04}px;
   ${(props) =>
@@ -21,7 +22,7 @@ const InputBox = styled.div<{
             `
     }`}
   &:hover {
-    ${(props) => (!props.disabled ? (props.mode == "line" ? `border-bottom: 1px solid ${props.disabled ? "#dfdedd" : "#fac62d"}` : `border: 1px solid ${props.disabled ? "#dfdedd" : "#fac62d"}`) : "")}
+    ${(props) => (!props.disabled ? (props.mode == "line" ? `border-bottom: 1px solid ${props.disabled ? "#dfdedd" : props.borderColor}` : `border: 1px solid ${props.disabled ? "#dfdedd" : props.borderColor}`) : "")}
   }
   display: flex;
   align-items: center;
@@ -44,24 +45,27 @@ const SubText = styled.p`
 `
 
 export type InputType = {
-  mode: "line" | "basic"
-  placeholder: string
-  value: string
-  onChange: (value: string) => void
-  width: number
-  isError: boolean
-  errorMessage: string
-  disabled?: boolean
-  useCancelButton?: boolean
-  tabIndex?: number
-  readOnly?: boolean
-  onFocus?: () => void
-  onClick?: () => void
-  onKeyDown?: () => void
-  onBlur?: () => void
-  onClickCancelButton?: () => void
-  className?: string
-}
+  mode: "line" | "basic";
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  width: number;
+  isError: boolean;
+  errorMessage: string;
+  disabled?: boolean;
+  useCancelButton?: boolean;
+  tabIndex?: number;
+  readOnly?: boolean;
+  onFocus?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  onClickCancelButton?: (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  className?: string;
+  borderColor: string;
+};
 
 function Input({
   mode,
@@ -81,10 +85,17 @@ function Input({
   onBlur,
   onClickCancelButton,
   className,
+  borderColor
 }: InputType): JSX.Element {
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
-      <InputBox data-testid="inputbox" width={width} disabled={disabled} mode={mode}>
+      <InputBox
+        data-testid="inputbox"
+        width={width}
+        disabled={disabled}
+        mode={mode}
+        borderColor={borderColor}
+      >
         <InputElement
           type="text"
           value={value}
@@ -92,14 +103,23 @@ function Input({
           tabIndex={tabIndex}
           onChange={(e) => onChange(e.target.value)}
           onFocus={onFocus}
-          onClick={onClick}
-          onKeyDown={onKeyDown}
+          onClick={(e) => (onClick && e ? onClick(e) : undefined)}
+          onKeyDown={(e) => {
+            onKeyDown ? onKeyDown(e) : undefined
+          }}
           onBlur={onBlur}
           placeholder={placeholder}
           width={width * 0.9}
           disabled={disabled}
         />
-        {value && useCancelButton && <Icon icon="exit" width={20} color="#DFDEDD" onClick={onClickCancelButton} />}
+        {value && useCancelButton && (
+          <Icon
+            icon="exit"
+            width={20}
+            color="#DFDEDD"
+            onClick={onClickCancelButton}
+          />
+        )}
       </InputBox>
       {isError && <SubText>{errorMessage}</SubText>}
     </InputContainer>
