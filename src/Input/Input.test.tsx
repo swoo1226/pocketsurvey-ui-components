@@ -19,7 +19,8 @@ describe("인풋 컴포넌트 테스트", () => {
         isError={true}
         errorMessage="에러메시지입니다."
         disabled={false}
-        useCancleButton={false}
+        useCancelButton={false}
+        borderColor='#fac609'
       ></Input>
     )
   })

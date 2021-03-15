@@ -3,7 +3,6 @@ import styled, { css, FlattenSimpleInterpolation } from "styled-components"
 
 type typeProps = "basic" | "line"
 type sizeProps = "big" | "medium" | "small"
-type widthProps = string
 
 const TextareaContainer = styled.textarea<{
   borderStyle: FlattenSimpleInterpolation
