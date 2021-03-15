@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs"
+import { withKnobs, text, select, number, boolean, color } from "@storybook/addon-knobs"
 
 import Textarea from "./Textarea"
 
@@ -17,36 +17,37 @@ export function Index() {
   const placeholder = text("placeholder", "placeholder")
   const rows = number("rows", 0)
   const cols = number("cols", 0)
-
+  const borderColor = color("border color", "#fac609")
   const [value, setValue] = useState("")
   return (
     <Textarea
       type={type}
       size={size}
       onChange={(data: string) => {
-        console.log(data)
-        setValue(data)
+        console.log(data);
+        setValue(data);
       }}
       value={value}
       tabIndex={tabIndex}
       readOnly={readOnly}
       placeholder={placeholder}
       onFocus={() => {
-        console.log("onFocus")
+        console.log("onFocus");
       }}
       onKeyDown={() => {
-        console.log("onKeyDown")
+        console.log("onKeyDown");
       }}
       onKeyUp={() => {
-        console.log("onKeyUp")
+        console.log("onKeyUp");
       }}
       onBlur={() => {
-        console.log("onBlur")
+        console.log("onBlur");
       }}
       rows={rows}
       cols={cols}
+      borderColor={borderColor}
     />
-  )
+  );
 }
 
 Index.story = {

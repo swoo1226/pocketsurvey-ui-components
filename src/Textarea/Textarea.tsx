@@ -1,23 +1,23 @@
 import React from "react"
 import styled, { css, FlattenSimpleInterpolation } from "styled-components"
-import TextareaAutosize from "react-textarea-autosize"
 
 type typeProps = "basic" | "line"
 type sizeProps = "big" | "medium" | "small"
 type widthProps = string
 
-const TextareaContainer = styled(TextareaAutosize)<{
+const TextareaContainer = styled.textarea<{
   borderStyle: FlattenSimpleInterpolation
   fontStyle: FlattenSimpleInterpolation
+  borderColor: string
 }>`
   resize: none;
   ${(props) => props.borderStyle}
   ${(props) => props.fontStyle}
-
     &:focus {
     outline: none;
-    border-color: #fac62d;
+    border-color: ${(props) => props.borderColor};
   }
+  onKeyDown
 `
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
@@ -28,15 +28,15 @@ const FontSwitch = (type: typeProps, size?: sizeProps) => {
     `
   }
   switch (size) {
-    case "big":
-      return css`
+  case "big":
+    return css`
         font-family: Noto Sans CJK KR;
         font-size: 28px;
       `
-    case "medium":
-    case "small":
-    default:
-      return css`
+  case "medium":
+  case "small":
+  default:
+    return css`
         font-family: Noto Sans CJK KR;
         font-size: 14px;
       `
@@ -45,14 +45,14 @@ const FontSwitch = (type: typeProps, size?: sizeProps) => {
 
 const BorderSwitch = (type: typeProps) => {
   switch (type) {
-    case "line":
-      return css`
+  case "line":
+    return css`
         border: none;
         border-bottom: 1px solid #dfdedd;
         border-radius: 0px;
       `
-    case "basic":
-      return css`
+  case "basic":
+    return css`
         border: 1px solid #dfdedd;
         border-radius: 3px;
       `
@@ -69,14 +69,15 @@ type TextareaPropsType = {
   readOnly?: boolean
   placeholder?: string
   onFocus?: () => void
-  onKeyDown?: () => void
-  onKeyUp?: () => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+  onKeyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
   onBlur?: () => void
   rows?: number
   cols?: number
+  borderColor: string
 }
 
-function Textarea({ type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols }: TextareaPropsType): JSX.Element {
+function Textarea({ type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols, borderColor }: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
 
@@ -91,11 +92,12 @@ function Textarea({ type, size, onChange, className, value, tabIndex, readOnly =
       readOnly={readOnly}
       placeholder={placeholder}
       onFocus={onFocus}
-      onKeyDown={onKeyDown}
+      onKeyDown={(e) => {onKeyDown ? onKeyDown(e) : undefined}}
       onKeyUp={onKeyUp}
       onBlur={onBlur}
       rows={rows}
       cols={cols}
+      borderColor={borderColor}
     >
       {value}
     </TextareaContainer>
