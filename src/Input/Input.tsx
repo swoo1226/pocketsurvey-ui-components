@@ -10,8 +10,8 @@ const InputBox = styled.div<{
   mode: "line" | "basic"
   borderColor: string
 }>`
-  padding: 6px ${(props) => props.width * 0.04}px;
-  ${(props) =>
+  padding: 6px ${props => props.width * 0.04}px;
+  ${props =>
     `${
       props.mode == "line"
         ? `
@@ -22,18 +22,32 @@ const InputBox = styled.div<{
             `
     }`}
   &:hover {
-    ${(props) => (!props.disabled ? (props.mode == "line" ? `border-bottom: 1px solid ${props.disabled ? "#dfdedd" : props.borderColor}` : `border: 1px solid ${props.disabled ? "#dfdedd" : props.borderColor}`) : "")}
+    ${props =>
+    !props.disabled
+      ? props.mode == "line"
+        ? `border-bottom: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+        : `border: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+      : ""}
   }
   display: flex;
   align-items: center;
-  width: ${(props) => props.width}px;
-  border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
+  width: ${props => props.width}px;
+  border-radius: ${props => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
-  ${(props) => `${props.mode == "line" ? props.disabled && "border-bottom: 1px dashed #dfdedd;" : props.disabled && "background-color: #F0F0F0;"}`}
+  ${props =>
+    `${
+      props.mode == "line"
+        ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
+        : props.disabled && "background-color: #F0F0F0;"
+    }`}
 `
 const InputElement = styled.input<{ width: number }>`
   all: unset;
-  width: ${(props) => props.width}px;
+  width: ${props => props.width}px;
   &::placeholder {
     color: #dfdedd;
   }
@@ -45,27 +59,27 @@ const SubText = styled.p`
 `
 
 export type InputType = {
-  mode: "line" | "basic";
-  placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
-  width: number;
-  isError: boolean;
-  errorMessage: string;
-  disabled?: boolean;
-  useCancelButton?: boolean;
-  tabIndex?: number;
-  readOnly?: boolean;
-  onFocus?: () => void;
-  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onBlur?: () => void;
+  mode: "line" | "basic"
+  placeholder: string
+  value: string
+  onChange: (value: string) => void
+  width: number
+  isError: boolean
+  errorMessage: string
+  disabled?: boolean
+  useCancelButton?: boolean
+  tabIndex?: number
+  readOnly?: boolean
+  onFocus?: () => void
+  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+  onBlur?: () => void
   onClickCancelButton?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-  className?: string;
-  borderColor: string;
-};
+  ) => void
+  className?: string
+  borderColor: string
+}
 
 function Input({
   mode,
@@ -85,7 +99,7 @@ function Input({
   onBlur,
   onClickCancelButton,
   className,
-  borderColor
+  borderColor,
 }: InputType): JSX.Element {
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
@@ -101,10 +115,10 @@ function Input({
           value={value}
           readOnly={readOnly}
           tabIndex={tabIndex}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           onFocus={onFocus}
-          onClick={(e) => (onClick && e ? onClick(e) : undefined)}
-          onKeyDown={(e) => {
+          onClick={e => (onClick && e ? onClick(e) : undefined)}
+          onKeyDown={e => {
             onKeyDown ? onKeyDown(e) : undefined
           }}
           onBlur={onBlur}
