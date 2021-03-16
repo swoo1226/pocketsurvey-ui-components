@@ -3,7 +3,33 @@ import styled from "styled-components"
 
 import ProgressBar from "../ProgressBar/ProgressBar"
 
-const ModalContainer = styled.div<{ hasBorderTop: boolean; isProgressBar: boolean }>`
+const ModalBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  flex-direction: column;
+`
+
+const ModalBlackCurtain = styled.div`
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -10000;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+`
+const ModalContainer = styled.div<{
+  hasBorderTop: boolean
+  isProgressBar: boolean
+}>`
   width: 460px;
   padding: 30px;
   box-sizing: border-box;
@@ -11,7 +37,10 @@ const ModalContainer = styled.div<{ hasBorderTop: boolean; isProgressBar: boolea
   flex-direction: column;
   border-radius: 3px;
   background-color: white;
-  border-top: ${(props) => (props.hasBorderTop && !props.isProgressBar ? "7px solid #FAC609" : undefined)};
+  border-top: ${props =>
+    props.hasBorderTop && !props.isProgressBar
+      ? "7px solid #FAC609"
+      : undefined};
   position: relative;
 `
 const ModalTitleContainer = styled.div`
@@ -40,7 +69,7 @@ const ModalBottomButtonContainer = styled.div`
 const ModalButton = styled.button<{ backgroundColor: string }>`
   width: 86px;
   height: 40px;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${props => props.backgroundColor};
   border: 0;
   border-radius: 3px;
   margin: 0 2px;
@@ -59,25 +88,45 @@ type ModalType = {
   barColor?: string
 }
 
-function Modal({ children, title, buttonName, onClick, onCancel, hasBorderTop, className, percent, barColor, isProgressBar }: ModalType): JSX.Element {
+function Modal({
+  children,
+  title,
+  buttonName,
+  onClick,
+  onCancel,
+  hasBorderTop,
+  className,
+  percent,
+  barColor,
+  isProgressBar,
+}: ModalType): JSX.Element {
   return (
-    <ModalContainer hasBorderTop={hasBorderTop} className={className} isProgressBar={isProgressBar!}>
-      {isProgressBar && <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />}
-      <ModalTitleContainer>
-        <ModalTitle>{title}</ModalTitle>
-      </ModalTitleContainer>
-      <ModalContentContainer>{children}</ModalContentContainer>
-      <ModalBottomContainer>
-        <ModalBottomButtonContainer>
-          <ModalButton backgroundColor={"#FFFFFF"} onClick={() => onCancel()}>
-            취소
-          </ModalButton>
-          <ModalButton backgroundColor={"#FAC62D"} onClick={() => onClick()}>
-            {buttonName}
-          </ModalButton>
-        </ModalBottomButtonContainer>
-      </ModalBottomContainer>
-    </ModalContainer>
+    <ModalBackground>
+      <ModalBlackCurtain onClick={() => onCancel()}></ModalBlackCurtain>
+      <ModalContainer
+        hasBorderTop={hasBorderTop}
+        className={className}
+        isProgressBar={isProgressBar!}
+      >
+        {isProgressBar && (
+          <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />
+        )}
+        <ModalTitleContainer>
+          <ModalTitle>{title}</ModalTitle>
+        </ModalTitleContainer>
+        <ModalContentContainer>{children}</ModalContentContainer>
+        <ModalBottomContainer>
+          <ModalBottomButtonContainer>
+            <ModalButton backgroundColor={"#FFFFFF"} onClick={() => onCancel()}>
+              취소
+            </ModalButton>
+            <ModalButton backgroundColor={"#FAC62D"} onClick={() => onClick()}>
+              {buttonName}
+            </ModalButton>
+          </ModalBottomButtonContainer>
+        </ModalBottomContainer>
+      </ModalContainer>
+    </ModalBackground>
   )
 }
 

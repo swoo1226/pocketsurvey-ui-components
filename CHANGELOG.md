@@ -1,3 +1,14 @@
+# 0.3.11 (2021.03.16)
+
+## Modal
+- Modal 배경 추가
+
+## DropDown
+- placeholder 추가 
+
+## Icon
+- 커서 추가
+
 # 0.3.10 (2021.03.15)
 
 ## Input
