@@ -19,26 +19,25 @@ export function TypeSelector() {
   const subColor = color("light color", "#fef4ce");
 
   return (
-	  <></>
-    // <DropDown
-    // 	list={[
-    // 		{
-    // 			selectionName: "객관식 (단일 선택)",
-    // 			icon: singleChoice,
-    // 		},
-    // 		{ selectionName: "객관식 (복수 선택)", icon: singleChoice },
-    // 		{ selectionName: "객관식 (이미지 선택)", icon: singleChoice },
-    // 		{ selectionName: "주관식 (텍스트)", icon: singleChoice },
-    // 		{ selectionName: "주관식 (이미지)", icon: singleChoice },
-    // 		{ selectionName: "객관식 (영상)", icon: singleChoice },
-    // 		{ selectionName: "순위 설정", icon: singleChoice },
-    // 		{ selectionName: "설명 추가", icon: singleChoice },
-    // 	]}
-    // 	selected={1}
-    // 	disable={disabled}
-    // 	themeColor={{ mainColor, subColor }}
-    // 	onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
-    // />
+    <DropDown
+    	list={[
+    		{
+    			selectionName: "객관식 (단일 선택)",
+    			icon: singleChoice,
+    		},
+    		{ selectionName: "객관식 (복수 선택)", icon: singleChoice },
+    		{ selectionName: "객관식 (이미지 선택)", icon: singleChoice },
+    		{ selectionName: "주관식 (텍스트)", icon: singleChoice },
+    		{ selectionName: "주관식 (이미지)", icon: singleChoice },
+    		{ selectionName: "객관식 (영상)", icon: singleChoice },
+    		{ selectionName: "순위 설정", icon: singleChoice },
+    		{ selectionName: "설명 추가", icon: singleChoice },
+    	]}
+    	selected={1}
+    	disable={disabled}
+    	themeColor={{ mainColor, subColor }}
+    	onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
+    />
   );
 }
 
