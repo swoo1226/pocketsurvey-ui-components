@@ -1,4 +1,3 @@
-import { List } from "@material-ui/core";
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
@@ -76,7 +75,6 @@ function DropDown({
   onItemClick,
   className,
   iconColor,
-  placeholder,
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false);
   const selectionListRef = useRef<HTMLDivElement>(null);
@@ -87,7 +85,6 @@ function DropDown({
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event: any) {
-      console.log("handleclickOutside");
       if (
         selectionListRef.current &&
         !selectionListRef.current.contains(event.target)
