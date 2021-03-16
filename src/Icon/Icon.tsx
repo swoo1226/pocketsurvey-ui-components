@@ -16,6 +16,7 @@ export type IconProps = {
   rotate?: number
   color: string
   onClick?: () => void
+  useCursor?: boolean
 }
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
@@ -24,7 +25,15 @@ export type IconProps = {
  *
  * 스타일로 모양새를 설정 할 때에는 `color`로 색상을 설정하고 `width`로 크기를 설정하세요.
  */
-function Icon({ icon, className, width, rotate, color, onClick }: IconProps): JSX.Element {
+function Icon({
+  icon,
+  className,
+  width,
+  rotate,
+  color,
+  onClick,
+  useCursor,
+}: IconProps): JSX.Element {
   const SVGIcon = icons[icon]
 
   return (
@@ -33,6 +42,7 @@ function Icon({ icon, className, width, rotate, color, onClick }: IconProps): JS
         width: `${width}px`,
         transform: `rotate(${rotate}deg)`,
         fill: color,
+        cursor: `${useCursor ? "pointer" : "default"}`,
       }}
       className={className}
       onClick={onClick}
