@@ -51,6 +51,7 @@ export function BranchSelector() {
 
   return (
     <DropDown
+	  placeholder={"선택해주세요"}
       list={[
         { selectionName: "다음 문항" },
         { selectionName: "Q1. 일이삼오육칠팔구십" },

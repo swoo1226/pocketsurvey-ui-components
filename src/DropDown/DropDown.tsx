@@ -75,10 +75,10 @@ function DropDown({
   onItemClick,
   className,
   iconColor,
+  placeholder
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false);
   const selectionListRef = useRef<HTMLDivElement>(null);
-  console.log(list);
 
   useEffect(() => {
     /**
@@ -119,7 +119,7 @@ function DropDown({
             <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
           </React.Fragment>
         ) : (
-          <DropDownItemText>선택해주세요</DropDownItemText>
+          <DropDownItemText>{placeholder}</DropDownItemText>
         )}
       </DropDownBox>
 
