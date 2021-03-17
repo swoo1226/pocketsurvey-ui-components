@@ -66,10 +66,11 @@ const ModalBottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `
-const ModalButton = styled.button<{ backgroundColor: string }>`
+const ModalButton = styled.button<{ backgroundColor: string; color: string }>`
   width: 86px;
   height: 40px;
   background-color: ${props => props.backgroundColor};
+  color: ${props => props.color};
   border: 0;
   border-radius: 3px;
   margin: 0 2px;
@@ -117,10 +118,18 @@ function Modal({
         <ModalContentContainer>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
-            <ModalButton backgroundColor={"#FFFFFF"} onClick={() => onCancel()}>
+            <ModalButton
+              backgroundColor={"#FFFFFF"}
+              color={"#818282"}
+              onClick={() => onCancel()}
+            >
               취소
             </ModalButton>
-            <ModalButton backgroundColor={"#FAC62D"} onClick={() => onClick()}>
+            <ModalButton
+              backgroundColor={"#FAC62D"}
+              color={"#111111"}
+              onClick={() => onClick()}
+            >
               {buttonName}
             </ModalButton>
           </ModalBottomButtonContainer>

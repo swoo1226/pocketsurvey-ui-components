@@ -30,7 +30,6 @@ export function Index() {
   const readOnly = boolean('readOnly', false)
   const tabIndex = number('tabIndex', 10)
   const borderColor = color('borderColor', '#FAC609')
-  const useCursor = boolean('useCursor', true)
   return (
     <Input
       mode={mode}
@@ -60,7 +59,6 @@ export function Index() {
         console.log('onKeyDown')
       }}
       borderColor={borderColor}
-      useCursor={useCursor}
     />
   )
 }
