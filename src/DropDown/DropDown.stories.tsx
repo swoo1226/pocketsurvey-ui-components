@@ -3,8 +3,6 @@ import { withKnobs, boolean, select, color } from "@storybook/addon-knobs";
 
 import DropDown from "./DropDown";
 import { Meta } from "@storybook/react/types-6-0";
-import singleChoice from "./singleChoice.svg"
-
 
 export default {
   component: DropDown,
@@ -20,23 +18,24 @@ export function TypeSelector() {
 
   return (
     <DropDown
-    	list={[
-    		{
-    			selectionName: "객관식 (단일 선택)",
-    			icon: singleChoice,
-    		},
-    		{ selectionName: "객관식 (복수 선택)", icon: singleChoice },
-    		{ selectionName: "객관식 (이미지 선택)", icon: singleChoice },
-    		{ selectionName: "주관식 (텍스트)", icon: singleChoice },
-    		{ selectionName: "주관식 (이미지)", icon: singleChoice },
-    		{ selectionName: "객관식 (영상)", icon: singleChoice },
-    		{ selectionName: "순위 설정", icon: singleChoice },
-    		{ selectionName: "설명 추가", icon: singleChoice },
-    	]}
-    	selected={1}
-    	disable={disabled}
-    	themeColor={{ mainColor, subColor }}
-    	onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
+      list={[
+        {
+          selectionName: "객관식 (단일 선택)",
+          icon: "singleChoice",
+        },
+        { selectionName: "객관식 (복수 선택)", icon: "singleChoice" },
+        { selectionName: "객관식 (이미지 선택)", icon: "singleChoice" },
+        { selectionName: "주관식 (텍스트)", icon: "singleChoice" },
+        { selectionName: "주관식 (이미지)", icon: "singleChoice" },
+        { selectionName: "객관식 (영상)", icon: "singleChoice" },
+        { selectionName: "순위 설정", icon: "singleChoice" },
+        { selectionName: "설명 추가", icon: "singleChoice" },
+      ]}
+      selected={1}
+      disable={disabled}
+      themeColor={{ mainColor, subColor }}
+      onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
+      iconColor="#FAC62D"
     />
   );
 }
@@ -51,7 +50,7 @@ export function BranchSelector() {
 
   return (
     <DropDown
-	  placeholder={"선택해주세요"}
+      placeholder={"선택해주세요"}
       list={[
         { selectionName: "다음 문항" },
         { selectionName: "Q1. 일이삼오육칠팔구십" },
@@ -66,8 +65,9 @@ export function BranchSelector() {
       selected={selected}
       disable={disabled}
       themeColor={{ mainColor, subColor }}
-	//   onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
-	onItemClick={(index: number) => setSelected({group: 1, item: index})}
+      iconColor="#FAC62D"
+      //   onItemClick={(index: number) => alert(`${index + 1}번째 아이템 클릭`)}
+      onItemClick={(index: number) => setSelected({ group: 1, item: index })}
     />
   );
 }
