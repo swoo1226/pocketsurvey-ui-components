@@ -144,7 +144,7 @@ function Input({
             width={20}
             color="#DFDEDD"
             onClick={onClickCancelButton}
-            useCursor={true}
+            useCursor={disabled ? false : true}
           />
         )}
       </InputBox>
