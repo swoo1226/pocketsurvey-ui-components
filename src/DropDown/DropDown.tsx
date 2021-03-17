@@ -69,7 +69,7 @@ export type DropDownType = {
     selectionName: string
     icon?: IconType
   }[]
-  iconColor: string
+  iconColor?: string
   selected: number | null
   disable: boolean
   themeColor: {
@@ -136,8 +136,8 @@ function DropDown({
             <React.Fragment>
               {list[selected].icon && (
                 <Icon
-                  color={disable ? "#818282" : iconColor}
-                  icon={list[selected].icon}
+                  color={disable ? "#818282" : iconColor!}
+                  icon={list[selected].icon!}
                   width={18}
                 />
               )}
@@ -150,7 +150,7 @@ function DropDown({
           )}
         </DropDownBox>
         <Icon
-          color={disable ? "#818282" : iconColor}
+          color={disable ? "#818282" : iconColor!}
           icon="arrow"
           useCursor={disable ? false : true}
           width={18}
@@ -177,7 +177,7 @@ function DropDown({
           >
             {item.icon && (
               <Icon
-                color={disable ? "#818282" : iconColor}
+                color={disable ? "#818282" : iconColor!}
                 icon={item.icon}
                 width={18}
               />
