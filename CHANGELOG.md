@@ -1,3 +1,9 @@
+# 0.3.13 (2021.03.17)
+
+## Input
+- input focus일 때 효과 추가
+- Input cancleButton에 cursor 추가
+
 # 0.3.11 (2021.03.16)
 
 ## Modal
