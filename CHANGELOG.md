@@ -4,6 +4,10 @@
 - input focus일 때 효과 추가
 - Input cancleButton에 cursor 추가
 
+## DropDown
+- dropdown box에 arrow icon 추가
+- disabled일 경우, 아이콘 색상 변경
+
 # 0.3.11 (2021.03.16)
 
 ## Modal
