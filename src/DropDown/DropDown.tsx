@@ -4,45 +4,59 @@ import styled from "styled-components"
 import Icon, { IconType } from "../Icon/Icon"
 
 const DropDownContainer = styled.div`
-  width: 170px;
+  width: 200px;
   font-size: 12px;
 `
-const DropDownBox = styled.div<{
-  disable: boolean;
-  themeColor: string;
+
+const DropDownBoxContainer = styled.div<{
+  disable: boolean
+  themeColor: string
 }>`
-  border: 1px solid ${(props) => (props.disable ? "#DFDEDD" : props.themeColor)};
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border-radius: 3px;
+  border: 1px solid ${props => (props.disable ? "#DFDEDD" : props.themeColor)};
+  background-color: ${props => (props.disable ? "#F0F0F0" : "white")};
+  cursor: ${props => (props.disable ? "no-drop" : "pointer")};
+`
+const DropDownBox = styled.div<{
+  disable: boolean
+  themeColor: string
+}>`
+  width: 80%;
   height: 34px;
   display: flex;
   align-items: center;
-  border-radius: 3px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
-  cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
+  color: ${props => (props.disable ? "#818282" : "#111111")};
+  background-color: ${props => (props.disable ? "#F0F0F0" : "white")};
+  cursor: ${props => (props.disable ? "no-drop" : "pointer")};
 `
 const DropDownList = styled.div<{
-  isShowList: boolean;
+  disable: boolean
+  isShowList: boolean
 }>`
   width: 100%;
   box-shadow: 0px 3px 6px #d2cbc0;
+  color: ${props => (props.disable ? "#818282" : "#111111")};
   border-radius: 3px;
   padding: 8px 0;
 `
 const DropDownItem = styled.div<{
-  index: number;
-  selected: number;
-  themeColor: string;
+  index: number
+  selected: number
+  themeColor: string
 }>`
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
-  background-color: ${(props) =>
+  background-color: ${props =>
     props.selected == props.index ? "#F0F0F0" : "white"};
   &:hover {
-    background-color: ${(props) =>
+    background-color: ${props =>
     props.selected == props.index ? "#F0F0F0" : props.themeColor};
   }
 `
@@ -52,20 +66,20 @@ const DropDownItemText = styled.p`
 
 export type DropDownType = {
   list: {
-    selectionName: string;
-    icon?: IconType;
-  }[];
-  iconColor: string;
-  selected: number | null;
-  disable: boolean;
+    selectionName: string
+    icon?: IconType
+  }[]
+  iconColor: string
+  selected: number | null
+  disable: boolean
   themeColor: {
-    mainColor: string;
-    subColor: string;
-  };
-  onItemClick: (index: number) => void;
-  className?: string;
-  placeholder?: string;
-};
+    mainColor: string
+    subColor: string
+  }
+  onItemClick: (index: number) => void
+  className?: string
+  placeholder?: string
+}
 
 function DropDown({
   list,
@@ -75,10 +89,10 @@ function DropDown({
   onItemClick,
   className,
   iconColor,
-  placeholder
+  placeholder,
 }: DropDownType): JSX.Element {
-  const [isShowList, setIsShowList] = useState<boolean>(false);
-  const selectionListRef = useRef<HTMLDivElement>(null);
+  const [isShowList, setIsShowList] = useState<boolean>(false)
+  const selectionListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     /**
@@ -103,28 +117,50 @@ function DropDown({
 
   return (
     <DropDownContainer ref={selectionListRef} className={className}>
-      <DropDownBox
+      <DropDownBoxContainer
         onClick={() => {
           setIsShowList(!isShowList)
         }}
         disable={disable}
         themeColor={themeColor.mainColor}
-        data-testid="dropdownbox-testid"
       >
-        {selected !== null ? (
-          <React.Fragment>
-            {list[selected].icon && (
-              <Icon color={iconColor} icon={list[selected].icon} width={18} />
-            )}
-            <DropDownItemText>{list[selected].selectionName}</DropDownItemText>
-          </React.Fragment>
-        ) : (
-          <DropDownItemText>{placeholder}</DropDownItemText>
-        )}
-      </DropDownBox>
+        <DropDownBox
+          onClick={() => {
+            setIsShowList(!isShowList)
+          }}
+          disable={disable}
+          themeColor={themeColor.mainColor}
+          data-testid="dropdownbox-testid"
+        >
+          {selected !== null ? (
+            <React.Fragment>
+              {list[selected].icon && (
+                <Icon
+                  color={disable ? "#818282" : iconColor}
+                  icon={list[selected].icon}
+                  width={18}
+                />
+              )}
+              <DropDownItemText>
+                {list[selected].selectionName}
+              </DropDownItemText>
+            </React.Fragment>
+          ) : (
+            <DropDownItemText>{placeholder}</DropDownItemText>
+          )}
+        </DropDownBox>
+        <Icon
+          color={disable ? "#818282" : iconColor}
+          icon="arrow"
+          useCursor={disable ? false : true}
+          width={18}
+          rotate={!isShowList ? 90 : 270}
+        />
+      </DropDownBoxContainer>
 
       <DropDownList
         isShowList={isShowList}
+        disable={disable}
         style={!isShowList ? { display: "none" } : { opacity: "1" }}
         data-testid="dropdownlist-testid"
       >
@@ -140,7 +176,11 @@ function DropDown({
             }}
           >
             {item.icon && (
-              <Icon color={iconColor} icon={item.icon} width={18} />
+              <Icon
+                color={disable ? "#818282" : iconColor}
+                icon={item.icon}
+                width={18}
+              />
             )}
             <DropDownItemText>{item.selectionName}</DropDownItemText>
           </DropDownItem>

@@ -33,6 +33,18 @@ const InputBox = styled.div<{
         }`
       : ""}
   }
+  &:focus-within {
+    ${props =>
+    !props.disabled
+      ? props.mode == "line"
+        ? `border-bottom: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+        : `border: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+      : ""}
+  }
   display: flex;
   align-items: center;
   width: ${props => props.width}px;
@@ -132,6 +144,7 @@ function Input({
             width={20}
             color="#DFDEDD"
             onClick={onClickCancelButton}
+            useCursor={disabled ? false : true}
           />
         )}
       </InputBox>
