@@ -1,3 +1,10 @@
+# 0.3.15 (2021.03.18)
+
+## Modal
+- modal padding 수정
+- modal button 컬러 추가
+- modal 취소 버튼 호버 컬러 추가
+
 # 0.3.13 (2021.03.17)
 
 ## Input
