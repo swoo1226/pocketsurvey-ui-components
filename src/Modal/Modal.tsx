@@ -31,7 +31,7 @@ const ModalContainer = styled.div<{
   isProgressBar: boolean
 }>`
   width: 460px;
-  padding: 30px;
+  padding: 28px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -66,7 +66,11 @@ const ModalBottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `
-const ModalButton = styled.button<{ backgroundColor: string; color: string }>`
+const ModalButton = styled.button<{
+  backgroundColor: string
+  hoverBackgroundColor: string
+  color: string
+}>`
   width: 86px;
   height: 40px;
   background-color: ${props => props.backgroundColor};
@@ -74,6 +78,9 @@ const ModalButton = styled.button<{ backgroundColor: string; color: string }>`
   border: 0;
   border-radius: 3px;
   margin: 0 2px;
+  &:hover {
+    background-color: ${props => props.hoverBackgroundColor};
+  }
 `
 
 type ModalType = {
@@ -87,6 +94,7 @@ type ModalType = {
   isProgressBar?: boolean
   percent?: number
   barColor?: string
+  buttonColor?: string
 }
 
 function Modal({
@@ -100,6 +108,7 @@ function Modal({
   percent,
   barColor,
   isProgressBar,
+  buttonColor,
 }: ModalType): JSX.Element {
   return (
     <ModalBackground>
@@ -120,13 +129,15 @@ function Modal({
           <ModalBottomButtonContainer>
             <ModalButton
               backgroundColor={"#FFFFFF"}
+              hoverBackgroundColor={"#F0F0F0"}
               color={"#818282"}
               onClick={() => onCancel()}
             >
               취소
             </ModalButton>
             <ModalButton
-              backgroundColor={"#FAC62D"}
+              backgroundColor={buttonColor ? buttonColor : "#FAC62D"}
+              hoverBackgroundColor={buttonColor ? buttonColor : "#FAC62D"}
               color={"#111111"}
               onClick={() => onClick()}
             >
