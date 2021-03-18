@@ -10,7 +10,7 @@ const InputBox = styled.div<{
   mode: "line" | "basic"
   borderColor: string
 }>`
-  padding: 6px ${props => props.width * 0.04}px;
+  padding: 7px ${props => props.width * 0.05}px;
   ${props =>
     `${
       props.mode == "line"
