@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import Icon from "../Icon/Icon"
+import Icon, { IconType } from "../Icon/Icon"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
@@ -86,7 +86,7 @@ export type InputType = {
   onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   onBlur?: () => void
-  iconButton?: string
+  iconButton?: IconType
   onClickCancelButton?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void
