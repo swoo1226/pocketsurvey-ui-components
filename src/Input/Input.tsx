@@ -86,6 +86,7 @@ export type InputType = {
   onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   onBlur?: () => void
+  iconButton?: string
   onClickCancelButton?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void
@@ -109,6 +110,7 @@ function Input({
   onClick,
   onKeyDown,
   onBlur,
+  iconButton,
   onClickCancelButton,
   className,
   borderColor,
@@ -140,7 +142,7 @@ function Input({
         />
         {value && useCancelButton && (
           <Icon
-            icon="exit"
+            icon={iconButton ? iconButton : "exit"}
             width={20}
             color="#818282"
             onClick={onClickCancelButton}
