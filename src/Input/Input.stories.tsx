@@ -10,6 +10,7 @@ import {
 
 import Input from './Input'
 import { Meta } from '@storybook/react/types-6-0'
+import { singleChoice } from '../Icon/svg'
 
 export default {
   component: Input,
@@ -24,12 +25,13 @@ export function Index() {
   const placeholder = text('placeholder', '텍스트를 입력해주세요.')
   const errorMessage = text('errorMessage', '에러메시지')
   const disabled = boolean('disabled', false)
-  const useCancleButton = boolean('useCancleButton', false)
+  const useCancelButton = boolean('useCancelButton', false)
   const isError = boolean('isError', false)
   const mode = select('mode', ['line', 'basic'], 'line')
   const readOnly = boolean('readOnly', false)
   const tabIndex = number('tabIndex', 10)
   const borderColor = color('borderColor', '#FAC609')
+  const iconButton = text('iconButton', 'singleChoice')
   return (
     <Input
       mode={mode}
@@ -40,7 +42,7 @@ export function Index() {
       isError={isError}
       errorMessage={errorMessage}
       disabled={disabled}
-      useCancelButton={useCancleButton}
+      useCancelButton={useCancelButton}
       readOnly={readOnly}
       tabIndex={tabIndex}
       onFocus={() => {
@@ -59,6 +61,7 @@ export function Index() {
         console.log('onKeyDown')
       }}
       borderColor={borderColor}
+      iconButton={iconButton}
     />
   )
 }
