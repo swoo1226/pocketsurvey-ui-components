@@ -1,6 +1,13 @@
+# 0.3.16 (2021.03.23)
+
+## Input
+
+- 원하는 아이콘이 있다면, 해당 아이콘으로 cancelButton 설정
+
 # 0.3.15 (2021.03.18)
 
 ## Modal
+
 - modal padding 수정
 - modal button 컬러 추가
 - modal 취소 버튼 호버 컬러 추가
@@ -8,30 +15,37 @@
 # 0.3.13 (2021.03.17)
 
 ## Input
+
 - input focus일 때 효과 추가
 - Input cancleButton에 cursor 추가
 
 ## DropDown
+
 - dropdown box에 arrow icon 추가
 - disabled일 경우, 아이콘 색상 변경
 
 # 0.3.11 (2021.03.16)
 
 ## Modal
+
 - Modal 배경 추가
 
 ## DropDown
-- placeholder 추가 
+
+- placeholder 추가
 
 ## Icon
+
 - 커서 추가
 
 # 0.3.10 (2021.03.15)
 
 ## Input
+
 - props 추가
 
 ## Textarea
+
 - props추가
 
 # 0.3.9 (2021.03.12)
