@@ -1,3 +1,10 @@
+# 0.3.23 (2021.03.31)
+
+## DropDown
+
+- list item에 hidden이라는 값이 true로 주어지면, 옵션으로 나타내지 않음
+- 숨겨지기만 하므로, list item index는 list 기준으로 각 아이템에 전달됨
+
 # 0.3.21 (2021.03.29)
 
 ## Icon
