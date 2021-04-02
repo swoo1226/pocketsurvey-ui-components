@@ -1,6 +1,15 @@
 import React from "react"
 import styled from "styled-components"
 
+const TestContainer = styled.div<{
+  disabled: boolean
+  width: string
+  height: string
+}>`
+  width: ${props => props.width};
+  height: ${props => props.height};
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+`
 const ButtonContainer = styled.div<{
   width: string
   height: string
@@ -9,17 +18,18 @@ const ButtonContainer = styled.div<{
   hoverBackgroundColor: string
   disabled: boolean
 }>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  font-size: ${(props) => props.fontSize};
-  background-color: ${(props) => props.backgroundColor};
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  width: ${props => props.width};
+  height: ${props => props.height};
+  font-size: ${props => props.fontSize};
+  background-color: ${props =>
+    props.disabled ? "#dfdedd" : props.backgroundColor};
   border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: ${props => (props.disabled ? "none" : "auto")};
   &:hover {
-    background-color: ${(props) => props.hoverBackgroundColor};
+    background-color: ${props => props.hoverBackgroundColor};
   }
 `
 
@@ -35,7 +45,14 @@ export type ButtonType = {
   className?: string
 }
 
-function Button({ children, onClick, theme, size, disabled, className }: ButtonType): JSX.Element {
+function Button({
+  children,
+  onClick,
+  theme,
+  size,
+  disabled,
+  className,
+}: ButtonType): JSX.Element {
   function switchSize(): {
     width: string
     height: string
@@ -97,22 +114,24 @@ function Button({ children, onClick, theme, size, disabled, className }: ButtonT
     }
   }
 
-  const { width,  height, fontSize } = switchSize()
+  const { width, height, fontSize } = switchSize()
   const { backgroundColor, hoverBackgroundColor } = switchTheme()
 
   return (
-    <ButtonContainer
-      width={width}
-      height={height}
-      fontSize={fontSize}
-      onClick={onClick}
-      backgroundColor={backgroundColor}
-      hoverBackgroundColor={hoverBackgroundColor}
-      disabled={disabled}
-      className={className}
-    >
-      {children}
-    </ButtonContainer>
+    <TestContainer width={width} height={height} disabled={disabled}>
+      <ButtonContainer
+        width={width}
+        height={height}
+        fontSize={fontSize}
+        onClick={onClick}
+        backgroundColor={backgroundColor}
+        hoverBackgroundColor={hoverBackgroundColor}
+        disabled={disabled}
+        className={className}
+      >
+        {children}
+      </ButtonContainer>
+    </TestContainer>
   )
 }
 
