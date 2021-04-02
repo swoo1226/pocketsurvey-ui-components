@@ -71,6 +71,7 @@ const ModalButton = styled.button<{
   hoverBackgroundColor: string
   color: string
 }>`
+  cursor: pointer;
   width: 86px;
   height: 40px;
   background-color: ${props => props.backgroundColor};

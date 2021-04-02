@@ -9,17 +9,19 @@ const ButtonContainer = styled.div<{
   hoverBackgroundColor: string
   disabled: boolean
 }>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  font-size: ${(props) => props.fontSize};
-  background-color: ${(props) => props.backgroundColor};
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  width: ${props => props.width};
+  height: ${props => props.height};
+  font-size: ${props => props.fontSize};
+  background-color: ${props =>
+    props.disabled ? "#dfdedd" : props.backgroundColor};
   border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
   &:hover {
-    background-color: ${(props) => props.hoverBackgroundColor};
+    background-color: ${props =>
+    props.disabled ? "#dfdedd" : props.hoverBackgroundColor};
   }
 `
 
@@ -35,7 +37,14 @@ export type ButtonType = {
   className?: string
 }
 
-function Button({ children, onClick, theme, size, disabled, className }: ButtonType): JSX.Element {
+function Button({
+  children,
+  onClick,
+  theme,
+  size,
+  disabled,
+  className,
+}: ButtonType): JSX.Element {
   function switchSize(): {
     width: string
     height: string
@@ -97,7 +106,7 @@ function Button({ children, onClick, theme, size, disabled, className }: ButtonT
     }
   }
 
-  const { width,  height, fontSize } = switchSize()
+  const { width, height, fontSize } = switchSize()
   const { backgroundColor, hoverBackgroundColor } = switchTheme()
 
   return (
@@ -105,7 +114,7 @@ function Button({ children, onClick, theme, size, disabled, className }: ButtonT
       width={width}
       height={height}
       fontSize={fontSize}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       backgroundColor={backgroundColor}
       hoverBackgroundColor={hoverBackgroundColor}
       disabled={disabled}
