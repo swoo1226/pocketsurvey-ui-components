@@ -1,15 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 
-const TestContainer = styled.div<{
-  disabled: boolean
-  width: string
-  height: string
-}>`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-`
 const ButtonContainer = styled.div<{
   width: string
   height: string
@@ -27,9 +18,10 @@ const ButtonContainer = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: ${props => (props.disabled ? "none" : "auto")};
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
   &:hover {
-    background-color: ${props => props.hoverBackgroundColor};
+    background-color: ${props =>
+    props.disabled ? "#dfdedd" : props.hoverBackgroundColor};
   }
 `
 
@@ -118,20 +110,18 @@ function Button({
   const { backgroundColor, hoverBackgroundColor } = switchTheme()
 
   return (
-    <TestContainer width={width} height={height} disabled={disabled}>
-      <ButtonContainer
-        width={width}
-        height={height}
-        fontSize={fontSize}
-        onClick={onClick}
-        backgroundColor={backgroundColor}
-        hoverBackgroundColor={hoverBackgroundColor}
-        disabled={disabled}
-        className={className}
-      >
-        {children}
-      </ButtonContainer>
-    </TestContainer>
+    <ButtonContainer
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      onClick={disabled ? undefined : onClick}
+      backgroundColor={backgroundColor}
+      hoverBackgroundColor={hoverBackgroundColor}
+      disabled={disabled}
+      className={className}
+    >
+      {children}
+    </ButtonContainer>
   )
 }
 
