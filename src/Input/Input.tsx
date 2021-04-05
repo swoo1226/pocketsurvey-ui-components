@@ -44,9 +44,10 @@ const InputBox = styled.div<{
   justify-content: space-between;
   ${(props) => `${props.mode == "line" ? props.disabled && "border-bottom: 1px dashed #dfdedd;" : props.disabled && "background-color: #F0F0F0;"}`}
 `
-const InputElement = styled.input<{ width: number }>`
+const InputElement = styled.input<{ width: number; textColor?: string }>`
   all: unset;
   width: ${(props) => props.width}px;
+  color: ${(props) => props.textColor};
   &::placeholder {
     color: #dfdedd;
   }
@@ -78,6 +79,7 @@ export type InputType = {
   className?: string
   borderColor: string
   autoFocus?: boolean
+  textColor?: string
 }
 
 function Input({
@@ -101,6 +103,7 @@ function Input({
   className,
   borderColor,
   autoFocus = false,
+  textColor,
 }: InputType): JSX.Element {
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
@@ -121,6 +124,7 @@ function Input({
           width={width * 0.9}
           disabled={disabled}
           autoFocus={autoFocus}
+          textColor={disabled ? "#DFDEDD" : textColor}
         />
         {value && useCancelButton && <Icon icon={iconButton ? iconButton : "exit"} width={20} color="#818282" onClick={onClickCancelButton} useCursor={disabled ? false : true} />}
       </InputBox>
