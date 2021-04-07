@@ -1,19 +1,19 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-import Icon, { IconType } from '../Icon/Icon'
+import Icon, { IconType } from "../Icon/Icon"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
   width: number
   disabled: boolean
-  mode: 'line' | 'basic'
+  mode: "line" | "basic"
   borderColor: string
 }>`
   padding: 7px ${props => props.width * 0.05}px;
   ${props =>
     `${
-      props.mode == 'line'
+      props.mode == "line"
         ? `
                 border-bottom: 1px solid #dfdedd;
             `
@@ -23,43 +23,43 @@ const InputBox = styled.div<{
     }`}
   &:hover {
     ${props =>
-      !props.disabled
-        ? props.mode == 'line'
-          ? `border-bottom: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-          : `border: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-        : ''}
+    !props.disabled
+      ? props.mode == "line"
+        ? `border-bottom: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+        : `border: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+      : ""}
   }
   &:focus-within {
     ${props =>
-      !props.disabled
-        ? props.mode == 'line'
-          ? `border-bottom: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-          : `border: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-        : ''}
+    !props.disabled
+      ? props.mode == "line"
+        ? `border-bottom: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+        : `border: 1px solid ${
+          props.disabled ? "#dfdedd" : props.borderColor
+        }`
+      : ""}
   }
   display: flex;
   align-items: center;
   width: ${props => props.width}px;
-  border-radius: ${props => (props.mode == 'line' ? '0px' : '3px')};
+  border-radius: ${props => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
   ${props =>
     `${
-      props.mode == 'line'
-        ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
-        : props.disabled && 'background-color: #F0F0F0;'
+      props.mode == "line"
+        ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
+        : props.disabled && "background-color: #F0F0F0;"
     }`}
 `
 const InputElement = styled.input<{ width: number; textColor?: string }>`
   all: unset;
-  outline: none;
+  border: none;
   width: ${props => props.width}px;
   color: ${props => props.textColor};
   &::placeholder {
@@ -73,7 +73,7 @@ const SubText = styled.p`
 `
 
 export type InputType = {
-  mode: 'line' | 'basic'
+  mode: "line" | "basic"
   placeholder: string
   value: string
   onChange: (value: string) => void
@@ -146,11 +146,11 @@ function Input({
           width={width * 0.9}
           disabled={disabled}
           autoFocus={autoFocus}
-          textColor={disabled ? '#DFDEDD' : textColor}
+          textColor={disabled ? "#DFDEDD" : textColor}
         />
         {value && useCancelButton && (
           <Icon
-            icon={iconButton ? iconButton : 'exit'}
+            icon={iconButton ? iconButton : "exit"}
             width={20}
             color="#818282"
             onClick={onClickCancelButton}
