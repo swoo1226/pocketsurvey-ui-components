@@ -1,5 +1,5 @@
-import React from "react"
-import * as icons from "./svg"
+import React from 'react'
+import * as icons from './svg'
 
 export type IconType = keyof typeof icons
 export const iconTypes: IconType[] = Object.keys(icons) as any[]
@@ -40,9 +40,10 @@ function Icon({
     <SVGIcon
       style={{
         width: `${width}px`,
+        height: `${width}px`,
         transform: `rotate(${rotate}deg)`,
         fill: color,
-        cursor: `${useCursor ? "pointer" : "default"}`,
+        cursor: `${useCursor ? 'pointer' : 'default'}`,
       }}
       className={className}
       onClick={onClick}
