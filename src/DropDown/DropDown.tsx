@@ -163,6 +163,7 @@ function DropDown({
         disable={disable}
         themeColor={themeColor.mainColor}
         zIndex={zIndex}
+        height={height}
       >
         <DropDownBox
           onClick={() => {
