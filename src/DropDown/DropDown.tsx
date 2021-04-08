@@ -21,6 +21,7 @@ const DropDownBoxContainer = styled.div<{
   height: ${(props) => props.height}px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
   border-radius: 3px;
@@ -69,6 +70,7 @@ const DropDownItem = styled.div<{
   height: number;
 }>`
   display: ${(props) => (props.hidden ? "none" : "flex")};
+  height: 32px;
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
