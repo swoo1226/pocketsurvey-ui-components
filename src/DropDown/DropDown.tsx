@@ -15,8 +15,10 @@ const DropDownBoxContainer = styled.div<{
   disable: boolean;
   themeColor: string;
   zIndex: number;
+  height: number;
 }>`
   width: 100%;
+  height: ${(props) => props.height}px;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -49,6 +51,7 @@ const DropDownList = styled.div<{
 }>`
   width: ${(props) => props.width}px;
   z-index: ${(props) => props.zIndex};
+  height: 100%;
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
   color: ${(props) => (props.disable ? "#818282" : "#111111")};
