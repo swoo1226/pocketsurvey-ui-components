@@ -1,70 +1,87 @@
-import React, { useState, useEffect, useRef } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
 
-import Icon, { IconType } from "../Icon/Icon"
+import Icon, { IconType } from "../Icon/Icon";
 
-const DropDownContainer = styled.div`
-  width: 200px;
+const DropDownContainer = styled.div<{
+  width: number;
+}>`
+  width: ${(props) => props.width}px;
   font-size: 12px;
-`
+  text-align: left;
+`;
 
 const DropDownBoxContainer = styled.div<{
-  disable: boolean
-  themeColor: string
+  disable: boolean;
+  themeColor: string;
+  zIndex: number;
+  height: number;
 }>`
   width: 100%;
-  height: 34px;
+  height: ${(props) => props.height}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
   border-radius: 3px;
-  border: 1px solid ${props => (props.disable ? "#DFDEDD" : props.themeColor)};
-  background-color: ${props => (props.disable ? "#F0F0F0" : "white")};
-  cursor: ${props => (props.disable ? "no-drop" : "pointer")};
-`
+  border: 1px solid ${(props) => (props.disable ? "#DFDEDD" : props.themeColor)};
+  background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
+  cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
+  z-index: ${(props) => props.zIndex - 1};
+`;
 const DropDownBox = styled.div<{
-  disable: boolean
-  themeColor: string
+  disable: boolean;
+  themeColor: string;
+  height: number;
 }>`
   width: 80%;
-  height: 32px;
+  height: ${(props) => props.height}px;
   display: flex;
   align-items: center;
-  color: ${props => (props.disable ? "#818282" : "#111111")};
-  background-color: ${props => (props.disable ? "#F0F0F0" : "white")};
-  cursor: ${props => (props.disable ? "no-drop" : "pointer")};
-`
+  color: ${(props) => (props.disable ? "#818282" : "#111111")};
+  background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
+  cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
+`;
 const DropDownList = styled.div<{
-  disable: boolean
-  isShowList: boolean
+  disable: boolean;
+  isShowList: boolean;
+  listLength: number;
+  width: number;
+  zIndex: number;
 }>`
-  width: 100%;
+  width: ${(props) => props.width}px;
+  z-index: ${(props) => props.zIndex};
   height: 100%;
+  position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
-  color: ${props => (props.disable ? "#818282" : "#111111")};
+  color: ${(props) => (props.disable ? "#818282" : "#111111")};
   border-radius: 3px;
   padding: 8px 0;
-`
+  max-height: 200px;
+  overflow-y: auto;
+  background: #ffffff;
+`;
 const DropDownItem = styled.div<{
-  index: number
-  selected: number
-  themeColor: string
-  hidden?: boolean
+  index: number;
+  selected: number;
+  themeColor: string;
+  hidden?: boolean;
+  height: number;
 }>`
-  display: ${props => (props.hidden ? "none" : "flex")};
+  display: ${(props) => (props.hidden ? "none" : "flex")};
   height: 32px;
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
-  background-color: ${props =>
+  height: ${(props) => props.height}px;
+  background-color: ${(props) =>
     props.selected == props.index ? "#F0F0F0" : "white"};
   &:hover {
-    background-color: ${props =>
-    props.selected == props.index ? "#F0F0F0" : props.themeColor};
+    background-color: ${(props) =>
+      props.selected == props.index ? "#F0F0F0" : props.themeColor};
   }
-`
+`;
 const DropDownItemText = styled.p`
   white-space: nowrap;
   overflow: hidden;
@@ -73,25 +90,28 @@ const DropDownItemText = styled.p`
   margin: 0;
   margin-left: 6px;
   text-overflow: ellipsis;
-`
+`;
 
 export type DropDownType = {
   list: {
-    selectionName: string
-    icon?: IconType
-    hidden?: boolean
-  }[]
-  iconColor?: string
-  selected: number | null
-  disable: boolean
+    selectionName: string;
+    icon?: IconType;
+    hidden?: boolean;
+  }[];
+  iconColor?: string;
+  selected: number | null;
+  disable: boolean;
   themeColor: {
-    mainColor: string
-    subColor: string
-  }
-  onItemClick: (index: number) => void
-  className?: string
-  placeholder?: string
-}
+    mainColor: string;
+    subColor: string;
+  };
+  onItemClick: (index: number) => void;
+  className?: string;
+  placeholder?: string;
+  height?: number;
+  width?: number;
+  zIndex?: number;
+};
 
 function DropDown({
   list,
@@ -102,9 +122,12 @@ function DropDown({
   className,
   iconColor,
   placeholder,
+  height = 34,
+  width = 200,
+  zIndex = 20,
 }: DropDownType): JSX.Element {
-  const [isShowList, setIsShowList] = useState<boolean>(false)
-  const selectionListRef = useRef<HTMLDivElement>(null)
+  const [isShowList, setIsShowList] = useState<boolean>(false);
+  const selectionListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     /**
@@ -115,34 +138,41 @@ function DropDown({
         selectionListRef.current &&
         !selectionListRef.current.contains(event.target)
       ) {
-        setIsShowList(false)
+        setIsShowList(false);
       }
     }
 
     // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [selectionListRef])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [selectionListRef]);
 
   return (
-    <DropDownContainer ref={selectionListRef} className={className}>
+    <DropDownContainer
+      ref={selectionListRef}
+      className={className}
+      width={width}
+    >
       <DropDownBoxContainer
         onClick={() => {
-          setIsShowList(!isShowList)
+          setIsShowList(!isShowList);
         }}
         disable={disable}
         themeColor={themeColor.mainColor}
+        zIndex={zIndex}
+        height={height}
       >
         <DropDownBox
           onClick={() => {
-            setIsShowList(!isShowList)
+            setIsShowList(!isShowList);
           }}
           disable={disable}
           themeColor={themeColor.mainColor}
           data-testid="dropdownbox-testid"
+          height={height}
         >
           {selected !== null ? (
             <React.Fragment>
@@ -175,6 +205,9 @@ function DropDown({
         disable={disable}
         style={!isShowList ? { display: "none" } : { opacity: "1" }}
         data-testid="dropdownlist-testid"
+        listLength={list.length}
+        width={width}
+        zIndex={zIndex}
       >
         {list.map((item, index) => (
           <DropDownItem
@@ -183,9 +216,10 @@ function DropDown({
             selected={selected!}
             themeColor={themeColor.subColor}
             onClick={() => {
-              onItemClick(index)
-              setIsShowList(false)
+              onItemClick(index);
+              setIsShowList(false);
             }}
+            height={height}
             hidden={item.hidden}
           >
             {item.icon && (
@@ -200,7 +234,7 @@ function DropDown({
         ))}
       </DropDownList>
     </DropDownContainer>
-  )
+  );
 }
 
-export default DropDown
+export default DropDown;

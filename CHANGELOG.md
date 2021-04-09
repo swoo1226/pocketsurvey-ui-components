@@ -1,3 +1,12 @@
+# 0.3.32 (2021.04.08)
+
+## DropDown
+
+- 드롭다운의 width와 height를 props로 선택적으로 전달받음
+- 값을 지정하지 않는 경우 각각 200px, 34px을 기본으로 함
+- 드롭다운 리스트가 열렸을 경우 position abolute
+- z index를 props로 선택적으로 받음
+
 # 0.3.31 (2021.04.07)
 
 ## DropDown
