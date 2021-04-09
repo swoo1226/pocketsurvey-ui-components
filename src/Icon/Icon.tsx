@@ -40,6 +40,7 @@ function Icon({
     <SVGIcon
       style={{
         width: `${width}px`,
+        height: `${width}px`,
         transform: `rotate(${rotate}deg)`,
         fill: color,
         cursor: `${useCursor ? "pointer" : "default"}`,

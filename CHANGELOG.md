@@ -1,3 +1,17 @@
+# 0.3.31 (2021.04.07)
+
+## DropDown
+
+- ie 환경 대응하기 위해 각 내부 요소에 height 부여
+
+## Input
+
+- ie 환경에 대응하기 위해 input 요소에 outline none 적용
+
+## Icon
+
+- ie 환경에 대응하기 위해 svg 가로세로 1:1 비율에 맞추어 icon에 width와 같은 값으로 height 부여
+
 # 0.3.25 (2021.04.02)
 
 ## Modal
