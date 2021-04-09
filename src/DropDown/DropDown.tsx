@@ -40,7 +40,7 @@ const DropDownBox = styled.div<{
   display: flex;
   align-items: center;
   color: ${(props) => (props.disable ? "#818282" : "#111111")};
-  background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
+  background-color: ${(props) => (props.disable ? "#F0F0F0" : undefined)};
   cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
 `;
 const DropDownList = styled.div<{
@@ -49,10 +49,11 @@ const DropDownList = styled.div<{
   listLength: number;
   width: number;
   zIndex: number;
+  height: number;
 }>`
   width: ${(props) => props.width}px;
   z-index: ${(props) => props.zIndex};
-  height: 100%;
+  height: ${(props) => props.listLength * props.height}px;
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
   color: ${(props) => (props.disable ? "#818282" : "#111111")};
@@ -70,7 +71,6 @@ const DropDownItem = styled.div<{
   height: number;
 }>`
   display: ${(props) => (props.hidden ? "none" : "flex")};
-  height: 32px;
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
@@ -208,6 +208,7 @@ function DropDown({
         listLength={list.length}
         width={width}
         zIndex={zIndex}
+        height={height}
       >
         {list.map((item, index) => (
           <DropDownItem
