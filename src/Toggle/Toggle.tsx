@@ -1,13 +1,11 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 const ToggleContainer = styled.div<{
-  backgroundColor: string
-  hoveredBackgroundColor: string
-  isToggleOn: boolean
+  backgroundColor: string;
+  hoveredBackgroundColor: string;
+  isToggleOn: boolean;
 }>`
-  display: flex;
-  align-items: center;
   background-color: ${(props) => props.backgroundColor};
   width: 50px;
   height: 30px;
@@ -16,28 +14,41 @@ const ToggleContainer = styled.div<{
   border-radius: 50rem;
   position: relative;
   &:hover {
-    ${(props) => (!props.isToggleOn ? `background-color: ${props.hoveredBackgroundColor}` : "")};
+    ${(props) =>
+      !props.isToggleOn
+        ? `background-color: ${props.hoveredBackgroundColor}`
+        : ""};
   }
-`
+`;
 const ToggleButton = styled.div<{ isToggleOn: boolean }>`
   width: 24px;
   height: 24px;
   transition: 0.2s;
   background-color: #fff;
   border-radius: 50%;
+  margin: auto;
   position: absolute;
-  ${(props) => (props.isToggleOn ? "left : 23px;" : "left: 3px;")}
-`
+  top: 0;
+  bottom: 0;
+  right: 0;
+  ${(props) => (props.isToggleOn ? "left : 20px;" : "left: -20px;")}
+`;
 
 type ToggleType = {
-  toggleOnBackgroundColor: string
-  hoveredBackgroundColor: string
-  isToggleOn: boolean
-  setIsToggleOn: (isToggleOn: boolean) => void
-  className?: string
-}
+  toggleOnBackgroundColor: string;
+  hoveredBackgroundColor: string;
+  isToggleOn: boolean;
+  setIsToggleOn: (isToggleOn: boolean) => void;
+  className?: string;
+};
 
-function Toggle({ toggleOnBackgroundColor, hoveredBackgroundColor, isToggleOn, setIsToggleOn, className }: ToggleType): JSX.Element {
+function Toggle({
+  toggleOnBackgroundColor,
+  hoveredBackgroundColor,
+  isToggleOn,
+  setIsToggleOn,
+  className,
+}: ToggleType): JSX.Element {
   return (
     <ToggleContainer
       backgroundColor={isToggleOn ? toggleOnBackgroundColor : "#d6d6d6"}
@@ -49,7 +60,7 @@ function Toggle({ toggleOnBackgroundColor, hoveredBackgroundColor, isToggleOn, s
     >
       <ToggleButton isToggleOn={isToggleOn} />
     </ToggleContainer>
-  )
+  );
 }
 
-export default Toggle
+export default Toggle;
