@@ -34,12 +34,14 @@ describe("체크 랭킹 컴포넌트 테스트", () => {
   })
 
   it("마지막 선택지 선택 취소", async () => {
+    //[3] => []
     const { getByTestId } = renderResult
     userEvent.click(getByTestId("CheckRanking-3"))
     expect(selected).toEqual([])
   })
 
   it("새로운 선택지 선택", async () => {
+    //[] => [2] => [2,1]
     const { getByTestId } = renderResult
     userEvent.click(getByTestId("CheckRanking-2"))
     userEvent.click(getByTestId("CheckRanking-1"))
@@ -47,7 +49,7 @@ describe("체크 랭킹 컴포넌트 테스트", () => {
   })
 
   it("선택지 삭제 및 선택", async () => {
-    // 1 => 3 => 0 => 2 =>  1취소 => 0 취소
+    //[] => [1] => [1,3] => [1,3,0] => [1,3,0,2] => [3,0,2] => [3,2]
 
     const { getByTestId } = renderResult
     selected = []
@@ -57,7 +59,6 @@ describe("체크 랭킹 컴포넌트 테스트", () => {
     await userEvent.click(getByTestId("CheckRanking-2"))
     await userEvent.click(getByTestId("CheckRanking-1"))
     await userEvent.click(getByTestId("CheckRanking-0"))
-    console.log("selected:", selected)
     expect(selected).toEqual([3, 2])
   })
 })
