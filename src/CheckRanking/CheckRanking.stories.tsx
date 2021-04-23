@@ -11,10 +11,8 @@ export default {
 } as Meta;
 
 export function Single() {
-  const [selected, setSelected] = useState([]);
-  useEffect(() => {
-    console.log("selected:", selected);
-  }, [selected]);
+  const [selected, setSelected] = useState([3]);
+
   return (
     <CheckRanking
       selections={[
@@ -25,7 +23,6 @@ export function Single() {
       ]}
       selected={selected}
       onItemClick={(index: number) => {
-        console.log(index);
         if (selected.includes(index)) {
           setSelected(selected.filter((item) => item != index));
         } else {
