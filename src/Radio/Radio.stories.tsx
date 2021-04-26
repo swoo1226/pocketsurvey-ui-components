@@ -11,9 +11,8 @@ export default {
 } as Meta;
 
 export function Single() {
-  const selected = text("selected", "apple");
   const name = text("name", "radio-1");
-
+  const selected = number("selected", 1);
   return (
     <Radio
       name={name}
@@ -27,10 +26,9 @@ export function Single() {
 }
 
 export function Multiple() {
-  const radio1Selected = text("radio1Selected", "mango");
+  const selected1 = number("selected1", 1);
   const radio1Name = text("radio1Name", "radio-1");
-
-  const radio2Selected = text("radio2Selected", "포도");
+  const selected2 = number("selected2", 0);
   const radio2Name = text("radio2Name", "radio-2");
 
   return (
@@ -38,7 +36,7 @@ export function Multiple() {
       <Radio
         name={radio1Name}
         selections={[{ label: "apple" }, { label: "mango" }]}
-        selected={radio1Selected}
+        selected={selected1}
         onItemClick={(index: number) =>
           alert(`radio-1 ${index}번째 라디오 선택지를 선택함`)
         }
@@ -47,7 +45,7 @@ export function Multiple() {
       <Radio
         name={radio2Name}
         selections={[{ label: "포도" }, { label: "얼그레이" }]}
-        selected={radio2Selected}
+        selected={selected2}
         onItemClick={(index: number) =>
           alert(`radio-2 ${index}번째 라디오 선택지를 선택함`)
         }

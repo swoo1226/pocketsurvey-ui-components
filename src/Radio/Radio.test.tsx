@@ -4,6 +4,10 @@ import "@testing-library/jest-dom"
 import { render, RenderResult, waitFor, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
+interface HTMLElementHasChecked extends HTMLElement {
+  checked: string;
+}
+
 describe("라디오 테스트", () => {
   let renderResult: RenderResult
   beforeEach(() => {
@@ -36,8 +40,8 @@ describe("라디오 테스트", () => {
     jest.spyOn(window, "alert").mockImplementation()
     userEvent.click(radioItem)
     await waitFor(() => {
-      expect(radiobtn).toHaveAttribute("checked", "")
-      expect(radiobtn).toHaveStyle("border: 4px solid #f2ab28")
+      expect((radiobtn as HTMLElementHasChecked).checked).toEqual("checked")
+      expect(radiobtn).toHaveStyle("box-shadow: 0 0 0 4px #f2ab28 inset;")
     })
     afterEach(cleanup)
   })
