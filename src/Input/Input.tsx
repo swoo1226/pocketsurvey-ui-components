@@ -96,6 +96,7 @@ export type InputType = {
   borderColor: string
   autoFocus?: boolean
   textColor?: string
+  buttonAlways?: boolean
 }
 
 function Input({
@@ -120,7 +121,14 @@ function Input({
   borderColor,
   autoFocus = false,
   textColor,
+  buttonAlways,
 }: InputType): JSX.Element {
+  const showButton = () => {
+    if ((value && useCancelButton) || buttonAlways) {
+      return true
+    }
+    return false
+  }
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
       <InputBox
@@ -148,7 +156,7 @@ function Input({
           autoFocus={autoFocus}
           textColor={disabled ? "#DFDEDD" : textColor}
         />
-        {value && useCancelButton && (
+        {showButton() && (
           <Icon
             icon={iconButton ? iconButton : "exit"}
             width={20}
