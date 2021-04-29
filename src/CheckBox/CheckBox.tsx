@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 
-const CheckBoxImage = styled.svg`
+const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
   fill: none;
-  stroke: white;
+  stroke: ${(props) => (props.disabled ? "#DFDEDD" : "#FFFFFF")};
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.5px;
@@ -76,7 +76,7 @@ function CheckBox({
                 checked={selected.includes(index)}
                 disabled={disabled}
               >
-                <CheckBoxImage viewBox="0 0 11.51 10.81">
+                <CheckBoxImage viewBox="0 0 11.51 10.81" disabled={disabled}>
                   <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
                 </CheckBoxImage>
               </CheckBoxSelectionItem>
