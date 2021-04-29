@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect, useRef } from "react"
+import styled from "styled-components"
 
-import Icon, { IconType } from "../Icon/Icon";
+import Icon, { IconType } from "../Icon/Icon"
 
 const DropDownContainer = styled.div<{
   width: number;
@@ -9,7 +9,7 @@ const DropDownContainer = styled.div<{
   width: ${(props) => props.width}px;
   font-size: 12px;
   text-align: left;
-`;
+`
 
 const DropDownBoxContainer = styled.div<{
   disable: boolean;
@@ -29,7 +29,7 @@ const DropDownBoxContainer = styled.div<{
   background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
   cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
   z-index: ${(props) => props.zIndex - 1};
-`;
+`
 const DropDownBox = styled.div<{
   disable: boolean;
   themeColor: string;
@@ -42,7 +42,7 @@ const DropDownBox = styled.div<{
   color: ${(props) => (props.disable ? "#818282" : "#111111")};
   background-color: ${(props) => (props.disable ? "#F0F0F0" : undefined)};
   cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
-`;
+`
 const DropDownList = styled.div<{
   disable: boolean;
   isShowList: boolean;
@@ -62,7 +62,7 @@ const DropDownList = styled.div<{
   max-height: 200px;
   overflow-y: auto;
   background: #ffffff;
-`;
+`
 const DropDownItem = styled.div<{
   index: number;
   selected: number;
@@ -79,9 +79,9 @@ const DropDownItem = styled.div<{
     props.selected == props.index ? "#F0F0F0" : "white"};
   &:hover {
     background-color: ${(props) =>
-      props.selected == props.index ? "#F0F0F0" : props.themeColor};
+    props.selected == props.index ? "#F0F0F0" : props.themeColor};
   }
-`;
+`
 const DropDownItemText = styled.p`
   white-space: nowrap;
   overflow: hidden;
@@ -90,7 +90,7 @@ const DropDownItemText = styled.p`
   margin: 0;
   margin-left: 6px;
   text-overflow: ellipsis;
-`;
+`
 
 export type DropDownType = {
   list: {
@@ -126,8 +126,8 @@ function DropDown({
   width = 200,
   zIndex = 20,
 }: DropDownType): JSX.Element {
-  const [isShowList, setIsShowList] = useState<boolean>(false);
-  const selectionListRef = useRef<HTMLDivElement>(null);
+  const [isShowList, setIsShowList] = useState<boolean>(false)
+  const selectionListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     /**
@@ -138,17 +138,17 @@ function DropDown({
         selectionListRef.current &&
         !selectionListRef.current.contains(event.target)
       ) {
-        setIsShowList(false);
+        setIsShowList(false)
       }
     }
 
     // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside)
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [selectionListRef]);
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [selectionListRef])
 
   return (
     <DropDownContainer
@@ -158,7 +158,7 @@ function DropDown({
     >
       <DropDownBoxContainer
         onClick={() => {
-          setIsShowList(!isShowList);
+          setIsShowList(!isShowList)
         }}
         disable={disable}
         themeColor={themeColor.mainColor}
@@ -167,7 +167,7 @@ function DropDown({
       >
         <DropDownBox
           onClick={() => {
-            setIsShowList(!isShowList);
+            setIsShowList(!isShowList)
           }}
           disable={disable}
           themeColor={themeColor.mainColor}
@@ -217,8 +217,8 @@ function DropDown({
             selected={selected!}
             themeColor={themeColor.subColor}
             onClick={() => {
-              onItemClick(index);
-              setIsShowList(false);
+              onItemClick(index)
+              setIsShowList(false)
             }}
             height={height}
             hidden={item.hidden}
@@ -235,7 +235,7 @@ function DropDown({
         ))}
       </DropDownList>
     </DropDownContainer>
-  );
+  )
 }
 
-export default DropDown;
+export default DropDown

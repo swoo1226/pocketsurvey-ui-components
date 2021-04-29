@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 
-const CheckBoxImage = styled.svg`
+const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
   fill: none;
-  stroke: white;
+  stroke: ${(props) => (props.disabled ? "#DFDEDD" : "#FFFFFF")};
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.5px;
@@ -17,15 +17,28 @@ const CheckBoxItem = styled.div`
 const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
 `
-const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
-  width: 18px;
-  height: 18px;
+const CheckBoxSelectionItem = styled.div<{
+  checked: boolean;
+  disabled?: boolean;
+}>`
+  width: 21px;
+  height: 21px;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 2px;
-  background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
+  border: ${(props) =>
+    props.disabled
+      ? "1px solid #DFDEDD"
+      : props.checked
+        ? ""
+        : "1px solid #DFDEDD"};
+
+  background-color: ${(props) =>
+    props.disabled ? "#F0F0F0" : props.checked ? "#f2ab28" : "#FFFFFF"};
   &:hover {
-    ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
+    ${(props) =>
+    props.disabled ? "" : props.checked ? "" : "border: 1px solid #f2ab28;"};
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
   ${CheckBoxImage} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
@@ -34,22 +47,37 @@ const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
 
 export type CheckBoxType = {
   selections: {
-    label: string
-  }[]
-  selected: number[]
-  onItemClick: (index: number) => void
-  className?: string
-}
+    label: string;
+  }[];
+  selected: number[];
+  onItemClick: (index: number) => void;
+  className?: string;
+  disabled?: boolean;
+};
 
-function CheckBox({ selections, selected, onItemClick, className }: CheckBoxType): JSX.Element {
+function CheckBox({
+  selections,
+  selected,
+  onItemClick,
+  className,
+  disabled,
+}: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
-            <CheckBoxItem key={index} onClick={() => onItemClick(index)} data-testid="checkbox-item">
-              <CheckBoxSelectionItem data-testid={`checkbox-${index}`} checked={selected.includes(index)}>
-                <CheckBoxImage viewBox="0 0 11.51 10.81">
+            <CheckBoxItem
+              key={index}
+              onClick={() => (disabled ? null : onItemClick(index))}
+              data-testid="checkbox-item"
+            >
+              <CheckBoxSelectionItem
+                data-testid={`checkbox-${index}`}
+                checked={selected.includes(index)}
+                disabled={disabled}
+              >
+                <CheckBoxImage viewBox="0 0 11.51 10.81" disabled={disabled}>
                   <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
                 </CheckBoxImage>
               </CheckBoxSelectionItem>
