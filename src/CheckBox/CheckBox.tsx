@@ -38,6 +38,7 @@ const CheckBoxSelectionItem = styled.div<{
   &:hover {
     ${(props) =>
     props.disabled ? "" : props.checked ? "" : "border: 1px solid #f2ab28;"};
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
   ${CheckBoxImage} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
@@ -68,7 +69,7 @@ function CheckBox({
           return (
             <CheckBoxItem
               key={index}
-              onClick={() => onItemClick(index)}
+              onClick={() => (disabled ? null : onItemClick(index))}
               data-testid="checkbox-item"
             >
               <CheckBoxSelectionItem
