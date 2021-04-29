@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
 const ToggleContainer = styled.div<{
   backgroundColor: string;
@@ -15,11 +15,11 @@ const ToggleContainer = styled.div<{
   position: relative;
   &:hover {
     ${(props) =>
-      !props.isToggleOn
-        ? `background-color: ${props.hoveredBackgroundColor}`
-        : ""};
+    !props.isToggleOn
+      ? `background-color: ${props.hoveredBackgroundColor}`
+      : ""};
   }
-`;
+`
 const ToggleButton = styled.div<{ isToggleOn: boolean }>`
   width: 24px;
   height: 24px;
@@ -32,7 +32,7 @@ const ToggleButton = styled.div<{ isToggleOn: boolean }>`
   bottom: 0;
   right: 0;
   ${(props) => (props.isToggleOn ? "left : 20px;" : "left: -20px;")}
-`;
+`
 
 type ToggleType = {
   toggleOnBackgroundColor: string;
@@ -60,7 +60,7 @@ function Toggle({
     >
       <ToggleButton isToggleOn={isToggleOn} />
     </ToggleContainer>
-  );
+  )
 }
 
-export default Toggle;
+export default Toggle
