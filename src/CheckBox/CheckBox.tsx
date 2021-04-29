@@ -17,17 +17,27 @@ const CheckBoxItem = styled.div`
 const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
 `
-const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
+const CheckBoxSelectionItem = styled.div<{
+  checked: boolean;
+  disabled?: boolean;
+}>`
   width: 21px;
   height: 21px;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 2px;
-  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
+  border: ${(props) =>
+    props.disabled
+      ? "1px solid #DFDEDD"
+      : props.checked
+        ? ""
+        : "1px solid #DFDEDD"};
 
-  background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
+  background-color: ${(props) =>
+    props.disabled ? "#F0F0F0" : props.checked ? "#f2ab28" : "#FFFFFF"};
   &:hover {
-    ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
+    ${(props) =>
+    props.disabled ? "" : props.checked ? "" : "border: 1px solid #f2ab28;"};
   }
   ${CheckBoxImage} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
@@ -41,6 +51,7 @@ export type CheckBoxType = {
   selected: number[];
   onItemClick: (index: number) => void;
   className?: string;
+  disabled?: boolean;
 };
 
 function CheckBox({
@@ -48,6 +59,7 @@ function CheckBox({
   selected,
   onItemClick,
   className,
+  disabled,
 }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
@@ -62,6 +74,7 @@ function CheckBox({
               <CheckBoxSelectionItem
                 data-testid={`checkbox-${index}`}
                 checked={selected.includes(index)}
+                disabled={disabled}
               >
                 <CheckBoxImage viewBox="0 0 11.51 10.81">
                   <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
