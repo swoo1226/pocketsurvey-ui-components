@@ -18,11 +18,13 @@ const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
 `
 const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
-  width: 18px;
-  height: 18px;
+  width: 21px;
+  height: 21px;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 2px;
+  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
+
   background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
   &:hover {
     ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
@@ -34,21 +36,33 @@ const CheckBoxSelectionItem = styled.div<{ checked: boolean }>`
 
 export type CheckBoxType = {
   selections: {
-    label: string
-  }[]
-  selected: number[]
-  onItemClick: (index: number) => void
-  className?: string
-}
+    label: string;
+  }[];
+  selected: number[];
+  onItemClick: (index: number) => void;
+  className?: string;
+};
 
-function CheckBox({ selections, selected, onItemClick, className }: CheckBoxType): JSX.Element {
+function CheckBox({
+  selections,
+  selected,
+  onItemClick,
+  className,
+}: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
       <CheckBoxList>
         {selections.map((item, index) => {
           return (
-            <CheckBoxItem key={index} onClick={() => onItemClick(index)} data-testid="checkbox-item">
-              <CheckBoxSelectionItem data-testid={`checkbox-${index}`} checked={selected.includes(index)}>
+            <CheckBoxItem
+              key={index}
+              onClick={() => onItemClick(index)}
+              data-testid="checkbox-item"
+            >
+              <CheckBoxSelectionItem
+                data-testid={`checkbox-${index}`}
+                checked={selected.includes(index)}
+              >
                 <CheckBoxImage viewBox="0 0 11.51 10.81">
                   <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
                 </CheckBoxImage>
