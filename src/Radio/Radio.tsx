@@ -12,19 +12,28 @@ const RadioItem = styled.div`
 const RadioSelectionLabel = styled.div`
   box-sizing: border-box;
 `
-const RadioSelectionItem = styled.span<{ checked: string }>`
+const RadioSelectionItem = styled.span<{
+  checked: "checked" | "notChecked";
+  disabled?: boolean;
+}>`
   margin: 0;
   width: 20px;
   height: 20px;
   margin-right: 14px;
   border-radius: 50%;
+  background-color: ${(props) => (props.disabled ? "#F0F0F0" : "")};
   box-shadow: ${(props) =>
-    props.checked === "checked"
-      ? "0 0 0 4px #f2ab28 inset"
-      : "0 0 0 4px #dfdedd inset"};
+    props.disabled
+      ? props.checked === "checked"
+        ? "0 0 0 4px #DFDEDD inset"
+        : "0 0 0 1px #DFDEDD inset"
+      : props.checked === "checked"
+        ? "0 0 0 4px #f2ab28 inset"
+        : "0 0 0 1px #dfdedd inset"};
   &:hover {
-    cursor: pointer;
-    box-shadow: 0 0 0 4px #f2ab28 inset;
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+    box-shadow: ${(props) =>
+    props.disabled ? "" : "0 0 0 1px #f2ab28 inset;"};
   }
 `
 
@@ -36,6 +45,7 @@ export type RadioType = {
   selected: string;
   onItemClick: (index: number) => void;
   className?: string;
+  disabled?: boolean;
 };
 
 function Radio({
@@ -43,6 +53,7 @@ function Radio({
   selected,
   onItemClick,
   className,
+  disabled,
 }: RadioType): JSX.Element {
   return (
     <RadioContainer className={className}>
@@ -51,8 +62,9 @@ function Radio({
           return (
             <RadioItem key={index} data-testid={`radio-item-${index}`}>
               <RadioSelectionItem
-                onClick={() => onItemClick(index)}
+                onClick={() => (disabled ? null : onItemClick(index))}
                 checked={selected === item.label ? "checked" : "notChecked"}
+                disabled={disabled}
                 data-testid={`radio-selection-item-${index}`}
               />
               <RadioSelectionLabel>{item.label}</RadioSelectionLabel>
