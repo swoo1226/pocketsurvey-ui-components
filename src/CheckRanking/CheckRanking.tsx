@@ -11,28 +11,25 @@ const CheckRankingSelectionLabel = styled.label`
   margin-left: 14px;
 `
 const CheckRankingSelectionItem = styled.div<{ checked: boolean }>`
-  width: 18px;
-  height: 18px;
+  width: 21px;
+  height: 21px;
   border-radius: 3px;
   box-sizing: border-box;
-  padding: 2px;
 
   vertical-align: middle;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 4px;
 
+  padding-top: 3px;
   background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
-  border: ${(props) => (props.checked ? "" : "0.5px solid rgba(0, 0, 0, 0.3)")};
+  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
 
   &:hover {
     ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
   }
 
-  p {
-    color: #fff;
-  }
+  color: #ffffff;
 `
 
 export type CheckRankingType = {
@@ -64,9 +61,9 @@ function CheckRanking({
                 data-testid={`CheckRanking-${index}`}
                 checked={selected.includes(index)}
               >
-                {selected.indexOf(index) !== -1 ? (
-                  <p>{selected.indexOf(index)}</p>
-                ) : null}
+                {selected.indexOf(index) !== -1
+                  ? selected.indexOf(index)
+                  : null}
               </CheckRankingSelectionItem>
               <CheckRankingSelectionLabel>
                 {item.label}
