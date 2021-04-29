@@ -33,7 +33,11 @@ const RadioSelectionItem = styled.span<{
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
     box-shadow: ${(props) =>
-    props.disabled ? "" : "0 0 0 1px #f2ab28 inset;"};
+    props.disabled
+      ? ""
+      : props.checked === "checked"
+        ? "0 0 0 4px #f2ab28 inset;"
+        : "0 0 0 1px #f2ab28 inset;"};
   }
 `
 
