@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 import Radio from "./Radio";
@@ -11,18 +11,19 @@ export default {
 } as Meta;
 
 export function Single() {
-  const selected = text("selected", "apple");
+  const [selected, setSelected] = useState<string>("apple"); // const selected = text("selected", "apple");
   const name = text("name", "radio-1");
   const disabled = boolean("disabled", false);
+  const selections = [{ label: "apple" }, { label: "mango" }];
 
   return (
     <Radio
       name={name}
-      selections={[{ label: "apple" }, { label: "mango" }]}
+      selections={selections}
       selected={selected}
       disabled={disabled}
-      onItemClick={(index: number) =>
-        alert(`radio-1 ${index}번째 라디오 선택지를 선택함`)
+      onItemClick={(index: number | null) =>
+        index === null ? setSelected("") : setSelected(selections[index].label)
       }
     />
   );
