@@ -22,11 +22,11 @@ const CheckRankingSelectionItem = styled.div<{ checked: boolean }>`
   justify-content: center;
 
   padding-top: 3px;
-  background-color: ${(props) => (props.checked ? "#f2ab28" : "#FFFFFF")};
-  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
+  background-color: ${props => (props.checked ? "#f2ab28" : "#FFFFFF")};
+  border: ${props => (props.checked ? "" : "1px solid #DFDEDD")};
 
   &:hover {
-    ${(props) => (props.checked ? "" : "border: 1px solid #f2ab28;")};
+    ${props => (props.checked ? "" : "border: 1px solid #f2ab28;")};
   }
 
   color: #ffffff;
@@ -34,12 +34,12 @@ const CheckRankingSelectionItem = styled.div<{ checked: boolean }>`
 
 export type CheckRankingType = {
   selections: {
-    label: string;
-  }[];
-  selected: number[];
-  onItemClick: (index: number) => void;
-  className?: string;
-};
+    label: string
+  }[]
+  selected: number[]
+  onItemClick: (index: number) => void
+  className?: string
+}
 
 function CheckRanking({
   selections,
@@ -54,15 +54,15 @@ function CheckRanking({
           return (
             <CheckRankingItem
               key={index}
-              onClick={() => onItemClick(index)}
+              onClick={() => onItemClick(index + 1)}
               data-testid="CheckRanking-item"
             >
               <CheckRankingSelectionItem
                 data-testid={`CheckRanking-${index}`}
-                checked={selected.includes(index)}
+                checked={selected.includes(index + 1)}
               >
-                {selected.indexOf(index) !== -1
-                  ? selected.indexOf(index)
+                {selected.indexOf(index + 1) !== -1
+                  ? selected.indexOf(index + 1) + 1
                   : null}
               </CheckRankingSelectionItem>
               <CheckRankingSelectionLabel>
