@@ -25,6 +25,7 @@ export function Single() {
       onItemClick={(index: number | null) =>
         index === null ? setSelected("") : setSelected(selections[index].label)
       }
+      itemWidth="100%"
     />
   );
 }
@@ -45,6 +46,7 @@ export function Multiple() {
         onItemClick={(index: number) =>
           alert(`radio-1 ${index}번째 라디오 선택지를 선택함`)
         }
+        itemWidth='200px'
       />
 
       <Radio
@@ -54,6 +56,7 @@ export function Multiple() {
         onItemClick={(index: number) =>
           alert(`radio-2 ${index}번째 라디오 선택지를 선택함`)
         }
+        itemWidth='200px'
       />
     </div>
   );
