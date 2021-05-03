@@ -46,8 +46,8 @@ export type RadioType = {
   selections: {
     label: string;
   }[];
-  selected: string;
-  onItemClick: (index: number) => void;
+  selected: string | null;
+  onItemClick: (index: number | null) => void;
   className?: string;
   disabled?: boolean;
 };
@@ -59,6 +59,21 @@ function Radio({
   className,
   disabled,
 }: RadioType): JSX.Element {
+  const onItemClickWrapper = (index: number) => {
+    if (disabled) return
+    const prev: number | null = selected
+      ? selections.map((item) => item.label).indexOf(selected)
+      : null
+    //기존에 선택한 선택지의 인덱스를 가져온다.
+    //선택한 인덱스가 없다면 null, 비 정상적인 접근으로 selections 에 값이 없다면 -1 (정상적인 접근에서는 없는 케이스)
+
+    if (prev === index) {
+      //선택 해제
+      onItemClick(null)
+    } else {
+      onItemClick(index)
+    }
+  }
   return (
     <RadioContainer className={className}>
       <RadioList>
@@ -66,7 +81,7 @@ function Radio({
           return (
             <RadioItem key={index} data-testid={`radio-item-${index}`}>
               <RadioSelectionItem
-                onClick={() => (disabled ? null : onItemClick(index))}
+                onClick={() => onItemClickWrapper(index)}
                 checked={selected === item.label ? "checked" : "notChecked"}
                 disabled={disabled}
                 data-testid={`radio-selection-item-${index}`}
