@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 
 const ScaleSelectionWrapper = styled.div`
   width: 660px;
@@ -76,6 +76,7 @@ function ScaleSelection({
           (item, index) => {
             return (
               <NumberSlectionItem
+                data-testid={`item-${index}`}
                 onClick={() =>
                   index === selected ? onItemClick(null) : onItemClick(index)
                 }
