@@ -3,14 +3,22 @@ import styled from "styled-components"
 
 const RadioContainer = styled.div``
 const RadioList = styled.div``
-const RadioItem = styled.div`
+const RadioItem = styled.div<{ itemWidth: string, hoverBackColor?: string }>`
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 7px;
   height: 20px;
+  width: ${(props) => props.itemWidth};
+  padding: 7px;
+  &:hover{
+    background-color: ${(props)=>props.hoverBackColor};
+  }
 `
 const RadioSelectionLabel = styled.div`
+  display:flex;
+  height: 20px;
   box-sizing: border-box;
+  align-items:center;
 `
 const RadioSelectionItem = styled.span<{
   checked: "checked" | "notChecked";
@@ -21,7 +29,7 @@ const RadioSelectionItem = styled.span<{
   height: 20px;
   margin-right: 14px;
   border-radius: 50%;
-  background-color: ${(props) => (props.disabled ? "#F0F0F0" : "")};
+  background-color: ${(props) => (props.disabled ? "#F0F0F0" : "#FFFFFF")};
   box-shadow: ${(props) =>
     props.disabled
       ? props.checked === "checked"
@@ -50,6 +58,8 @@ export type RadioType = {
   onItemClick: (index: number | null) => void;
   className?: string;
   disabled?: boolean;
+  itemWidth: string;
+  hoverBackColor?: string;
 };
 
 function Radio({
@@ -58,6 +68,8 @@ function Radio({
   onItemClick,
   className,
   disabled,
+  itemWidth,
+  hoverBackColor="#F0F0F0"
 }: RadioType): JSX.Element {
   const onItemClickWrapper = (index: number) => {
     if (disabled) return
@@ -79,7 +91,7 @@ function Radio({
       <RadioList>
         {selections.map((item, index) => {
           return (
-            <RadioItem key={index} data-testid={`radio-item-${index}`}>
+            <RadioItem key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} hoverBackColor={hoverBackColor}>
               <RadioSelectionItem
                 onClick={() => onItemClickWrapper(index)}
                 checked={selected === item.label ? "checked" : "notChecked"}
