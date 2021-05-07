@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 
-const ScaleSelectionWrapper = styled.div`
-  width: 660px;
+const ScaleSelectionWrapper = styled.div<{width: string}>`
+  width: ${(props)=> props.width};
 `
 
 const NumberSlection = styled.div`
@@ -54,6 +54,7 @@ const Label = styled.p<{ right?: boolean }>`
 `
 
 type ScaleSelectionPropsType = {
+  width: string;
   leftLabel: string;
   rightLabel: string;
   selectionLength: number;
@@ -62,6 +63,7 @@ type ScaleSelectionPropsType = {
 };
 
 function ScaleSelection({
+  width,
   leftLabel,
   rightLabel,
   selectionLength,
@@ -69,7 +71,7 @@ function ScaleSelection({
   onItemClick,
 }: ScaleSelectionPropsType): JSX.Element {
   return (
-    <ScaleSelectionWrapper>
+    <ScaleSelectionWrapper width={width}>
       <NumberSlection>
         {Array.from({ length: selectionLength }, (_, i) => i + 1).map(
           //[1,2,3,4,5 ... n]
