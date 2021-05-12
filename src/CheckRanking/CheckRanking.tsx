@@ -10,13 +10,13 @@ const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: b
   &:hover{
     background-color: #F0F0F0;
   }
-  ${props => props.isFocusBackgroundFunc && props.checked ? `background-color: #F0F0F0;` : ''}
+  ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
   border-radius: 3px;
 `
 const CheckRankingSelectionLabel = styled.label`
   margin-left: 14px;
 `
-const CheckRankingSelectionItem = styled.div<{ checked: boolean }>`
+const CheckRankingSelectionItem = styled.div<{ checked: boolean, backgroundColor?: string }>`
   width: 21px;
   height: 21px;
   border-radius: 3px;
@@ -28,11 +28,11 @@ const CheckRankingSelectionItem = styled.div<{ checked: boolean }>`
   justify-content: center;
 
   padding-top: 3px;
-  background-color: ${props => (props.checked ? "#f2ab28" : "#FFFFFF")};
+  background-color: ${props => (props.checked ? props.backgroundColor ??"#f2ab28" : "#FFFFFF")};
   border: ${props => (props.checked ? "" : "1px solid #DFDEDD")};
 
   &:hover {
-    ${props => (props.checked ? "" : "border: 1px solid #f2ab28;")};
+    ${props => (props.checked ? "" : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`)};
   }
 
   color: #ffffff;
@@ -45,7 +45,8 @@ export type CheckRankingType = {
   selected: number[]
   onItemClick: (index: number) => void
   className?: string
-  isFocusBackgroundFunc?: boolean 
+  isFocusBackgroundFunc?: boolean
+  backgroundColor?: string;
 }
 
 function CheckRanking({
@@ -54,6 +55,7 @@ function CheckRanking({
   onItemClick,
   className,
   isFocusBackgroundFunc=false,
+  backgroundColor
 }: CheckRankingType): JSX.Element {
   return (
     <CheckRankingContainer className={className}>
@@ -70,6 +72,7 @@ function CheckRanking({
               <CheckRankingSelectionItem
                 data-testid={`CheckRanking-${index}`}
                 checked={selected.includes(index + 1)}
+                backgroundColor={backgroundColor}
               >
                 {selected.indexOf(index + 1) !== -1
                   ? selected.indexOf(index + 1) + 1
