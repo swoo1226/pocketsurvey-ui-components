@@ -3,9 +3,15 @@ import styled from "styled-components"
 
 const CheckRankingContainer = styled.div``
 const CheckRankingList = styled.div``
-const CheckRankingItem = styled.div`
+const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
   margin-bottom: 14px;
+  padding: 10px 7px;
+  &:hover{
+    background-color: #F0F0F0;
+  }
+  ${props => props.isFocusBackgroundFunc && props.checked ? `background-color: #F0F0F0;` : ''}
+  border-radius: 3px;
 `
 const CheckRankingSelectionLabel = styled.label`
   margin-left: 14px;
@@ -39,6 +45,7 @@ export type CheckRankingType = {
   selected: number[]
   onItemClick: (index: number) => void
   className?: string
+  isFocusBackgroundFunc?: boolean 
 }
 
 function CheckRanking({
@@ -46,6 +53,7 @@ function CheckRanking({
   selected,
   onItemClick,
   className,
+  isFocusBackgroundFunc=false,
 }: CheckRankingType): JSX.Element {
   return (
     <CheckRankingContainer className={className}>
@@ -56,6 +64,8 @@ function CheckRanking({
               key={index}
               onClick={() => onItemClick(index + 1)}
               data-testid="CheckRanking-item"
+              isFocusBackgroundFunc={isFocusBackgroundFunc}
+              checked={selected.includes(index + 1)}
             >
               <CheckRankingSelectionItem
                 data-testid={`CheckRanking-${index}`}
