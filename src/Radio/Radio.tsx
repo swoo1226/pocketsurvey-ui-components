@@ -13,7 +13,7 @@ const RadioItem = styled.div<{ itemWidth: string, isFocusBackgroundFunc: boolean
   &:hover{
     background-color: #F0F0F0;
   }
-  ${props => props.isFocusBackgroundFunc && props.checked ? `background-color: #F0F0F0;` : ''}
+  ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
   border-radius: 3px;
 `
 const RadioSelectionLabel = styled.div`
@@ -25,6 +25,7 @@ const RadioSelectionLabel = styled.div`
 const RadioSelectionItem = styled.span<{
   checked: "checked" | "notChecked";
   disabled?: boolean;
+  backgroundColor?: string
 }>`
   margin: 0;
   width: 21px;
@@ -39,7 +40,7 @@ const RadioSelectionItem = styled.span<{
         ? "0 0 0 5px #DFDEDD inset"
         : "0 0 0 1px #DFDEDD inset"
       : props.checked === "checked"
-        ? "0 0 0 5px #f2ab28 inset"
+        ? `0 0 0 5px ${props.backgroundColor ?? "#f2ab28"} inset`
         : "0 0 0 1px #dfdedd inset"};
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -47,8 +48,8 @@ const RadioSelectionItem = styled.span<{
     props.disabled
       ? ""
       : props.checked === "checked"
-        ? "0 0 0 5px #f2ab28 inset;"
-        : "0 0 0 1px #f2ab28 inset;"};
+        ? `0 0 0 5px ${props.backgroundColor ?? "#f2ab28"} inset;`
+        : `0 0 0 1px ${props.backgroundColor ?? "#f2ab28"} inset;`};
   }
 `
 
@@ -63,6 +64,7 @@ export type RadioType = {
   disabled?: boolean;
   itemWidth: string;
   isFocusBackgroundFunc?: boolean;
+  backgroundColor?: string;
 };
 
 function Radio({
@@ -73,6 +75,7 @@ function Radio({
   disabled,
   itemWidth,
   isFocusBackgroundFunc=false,
+  backgroundColor,
 }: RadioType): JSX.Element {
   const onItemClickWrapper = (index: number) => {
     if (disabled) return
@@ -94,12 +97,13 @@ function Radio({
       <RadioList>
         {selections.map((item, index) => {
           return (
-            <RadioItem key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} isFocusBackgroundFunc={isFocusBackgroundFunc} checked={selected === item.label} >
+            <RadioItem key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} isFocusBackgroundFunc={isFocusBackgroundFunc} checked={selected === item.label}>
               <RadioSelectionItem
                 onClick={() => onItemClickWrapper(index)}
                 checked={selected === item.label ? "checked" : "notChecked"}
                 disabled={disabled}
                 data-testid={`radio-selection-item-${index}`}
+                backgroundColor={backgroundColor}
               />
               <RadioSelectionLabel>{item.label}</RadioSelectionLabel>
             </RadioItem>

@@ -16,6 +16,7 @@ export function Single() {
   const disabled = boolean("disabled", false);
   const selections = [{ label: "apple" }, { label: "mango" }];
 
+  const backgroundColor = text("backgroundColor", "#FAC62D")
   return (
     <Radio
       name={name}
@@ -27,6 +28,7 @@ export function Single() {
       }
       itemWidth="100%"
       isFocusBackgroundFunc={true}
+      backgroundColor={backgroundColor}
     />
   );
 }
@@ -37,6 +39,7 @@ export function Multiple() {
 
   const radio2Selected = text("radio2Selected", "포도");
   const radio2Name = text("radio2Name", "radio-2");
+
 
   return (
     <div>
