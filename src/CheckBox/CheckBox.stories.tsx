@@ -26,6 +26,7 @@ export function Single() {
           setSelected([...selected, index]);
         }
       }}
+      isFocusBackgroundFunc={true}
     />
   );
 }
