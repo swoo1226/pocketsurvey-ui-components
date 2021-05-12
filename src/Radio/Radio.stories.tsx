@@ -26,6 +26,7 @@ export function Single() {
         index === null ? setSelected("") : setSelected(selections[index].label)
       }
       itemWidth="100%"
+      isFocusBackgroundFunc={true}
     />
   );
 }
@@ -47,6 +48,7 @@ export function Multiple() {
           alert(`radio-1 ${index}번째 라디오 선택지를 선택함`)
         }
         itemWidth='200px'
+        isFocusBackgroundFunc={true}
       />
 
       <Radio
@@ -57,6 +59,7 @@ export function Multiple() {
           alert(`radio-2 ${index}번째 라디오 선택지를 선택함`)
         }
         itemWidth='200px'
+        isFocusBackgroundFunc={true}
       />
     </div>
   );

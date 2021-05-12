@@ -10,9 +10,15 @@ const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
 `
 const CheckBoxContainer = styled.div``
 const CheckBoxList = styled.div``
-const CheckBoxItem = styled.div`
+const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
   margin-bottom: 14px;
+  padding: 10px 7px;
+  &:hover{
+    background-color: #F0F0F0;
+  }
+  ${props => props.isFocusBackgroundFunc && props.checked ? `background-color: #F0F0F0;` : ''}
+  border-radius: 3px;
 `
 const CheckBoxSelectionLabel = styled.label`
   margin-left: 14px;
@@ -53,6 +59,7 @@ export type CheckBoxType = {
   onItemClick: (index: number) => void;
   className?: string;
   disabled?: boolean;
+  isFocusBackgroundFunc?: boolean;
 };
 
 function CheckBox({
@@ -61,6 +68,7 @@ function CheckBox({
   onItemClick,
   className,
   disabled,
+  isFocusBackgroundFunc,
 }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
@@ -71,6 +79,8 @@ function CheckBox({
               key={index}
               onClick={() => (disabled ? null : onItemClick(index))}
               data-testid="checkbox-item"
+              isFocusBackgroundFunc={isFocusBackgroundFunc}
+              checked={selected.includes(index)}
             >
               <CheckBoxSelectionItem
                 data-testid={`checkbox-${index}`}
