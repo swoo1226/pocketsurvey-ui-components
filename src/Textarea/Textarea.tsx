@@ -79,9 +79,10 @@ type TextareaPropsType = {
 function Textarea({ type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols, borderColor }: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size)
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type)
-
+  
   return (
-    <TextareaContainer
+    <TextareaContainer 
+      autoFocus
       fontStyle={fontStyle}
       borderStyle={borderStyle}
       onChange={(e) => onChange(e.target.value)}
