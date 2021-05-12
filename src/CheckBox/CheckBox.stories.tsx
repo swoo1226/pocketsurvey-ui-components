@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 
 import CheckBox from "./CheckBox";
 import { Meta } from "@storybook/react/types-6-0";
@@ -13,6 +13,7 @@ export default {
 export function Single() {
   const [selected, setSelected] = useState([1]);
   const disabled = boolean("disabled", false);
+  const backgroundColor = text("backgroundColor", "#f2ab28")
   return (
     <CheckBox
       selections={[{ label: "apple" }, { label: "mango" }]}
@@ -27,6 +28,7 @@ export function Single() {
         }
       }}
       isFocusBackgroundFunc={true}
+      backgroundColor={backgroundColor}
     />
   );
 }

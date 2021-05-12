@@ -16,6 +16,7 @@ export function ScaleSelectionStory() {
   const rightLabel = text("rightLabel", "추천할게요");
   const selectionLength = number("selectionLength", 11);
   const width = text("width", "660px");
+  const backgroundColor = text("backgroundColor", "#FAC62D")
   return (
     <ScaleSelection
       leftLabel={leftLabel}
@@ -26,6 +27,7 @@ export function ScaleSelectionStory() {
         setSelected(index);
       }}
       width={width}
+      backgroundColor={backgroundColor}
     />
   );
 }

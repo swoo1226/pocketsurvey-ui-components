@@ -27,6 +27,7 @@ export type ButtonType = {
   theme: ThemeType
   disabled: boolean
   className?: string
+  backgroundColor?: string
 }
 
 function Button({
@@ -35,42 +36,49 @@ function Button({
   theme,
   disabled,
   className,
+  backgroundColor
 }: ButtonType): JSX.Element {
   function switchTheme(): {
-    backgroundColor: string
-    hoverBackgroundColor: string
+    innerBackgroundColor: string
+    innerHoverBackgroundColor: string
     } {
+    if(backgroundColor){
+      return {
+        innerBackgroundColor: backgroundColor,
+        innerHoverBackgroundColor: backgroundColor,
+      }
+    }
     switch (theme) {
     case "primary":
       return {
-        backgroundColor: "#FAC62D",
-        hoverBackgroundColor: "#F0BD05",
+        innerBackgroundColor: "#FAC62D",
+        innerHoverBackgroundColor: "#F0BD05",
       }
     case "secondary":
       return {
-        backgroundColor: "#E9E1D5",
-        hoverBackgroundColor: "#E3D9CA",
+        innerBackgroundColor: "#E9E1D5",
+        innerHoverBackgroundColor: "#E3D9CA",
       }
     case "tertiary":
       return {
-        backgroundColor: "#F0F0F0",
-        hoverBackgroundColor: "#EBEBEB",
+        innerBackgroundColor: "#F0F0F0",
+        innerHoverBackgroundColor: "#EBEBEB",
       }
     default:
       return {
-        backgroundColor: "#FAC62D",
-        hoverBackgroundColor: "#F0BD05",
+        innerBackgroundColor: "#FAC62D",
+        innerHoverBackgroundColor: "#F0BD05",
       }
     }
   }
 
-  const { backgroundColor, hoverBackgroundColor } = switchTheme()
+  const { innerBackgroundColor, innerHoverBackgroundColor } = switchTheme()
 
   return (
     <ButtonContainer
       onClick={disabled ? undefined : onClick}
-      backgroundColor={backgroundColor}
-      hoverBackgroundColor={hoverBackgroundColor}
+      backgroundColor={innerBackgroundColor}
+      hoverBackgroundColor={innerHoverBackgroundColor}
       disabled={disabled}
       className={className}
     >
