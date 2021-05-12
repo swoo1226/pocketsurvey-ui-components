@@ -17,7 +17,7 @@ const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boole
   &:hover{
     background-color: #F0F0F0;
   }
-  ${props => props.isFocusBackgroundFunc && props.checked ? `background-color: #F0F0F0;` : ''}
+  ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
   border-radius: 3px;
 `
 const CheckBoxSelectionLabel = styled.label`
@@ -26,6 +26,7 @@ const CheckBoxSelectionLabel = styled.label`
 const CheckBoxSelectionItem = styled.div<{
   checked: boolean;
   disabled?: boolean;
+  backgroundColor?: string;
 }>`
   width: 21px;
   height: 21px;
@@ -40,10 +41,10 @@ const CheckBoxSelectionItem = styled.div<{
         : "1px solid #DFDEDD"};
 
   background-color: ${(props) =>
-    props.disabled ? "#F0F0F0" : props.checked ? "#f2ab28" : "#FFFFFF"};
+    props.disabled ? "#F0F0F0" : props.checked ? props.backgroundColor ?? "#f2ab28" : "#FFFFFF"};
   &:hover {
     ${(props) =>
-    props.disabled ? "" : props.checked ? "" : "border: 1px solid #f2ab28;"};
+    props.disabled ? "" : props.checked ? "" : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`};
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
   ${CheckBoxImage} {
@@ -60,6 +61,7 @@ export type CheckBoxType = {
   className?: string;
   disabled?: boolean;
   isFocusBackgroundFunc?: boolean;
+  backgroundColor?: string;
 };
 
 function CheckBox({
@@ -69,6 +71,7 @@ function CheckBox({
   className,
   disabled,
   isFocusBackgroundFunc,
+  backgroundColor
 }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
@@ -86,6 +89,7 @@ function CheckBox({
                 data-testid={`checkbox-${index}`}
                 checked={selected.includes(index)}
                 disabled={disabled}
+                backgroundColor={backgroundColor}
               >
                 <CheckBoxImage viewBox="0 0 11.51 10.81" disabled={disabled}>
                   <polyline points="1.25 5.92 4.19 9.56 10.26 1.25" />
