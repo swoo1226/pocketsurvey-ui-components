@@ -25,18 +25,19 @@ const RadioSelectionItem = styled.span<{
   disabled?: boolean;
 }>`
   margin: 0;
-  width: 20px;
-  height: 20px;
+  width: 21px;
+  height: 21px;
   margin-right: 14px;
   border-radius: 50%;
+  cursor: pointer;
   background-color: ${(props) => (props.disabled ? "#F0F0F0" : "#FFFFFF")};
   box-shadow: ${(props) =>
     props.disabled
       ? props.checked === "checked"
-        ? "0 0 0 4px #DFDEDD inset"
+        ? "0 0 0 5px #DFDEDD inset"
         : "0 0 0 1px #DFDEDD inset"
       : props.checked === "checked"
-        ? "0 0 0 4px #f2ab28 inset"
+        ? "0 0 0 5px #f2ab28 inset"
         : "0 0 0 1px #dfdedd inset"};
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -44,7 +45,7 @@ const RadioSelectionItem = styled.span<{
     props.disabled
       ? ""
       : props.checked === "checked"
-        ? "0 0 0 4px #f2ab28 inset;"
+        ? "0 0 0 5px #f2ab28 inset;"
         : "0 0 0 1px #f2ab28 inset;"};
   }
 `
