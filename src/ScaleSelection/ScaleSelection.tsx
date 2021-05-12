@@ -19,6 +19,7 @@ const NumberSlectionItem = styled.div<{
   isLast: boolean;
   isBeforeSelected: boolean;
   selected: boolean;
+  backgroundColor?: string
 }>`
   font-family: 14px;
   padding: 0px;
@@ -28,7 +29,7 @@ const NumberSlectionItem = styled.div<{
   align-items: center;
   justify-content: center;
   color: #2B2E33;
-  background: ${(props) => (props.selected ? "#FAC62D" : "")};
+  background: ${(props) => (props.selected ? props.backgroundColor ?? "#FAC62D" : "")};
 
   ${(props) => props.isFirst && "border-radius: 3px 0px 0px 3px;"}
   ${(props) =>
@@ -37,10 +38,10 @@ const NumberSlectionItem = styled.div<{
 
   border: 1px solid #DFDEDD;
   border-right: ${(props) => (props.isLast ? "1px solid #DFDEDD" : "none")};
-  ${(props) => (props.isBeforeSelected ? "border-left-color: #FAC62D;" : "")}
-  ${(props) => (props.selected ? "border-color: #FAC62D;" : "")}
+  ${(props) => (props.isBeforeSelected ? `border-left-color: ${props.backgroundColor ?? "#FAC62D"};` : "")}
+  ${(props) => (props.selected ? `border-color: ${props.backgroundColor ?? "#FAC62D"};` : "")}
   &:hover {
-    background: ${(props) => (props.selected ? "#FAC62D" : "#F0F0F0")};
+    background: ${(props) => (props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0")};
   }
 `
 const Label = styled.p<{ right?: boolean }>`
@@ -60,6 +61,7 @@ type ScaleSelectionPropsType = {
   selectionLength: number;
   selected: number | null;
   onItemClick: (index: number | null) => void;
+  backgroundColor?: string;
 };
 
 function ScaleSelection({
@@ -69,6 +71,7 @@ function ScaleSelection({
   selectionLength,
   selected,
   onItemClick,
+  backgroundColor
 }: ScaleSelectionPropsType): JSX.Element {
   return (
     <ScaleSelectionWrapper width={width}>
@@ -89,6 +92,7 @@ function ScaleSelection({
                   selected !== null ? index === selected + 1 : false
                 }
                 selected={index === selected}
+                backgroundColor={backgroundColor}
               >
                 {item}
               </NumberSlectionItem>
