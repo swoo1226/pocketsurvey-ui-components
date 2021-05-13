@@ -44,14 +44,29 @@ const NumberSlectionItem = styled.div<{
     background: ${(props) => (props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0")};
   }
 `
-const Label = styled.p<{ right?: boolean }>`
+const LeftLabel = styled.p`
   display: inline-block;
-  ${(props) => (props.right ? "float: right" : "")};
   font-size: 12px;
   color: #818282;
   font-family: Noto Sans CJK KR;
   font-weight: 400;
   margin-top: 7px;
+  width: 40%;
+  word-break:keep-all;
+  float:left;
+`
+
+const RightLabel = styled.p<{ right?: boolean }>`
+  display: inline-block;
+  font-size: 12px;
+  color: #818282;
+  font-family: Noto Sans CJK KR;
+  font-weight: 400;
+  margin-top: 7px;
+  width: 40%;
+  word-break:keep-all;
+  text-align: right;
+  float:right;
 `
 
 type ScaleSelectionPropsType = {
@@ -101,8 +116,8 @@ function ScaleSelection({
         )}
       </NumberSlection>
 
-      <Label>{leftLabel}</Label>
-      <Label right={true}>{rightLabel}</Label>
+      <LeftLabel>{leftLabel}</LeftLabel>
+      <RightLabel right={true}>{rightLabel}</RightLabel>
     </ScaleSelectionWrapper>
   )
 }
