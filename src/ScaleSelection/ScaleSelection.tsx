@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "styled-components"
+import styled, {css} from "styled-components"
 
 const ScaleSelectionWrapper = styled.div<{width: string}>`
   width: ${(props)=> props.width};
@@ -19,9 +19,9 @@ const NumberSlectionItem = styled.div<{
   isLast: boolean;
   isBeforeSelected: boolean;
   selected: boolean;
-  backgroundColor?: string
+  backgroundColor?: string;
+  itemExtendCSS?:string
 }>`
-  font-family: 14px;
   padding: 0px;
   width: 100%;
   height: 35px;
@@ -43,8 +43,9 @@ const NumberSlectionItem = styled.div<{
   &:hover {
     background: ${(props) => (props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0")};
   }
+  ${(props)=> props.itemExtendCSS && css`${props.itemExtendCSS}`}
 `
-const LeftLabel = styled.p`
+const Label = styled.label<{ right?: boolean }>`
   display: inline-block;
   font-size: 12px;
   color: #818282;
@@ -53,20 +54,8 @@ const LeftLabel = styled.p`
   margin-top: 7px;
   width: 40%;
   word-break:keep-all;
-  float:left;
-`
-
-const RightLabel = styled.p<{ right?: boolean }>`
-  display: inline-block;
-  font-size: 12px;
-  color: #818282;
-  font-family: Noto Sans CJK KR;
-  font-weight: 400;
-  margin-top: 7px;
-  width: 40%;
-  word-break:keep-all;
-  text-align: right;
-  float:right;
+  float: ${(props)=>props.right ? "right":"left"};
+  ${(props)=> props.right && "text-align: right;"}
 `
 
 type ScaleSelectionPropsType = {
@@ -77,6 +66,7 @@ type ScaleSelectionPropsType = {
   selected: number | null;
   onItemClick: (index: number | null) => void;
   backgroundColor?: string;
+  itemExtendCSS?: string
 };
 
 function ScaleSelection({
@@ -86,13 +76,13 @@ function ScaleSelection({
   selectionLength,
   selected,
   onItemClick,
-  backgroundColor
+  backgroundColor,
+  itemExtendCSS
 }: ScaleSelectionPropsType): JSX.Element {
   return (
     <ScaleSelectionWrapper width={width}>
       <NumberSlection>
         {Array.from({ length: selectionLength }, (_, i) => i + 1).map(
-          //[1,2,3,4,5 ... n]
           (item, index) => {
             return (
               <NumberSlectionItem
@@ -108,6 +98,7 @@ function ScaleSelection({
                 }
                 selected={index === selected}
                 backgroundColor={backgroundColor}
+                itemExtendCSS={itemExtendCSS}
               >
                 {item}
               </NumberSlectionItem>
@@ -116,8 +107,8 @@ function ScaleSelection({
         )}
       </NumberSlection>
 
-      <LeftLabel>{leftLabel}</LeftLabel>
-      <RightLabel right={true}>{rightLabel}</RightLabel>
+      <Label>{leftLabel}</Label>
+      <Label right={true}>{rightLabel}</Label>
     </ScaleSelectionWrapper>
   )
 }
