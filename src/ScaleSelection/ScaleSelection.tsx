@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 
-const ScaleSelectionWrapper = styled.div<{width: string}>`
-  width: ${(props)=> props.width};
+const ScaleSelectionWrapper = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
 `
 
 const NumberSlection = styled.div`
@@ -19,9 +19,11 @@ const NumberSlectionItem = styled.div<{
   isLast: boolean;
   isBeforeSelected: boolean;
   selected: boolean;
-  backgroundColor?: string
+  backgroundColor?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontColor?: string;
 }>`
-  font-family: 14px;
   padding: 0px;
   width: 100%;
   height: 35px;
@@ -29,34 +31,32 @@ const NumberSlectionItem = styled.div<{
   align-items: center;
   justify-content: center;
   color: #2B2E33;
-  background: ${(props) => (props.selected ? props.backgroundColor ?? "#FAC62D" : "")};
+  background: ${(props) =>
+    props.selected ? props.backgroundColor ?? "#FAC62D" : ""};
 
   ${(props) => props.isFirst && "border-radius: 3px 0px 0px 3px;"}
-  ${(props) =>
-    props.isLast &&
-    "border-radius: 0px 3px 3px 0px;"}
+  ${(props) => props.isLast && "border-radius: 0px 3px 3px 0px;"}
 
   border: 1px solid #DFDEDD;
   border-right: ${(props) => (props.isLast ? "1px solid #DFDEDD" : "none")};
-  ${(props) => (props.isBeforeSelected ? `border-left-color: ${props.backgroundColor ?? "#FAC62D"};` : "")}
-  ${(props) => (props.selected ? `border-color: ${props.backgroundColor ?? "#FAC62D"};` : "")}
+  ${(props) =>
+    props.isBeforeSelected
+      ? `border-left-color: ${props.backgroundColor ?? "#FAC62D"};`
+      : ""}
+  ${(props) =>
+    props.selected
+      ? `border-color: ${props.backgroundColor ?? "#FAC62D"};`
+      : ""}
   &:hover {
-    background: ${(props) => (props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0")};
+    background: ${(props) =>
+    props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0"};
   }
-`
-const LeftLabel = styled.p`
-  display: inline-block;
-  font-size: 12px;
-  color: #818282;
-  font-family: Noto Sans CJK KR;
-  font-weight: 400;
-  margin-top: 7px;
-  width: 40%;
-  word-break:keep-all;
-  float:left;
-`
 
-const RightLabel = styled.p<{ right?: boolean }>`
+  ${(props) => props.fontFamily && `font-family: ${props.fontFamily};`}
+  ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
+  ${(props) => props.fontColor && `color: #${props.fontColor};`}
+`
+const Label = styled.label<{ right?: boolean; fontSize?: string }>`
   display: inline-block;
   font-size: 12px;
   color: #818282;
@@ -64,9 +64,10 @@ const RightLabel = styled.p<{ right?: boolean }>`
   font-weight: 400;
   margin-top: 7px;
   width: 40%;
-  word-break:keep-all;
-  text-align: right;
-  float:right;
+  word-break: keep-all;
+  float: ${(props) => (props.right ? "right" : "left")};
+  ${(props) => props.right && "text-align: right;"}
+  ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
 `
 
 type ScaleSelectionPropsType = {
@@ -77,7 +78,15 @@ type ScaleSelectionPropsType = {
   selected: number | null;
   onItemClick: (index: number | null) => void;
   backgroundColor?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontColor?: string;
 };
+
+const labelFontSize = (fontSize: string) => {
+  //fontSize => 숫자px 형식
+  return `${parseInt(fontSize.replace("px", ""), 10)-2}px`
+}
 
 function ScaleSelection({
   width,
@@ -86,13 +95,15 @@ function ScaleSelection({
   selectionLength,
   selected,
   onItemClick,
-  backgroundColor
+  backgroundColor,
+  fontFamily,
+  fontSize,
+  fontColor,
 }: ScaleSelectionPropsType): JSX.Element {
   return (
     <ScaleSelectionWrapper width={width}>
       <NumberSlection>
         {Array.from({ length: selectionLength }, (_, i) => i + 1).map(
-          //[1,2,3,4,5 ... n]
           (item, index) => {
             return (
               <NumberSlectionItem
@@ -108,6 +119,9 @@ function ScaleSelection({
                 }
                 selected={index === selected}
                 backgroundColor={backgroundColor}
+                fontFamily={fontFamily}
+                fontSize={fontSize}
+                fontColor={fontColor}
               >
                 {item}
               </NumberSlectionItem>
@@ -116,8 +130,25 @@ function ScaleSelection({
         )}
       </NumberSlection>
 
-      <LeftLabel>{leftLabel}</LeftLabel>
-      <RightLabel right={true}>{rightLabel}</RightLabel>
+      <Label
+        fontSize={
+          fontSize !== undefined
+            ? labelFontSize(fontSize)
+            : undefined
+        }
+      >
+        {leftLabel}
+      </Label>
+      <Label
+        fontSize={
+          fontSize !== undefined
+            ? labelFontSize(fontSize)
+            : undefined
+        }
+        right={true}
+      >
+        {rightLabel}
+      </Label>
     </ScaleSelectionWrapper>
   )
 }

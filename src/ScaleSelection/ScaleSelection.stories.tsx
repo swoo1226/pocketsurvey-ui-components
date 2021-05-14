@@ -3,7 +3,7 @@ import { withKnobs, text, number } from "@storybook/addon-knobs";
 
 import ScaleSelection from "./ScaleSelection";
 import { Meta } from "@storybook/react/types-6-0";
-
+import styled from 'styled-components'
 export default {
   component: ScaleSelection,
   title: "Components/ScaleSelection",
@@ -17,6 +17,7 @@ export function ScaleSelectionStory() {
   const selectionLength = number("selectionLength", 11);
   const width = text("width", "660px");
   const backgroundColor = text("backgroundColor", "#FAC62D")
+
   return (
     <ScaleSelection
       leftLabel={leftLabel}
@@ -28,6 +29,9 @@ export function ScaleSelectionStory() {
       }}
       width={width}
       backgroundColor={backgroundColor}
+      // fontFamily="Noto Serif KR Bold"
+      // fontSize="18px"
+      // fontColor="fff000"
     />
   );
 }
