@@ -7,7 +7,7 @@ const ButtonContainer = styled.div<{
   disabled: boolean
 }>`
   width: fit-content;
-  padding: 10px 28px;
+  padding: 14px 28px;
   background-color: ${props =>
     props.disabled ? "#dfdedd" : props.backgroundColor};
   border-radius: 3px;

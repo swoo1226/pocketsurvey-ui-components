@@ -24,6 +24,7 @@ const NumberSlectionItem = styled.div<{
   fontSize?: string;
   fontColor?: string;
 }>`
+  cursor: pointer;
   padding: 0px;
   width: 100%;
   height: 35px;

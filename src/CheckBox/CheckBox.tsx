@@ -21,6 +21,7 @@ const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boole
   border-radius: 3px;
 `
 const CheckBoxSelectionLabel = styled.label`
+  align-items: center;
   margin-left: 14px;
 `
 const CheckBoxSelectionItem = styled.div<{

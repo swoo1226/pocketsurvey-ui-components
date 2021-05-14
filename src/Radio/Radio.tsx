@@ -3,12 +3,12 @@ import styled from "styled-components"
 
 const RadioContainer = styled.div``
 const RadioList = styled.div``
-const RadioItem = styled.div<{ itemWidth: string, isFocusBackgroundFunc: boolean, checked: boolean }>`
+const RadioItem = styled.div<{ itemWidth?: string, isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 7px;
   height: 20px;
-  width: ${(props) => props.itemWidth};
+  ${(props) => props.itemWidth && `width: ${props.itemWidth};`}
   padding: 10px 7px;
   &:hover{
     background-color: #F0F0F0;
@@ -62,7 +62,7 @@ export type RadioType = {
   onItemClick: (index: number | null) => void;
   className?: string;
   disabled?: boolean;
-  itemWidth: string;
+  itemWidth?: string;
   isFocusBackgroundFunc?: boolean;
   backgroundColor?: string;
 };
@@ -97,7 +97,7 @@ function Radio({
       <RadioList>
         {selections.map((item, index) => {
           return (
-            <RadioItem key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} isFocusBackgroundFunc={isFocusBackgroundFunc} checked={selected === item.label}>
+            <RadioItem  onClick={() => onItemClickWrapper(index)} key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} isFocusBackgroundFunc={isFocusBackgroundFunc} checked={selected === item.label}>
               <RadioSelectionItem
                 onClick={() => onItemClickWrapper(index)}
                 checked={selected === item.label ? "checked" : "notChecked"}
