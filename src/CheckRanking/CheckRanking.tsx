@@ -5,6 +5,7 @@ const CheckRankingContainer = styled.div``
 const CheckRankingList = styled.div``
 const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
+  align-items: center;
   margin-bottom: 14px;
   padding: 10px 7px;
   &:hover{

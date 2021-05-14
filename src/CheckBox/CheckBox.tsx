@@ -12,6 +12,7 @@ const CheckBoxContainer = styled.div``
 const CheckBoxList = styled.div``
 const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
+  align-items: center;
   margin-bottom: 14px;
   padding: 10px 7px;
   &:hover{
@@ -21,7 +22,6 @@ const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boole
   border-radius: 3px;
 `
 const CheckBoxSelectionLabel = styled.label`
-  align-items: center;
   margin-left: 14px;
 `
 const CheckBoxSelectionItem = styled.div<{
