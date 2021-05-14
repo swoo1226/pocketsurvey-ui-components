@@ -11,6 +11,7 @@ const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
 const CheckBoxContainer = styled.div``
 const CheckBoxList = styled.div``
 const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   margin-bottom: 14px;
