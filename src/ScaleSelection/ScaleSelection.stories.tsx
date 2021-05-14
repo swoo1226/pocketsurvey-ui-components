@@ -29,9 +29,9 @@ export function ScaleSelectionStory() {
       }}
       width={width}
       backgroundColor={backgroundColor}
-      // itemExtendCSS={
-      //   `color: red;`
-      // }
+      // fontFamily="Noto Serif KR Bold"
+      // fontSize="18px"
+      // fontColor="fff000"
     />
   );
 }
