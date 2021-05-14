@@ -16,7 +16,7 @@ const RadioItem = styled.div<{ itemWidth: string, isFocusBackgroundFunc: boolean
   ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
   border-radius: 3px;
 `
-const RadioSelectionLabel = styled.div`
+const RadioSelectionLabel = styled.label`
   display:flex;
   height: 20px;
   box-sizing: border-box;
