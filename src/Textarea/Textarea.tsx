@@ -82,7 +82,6 @@ function Textarea({ type, size, onChange, className, value, tabIndex, readOnly =
   
   return (
     <TextareaContainer 
-      autoFocus
       fontStyle={fontStyle}
       borderStyle={borderStyle}
       onChange={(e) => onChange(e.target.value)}
