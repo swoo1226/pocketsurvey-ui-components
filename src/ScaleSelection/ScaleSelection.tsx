@@ -58,9 +58,10 @@ const NumberSlectionItem = styled.div<{
   ${(props) => props.fontColor && `color: #${props.fontColor};`}
 `
 
-const LabelContainer = styled.div`
+const LabelContainer = styled.div<{showLabel: boolean}>`
   display: flex;
   justify-content: space-between;
+  ${(props)=>props.showLabel === false && "display:none;"}
 `
 
 const Label = styled.label<{ right?: boolean; fontSize?: string }>`
@@ -80,13 +81,14 @@ type ScaleSelectionPropsType = {
   width: string;
   leftLabel: string;
   rightLabel: string;
-  selectionLength: number;
   selected: number | null;
   onItemClick: (index: number | null) => void;
   backgroundColor?: string;
   fontFamily?: string;
   fontSize?: string;
   fontColor?: string;
+  selection: number[];
+  showLabel: boolean;
 };
 
 const labelFontSize = (fontSize: string | undefined) => {
@@ -98,19 +100,21 @@ const labelFontSize = (fontSize: string | undefined) => {
 function ScaleSelection({
   width,
   leftLabel,
-  rightLabel,
-  selectionLength,
+  rightLabel, 
   selected,
   onItemClick,
   backgroundColor,
   fontFamily,
   fontSize,
   fontColor,
+  selection,
+  showLabel
 }: ScaleSelectionPropsType): JSX.Element {
+  const selectionLength = selection.length
   return (
     <ScaleSelectionWrapper width={width}>
       <NumberSlection>
-        {Array.from({ length: selectionLength }, (_, i) => i + 1).map(
+        {selection.map(
           (item, index) => {
             return (
               <NumberSlectionItem
@@ -137,7 +141,7 @@ function ScaleSelection({
         )}
       </NumberSlection>
 
-      <LabelContainer>
+      <LabelContainer showLabel={showLabel}>
         <Label fontSize={labelFontSize(fontSize)}>{leftLabel}</Label>
         <Label fontSize={labelFontSize(fontSize)} right={true}>
           {rightLabel}
