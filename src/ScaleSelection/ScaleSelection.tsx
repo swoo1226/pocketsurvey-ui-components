@@ -57,6 +57,12 @@ const NumberSlectionItem = styled.div<{
   ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
   ${(props) => props.fontColor && `color: #${props.fontColor};`}
 `
+
+const LabelContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const Label = styled.label<{ right?: boolean; fontSize?: string }>`
   display: inline-block;
   font-size: 12px;
@@ -66,7 +72,6 @@ const Label = styled.label<{ right?: boolean; fontSize?: string }>`
   margin-top: 7px;
   width: 40%;
   word-break: keep-all;
-  float: ${(props) => (props.right ? "right" : "left")};
   ${(props) => props.right && "text-align: right;"}
   ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
 `
@@ -84,9 +89,10 @@ type ScaleSelectionPropsType = {
   fontColor?: string;
 };
 
-const labelFontSize = (fontSize: string) => {
+const labelFontSize = (fontSize: string | undefined) => {
   //fontSize => 숫자px 형식
-  return `${parseInt(fontSize.replace("px", ""), 10)-2}px`
+  if (fontSize === undefined) return undefined
+  return `${parseInt(fontSize.replace("px", ""), 10) - 2}px`
 }
 
 function ScaleSelection({
@@ -131,25 +137,12 @@ function ScaleSelection({
         )}
       </NumberSlection>
 
-      <Label
-        fontSize={
-          fontSize !== undefined
-            ? labelFontSize(fontSize)
-            : undefined
-        }
-      >
-        {leftLabel}
-      </Label>
-      <Label
-        fontSize={
-          fontSize !== undefined
-            ? labelFontSize(fontSize)
-            : undefined
-        }
-        right={true}
-      >
-        {rightLabel}
-      </Label>
+      <LabelContainer>
+        <Label fontSize={labelFontSize(fontSize)}>{leftLabel}</Label>
+        <Label fontSize={labelFontSize(fontSize)} right={true}>
+          {rightLabel}
+        </Label>
+      </LabelContainer> 
     </ScaleSelectionWrapper>
   )
 }
