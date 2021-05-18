@@ -99,7 +99,6 @@ function Radio({
           return (
             <RadioItem  onClick={() => onItemClickWrapper(index)} key={index} data-testid={`radio-item-${index}`} itemWidth={itemWidth} isFocusBackgroundFunc={isFocusBackgroundFunc} checked={selected === item.label}>
               <RadioSelectionItem
-                onClick={() => onItemClickWrapper(index)}
                 checked={selected === item.label ? "checked" : "notChecked"}
                 disabled={disabled}
                 data-testid={`radio-selection-item-${index}`}
