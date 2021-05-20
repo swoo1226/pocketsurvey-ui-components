@@ -16,27 +16,26 @@ const TextareaContainer = styled.textarea<{
     outline: none;
     border-color: ${(props) => props.borderColor};
   }
-  onKeyDown
 `
 
 const FontSwitch = (type: typeProps, size?: sizeProps) => {
   if (type === "line") {
     return css`
-      font-family: Noto Sans CJK KR;
+      font-family: Noto Sans CJK KR Regular;
       font-size: 18px;
     `
   }
   switch (size) {
   case "big":
     return css`
-        font-family: Noto Sans CJK KR;
+        font-family: Noto Sans CJK KR Regular;
         font-size: 28px;
       `
   case "medium":
   case "small":
   default:
     return css`
-        font-family: Noto Sans CJK KR;
+        font-family: Noto Sans CJK KR Regular;
         font-size: 14px;
       `
   }
