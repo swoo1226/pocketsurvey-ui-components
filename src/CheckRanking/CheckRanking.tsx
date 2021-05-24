@@ -8,7 +8,7 @@ const CheckRankingList = styled.div``
 const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 7px;
   padding: 10px 7px;
   &:hover{
     background-color: #F0F0F0;
