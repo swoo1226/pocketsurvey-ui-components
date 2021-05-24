@@ -14,7 +14,7 @@ const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boole
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 7px;
   padding: 10px 7px;
   &:hover{
     background-color: #F0F0F0;
