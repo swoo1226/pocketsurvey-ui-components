@@ -1,28 +1,31 @@
 import { EChartsOption } from "echarts"
 
-export type barChartPropsType = {
-  series: number[];
-  labels: string[];
-};
-
 export type ChartSkeleton = {
   width?: number | string;
   height?: number | string;
   override?: EChartsOption;
 };
 
-export type barHorizontalBase = {
+export type BarChartPropsType = {
+  series: number[];
+  labels: string[];
+};
+
+export type BarHorizontalBase = {
   type: "bar-horizontal-base";
-  labels: string[];
-  series: number[];
-} & ChartSkeleton;
+} & BarChartPropsType & ChartSkeleton;
 
-export type barVerticalBase = {
-  type: "bar-vertical-base";
-  labels: string[];
-  series: number[];
-} & ChartSkeleton;
+export type BarVerticalBase = {
+  type: "bar-vertical-base"; 
+} & BarChartPropsType & ChartSkeleton;
 
-export type line = {
-    hasMarker?: boolean
+export type LineBasePropsType = {
+  series: number[];
+  labels: string[];
+  hasMarker: boolean;
+  smooth: boolean;
+  labelOption: "dynamic" | "fixed";
 }
+export type LineBase = {
+  type: "line-base";
+} & LineBasePropsType & ChartSkeleton
