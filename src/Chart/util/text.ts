@@ -22,5 +22,10 @@ export const getMaxLabelWidth = (labels:string[]) => {
       maxLabelWidth = labelWidth
     }
   })
-  return Math.ceil(maxLabelWidth);
+
+  if (Math.ceil(maxLabelWidth) < 50){
+    return 50
+  } else {
+    return Math.ceil(maxLabelWidth);
+  }
 };

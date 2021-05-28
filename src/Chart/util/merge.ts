@@ -10,6 +10,7 @@ type deepMergePropsType = {
 }
 
 const deepMerge = ({option, override}:deepMergePropsType):EChartsOption => {
+  console.log("option:",merge(cloneDeep(defaultOption), option))
   if(override) return merge(cloneDeep(defaultOption), option, override)    
   else return merge(cloneDeep(defaultOption), option)
 }
