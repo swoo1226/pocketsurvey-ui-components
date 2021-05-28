@@ -29,12 +29,27 @@ export type BarVerticalBase = {
 export type BarVerticalStackedProps = {
   labels: string[];
   series: (number|null)[][];
-  xAxisLabel: string[]
+  xAxisLabel: string[];
+  lineSeries?: (number|null)[];
+  lineName?: string
 } & PropsSkeleton
 
 export type BarVerticalStacked = {
   type: "bar-vertical-stacked";
+  lineSeries?: (number|null)[];
+  lineName?: string
 } & BarVerticalStackedProps
+
+
+export type BarHorizontalStackedProps = {
+  labels: string[];
+  series: (number|null)[][];
+  yAxisLabel: string[]
+} & PropsSkeleton
+
+export type BarHorizontalStacked = {
+  type: "bar-horizontal-stacked";
+} & BarHorizontalStackedProps
 
 export type LineBasePropsType = {
   hasMarker: boolean;
@@ -59,7 +74,7 @@ export type PieBase = {
 
 export type PieTypes = PieBase
 export type LineTypes = LineBase
-export type BarTypes = BarHorizontalBase | BarVerticalBase | BarVerticalStacked
+export type BarTypes = BarHorizontalBase | BarVerticalBase | BarVerticalStacked | BarHorizontalStacked
 
 type GetObjDifferentKeys<
   T,
@@ -87,4 +102,4 @@ export type DeepMergeTwoTypes<T, U> =
     ? MergeTwoObjects<T, U>
     : T | U
 
-export type ChartPropsType = DeepMergeTwoTypes<DeepMergeTwoTypes<DeepMergeTwoTypes<PieTypes, LineTypes>, BarTypes>,BarVerticalStacked>
+export type ChartPropsType = DeepMergeTwoTypes<DeepMergeTwoTypes<DeepMergeTwoTypes<DeepMergeTwoTypes<PieTypes, LineTypes>, BarTypes>,BarVerticalStacked>,BarHorizontalStacked>
