@@ -9,6 +9,7 @@ import {
   barHorizontalBaseOption,
   barVerticalBaseOption,
   BarVerticalStacked,
+  barHorizontalStacked,
   lineBaseOption,
   PieBaseOption
 } from "./options"
@@ -29,14 +30,13 @@ function Chart({
   hasMarker,
   smooth,
   labelOption,
-  xAxisLabel
+  xAxisLabel,
+  yAxisLabel,
+  lineSeries,
+  lineName
 }: ChartPropsType) {
   const wrapperDom = useRef<HTMLDivElement>(null)
-  const echartDom = useRef<EChartsReact>(null)
-  const [echartInstance, setEchartInstance] = useState<any>(null)
   const [lineWidth, setLineWidth] = useState<number | null>(null)
-  const [option, setOption] = useState<EChartsOption>({})
-
 
   useEffect(() => {
     if(type === "bar-vertical-base"){
@@ -112,11 +112,29 @@ function Chart({
             series: (series as (number|null)[][]),
             labels, 
             xAxisLabel: (xAxisLabel as string[]), 
+            override,
+            lineSeries,
+            lineName
+          })
+        }
+      />
+    )
+
+  case "bar-horizontal-stacked":
+    return (
+      <EChartsReact
+        style={getSizeCSS(width, height)}
+        option={
+          barHorizontalStacked({
+            series: (series as (number|null)[][]),
+            labels, 
+            yAxisLabel: (yAxisLabel as string[]), 
             override
           })
         }
       />
     )
+
 
   default:
     return <React.Fragment />

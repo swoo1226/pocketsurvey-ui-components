@@ -14,14 +14,15 @@ export function BarHorizontalBase() {
   return (
     <Chart
       type={"bar-horizontal-base"}
-      labels={[
-        "인터넷 검색",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "지인 소개",
-        "뉴스기사",
-      ]}
+      // labels={[
+      //   "인터넷 검색",
+      //   "네이버 블로그",
+      //   "브런치",
+      //   "페이스북 페이지",
+      //   "지인 소개",
+      //   "뉴스기사",
+      // ]}
+      labels={['a','b','c','d','e','f','g']}
       series={[74, 24, 5, 2, 23, 5, 2]}
     />
   );
@@ -40,6 +41,25 @@ export function BarVerticalBase() {
         "뉴스기사",
       ]}
       series={[74, 24, 5, 0, 23, 5, 2]}
+    />
+  );
+}
+
+export function BarHorizontalStacked() {
+  return (
+    <Chart
+      type={"bar-horizontal-stacked"}
+      labels={[
+        "A","B","기타:"
+      ]}
+      series={[
+        [2,null,null],
+        [null,2,null],
+        [null,null,1]
+      ]}
+      yAxisLabel={[
+        "1순위","2순위","3순위"
+      ]}
     />
   );
 }
@@ -77,6 +97,7 @@ export function BarVerticalStacked() {
         "2020-01-05",
         "2020-01-12",
       ]}
+      lineSeries={[1,2,3,4,5,6,7,8,9]}
     />
   );
 }
