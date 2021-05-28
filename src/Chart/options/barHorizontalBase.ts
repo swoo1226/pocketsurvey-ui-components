@@ -2,17 +2,19 @@
 import { EChartsOption } from "echarts"
 import { getColor } from "../util/color"
 import {getMaxLabelWidth} from "../util/text"
-import {barChartPropsType}from "../types"
+import {BarChartPropsType}from "../types"
+import  {defaultOption} from "./index"
+import deepMerge from "../util/merge"
 
-
-const barHorizontalBaseOption = ({ series, labels }: barChartPropsType) => {
-  const option: EChartsOption = {}
-  option.xAxis = {
+const barHorizontalBaseOption = ({ series, labels,override }: BarChartPropsType) => {
+  const option: EChartsOption = {} 
+  
+  option.xAxis = { 
     type: "value",
     show: true,
   }
 
-  option.yAxis = {
+  option.yAxis = { 
     type: "category",
     z: 100,
     data: labels,
@@ -21,17 +23,8 @@ const barHorizontalBaseOption = ({ series, labels }: barChartPropsType) => {
     axisLabel: {
       showMaxLabel: true,
       height: 100,
-      margin: 14,
-      color: "#333"
-    },
-    axisLine: {
-      lineStyle: {
-        color: "#818282",
-      },
-    },
-    axisTick: {
-      show: false,
-    },
+      margin: 14
+    }
   }
 
   const dataLength = series.length
@@ -78,7 +71,10 @@ const barHorizontalBaseOption = ({ series, labels }: barChartPropsType) => {
     left: `${getMaxLabelWidth(labels)}px`
   }
 
-  return option;
+  return deepMerge({
+    option,
+    override 
+  })
 }
 
 export default barHorizontalBaseOption;

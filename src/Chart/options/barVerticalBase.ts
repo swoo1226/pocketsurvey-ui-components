@@ -2,13 +2,16 @@
 /* eslint-disable semi */
 import { EChartsOption } from "echarts";
 import { getColor } from "../util/color";
-import { barChartPropsType } from "../types";
+import { BarChartPropsType } from "../types";
+import { defaultOption } from "./index"
+import deepMerge from "../util/merge"
 
 const barVerticalBaseOption = ({
   series,
   labels,
   lineWidth,
-}: barChartPropsType & {
+  override
+}: BarChartPropsType & {
   lineWidth: number | null;
 }) => {
   const option: EChartsOption = {};
@@ -69,14 +72,15 @@ const barVerticalBaseOption = ({
       //@ts-ignore
       overflow: "truncate",
     },
-    axisTick: {
-      show: false,
-    },
     show: lineWidth ? true : false,
   };
 
   option.barCategoryGap = "40%";
-  return option;
+
+  return deepMerge({
+    option,
+    override 
+  })
 };
 
 export default barVerticalBaseOption;

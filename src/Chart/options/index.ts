@@ -1,10 +1,14 @@
 /* eslint-disable semi */
 import barHorizontalBaseOption from "./barHorizontalBase";
 import barVerticalBaseOption from "./barVerticalBase";
+import BarVerticalStacked from "./barVerticalStacked"
 import lineBaseOption from "./lineBase";
-import getDefaultOption from "./defaultOption";
+import PieBaseOption from "./pieBase";
+import defaultOption from "./defaultOption";
 
 export { barHorizontalBaseOption };
 export { barVerticalBaseOption };
+export {BarVerticalStacked}
 export { lineBaseOption };
-export { getDefaultOption };
+export {PieBaseOption}
+export { defaultOption };
