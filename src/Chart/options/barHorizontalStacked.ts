@@ -2,17 +2,16 @@
 /* eslint-disable semi */
 import { EChartsOption } from "echarts";
 import { getColor } from "../util/color"; 
+import {getMaxLabelWidth} from "../util/text"
 import deepMerge from "../util/merge"
-import {BarVerticalStackedProps } from "../types"
+import { BarHorizontalStackedProps } from "../types"
 
-const barVerticalStackedOption = ({
+const barHorizontalBaseOption = ({
   series,
   labels,
-  xAxisLabel,
-  override,
-  lineSeries,
-  lineName
-}: BarVerticalStackedProps) => {
+  yAxisLabel,
+  override
+}: BarHorizontalStackedProps) => {
   const option: EChartsOption = {};
 
   option.tooltip = {
@@ -23,17 +22,25 @@ const barVerticalStackedOption = ({
     }
   }
 
-  option.yAxis = {
+  option.xAxis = {
     type: "value",
     max: 100
   }
 
-  option.xAxis = {
-    data: xAxisLabel
+  option.yAxis = {
+    type: "category",
+    z: 100,
+    data: yAxisLabel,
+    show: true,
+    inverse: true,
+    axisLabel: {
+      showMaxLabel: true,
+      height: 100,
+      margin: 14
+    }
   }
 
   const colors = getColor(series.length) as string[]
-
   
   option.series = series.map((items, index)=>{
     return {
@@ -46,30 +53,14 @@ const barVerticalStackedOption = ({
       data: items.map((item)=> ({
         value: (item as number),
         itemStyle: {
-          color: colors[index],
-          shadowBlur: 0,
-          shadowColor: "#fff",
-          shadowOffsetX: 0,
-          shadowOffsetY: 0
+          color: colors[index]
         }
       }))
     }
   })
 
-  if(lineSeries){
-    option.series.push({
-      data: lineSeries as number[],
-      type: "line",
-      lineStyle: {
-        color: "#59C4DB",
-        width: 2,
-      },
-      itemStyle: {
-        color: "#59C4DB",
-      },
-      name: lineName ?? "",
-    }
-    )
+  option.grid = {
+    left: `${getMaxLabelWidth(yAxisLabel)}px`
   }
   
   return deepMerge({
@@ -78,4 +69,4 @@ const barVerticalStackedOption = ({
   })
 };
 
-export default barVerticalStackedOption;
+export default barHorizontalBaseOption;
