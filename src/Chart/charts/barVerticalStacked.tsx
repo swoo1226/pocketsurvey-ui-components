@@ -39,7 +39,7 @@ const barVerticalStackedOption = ({
 
   option.yAxis = {
     type: "value",
-    max: 100,
+    // max: 100 추이에서 max가 100일 때 override로 넘기기
   };
 
   option.xAxis = {

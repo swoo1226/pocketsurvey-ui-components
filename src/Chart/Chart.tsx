@@ -1,8 +1,10 @@
+/* eslint-disable semi */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import React from "react"
+import { getColor } from "./util/index"
 import {
   BarHorizontalBase,
   BarVerticalBase,
@@ -22,3 +24,5 @@ Chart.BarVerticalStacked = BarVerticalStacked
 Chart.LineBase = LineBase
 Chart.PieBase = PieBase 
 export default Chart
+
+export { getColor };
