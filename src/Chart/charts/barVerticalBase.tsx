@@ -1,17 +1,23 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable semi */
 import { EChartsOption } from "echarts";
-import { getColor } from "../util/color";
-import { BarChartPropsType } from "../types";
-import { defaultOption } from "./index"
-import deepMerge from "../util/merge"
+import React from "react";
+import EChartsReact from "echarts-for-react";
+import { getSizeCSS, mergeOption, getColor } from "../util/index";
+
+type BarVerticalBaseOptionPropsType = {
+  series: number[];
+  labels: string[];
+  override?: EChartsOption;
+  lineWidth: number | null;
+};
 
 const barVerticalBaseOption = ({
   series,
   labels,
   lineWidth,
-  override
-}: BarChartPropsType & {
+  override,
+}: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
 }) => {
   const option: EChartsOption = {};
@@ -77,10 +83,48 @@ const barVerticalBaseOption = ({
 
   option.barCategoryGap = "40%";
 
-  return deepMerge({
+  return mergeOption({
     option,
-    override 
-  })
+    override,
+  });
 };
 
-export default barVerticalBaseOption;
+type BarVerticalBasePropsType = {
+  width?: number | string;
+  height?: number | string;
+} & Omit<BarVerticalBaseOptionPropsType, "lineWidth">;
+
+function BarVerticalBase({
+  width,
+  height,
+  series,
+  labels,
+  override,
+}: BarVerticalBasePropsType) {
+  const wrapperDom = React.useRef<HTMLDivElement>(null);
+  const [lineWidth, setLineWidth] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    const svg = wrapperDom.current?.querySelector(
+      "svg > g:last-child > path"
+    ) as SVGSVGElement;
+    setLineWidth(svg?.getBBox()?.width);
+  }, [wrapperDom]);
+
+  return (
+    <div ref={wrapperDom}>
+      <EChartsReact
+        style={getSizeCSS(width, height)}
+        option={barVerticalBaseOption({
+          series,
+          labels,
+          lineWidth,
+          override,
+        })}
+        opts={{ renderer: "svg" }}
+      />
+    </div>
+  );
+}
+
+export default BarVerticalBase;
