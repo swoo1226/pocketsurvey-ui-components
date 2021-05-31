@@ -6,13 +6,13 @@ import React, { useState, useRef, useEffect } from "react"
 import EChartsReact from "echarts-for-react"
 import { EChartsOption } from "echarts"
 import {
-  barHorizontalBaseOption,
-  barVerticalBaseOption,
-  BarVerticalStacked,
-  barHorizontalStacked,
-  lineBaseOption,
-  PieBaseOption
-} from "./options"
+  BarHorizontalBase,
+  BarVerticalBase,
+  // BarVerticalStacked,
+  // barHorizontalStacked,
+  LineBase,
+  PieBase
+} from "./charts"
 import styled from "styled-components"
 import { ChartPropsType } from "./types" 
 import {getSizeCSS} from "./util" 
@@ -20,125 +20,49 @@ import {getSizeCSS} from "./util"
 const EchartsReactWrapper = styled.div``
  
 
-function Chart({
-  type,
-  width,
-  height,
-  override,
-  labels,
-  series,
-  hasMarker,
-  smooth,
-  labelOption,
-  xAxisLabel,
-  yAxisLabel,
-  lineSeries,
-  lineName
-}: ChartPropsType) {
-  const wrapperDom = useRef<HTMLDivElement>(null)
-  const [lineWidth, setLineWidth] = useState<number | null>(null)
+function Chart() {
+  return <></>
+  // switch (type) {
+  // case "bar-vertical-stacked":
+  //   return (
+  //     <EChartsReact
+  //       style={getSizeCSS(width, height)}
+  //       option={
+  //         BarVerticalStacked({
+  //           series: (series as (number|null)[][]),
+  //           labels, 
+  //           xAxisLabel: (xAxisLabel as string[]), 
+  //           override,
+  //           lineSeries,
+  //           lineName
+  //         })
+  //       }
+  //     />
+  //   )
 
-  useEffect(() => {
-    if(type === "bar-vertical-base"){
-      const svg = wrapperDom.current?.querySelector(
-        "svg > g:last-child > path"
-      ) as SVGSVGElement
-      setLineWidth(svg?.getBBox()?.width)
-    }
-  }, [wrapperDom])
+  // case "bar-horizontal-stacked":
+  //   return (
+  //     <EChartsReact
+  //       style={getSizeCSS(width, height)}
+  //       option={
+  //         barHorizontalStacked({
+  //           series: (series as (number|null)[][]),
+  //           labels, 
+  //           yAxisLabel: (yAxisLabel as string[]), 
+  //           override
+  //         })
+  //       }
+  //     />
+  //   )
 
-  switch (type) {
-  case "bar-horizontal-base":
-    return (
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={barHorizontalBaseOption({
-          series,
-          labels,
-          override,
-        })}
-      />
-    )
-
-  case "bar-vertical-base":
-    return (
-      <EchartsReactWrapper ref={wrapperDom}>
-        <EChartsReact
-          style={getSizeCSS(width, height)}
-          option={barVerticalBaseOption({
-            series,
-            labels,
-            lineWidth,
-            override,
-          })}
-          opts={{ renderer: "svg" }}
-        />
-      </EchartsReactWrapper>
-    )
-
-  case "line-base": 
-    return (
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={lineBaseOption({
-          series: (series as number[]),
-          labels,
-          hasMarker: hasMarker ?? false,
-          smooth: smooth ?? false,
-          labelOption: labelOption ?? "dynamic",
-          override,
-        })}
-      />
-    )
-
-  case "pie-base":
-    return (
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={PieBaseOption({
-          series,
-          labels,
-          override
-        })}
-      />
-    )
-
-  case "bar-vertical-stacked":
-    return (
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={
-          BarVerticalStacked({
-            series: (series as (number|null)[][]),
-            labels, 
-            xAxisLabel: (xAxisLabel as string[]), 
-            override,
-            lineSeries,
-            lineName
-          })
-        }
-      />
-    )
-
-  case "bar-horizontal-stacked":
-    return (
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={
-          barHorizontalStacked({
-            series: (series as (number|null)[][]),
-            labels, 
-            yAxisLabel: (yAxisLabel as string[]), 
-            override
-          })
-        }
-      />
-    )
-
-
-  default:
-    return <React.Fragment />
-  }
+  // default:
+  //   return <React.Fragment />
+  // }
 }
+
+Chart.BarHorizontalBase = BarHorizontalBase
+Chart.BarVerticalBase = BarVerticalBase
+Chart.LineBase = LineBase
+Chart.PieBase = PieBase
 
 export default Chart
