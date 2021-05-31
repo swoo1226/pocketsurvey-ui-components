@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withKnobs, boolean, text } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number, select } from "@storybook/addon-knobs";
 
 import Chart from "./Chart";
 import { Meta } from "@storybook/react/types-6-0";
@@ -44,13 +44,16 @@ export function BarVerticalBase() {
 }
 
 export function LineBase() {
+  const labelOption = select('mode', ['fixed', 'dynamic'], 'dynamic')
+  const hasMarker = boolean("hasMarker", false)
+  const smooth = boolean("smooth", false)
   return (
     <Chart.LineBase
       labels={["매우 만족함", "만족함", "보통", "불만족함", "매우 불만족함"]}
       series={[109, 650, 626, 3619, 3483].reverse()}
-      labelOption="dynamic"
-      hasMarker={true}
-      smooth={true}
+      labelOption={labelOption}
+      hasMarker={hasMarker}
+      smooth={smooth}
     />
   );
 }
@@ -120,6 +123,8 @@ export function BarVerticalStacked() {
           series: Array.from({ length: 9 }).fill(15) as number[]
         },
       ]}
+      height={700} 
     />
   );
 }
+ 

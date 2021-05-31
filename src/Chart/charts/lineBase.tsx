@@ -63,7 +63,9 @@ const lineBaseOption = ({
               { type: "min", name: "" },
             ],
           }
-          : {},
+          : {
+            data: []
+          },
     },
   ];
 

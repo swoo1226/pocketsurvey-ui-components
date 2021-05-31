@@ -86,6 +86,7 @@ const barVerticalStackedOption = ({
         data: line[i].series as number[],
         name: line[i].name,
         type: "line",
+        symbolSize: 10,
         lineStyle: {
           color: "#59C4DB",
           width: 2,
