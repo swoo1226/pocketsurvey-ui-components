@@ -1,6 +1,6 @@
 {
   "name": "@earlysloth/pocketsurvey-ui-components",
-  "version": "0.4.22",
+  "version": "0.4.24",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",
   "author": "earlysloth <survey@earlysloth.com>",
@@ -56,6 +56,7 @@
     "react": "^16.12.0",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.12.0",
+    "react-resize-detector": "^6.7.2",
     "styled-components": "^5.2.1",
     "typescript": "^4.1.5"
   },

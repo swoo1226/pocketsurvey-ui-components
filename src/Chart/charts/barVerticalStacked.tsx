@@ -25,7 +25,7 @@ const barVerticalStackedOption = ({
   xAxisLabel,
   override,
   line,
-  lineWidth
+  lineWidth,
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -92,7 +92,7 @@ const barVerticalStackedOption = ({
           width: 2,
         },
         itemStyle: {
-          color: "#59C4DB"
+          color: "#59C4DB",
         },
       });
     }
@@ -116,11 +116,11 @@ function BarVerticalStacked({
   override,
   line,
   width,
-  height
+  height,
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
- 
+
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
@@ -151,7 +151,7 @@ function BarVerticalStacked({
           xAxisLabel,
           override,
           line,
-          lineWidth
+          lineWidth,
         })}
         opts={{ renderer: "svg" }}
       />
