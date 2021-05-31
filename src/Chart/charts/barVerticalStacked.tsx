@@ -2,7 +2,7 @@
 /* eslint-disable semi */
 import React from "react";
 import { EChartsOption } from "echarts";
-import { getColor, mergeOption, getSizeCSS } from "../util/index";
+import { getColors, mergeOption, getSizeCSS } from "../util/index";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
@@ -39,7 +39,7 @@ const barVerticalStackedOption = ({
 
   option.yAxis = {
     type: "value",
-    max: 100,
+    // max: 100 추이에서 max가 100일 때 override로 넘기기
   };
 
   option.xAxis = {
@@ -57,7 +57,7 @@ const barVerticalStackedOption = ({
 
   option.barCategoryGap = "40%";
 
-  const colors = getColor(series.length) as string[];
+  const colors = getColors(series.length) as string[];
 
   option.series = series.map((items, index) => {
     return {

@@ -4,7 +4,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import {
   getSizeCSS,
-  getColor,
+  getColors,
   mergeOption,
   getMaxLabelWidth,
 } from "../util/index";
@@ -41,7 +41,7 @@ const barHorizontalBaseOption = ({
   };
 
   const dataLength = series.length;
-  const colors = getColor(dataLength) as string[];
+  const colors = getColors(dataLength) as string[];
 
   const seriesData: {
     value: number;

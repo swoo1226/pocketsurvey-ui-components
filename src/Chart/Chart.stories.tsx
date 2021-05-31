@@ -81,7 +81,7 @@ export function BarHorizontalStacked() {
   );
 }
 
-export function BarVerticalStacked() {
+export function BarVerticalStacked() { 
   return (
     <Chart.BarVerticalStacked
       labels={[

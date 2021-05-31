@@ -4,7 +4,7 @@ import { EChartsOption } from "echarts"
 import { defaultOption } from "../charts/index"
 import hexMap from "./hexMap" 
 
-export const getColor = (dataLength: number): string[] | undefined => {
+export const getColors = (dataLength: number): string[] | undefined => {
   return hexMap.get(dataLength.toString())
 }
 
