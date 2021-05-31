@@ -10,8 +10,7 @@ import {
   BarHorizontalStacked,
   LineBase,
   PieBase
-} from "./charts"
-import styled from "styled-components"  
+} from "./charts" 
 function Chart() {
   return <></>
 }
