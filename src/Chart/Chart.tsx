@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import React from "react"
-import { getColor } from "./util/index"
+import { getColors } from "./util/index"
 import {
   BarHorizontalBase,
   BarVerticalBase,
@@ -22,7 +22,10 @@ Chart.BarVerticalBase = BarVerticalBase
 Chart.BarHorizontalStacked = BarHorizontalStacked
 Chart.BarVerticalStacked = BarVerticalStacked
 Chart.LineBase = LineBase
-Chart.PieBase = PieBase 
-export default Chart
+Chart.PieBase = PieBase  
 
-export { getColor };
+Chart.util = {
+  getColors
+}
+
+export default Chart

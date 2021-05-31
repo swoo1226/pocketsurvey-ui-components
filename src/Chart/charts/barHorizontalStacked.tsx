@@ -3,7 +3,7 @@
 import React from "react";
 import { EChartsOption } from "echarts";
 import {
-  getColor,
+  getColors,
   getMaxLabelWidth,
   mergeOption,
   getSizeCSS,
@@ -50,7 +50,7 @@ const barHorizontalStackedOption = ({
     },
   };
 
-  const colors = getColor(series.length) as string[];
+  const colors = getColors(series.length) as string[];
 
   option.series = series.map((items, index) => {
     return {
