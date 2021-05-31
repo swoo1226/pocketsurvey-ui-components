@@ -5,7 +5,7 @@ import React from "react";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColor } from "../util/index";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import debounce from "lodash/debounce"
+import debounce from "lodash/debounce";
 
 type BarVerticalBaseOptionPropsType = {
   series: number[];
@@ -106,22 +106,28 @@ function BarVerticalBase({
   override,
   reRenderWhenResize,
 }: BarVerticalBasePropsType) {
-  const targetRef = React.useRef<HTMLDivElement>(null); 
+  const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
- 
-  const calcSVGPathLineWidth = () => {  
+
+  const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
-  }
+  };
 
-  const delayed = React.useCallback(debounce(() => calcSVGPathLineWidth(),500),[])
+  const delayed = React.useCallback(
+    debounce(() => calcSVGPathLineWidth(), 500),
+    []
+  );
 
-  const resizeObject = useResizeDetector({ targetRef })
-  React.useEffect(()=>{ 
-    delayed()
-  },[resizeObject.width])
+  const resizeObject = useResizeDetector({ targetRef });
+  React.useEffect(() => {
+    calcSVGPathLineWidth();
+  }, []);
+  React.useEffect(() => {
+    delayed();
+  }, [resizeObject.width]);
 
   return (
     <div ref={targetRef}>
@@ -133,7 +139,7 @@ function BarVerticalBase({
           lineWidth,
           override,
         })}
-        opts={{ renderer: "svg" }} 
+        opts={{ renderer: "svg" }}
       />
     </div>
   );

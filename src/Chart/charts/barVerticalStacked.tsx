@@ -5,7 +5,7 @@ import { EChartsOption } from "echarts";
 import { getColor, mergeOption, getSizeCSS } from "../util/index";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import debounce from "lodash/debounce"
+import debounce from "lodash/debounce";
 
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -16,7 +16,7 @@ type BarVerticalStackedOptionPropsType = {
     name: string;
     series: (number | null)[];
   }[];
-  lineWidth: number | null
+  lineWidth: number | null;
 };
 
 const barVerticalStackedOption = ({
@@ -25,7 +25,7 @@ const barVerticalStackedOption = ({
   xAxisLabel,
   override,
   line,
-  lineWidth
+  lineWidth,
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -41,7 +41,7 @@ const barVerticalStackedOption = ({
     type: "value",
     max: 100,
   };
- 
+
   option.xAxis = {
     type: "category",
     data: xAxisLabel,
@@ -80,8 +80,8 @@ const barVerticalStackedOption = ({
     };
   });
 
-  if(line){
-    for(let i=0; i<line.length;i++){
+  if (line) {
+    for (let i = 0; i < line.length; i++) {
       option.series.push({
         data: line[i].series as number[],
         name: line[i].name,
@@ -96,7 +96,7 @@ const barVerticalStackedOption = ({
       });
     }
   }
- 
+
   return mergeOption({
     option,
     override,
@@ -117,22 +117,28 @@ function BarVerticalStacked({
   width,
   height,
 }: BarVerticalStackedPropsType) {
-  const targetRef = React.useRef<HTMLDivElement>(null); 
+  const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
- 
-  const calcSVGPathLineWidth = () => {  
+
+  const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
-  }
+  };
 
-  const delayed = React.useCallback(debounce(() => calcSVGPathLineWidth(),500),[])
+  const delayed = React.useCallback(
+    debounce(() => calcSVGPathLineWidth(), 500),
+    []
+  );
 
-  const resizeObject = useResizeDetector({ targetRef })
-  React.useEffect(()=>{ 
-    delayed()
-  },[resizeObject.width])
+  const resizeObject = useResizeDetector({ targetRef });
+  React.useEffect(() => {
+    calcSVGPathLineWidth();
+  }, []);
+  React.useEffect(() => {
+    delayed();
+  }, [resizeObject.width]);
 
   return (
     <div ref={targetRef}>
@@ -144,8 +150,8 @@ function BarVerticalStacked({
           xAxisLabel,
           override,
           line,
-          lineWidth
-        })} 
+          lineWidth,
+        })}
         opts={{ renderer: "svg" }}
       />
     </div>
