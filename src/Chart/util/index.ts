@@ -1,7 +1,7 @@
 import merge from "lodash/merge"
 import cloneDeep from "lodash/cloneDeep"
 import { EChartsOption } from "echarts"
-import { defaultOption } from "../options/index"
+import { defaultOption } from "../charts/index"
 import hexMap from "./hexMap"
 
 export const getColor = (dataLength: number): string[] | undefined => {

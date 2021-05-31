@@ -3,7 +3,7 @@
 import React from "react";
 import { EChartsOption } from "echarts"; 
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, getColor, mergeOption } from "../util/";
+import { getSizeCSS, getColor, mergeOption } from "../util";
 
 type PieBaseOptionPropsType = {
   series: number[];
