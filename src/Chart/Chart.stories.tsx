@@ -10,7 +10,7 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export function BarHorizontalBase() {
+export function BarHorizontalBase() { 
   return (
     <Chart.BarHorizontalBase 
       labels={[
