@@ -91,3 +91,5 @@ export { ReactComponent as reset } from "./reset.svg"
 export { ReactComponent as setting } from "./setting.svg"
 export { ReactComponent as surveyInfo } from "./surveyInfo.svg"
 export { ReactComponent as videoSolid } from "./videoSolid.svg"
+export { ReactComponent as combine } from './combine.svg'
+export { ReactComponent as combineX } from './combineX.svg'
