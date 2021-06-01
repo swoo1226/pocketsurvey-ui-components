@@ -37,8 +37,7 @@ export function BarVerticalBase() {
         "지인 소개",
         "뉴스기사",
       ]}
-      series={[74, 24, 5, 0, 23, 5, 2]}
-      reRenderWhenResize={true}
+      series={[74, 24, 5, 0, 23, 5, 2]} 
     />
   );
 }
