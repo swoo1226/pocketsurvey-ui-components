@@ -20,25 +20,31 @@ const barHorizontalBaseOption = ({
   series,
   labels,
   override,
-  ellipsis
+  ellipsis,
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
   option.xAxis = {
     type: "value",
     show: true,
-  }; 
+  };
 
   option.yAxis = {
     type: "category",
     z: 100,
-    data: ellipsis? labels.map((label)=> label.length >= ellipsis ? `${label.substr(0,ellipsis)}...` : label) : labels,
+    data: labels,
     show: true,
     inverse: true,
     axisLabel: {
       showMaxLabel: true,
       height: 100,
       margin: 14,
+      formatter: (value) => {
+        if (ellipsis && value.length >= ellipsis) {
+          return `${value.substr(0, ellipsis)}...`;
+        }
+        return value;
+      },
     },
   };
 
@@ -103,7 +109,7 @@ function BarHorizontalBase({
   series,
   labels,
   override,
-  ellipsis
+  ellipsis,
 }: BarHorizontalBasePropsType): JSX.Element {
   return (
     <EChartsReact
@@ -112,7 +118,7 @@ function BarHorizontalBase({
         series,
         labels,
         override,
-        ellipsis
+        ellipsis,
       })}
     />
   );

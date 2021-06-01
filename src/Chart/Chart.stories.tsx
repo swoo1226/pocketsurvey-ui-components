@@ -22,7 +22,7 @@ export function BarHorizontalBase() {
         "뉴스기사",
       ]}
       series={[74, 24, 5, 2, 23, 5, 2]}
-      ellipsis={14}
+      ellipsis={10}
     />
   );
 }
