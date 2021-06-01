@@ -80,6 +80,25 @@ const barVerticalStackedOption = ({
     };
   });
 
+  const border = Array.from({ length: option.series[0].data.length }).fill(
+    false
+  );
+
+  for (let i = option.series.length - 1; i >= 0; i -= 1) {
+    (option.series[i].data as (number | null)[]).forEach(
+      (item: number | null, index) => {
+        if (border[index] === false && item.value !== null) {
+          option.series[i].data[index].itemStyle = {
+            ...option.series[i].data[index].itemStyle,
+            borderRadius: [4, 4, 0, 0],
+          };
+          border[index] = true;
+        }
+      }
+    );
+    if (border.filter((item) => item === true).length === border.length) break;
+  }
+
   if (line) {
     for (let i = 0; i < line.length; i++) {
       option.series.push({
@@ -118,14 +137,22 @@ function BarVerticalStacked({
   width,
   height,
 }: BarVerticalStackedPropsType) {
+  const [option, setOption] = React.useState<EChartsOption>({})
   const targetRef = React.useRef<HTMLDivElement>(null);
-  const [lineWidth, setLineWidth] = React.useState<number | null>(null);
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
     ) as SVGSVGElement;
-    setLineWidth(svg?.getBBox()?.width);
+    const lineWidth = svg?.getBBox()?.width
+    setOption(barVerticalStackedOption({
+      series,
+      labels,
+      xAxisLabel,
+      override,
+      line,
+      lineWidth,
+    }))
   };
 
   const delayed = React.useCallback(
@@ -145,14 +172,7 @@ function BarVerticalStacked({
     <div ref={targetRef}>
       <EChartsReact
         style={getSizeCSS(width, height)}
-        option={barVerticalStackedOption({
-          series,
-          labels,
-          xAxisLabel,
-          override,
-          line,
-          lineWidth,
-        })}
+        option={option}
         opts={{ renderer: "svg" }}
       />
     </div>
