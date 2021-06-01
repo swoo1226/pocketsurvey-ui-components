@@ -47,7 +47,6 @@ const barVerticalStackedOption = ({
         return verticalStackedFormatter(params)
       },
     }
-    console.log("포매터 설정")
   }
 
   option.yAxis = {
@@ -144,7 +143,6 @@ const barVerticalStackedOption = ({
     }
   }
 
-  console.log("formatter", option.tooltip);
   return mergeOption({
     option,
     override,
@@ -168,9 +166,7 @@ function BarVerticalStacked({
 }: BarVerticalStackedPropsType) {
   const [option, setOption] = React.useState<EChartsOption | null>(null);
   const targetRef = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    console.log("옵션:", option);
-  }, [option]);
+
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
