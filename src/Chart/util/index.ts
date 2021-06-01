@@ -52,10 +52,15 @@ export const displayTextWidth = (text: string, font?: string): number => {
 /**
  * 선택지 중 가장 가로 픽셀값이 큰 텍스트의 가로 크기를 올림해서 반환
  * @param labels 선택지 텍스트가 담긴 배열
+ * @param ellipsis 말 줄임표를 적용할 글자 수
  */
-export const getMaxLabelWidth = (labels: string[]) => {
+export const getMaxLabelWidth = (labels: string[], ellipsis?: number) => {
   let maxLabelWidth = 0
-  labels.forEach((label) => {
+  labels.forEach((_label) => {
+    let label = _label
+    if(ellipsis){
+      label = _label.length >= ellipsis ? `${_label.substr(0,ellipsis)}...` : _label
+    }
     const labelWidth = displayTextWidth(label)
     if (maxLabelWidth < labelWidth) {
       maxLabelWidth = labelWidth

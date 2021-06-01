@@ -13,24 +13,26 @@ type BarHorizontalBaseOptionPropsType = {
   series: number[];
   labels: string[];
   override?: EChartsOption;
+  ellipsis?: number; //말줄임표를 적용하는 글자 수
 };
 
 const barHorizontalBaseOption = ({
   series,
   labels,
   override,
+  ellipsis
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
   option.xAxis = {
     type: "value",
     show: true,
-  };
+  }; 
 
   option.yAxis = {
     type: "category",
     z: 100,
-    data: labels,
+    data: ellipsis? labels.map((label)=> label.length >= ellipsis ? `${label.substr(0,ellipsis)}...` : label) : labels,
     show: true,
     inverse: true,
     axisLabel: {
@@ -81,7 +83,7 @@ const barHorizontalBaseOption = ({
   };
 
   option.grid = {
-    left: `${getMaxLabelWidth(labels)}px`,
+    left: `${getMaxLabelWidth(labels, ellipsis)}px`,
   };
 
   return mergeOption({
@@ -101,6 +103,7 @@ function BarHorizontalBase({
   series,
   labels,
   override,
+  ellipsis
 }: BarHorizontalBasePropsType): JSX.Element {
   return (
     <EChartsReact
@@ -109,6 +112,7 @@ function BarHorizontalBase({
         series,
         labels,
         override,
+        ellipsis
       })}
     />
   );
