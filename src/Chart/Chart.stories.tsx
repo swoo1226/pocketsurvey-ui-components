@@ -14,14 +14,15 @@ export function BarHorizontalBase() {
   return (
     <Chart.BarHorizontalBase
       labels={[
-        "인터넷 검색",
+        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
         "네이버 블로그",
         "브런치",
         "페이스북 페이지",
-        "지인 소개",
+        "네이버네이버네이버네이버네이버네이버 블로그",
         "뉴스기사",
       ]}
       series={[74, 24, 5, 2, 23, 5, 2]}
+      ellipsis={10}
     />
   );
 }
@@ -37,8 +38,7 @@ export function BarVerticalBase() {
         "지인 소개",
         "뉴스기사",
       ]}
-      series={[74, 24, 5, 0, 23, 5, 2]}
-      reRenderWhenResize={true}
+      series={[74, 24, 5, 0, 23, 5, 2]} 
     />
   );
 }
@@ -124,6 +124,12 @@ export function BarVerticalStacked() {
         },
       ]}
       height={700} 
+      override={{
+        yAxis:{
+          max:100,
+        },
+      }}
+      percentTooltip={true}
     />
   );
 }
