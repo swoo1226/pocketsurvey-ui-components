@@ -2,7 +2,7 @@ import merge from "lodash/merge"
 import cloneDeep from "lodash/cloneDeep"
 import { EChartsOption } from "echarts"
 import { defaultOption } from "../charts/index"
-import hexMap from "./hexMap" 
+import hexMap from "./hexMap"
 
 export const getColors = (dataLength: number): string[] | undefined => {
   return hexMap.get(dataLength.toString())
@@ -70,4 +70,31 @@ export const getMaxLabelWidth = (labels: string[]) => {
   }
 }
 
- 
+export const verticalStackedFormatter = (params: {
+  marker: string,
+  seriesName: string,
+  data: {
+    value: number | null
+  },
+  axisValueLabel: string
+}[]) => {
+  const maxLabelWidth = getMaxLabelWidth(params.map((item)=>item.seriesName))
+  const row = params.map(
+    (param) =>
+      `<div style="display: flex; justify-content: space-between;">
+    <div style="width: ${Math.ceil(maxLabelWidth)+3}px">
+      ${param.marker}
+      <span>${param.seriesName}</span>
+    </div>
+    <span style="font-weight:700;">${
+  param.data.value ? `${param.data.value}%` : "-"
+}</span>
+    </div>`
+  )
+  return `
+    <div>
+  <span>${params[0].axisValueLabel}</span>
+    ${row.join("")}
+    </div>
+  `
+}

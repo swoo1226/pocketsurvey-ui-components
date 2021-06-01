@@ -2,7 +2,7 @@
 /* eslint-disable semi */
 import React from "react";
 import { EChartsOption } from "echarts";
-import { getColors, mergeOption, getSizeCSS } from "../util/index";
+import { getColors, mergeOption, getSizeCSS, verticalStackedFormatter } from "../util/index";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
@@ -17,6 +17,7 @@ type BarVerticalStackedOptionPropsType = {
     series: (number | null)[];
   }[];
   lineWidth: number | null;
+  percentTooltip?: boolean
 };
 
 const barVerticalStackedOption = ({
@@ -26,16 +27,28 @@ const barVerticalStackedOption = ({
   override,
   line,
   lineWidth,
+  percentTooltip
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
   option.tooltip = {
     show: true,
+    showContent: true,
     trigger: "axis",
     axisPointer: {
       type: "shadow",
     },
   };
+
+  if(percentTooltip === true){
+    option.tooltip = {
+      ...option.tooltip,
+      formatter: (params) => {
+        return verticalStackedFormatter(params)
+      },
+    }
+    console.log("포매터 설정")
+  }
 
   option.yAxis = {
     type: "value",
@@ -131,6 +144,7 @@ const barVerticalStackedOption = ({
     }
   }
 
+  console.log("formatter", option.tooltip);
   return mergeOption({
     option,
     override,
@@ -150,9 +164,13 @@ function BarVerticalStacked({
   line,
   width,
   height,
+  percentTooltip
 }: BarVerticalStackedPropsType) {
-  const [option, setOption] = React.useState<EChartsOption>({});
+  const [option, setOption] = React.useState<EChartsOption | null>(null);
   const targetRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    console.log("옵션:", option);
+  }, [option]);
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
@@ -167,6 +185,7 @@ function BarVerticalStacked({
         override,
         line,
         lineWidth,
+        percentTooltip
       })
     );
   };
@@ -186,11 +205,13 @@ function BarVerticalStacked({
 
   return (
     <div ref={targetRef}>
-      <EChartsReact
-        style={getSizeCSS(width, height)}
-        option={option}
-        opts={{ renderer: "svg" }}
-      />
+      {option && (
+        <EChartsReact
+          style={getSizeCSS(width, height)}
+          option={option}
+          opts={{ renderer: "svg" }}
+        />
+      )}
     </div>
   );
 }

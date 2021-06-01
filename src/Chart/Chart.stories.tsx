@@ -125,9 +125,10 @@ export function BarVerticalStacked() {
       height={700} 
       override={{
         yAxis:{
-          max:100
-        }
+          max:100,
+        },
       }}
+      percentTooltip={true}
     />
   );
 }
