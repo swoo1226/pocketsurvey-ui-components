@@ -69,6 +69,39 @@ const barHorizontalStackedOption = ({
     };
   });
 
+  type DataType = {
+    value: number;
+    itemStyle: {
+      borderRadius?: number[];
+    };
+  }[];
+
+  type SeriesType = {
+    data: DataType;
+  }[];
+
+  const border = Array.from({
+    length: (option.series[0].data as DataType).length,
+  }).fill(false);
+
+  for (let i = option.series.length - 1; i >= 0; i -= 1) {
+    (option.series[i].data as DataType).forEach((item, index) => {
+      if (
+        option.series !== undefined &&
+          border[index] === false &&
+          item.value !== null &&
+          item.value !== 0
+      ) {
+        (option.series as SeriesType)[i].data[index].itemStyle = {
+          ...(option.series as SeriesType)[i].data[index].itemStyle,
+          borderRadius: [0, 4, 4, 0],
+        };
+        border[index] = true;
+      }
+    });
+    if (border.filter((item) => item === true).length === border.length) break;
+  }
+
   option.grid = {
     left: `${getMaxLabelWidth(yAxisLabel)}px`,
   };

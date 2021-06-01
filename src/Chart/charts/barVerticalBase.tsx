@@ -94,17 +94,14 @@ const barVerticalBaseOption = ({
 type BarVerticalBasePropsType = {
   width?: number | string;
   height?: number | string;
-} & Omit<BarVerticalBaseOptionPropsType, "lineWidth"> & {
-    reRenderWhenResize?: boolean;
-  };
+} & Omit<BarVerticalBaseOptionPropsType, "lineWidth">
 
 function BarVerticalBase({
   width,
   height,
   series,
   labels,
-  override,
-  reRenderWhenResize,
+  override
 }: BarVerticalBasePropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
