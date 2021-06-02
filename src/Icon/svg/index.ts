@@ -88,8 +88,9 @@ export { ReactComponent as npsChart2 } from "./npsChart2.svg"
 export { ReactComponent as oneData } from "./oneData.svg"
 export { ReactComponent as pieChart } from "./pieChart.svg"
 export { ReactComponent as reset } from "./reset.svg"
+export { ReactComponent as random } from "./random.svg"
 export { ReactComponent as setting } from "./setting.svg"
 export { ReactComponent as surveyInfo } from "./surveyInfo.svg"
 export { ReactComponent as videoSolid } from "./videoSolid.svg"
-export { ReactComponent as combine } from './combine.svg'
-export { ReactComponent as combineX } from './combineX.svg'
+export { ReactComponent as combine } from "./combine.svg"
+export { ReactComponent as combineX } from "./combineX.svg"

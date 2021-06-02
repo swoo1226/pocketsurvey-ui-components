@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const CheckRankingContainer = styled.div`
   margin-top: 28px;
-`;
+`
 const CheckRankingList = styled.div``
 const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
   display: flex;

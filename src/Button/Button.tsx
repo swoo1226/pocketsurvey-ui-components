@@ -10,6 +10,8 @@ const ButtonContainer = styled.div<{
   padding: 14px 28px;
   background-color: ${props =>
     props.disabled ? "#dfdedd" : props.backgroundColor};
+  color: ${props =>
+    props.disabled ? "#818282" : "#111111"};
   border-radius: 3px;
   cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
   &:hover {
