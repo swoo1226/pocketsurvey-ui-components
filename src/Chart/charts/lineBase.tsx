@@ -3,7 +3,7 @@
 import React from "react";
 import { EChartsOption } from "echarts"; 
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption } from "../util/index";
+import { getSizeCSS, mergeOption, chartColor } from "../util/index";
 
 type LineBaseOptionPropsType = {
   series: number[];
@@ -23,7 +23,7 @@ const lineBaseOption = ({
   override,
 }: LineBaseOptionPropsType) => {
   const option: EChartsOption = {};
-  option.color = "#FAC62D";
+  option.color = chartColor
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
