@@ -36,7 +36,6 @@ const barVerticalStackedOption = ({
   lineWidth,
   percentTooltip,
 }: BarVerticalStackedOptionPropsType) => {
-  console.log("옵션 계산")
   const option: EChartsOption = {};
 
   option.tooltip = {
@@ -110,6 +109,7 @@ const barVerticalStackedOption = ({
     length: (option.series[0].data as DataType).length,
   }).fill(false);
 
+  //스택 차트 중 가장 위에 있는 차트에 borderRadius 적용
   for (let i = option.series.length - 1; i >= 0; i -= 1) {
     (option.series[i].data as DataType).forEach((item, index) => {
       if (
@@ -146,7 +146,6 @@ const barVerticalStackedOption = ({
     }
   }
 
-  console.log("formatter", option.tooltip);
   return mergeOption({
     option,
     override,
