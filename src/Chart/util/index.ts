@@ -82,7 +82,7 @@ export const verticalStackedFormatter = (params: {
     value: number | null
   },
   axisValueLabel: string
-}[]) => {
+}[], percentTooltip?: boolean) => {
   const maxLabelWidth = getMaxLabelWidth(params.map((item)=>item.seriesName))
   const row = params.map(
     (param) =>
@@ -92,7 +92,7 @@ export const verticalStackedFormatter = (params: {
       <span>${param.seriesName}</span>
     </div>
     <span style="font-weight:700;">${
-  param.data.value ? `${param.data.value}%` : "-"
+  param.data.value ? `${param.data.value}${percentTooltip === true ? "%" : ""}` : "-"
 }</span>
     </div>`
   )
