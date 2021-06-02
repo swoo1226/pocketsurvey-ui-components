@@ -3,14 +3,9 @@ import merge from "lodash/merge"
 import cloneDeep from "lodash/cloneDeep"
 import { EChartsOption } from "echarts"
 import { defaultOption } from "../charts/index"
-
-import hex from "./hex.json"
+import hexMap from "./hexMap"
 
 export const getColors = (dataLength: number): string[] | undefined => {
-  const hexMap = new Map(
-    Object.entries(hex)
-  )
-     
   return hexMap.get(dataLength.toString())
 }
 
