@@ -86,7 +86,7 @@ export const verticalStackedFormatter = (params: {
   const row = params.map(
     (param) =>
       `<div style="display: flex; justify-content: space-between;">
-    <div style="width: ${Math.ceil(maxLabelWidth)+3}px">
+    <div style="width: ${Math.ceil(maxLabelWidth)+10}px">
       ${param.marker}
       <span>${param.seriesName}</span>
     </div>
@@ -96,7 +96,7 @@ export const verticalStackedFormatter = (params: {
     </div>`
   )
   return `
-    <div>
+    <div style="text-align: left;">
   <span>${params[0].axisValueLabel}</span>
     ${row.join("")}
     </div>
