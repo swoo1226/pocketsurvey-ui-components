@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 export function BarHorizontalBase() {
-  const ellipsis = number("ellipsis", 10)
+  const ellipsis = number("ellipsis", 10);
   return (
     <Chart.BarHorizontalBase
       labels={[
@@ -40,27 +40,27 @@ export function BarVerticalBase() {
         "뉴스기사",
       ]}
       series={[74, 24, 5, 0, 23, 5, 2]}
-      override={
-        {
-          series: [{
+      override={{
+        series: [
+          {
             markLine: {
-              symbol: 'none',
-              data: [{ type: 'average', name: '' }],
+              symbol: "none",
+              data: [{ type: "average", name: "" }],
               label: {
                 show: true,
-                formatter: ' {c}',
-                position: 'middle',
+                formatter: " {c}",
+                position: "middle",
                 fontSize: 14,
               },
               lineStyle: {
-                color: '#000000',
-                type: 'solid',
+                color: "#000000",
+                type: "solid",
                 width: 1.5,
               },
             },
-          }]
-        }
-      }
+          },
+        ],
+      }}
     />
   );
 }
@@ -104,9 +104,19 @@ export function BarHorizontalStacked() {
 }
 
 export function BarVerticalStacked() {
-  const percentTooltip = boolean("percentTooltip", false) 
-  return ( 
-    <>
+  const percentTooltip = boolean("percentTooltip", false);
+  const genCharArray = (charA, charZ) => {
+    var a = [],
+      i = charA.charCodeAt(0),
+      j = charZ.charCodeAt(0);
+    for (; i <= j; ++i) {
+      a.push(String.fromCharCode(i).repeat(4));
+    }
+    return a;
+  };
+
+  return (
+    <> 
       <Chart.BarVerticalStacked
         labels={[
           "매우 적절함",
@@ -120,10 +130,68 @@ export function BarVerticalStacked() {
           [25, null, 0, 50, 0],
           [0, null, 50, 0, 0],
           [0, null, 0, 0, 25],
-          [0, null, 0, 0, 25], 
+          [0, null, 0, 0, 25],
         ]}
         xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
-        percentTooltip={percentTooltip}
+        percentTooltip={percentTooltip} 
+      />
+      <Chart.BarVerticalStacked
+        labels={genCharArray("a", "y")}
+        series={[
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+          [4, 4, 4, 4, 4, 4, 4, 4, 4],
+        ]}
+        xAxisLabel={[
+          "날짜: 2019-11-17",
+          "날짜: 2019-11-24",
+          "날짜: 2019-12-01",
+          "날짜: 2019-12-08",
+          "날짜: 2019-12-15",
+          "날짜: 2019-12-22",
+          "날짜: 2019-12-29",
+          "날짜: 2020-01-05",
+          "날짜: 2020-01-12",
+        ]}
+        line={[
+          {
+            name: "구간 평균 점수",
+            series: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          },
+          {
+            name: "전체 평균 점수",
+            series: Array.from({ length: 9 }).fill(15) as number[],
+          },
+        ]}
+        height={700}
+        override={{
+          yAxis: {
+            max: 100,
+          },
+        }}
+        percentTooltip={percentTooltip} 
       />
       <Chart.BarVerticalStacked
         labels={[
@@ -171,7 +239,7 @@ export function BarVerticalStacked() {
             max: 100,
           },
         }}
-        percentTooltip={percentTooltip}
+        percentTooltip={percentTooltip} 
       />
     </>
   );
