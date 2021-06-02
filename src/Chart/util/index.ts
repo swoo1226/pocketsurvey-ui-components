@@ -1,10 +1,16 @@
+/* eslint-disable semi */
 import merge from "lodash/merge"
 import cloneDeep from "lodash/cloneDeep"
 import { EChartsOption } from "echarts"
 import { defaultOption } from "../charts/index"
-import hexMap from "./hexMap"
+
+import hex from "./hex.json"
 
 export const getColors = (dataLength: number): string[] | undefined => {
+  const hexMap = new Map(
+    Object.entries(hex)
+  )
+     
   return hexMap.get(dataLength.toString())
 }
 
@@ -102,3 +108,5 @@ export const verticalStackedFormatter = (params: {
     </div>
   `
 }
+
+export const chartColor = "#fac62d";
