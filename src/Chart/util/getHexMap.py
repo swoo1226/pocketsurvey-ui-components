@@ -9,8 +9,8 @@ driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 driver.get(url="https://colordesigner.io/gradient-generator")
 driver.implicitly_wait(3)
 
-color_start = "FFA507"
-color_end = "FBF1B9"
+color_start = "CE7423"
+color_end = "ffe461"
 
 start_index = 1
 end_index = 26
