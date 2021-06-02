@@ -1,3 +1,8 @@
+# 0.4.29 (2021.06.02)
+
+- button / disabled 일 시 글자 색상 변경
+- icon / 기존 reset -> random으로 변경, 새로운 reset 아이콘 추가
+
 # 0.4.19 (2021.05.17)
 
 textarea autofocus 제거
