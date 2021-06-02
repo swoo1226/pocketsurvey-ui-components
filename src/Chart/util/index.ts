@@ -19,11 +19,10 @@ export const mergeOption = ({
 }: deepMergePropsType): EChartsOption => {
   const _defaultOption = cloneDeep(defaultOption)
   const _option = cloneDeep(option)
-  if (override) {
-    const _override = cloneDeep(override)
-    return merge(_defaultOption, _option, _override)
-  }
-  return merge(_defaultOption, _option)
+  const _override = override ? cloneDeep(override) : null
+  const mergedOption = override ? merge(_defaultOption, _option, _override) : merge(_defaultOption, _option)
+
+  return mergedOption
 }
 
 export const getSizeCSS = (

@@ -44,6 +44,7 @@ export function BarVerticalBase() {
         {
           series: [{
             markLine: {
+              symbol: 'none',
               data: [{ type: 'average', name: '' }],
               label: {
                 show: true,
@@ -65,7 +66,7 @@ export function BarVerticalBase() {
 }
 
 export function LineBase() {
-  const labelOption = select("mode", ["fixed", "dynamic"], "dynamic");
+  const labelOption = select("labelOption", ["fixed", "dynamic"], "dynamic");
   const hasMarker = boolean("hasMarker", false);
   const smooth = boolean("smooth", false);
   return (
@@ -83,7 +84,7 @@ export function PieBase() {
   return (
     <Chart.PieBase
       labels={["매우 만족함", "만족함", "보통", "불만족함", "매우 불만족함"]}
-      series={[109, 650, 626, 3619, 3483]}
+      series={[109, 650, 626, 3619, 3483].reverse()}
     />
   );
 }
