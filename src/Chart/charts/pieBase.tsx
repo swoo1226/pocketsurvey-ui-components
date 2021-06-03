@@ -3,7 +3,7 @@
 import React from "react";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, getColors, mergeOption } from "../util";
+import { getSizeCSS, getColors, mergeOption, chartColor } from "../util";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import cloneDeep from "lodash/cloneDeep";
 import merge from "lodash/merge";
@@ -41,7 +41,7 @@ const PieBaseOption = ({
   };
   option.series = [
     {
-      color: getColors(series.length),
+      color: series.length <= 26 ? getColors(series.length) : chartColor,
       type: "pie",
       top: "15%",
       bottom: "15%",

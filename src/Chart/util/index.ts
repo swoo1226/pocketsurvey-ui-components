@@ -11,9 +11,7 @@ export const getColors = (dataLength: number): string[] | undefined => {
   if(hexMap.has(dataLength.toString())){
     return hexMap.get(dataLength.toString());
   } else {
-    const addArray = Array.from({ length: dataLength - 26}).fill(chartColor)
-    //@ts-ignore
-    return [...(hexMap.get("26") as string[]), ...addArray]
+    return []
   }
 };
 
