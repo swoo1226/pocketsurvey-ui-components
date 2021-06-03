@@ -5,8 +5,14 @@ import { EChartsOption } from "echarts";
 import { defaultOption } from "../charts/index";
 import hexMap from "./hexMap";
 
+
+export const chartColor = "#fac62d";
+
 export const getColors = (dataLength: number): string[] | undefined => {
-  return hexMap.get(dataLength.toString());
+  if(hexMap.has(dataLength.toString())){
+    return hexMap.get(dataLength.toString());
+  }
+  return Array.from({ length: dataLength }).fill(chartColor) as string[]
 };
 
 type deepMergePropsType = {
@@ -132,4 +138,3 @@ export const verticalStackedFormatter = (
   `;
 };
 
-export const chartColor = "#fac62d";
