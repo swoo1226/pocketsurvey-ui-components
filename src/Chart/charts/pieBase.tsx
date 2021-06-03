@@ -1,21 +1,28 @@
 /* eslint-disable semi */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
-import { EChartsOption } from "echarts"; 
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, getColors, mergeOption } from "../util";
+import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+import cloneDeep from "lodash/cloneDeep";
+import merge from "lodash/merge";
 
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption;
+  override?: EChartsOption,
+  showLabel?: boolean
 };
+
+const MIN_LABEL_WIDTH = 434;
 
 const PieBaseOption = ({
   series,
   labels,
-  override,
-}: PieBaseOptionPropsType) => {
+  override, 
+  showLabel
+}: PieBaseOptionPropsType) => {  
   const option: EChartsOption = {};
 
   option.center = ["50%", "50%"];
@@ -44,8 +51,8 @@ const PieBaseOption = ({
         return { value, name: labels[index] };
       }),
       label: {
-        show: true,
-        color: "#000000",
+        show: showLabel === undefined ? true : showLabel,
+        color: "#0e0c0c",
         position: "outer",
         alignTo: "edge",
         margin: 20,
@@ -57,11 +64,11 @@ const PieBaseOption = ({
       },
       emphasis: {
         itemStyle: {
-          borderWidth: 0
+          borderWidth: 0,
         },
       },
     },
-  ];
+  ]; 
 
   return mergeOption({
     option,
@@ -80,6 +87,7 @@ function PieBase({
   override,
   width,
   height,
+  showLabel
 }: PieBasePropsType) {
   return (
     <EChartsReact
@@ -88,6 +96,7 @@ function PieBase({
         series,
         labels,
         override,
+        showLabel
       })}
     />
   );
