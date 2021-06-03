@@ -25,6 +25,7 @@ type BarVerticalStackedOptionPropsType = {
   }[];
   lineWidth: number | null;
   percentTooltip?: boolean;
+  tooltipSeries?: number[][] //tooltip에서 실제 데이터를 넣기 위한 값. series에 퍼센트 값을 넣고, tooltipSeries에 실제 값을 넣는다.
 };
 
 const barVerticalStackedOption = ({
@@ -35,6 +36,7 @@ const barVerticalStackedOption = ({
   line,
   lineWidth,
   percentTooltip,
+  tooltipSeries
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -48,7 +50,7 @@ const barVerticalStackedOption = ({
   };
   option.tooltip = merge(cloneDeep(option.tooltip), {
     formatter: (params) => {
-      return verticalStackedFormatter(params, percentTooltip);
+      return verticalStackedFormatter(params, percentTooltip, tooltipSeries);
     },
   });
   
@@ -146,10 +148,13 @@ const barVerticalStackedOption = ({
     }
   }
 
-  return mergeOption({
+  const mergedOption = mergeOption({
     option,
     override,
   });
+
+  console.log("merdddgedOption:",mergedOption)
+  return mergedOption
 };
 
 type BarVerticalStackedPropsType = {
@@ -166,6 +171,7 @@ function BarVerticalStacked({
   width,
   height,
   percentTooltip,
+  tooltipSeries
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null)
@@ -204,6 +210,7 @@ function BarVerticalStacked({
           line,
           lineWidth,
           percentTooltip,
+          tooltipSeries
         })}
         opts={{ renderer: "svg" }}
       /> 
