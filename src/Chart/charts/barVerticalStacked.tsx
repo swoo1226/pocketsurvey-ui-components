@@ -7,6 +7,7 @@ import {
   mergeOption,
   getSizeCSS,
   verticalStackedFormatter,
+  chartColor
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
@@ -86,7 +87,7 @@ const barVerticalStackedOption = ({
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index],
+          color: colors[index] ?? chartColor,
           shadowBlur: 0,
           shadowColor: "#fff",
           shadowOffsetX: 0,

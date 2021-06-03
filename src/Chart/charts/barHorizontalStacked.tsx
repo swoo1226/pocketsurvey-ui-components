@@ -7,6 +7,7 @@ import {
   getMaxLabelWidth,
   mergeOption,
   getSizeCSS,
+  chartColor
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
 
@@ -63,7 +64,7 @@ const barHorizontalStackedOption = ({
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index],
+          color: colors[index] ?? chartColor,
         },
       })),
     };
