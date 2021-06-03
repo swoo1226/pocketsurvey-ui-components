@@ -4,9 +4,9 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import {
   getSizeCSS,
-  getColors,
   mergeOption,
   getMaxLabelWidth,
+  chartColor
 } from "../util/index";
 
 type BarHorizontalBaseOptionPropsType = {
@@ -49,8 +49,7 @@ const barHorizontalBaseOption = ({
   };
 
   const dataLength = series.length;
-  const colors = getColors(dataLength) as string[];
-
+  
   const seriesData: {
     value: number;
     itemStyle: {
@@ -63,7 +62,7 @@ const barHorizontalBaseOption = ({
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
-        color: colors[index],
+        color: chartColor,
         borderRadius: [0, 4, 4, 0],
       },
     });

@@ -2,10 +2,17 @@
 /* eslint-disable semi */
 import React from "react";
 import { EChartsOption } from "echarts";
-import { getColors, mergeOption, getSizeCSS, verticalStackedFormatter } from "../util/index";
+import {
+  getColors,
+  mergeOption,
+  getSizeCSS,
+  verticalStackedFormatter,
+} from "../util/index";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
+import merge from "lodash/merge";
+import cloneDeep from "lodash/cloneDeep";
 
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -17,7 +24,7 @@ type BarVerticalStackedOptionPropsType = {
     series: (number | null)[];
   }[];
   lineWidth: number | null;
-  percentTooltip?: boolean
+  percentTooltip?: boolean;
 };
 
 const barVerticalStackedOption = ({
@@ -27,7 +34,7 @@ const barVerticalStackedOption = ({
   override,
   line,
   lineWidth,
-  percentTooltip
+  percentTooltip,
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -39,19 +46,14 @@ const barVerticalStackedOption = ({
       type: "shadow",
     },
   };
-
-  if(percentTooltip === true){
-    option.tooltip = {
-      ...option.tooltip,
-      formatter: (params) => {
-        return verticalStackedFormatter(params)
-      },
-    }
-  }
-
+  option.tooltip = merge(cloneDeep(option.tooltip), {
+    formatter: (params) => {
+      return verticalStackedFormatter(params, percentTooltip);
+    },
+  });
+  
   option.yAxis = {
-    type: "value",
-    // max: 100 추이에서 max가 100일 때 override로 넘기기
+    type: "value"
   };
 
   option.xAxis = {
@@ -107,6 +109,7 @@ const barVerticalStackedOption = ({
     length: (option.series[0].data as DataType).length,
   }).fill(false);
 
+  //스택 차트 중 가장 위에 있는 차트에 borderRadius 적용
   for (let i = option.series.length - 1; i >= 0; i -= 1) {
     (option.series[i].data as DataType).forEach((item, index) => {
       if (
@@ -162,28 +165,17 @@ function BarVerticalStacked({
   line,
   width,
   height,
-  percentTooltip
+  percentTooltip,
 }: BarVerticalStackedPropsType) {
-  const [option, setOption] = React.useState<EChartsOption | null>(null);
   const targetRef = React.useRef<HTMLDivElement>(null);
-
+  const [lineWidth, setLineWidth] = React.useState<number | null>(null)
+  const resizeObject = useResizeDetector({ targetRef });
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
-    ) as SVGSVGElement;
-    const lineWidth = svg?.getBBox()?.width;
-    setOption(
-      barVerticalStackedOption({
-        series,
-        labels,
-        xAxisLabel,
-        override,
-        line,
-        lineWidth,
-        percentTooltip
-      })
-    );
+    ) as SVGSVGElement; 
+    setLineWidth(svg?.getBBox()?.width)
   };
 
   const delayed = React.useCallback(
@@ -191,23 +183,30 @@ function BarVerticalStacked({
     []
   );
 
-  const resizeObject = useResizeDetector({ targetRef });
   React.useEffect(() => {
     calcSVGPathLineWidth();
   }, []);
   React.useEffect(() => {
     delayed();
-  }, [resizeObject.width]);
+  }, [
+    resizeObject.width,
+  ]);
 
   return (
     <div ref={targetRef}>
-      {option && (
-        <EChartsReact
-          style={getSizeCSS(width, height)}
-          option={option}
-          opts={{ renderer: "svg" }}
-        />
-      )}
+      <EChartsReact
+        style={getSizeCSS(width, height)}
+        option={barVerticalStackedOption({
+          series,
+          labels,
+          xAxisLabel,
+          override,
+          line,
+          lineWidth,
+          percentTooltip,
+        })}
+        opts={{ renderer: "svg" }}
+      /> 
     </div>
   );
 }

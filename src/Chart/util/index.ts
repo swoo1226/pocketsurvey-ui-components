@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import merge from "lodash/merge"
 import cloneDeep from "lodash/cloneDeep"
 import { EChartsOption } from "echarts"
@@ -19,11 +20,10 @@ export const mergeOption = ({
 }: deepMergePropsType): EChartsOption => {
   const _defaultOption = cloneDeep(defaultOption)
   const _option = cloneDeep(option)
-  if (override) {
-    const _override = cloneDeep(override)
-    return merge(_defaultOption, _option, _override)
-  }
-  return merge(_defaultOption, _option)
+  const _override = override ? cloneDeep(override) : null
+  const mergedOption = override ? merge(_defaultOption, _option, _override) : merge(_defaultOption, _option)
+
+  return mergedOption
 }
 
 export const getSizeCSS = (
@@ -80,26 +80,28 @@ export const verticalStackedFormatter = (params: {
   seriesName: string,
   data: {
     value: number | null
-  },
+  } | number | null,
   axisValueLabel: string
-}[]) => {
+}[], percentTooltip?: boolean) => {
   const maxLabelWidth = getMaxLabelWidth(params.map((item)=>item.seriesName))
   const row = params.map(
     (param) =>
       `<div style="display: flex; justify-content: space-between;">
-    <div style="width: ${Math.ceil(maxLabelWidth)+3}px">
+    <div style="width: ${Math.ceil(maxLabelWidth)+10}px">
       ${param.marker}
       <span>${param.seriesName}</span>
     </div>
     <span style="font-weight:700;">${
-  param.data.value ? `${param.data.value}%` : "-"
+  typeof param.data === "number" ? `${param.data}` : param?.data?.value ? `${param.data.value}${percentTooltip === true ? "%" : ""}` : "-"
 }</span>
     </div>`
   )
   return `
-    <div>
+    <div style="text-align: left;">
   <span>${params[0].axisValueLabel}</span>
     ${row.join("")}
     </div>
   `
 }
+
+export const chartColor = "#fac62d";
