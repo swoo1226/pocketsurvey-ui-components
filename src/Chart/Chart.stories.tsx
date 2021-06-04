@@ -108,6 +108,10 @@ export function BarHorizontalStacked() {
         [10, 5, 0],
       ]}
       yAxisLabel={["1순위", "2순위", "3순위"]}
+      hundredPercent={{
+        series: false,
+        tooltip: true,
+      }}
     />
   );
 }
@@ -128,30 +132,72 @@ export function BarVerticalStacked() {
     <>
       <Chart.BarVerticalStacked
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
+        series={[
+          [71, 64],
+          [53, 123],
+          [60, null],
+          [64, 59],
+          [70, 72],
+        ]}
+        xAxisLabel={[
+          "매장 직원의 고객 응대에 대해서 얼마나 만족하셨나요?",
+          "매장 및 화장실의 청결 상태에 대해서 얼마나 만족하셨나요?",
+        ]}
+        hundredPercent={{
+          series: true,
+          tooltip: true,
+        }}
+        override={{
+          yAxis: [
+            {
+              type: "value",
+              name: "응답률(%)",
+              nameLocation: "middle",
+              nameGap: 50,
+              min: 0,
+              max:100,
+              interval: 10,
+            },
+            {
+              opposite: true,
+              type: "value",
+              name: "점수",
+              min: 0,
+              position: "right",
+              interval: 10,
+              axisLine: {
+                onZero: 0,
+              },
+              nameLocation: "middle",
+              nameGap: 50,
+            },
+          ]
+        }}
+      />
+
+      <Chart.BarVerticalStacked
+        labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         line={[
           {
             name: "점수",
             series: [59.43, 59.25],
           },
-        ]}
-        tooltipSeries={[
+        ]} 
+        series={[
           [71, 64],
           [53, 63],
           [60, 60],
           [64, 59],
           [70, 72],
         ]}
-        series={[
-          [22, 20],
-          [16, 19],
-          [18, 18],
-          [20, 18],
-          [22, 22],
-        ]}
         xAxisLabel={[
           "매장 직원의 고객 응대에 대해서 얼마나 만족하셨나요?",
           "매장 및 화장실의 청결 상태에 대해서 얼마나 만족하셨나요?",
         ]}
+        hundredPercent={{
+          series: false,
+          tooltip: true,
+        }}
         override={{
           stroke: {
             width: [0, 2],
@@ -210,8 +256,7 @@ export function BarVerticalStacked() {
           [0, null, 0, 0, 25],
           [0, null, 0, 0, 25],
         ]}
-        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
-        percentTooltip={percentTooltip}
+        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]} 
       />
       <Chart.BarVerticalStacked
         labels={genCharArray("a", "y")}
@@ -242,6 +287,10 @@ export function BarVerticalStacked() {
           [4, 4, 4, 4, 4, 4, 4, 4, 4],
           [4, 4, 4, 4, 4, 4, 4, 4, 4],
         ]}
+        hundredPercent={{
+          series: false,
+          tooltip: true,
+        }}
         xAxisLabel={[
           "날짜: 2019-11-17",
           "날짜: 2019-11-24",
