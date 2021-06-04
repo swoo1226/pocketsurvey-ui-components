@@ -31,7 +31,8 @@ export const verticalStackedFormatter = (
 
   const row = params.map((param) => {
     const tooltipValue = getSeries(series, param.seriesIndex, param.dataIndex)
-    //tooltipValue가 undefined는 series로 받은 배열 범위를 line data를 참조한다. null이나 number는 배열안에 있는 숫자.
+    //tooltipValue가 undefined => 배열의 범위를 벗어남. 라인 데이터를 가져온다.
+    //null이나 number => 배열안에 있는 숫자
 
     let value = ""
     let percent = ""
