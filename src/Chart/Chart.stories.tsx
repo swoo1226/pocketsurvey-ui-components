@@ -109,7 +109,7 @@ export function BarHorizontalStacked() {
       ]}
       yAxisLabel={["1순위", "2순위", "3순위"]}
       hundredPercent={{
-        series: true,
+        series: false,
         tooltip: true,
       }}
     />
@@ -182,20 +182,13 @@ export function BarVerticalStacked() {
             name: "점수",
             series: [59.43, 59.25],
           },
-        ]}
-        tooltipSeries={[
+        ]} 
+        series={[
           [71, 64],
           [53, 63],
           [60, 60],
           [64, 59],
           [70, 72],
-        ]}
-        series={[
-          [22, 20],
-          [16, 19],
-          [18, 18],
-          [20, 18],
-          [22, 22],
         ]}
         xAxisLabel={[
           "매장 직원의 고객 응대에 대해서 얼마나 만족하셨나요?",
