@@ -64,21 +64,6 @@ const barVerticalStackedOption = ({
 
   const percentSeries = seriesToPercentArray(series)
  
-  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
-    return verticalStackedFormatter(params, series);
-  }} :{}  
-
-  option.tooltip = {
-    show: true,
-    showContent: true,
-    trigger: "axis",
-    axisPointer: {
-      type: "shadow",
-    },
-    ...extendFormatter
-  };
-
-
   const colors = getColors(series.length) as string[];
 
   option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
@@ -153,6 +138,21 @@ const barVerticalStackedOption = ({
       });
     }
   }
+  
+  console.log("option.series:", option.series)
+  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
+    return verticalStackedFormatter(params, series);
+  }} :{}  
+
+  option.tooltip = {
+    show: true,
+    showContent: true,
+    trigger: "axis",
+    axisPointer: {
+      type: "shadow",
+    },
+    ...extendFormatter
+  };
 
   return mergeOption({
     option,
