@@ -29,7 +29,7 @@ type BarVerticalStackedOptionPropsType = {
   hundredPercent?: {
     series: boolean,
     tooltip: boolean
-  }
+  };
 };
 
 const barVerticalStackedOption = ({
@@ -39,8 +39,11 @@ const barVerticalStackedOption = ({
   override,
   line,
   lineWidth,
-  hundredPercent
-}: BarVerticalStackedOptionPropsType) => {
+  hundredPercent,
+  minifyMode
+}: BarVerticalStackedOptionPropsType & {
+  minifyMode: boolean
+}) => {
   const option: EChartsOption = {};
   
   option.yAxis = {
@@ -68,6 +71,7 @@ const barVerticalStackedOption = ({
 
   option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
     return {
+      barMinWidth: minifyMode ? 56 : undefined,
       name: labels[index],
       type: "bar",
       stack: "barChart",
@@ -154,6 +158,10 @@ const barVerticalStackedOption = ({
     ...extendFormatter
   };
 
+  option.grid = {
+    width: minifyMode ? xAxisLabel.length * 83 : undefined
+  };
+
   return mergeOption({
     option,
     override,
@@ -178,6 +186,7 @@ function BarVerticalStacked({
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null)
   const resizeObject = useResizeDetector({ targetRef });
+  const minifyMode = true
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
@@ -211,7 +220,8 @@ function BarVerticalStacked({
           override,
           line,
           lineWidth,
-          hundredPercent
+          hundredPercent,
+          minifyMode
         })}
         opts={{ renderer: "svg" }}
       /> 
