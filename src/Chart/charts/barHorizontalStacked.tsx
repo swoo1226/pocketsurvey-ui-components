@@ -12,6 +12,9 @@ import {
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
 import {verticalStackedFormatter} from "../util/tooltip"
+import styled from "styled-components"
+import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
   labels: string[];
@@ -73,6 +76,7 @@ const barHorizontalStackedOption = ({
       label: {
         show: false,
       },
+      barMinHeight: 56,
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
@@ -126,6 +130,10 @@ const barHorizontalStackedOption = ({
   });
 };
 
+const EchartsWrapper = styled.div`
+
+`
+
 type BarHorizontalStackedPropsType = {
   width?: number | string;
   height?: number | string;
@@ -140,17 +148,35 @@ function BarHorizontalStacked({
   height,
   hundredPercent
 }: BarHorizontalStackedPropsType): JSX.Element {
+  const targetRef = React.useRef<HTMLDivElement>(null);
+  const [minify, setMinify] = React.useState<boolean>(false);
+  const minHeight = 67.2 * series.length + 120
+  
+  const resizeObject = useResizeDetector({ targetRef });
+
+  React.useEffect(() => {
+    if(targetRef.current?.clientHeight){
+      const clientHeight = targetRef.current?.clientHeight
+      if(clientHeight){
+        setMinify(minHeight > clientHeight)
+      }
+    }
+  }, [resizeObject.width]);
+
+
   return (
-    <EChartsReact
-      style={getSizeCSS(width, height)}
-      option={barHorizontalStackedOption({
-        series: series as (number | null)[][],
-        labels,
-        yAxisLabel,
-        override,
-        hundredPercent
-      })}
-    />
+    <EchartsWrapper ref={targetRef}>
+      <EChartsReact
+        style={getSizeCSS(width, minHeight)}
+        option={barHorizontalStackedOption({
+          series: series as (number | null)[][],
+          labels,
+          yAxisLabel,
+          override,
+          hundredPercent
+        })}
+      />
+    </EchartsWrapper>
   );
 }
 

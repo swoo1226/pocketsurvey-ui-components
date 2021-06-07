@@ -48,8 +48,6 @@ const barHorizontalBaseOption = ({
     },
   };
 
-  const dataLength = series.length;
-  
   const seriesData: {
     value: number;
     itemStyle: {
@@ -71,6 +69,7 @@ const barHorizontalBaseOption = ({
   option.series = [
     {
       data: seriesData,
+      barMinWidth: 26,
       type: "bar",
       label: {
         show: true,
@@ -89,6 +88,7 @@ const barHorizontalBaseOption = ({
 
   option.grid = {
     left: `${getMaxLabelWidth(labels, ellipsis)}px`,
+    // height: (26 * seriesData.length) + ((26 * seriesData.length) * 0.2) + 120
   };
 
   return mergeOption({
@@ -100,8 +100,9 @@ const barHorizontalBaseOption = ({
 type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
-} & BarHorizontalBaseOptionPropsType;
-
+} & BarHorizontalBaseOptionPropsType& {
+  sizeValue: number
+}
 function BarHorizontalBase({
   width,
   height,
@@ -109,10 +110,11 @@ function BarHorizontalBase({
   labels,
   override,
   ellipsis,
+  sizeValue
 }: BarHorizontalBasePropsType): JSX.Element {
   return (
     <EChartsReact
-      style={getSizeCSS(width, height)}
+      style={getSizeCSS(width, (sizeValue * series.length) + ((sizeValue * series.length) * 0.2) + 120)}
       option={barHorizontalBaseOption({
         series,
         labels,

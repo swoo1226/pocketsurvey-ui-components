@@ -11,7 +11,8 @@ export default {
 } as Meta;
 
 export function BarHorizontalBase() {
-  const ellipsis = number("ellipsis", 10);
+  const sizeValue = number("sizeValue", 26)
+  const ellipsis = number("ellipsis", 14);
   return (
     <Chart.BarHorizontalBase
       labels={[
@@ -21,8 +22,21 @@ export function BarHorizontalBase() {
         "페이스북 페이지",
         "네이버네이버네이버네이버네이버네이버 블로그",
         "뉴스기사",
+        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+        "네이버 블로그",
+        "브런치",
+        "페이스북 페이지",
+        "네이버네이버네이버네이버네이버네이버 블로그",
+        "뉴스기사",
+        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+        "네이버 블로그",
+        "브런치",
+        "페이스북 페이지",
+        "네이버네이버네이버네이버네이버네이버 블로그",
+        "뉴스기사",
       ]}
-      series={[74, 24, 5, 2, 23, 5, 2]}
+      sizeValue={sizeValue}
+      series={[74, 24, 5, 2, 23, 5, 2,74, 24, 5, 2, 23, 5, 2,74, 24, 5, 2, 23, 5, 2]}
       ellipsis={ellipsis}
     />
   );
@@ -118,6 +132,7 @@ export function BarHorizontalStacked() {
 
 export function BarVerticalStacked() {
   const percentTooltip = boolean("percentTooltip", false);
+  const sizeValue = number("sizeValue", 78.4)
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -130,7 +145,8 @@ export function BarVerticalStacked() {
 
   return (
     <>
-      <Chart.BarVerticalStacked
+      {/* <Chart.BarVerticalStacked
+        sizeValue={sizeValue}
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         series={[
           [71, 64],
@@ -242,6 +258,7 @@ export function BarVerticalStacked() {
         }}
       />
       <Chart.BarVerticalStacked
+      sizeValue={sizeValue}
         labels={[
           "매우 적절함",
           "적절함",
@@ -257,8 +274,9 @@ export function BarVerticalStacked() {
           [0, null, 0, 0, 25],
         ]}
         xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]} 
-      />
+      /> */}
       <Chart.BarVerticalStacked
+      sizeValue={sizeValue}
         labels={genCharArray("a", "y")}
         series={[
           [4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -311,16 +329,15 @@ export function BarVerticalStacked() {
             name: "전체 평균 점수",
             series: Array.from({ length: 9 }).fill(15) as number[],
           },
-        ]}
-        height={700}
+        ]} 
         override={{
           yAxis: {
             max: 100,
           },
-        }}
-        percentTooltip={percentTooltip}
+        }} 
       />
       <Chart.BarVerticalStacked
+      sizeValue={sizeValue}
         labels={[
           "인터넷 검색",
           "네이버 블로그",
@@ -360,13 +377,11 @@ export function BarVerticalStacked() {
             series: Array.from({ length: 9 }).fill(15) as number[],
           },
         ]}
-        height={700}
         override={{
           yAxis: {
             max: 100,
           },
-        }}
-        percentTooltip={percentTooltip}
+        }} 
       />
     </>
   );

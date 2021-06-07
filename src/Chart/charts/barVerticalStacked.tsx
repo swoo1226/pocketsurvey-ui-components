@@ -30,7 +30,7 @@ type BarVerticalStackedOptionPropsType = {
   hundredPercent?: {
     series: boolean;
     tooltip: boolean;
-  };
+  }; 
 };
 
 const barVerticalStackedOption = ({
@@ -172,7 +172,9 @@ const barVerticalStackedOption = ({
 type BarVerticalStackedPropsType = {
   width?: number | string;
   height?: number | string;
-} & Omit<BarVerticalStackedOptionPropsType, "lineWidth">;
+} & Omit<BarVerticalStackedOptionPropsType, "lineWidth"> & {
+  sizeValue: number
+}
 
 const EchartsWrapper = styled.div<{ minify: boolean, width?:string | number, height?: string | number }>`
   ${(props) => props.minify && "overflow-x: scroll;"}
@@ -190,14 +192,15 @@ function BarVerticalStacked({
   width,
   height,
   hundredPercent,
+  sizeValue
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
   const resizeObject = useResizeDetector({ targetRef });
-  const [minify, setMinify] = React.useState<boolean>(false);
+  const [minify, setMinify] = React.useState<boolean>(true);
 
-  const minWidth = (78.4 * xAxisLabel.length * 5) / 4;
-
+  const minWidth = (sizeValue * xAxisLabel.length)
+  console.log("sizeValue:",sizeValue, "minWidth:",minWidth)
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
