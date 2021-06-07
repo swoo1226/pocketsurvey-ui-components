@@ -10,6 +10,34 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
+export function BarVerticalSeparated() {
+  return (
+    <Chart.BarVerticalSeparated
+      labels={["매우 만족", "만족", "불만족", "매우 불만족"]}
+      seriesLabel={['예', '아니오']}
+      series={[
+        [
+          9647,
+          16,
+        ],
+        [
+          2722,
+          205,
+        ],
+        [
+          101,
+          392,
+        ],
+        [
+          13,
+          192,
+        ]
+      ]}
+      hundredPercent={{ tooltip: true }}
+    />
+  );
+}
+
 export function BarHorizontalBase() {
   const ellipsis = number("ellipsis", 10);
   return (
@@ -155,7 +183,7 @@ export function BarVerticalStacked() {
               nameLocation: "middle",
               nameGap: 50,
               min: 0,
-              max:100,
+              max: 100,
               interval: 10,
             },
             {
@@ -182,7 +210,7 @@ export function BarVerticalStacked() {
             name: "점수",
             series: [59.43, 59.25],
           },
-        ]} 
+        ]}
         series={[
           [71, 64],
           [53, 63],
@@ -256,7 +284,7 @@ export function BarVerticalStacked() {
           [0, null, 0, 0, 25],
           [0, null, 0, 0, 25],
         ]}
-        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]} 
+        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
       />
       <Chart.BarVerticalStacked
         labels={genCharArray("a", "y")}
