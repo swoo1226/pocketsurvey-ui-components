@@ -3,7 +3,7 @@
 import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, chartColor } from "../util/index";
+import { getSizeCSS, mergeOption, color } from "../util/index";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
 
@@ -21,7 +21,7 @@ const barVerticalBaseOption = ({
   override,
 }: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
-}) => {
+}) => { 
   const option: EChartsOption = {};
 
   option.yAxis = { type: "value", show: true };
@@ -40,7 +40,7 @@ const barVerticalBaseOption = ({
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
-        color: chartColor,
+        color: color.YELLOW,
         borderRadius: [4, 4, 0, 0],
       },
     });

@@ -2,12 +2,12 @@
 /* eslint-disable semi */
 import React from "react";
 import { EChartsOption } from "echarts";
-import {
-  getColors,
+import { 
   mergeOption,
   getSizeCSS,
-  chartColor,
+  getColors,
   seriesToPercentArray,
+  color
 } from "../util/index";
 import { verticalStackedFormatter } from "../util/tooltip";
 import EChartsReact from "echarts-for-react";
@@ -65,8 +65,8 @@ const barVerticalStackedOption = ({
 
   const percentSeries = seriesToPercentArray(series);
 
-  const colors = getColors(series.length) as string[];
-
+  const colors = getColors.barStacked(series.length)
+  
   option.series = (hundredPercent?.series === true
     ? percentSeries
     : series
@@ -81,7 +81,7 @@ const barVerticalStackedOption = ({
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index] ?? chartColor,
+          color: colors[index],
           shadowBlur: 0,
           shadowColor: "#fff",
           shadowOffsetX: 0,
@@ -131,23 +131,27 @@ const barVerticalStackedOption = ({
         data: line[i].series as number[],
         name: line[i].name,
         type: "line",
-        symbolSize: 10,
+        symbolSize: 0,
         lineStyle: {
-          color: "#59C4DB",
+          color: color.BLACK,
           width: 2,
         },
+        emphasis: {
+          lineStyle: { 
+            width: 2,
+          },
+        },
         itemStyle: {
-          color: "#59C4DB",
+          color: color.BLACK,
         },
       });
     }
   }
-
-  console.log("option.series:", option.series);
+ 
   const extendFormatter =
     hundredPercent?.tooltip === true
       ? {
-        formatter: (params) => {
+        formatter: (params: any) => {
           return verticalStackedFormatter(params, series);
         },
       }
@@ -199,8 +203,7 @@ function BarVerticalStacked({
   const resizeObject = useResizeDetector({ targetRef });
   const [minify, setMinify] = React.useState<boolean>(true);
 
-  const minWidth = (sizeValue * xAxisLabel.length)
-  console.log("sizeValue:",sizeValue, "minWidth:",minWidth)
+  const minWidth = (sizeValue * xAxisLabel.length) 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
@@ -223,7 +226,7 @@ function BarVerticalStacked({
 
   React.useEffect(() => {
     delayed();
-  }, [resizeObject.width]);
+  }, [resizeObject.width, sizeValue]);
 
   return (
     <EchartsWrapper ref={targetRef} minify={minify} width={width} height={height}>

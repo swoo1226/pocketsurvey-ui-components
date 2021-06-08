@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 export function BarHorizontalBase() {
-  const sizeValue = number("sizeValue", 26)
+  const sizeValue = number("sizeValue", 26);
   const ellipsis = number("ellipsis", 14);
   return (
     <Chart.BarHorizontalBase
@@ -36,7 +36,29 @@ export function BarHorizontalBase() {
         "뉴스기사",
       ]}
       sizeValue={sizeValue}
-      series={[74, 24, 5, 2, 23, 5, 2,74, 24, 5, 2, 23, 5, 2,74, 24, 5, 2, 23, 5, 2]}
+      series={[
+        74,
+        24,
+        5,
+        2,
+        23,
+        5,
+        2,
+        74,
+        24,
+        5,
+        2,
+        23,
+        5,
+        2,
+        74,
+        24,
+        5,
+        2,
+        23,
+        5,
+        2,
+      ]}
       ellipsis={ellipsis}
     />
   );
@@ -99,6 +121,16 @@ export function PieBase() {
   return (
     <>
       <Chart.PieBase
+        labels={["선택지1", "선택지2"]}
+        series={[30, 50]}
+        showLabel={showLabel}
+      />
+      <Chart.PieBase
+        labels={["선택지1", "선택지2"]}
+        series={[60, 0]}
+        showLabel={showLabel}
+      />
+      <Chart.PieBase
         labels={Array.from({ length: 26 }, (_, i) => String(i + 1)).reverse()}
         series={Array.from({ length: 26 }, (_, i) => i + 1).reverse()}
         showLabel={showLabel}
@@ -114,25 +146,34 @@ export function PieBase() {
 
 export function BarHorizontalStacked() {
   return (
-    <Chart.BarHorizontalStacked
-      labels={["A", "B", "기타:"]}
-      series={[
-        [30, 20, 10],
-        [20, 10, 5],
-        [10, 5, 0],
-      ]}
-      yAxisLabel={["1순위", "2순위", "3순위"]}
-      hundredPercent={{
-        series: false,
-        tooltip: true,
-      }}
-    />
+    <>
+      <Chart.BarHorizontalStacked
+        labels={[
+          "서비스 응대 태도",
+          "정비 품질",
+          "소요시간",
+          "가격",
+          "고객대기공간",
+        ]}
+        series={[
+          [9517, 1038],
+          [864, 4196],
+          [989, 3029],
+          [1066, 2171],
+          [153, 665],
+        ]}
+        yAxisLabel={["1순위", "2순위"]}
+        hundredPercent={{
+          series: false,
+          tooltip: true,
+        }}
+      />
+    </>
   );
 }
 
-export function BarVerticalStacked() {
-  const percentTooltip = boolean("percentTooltip", false);
-  const sizeValue = number("sizeValue", 78.4)
+export function BarVerticalStacked() { 
+  const sizeValue = number("sizeValue", 100);
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -145,7 +186,7 @@ export function BarVerticalStacked() {
 
   return (
     <>
-      {/* <Chart.BarVerticalStacked
+      <Chart.BarVerticalStacked
         sizeValue={sizeValue}
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         series={[
@@ -171,74 +212,7 @@ export function BarVerticalStacked() {
               nameLocation: "middle",
               nameGap: 50,
               min: 0,
-              max:100,
-              interval: 10,
-            },
-            {
-              opposite: true,
-              type: "value",
-              name: "점수",
-              min: 0,
-              position: "right",
-              interval: 10,
-              axisLine: {
-                onZero: 0,
-              },
-              nameLocation: "middle",
-              nameGap: 50,
-            },
-          ]
-        }}
-      />
-
-      <Chart.BarVerticalStacked
-        labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
-        line={[
-          {
-            name: "점수",
-            series: [59.43, 59.25],
-          },
-        ]} 
-        series={[
-          [71, 64],
-          [53, 63],
-          [60, 60],
-          [64, 59],
-          [70, 72],
-        ]}
-        xAxisLabel={[
-          "매장 직원의 고객 응대에 대해서 얼마나 만족하셨나요?",
-          "매장 및 화장실의 청결 상태에 대해서 얼마나 만족하셨나요?",
-        ]}
-        hundredPercent={{
-          series: false,
-          tooltip: true,
-        }}
-        override={{
-          stroke: {
-            width: [0, 2],
-          },
-          dataLabels: {
-            enabled: true,
-            background: {
-              enabled: true,
-              foreColor: "black",
-              borderColor: "black",
-              borderWidth: 0.1,
-              opacity: 0.7,
-              dropShadow: {},
-            },
-            style: {
-              colors: ["#fdeeb3", "#59c4db"],
-            },
-          },
-          yAxis: [
-            {
-              type: "value",
-              name: "응답률(%)",
-              nameLocation: "middle",
-              nameGap: 50,
-              min: 0,
+              max: 100,
               interval: 10,
             },
             {
@@ -257,8 +231,9 @@ export function BarVerticalStacked() {
           ],
         }}
       />
+
       <Chart.BarVerticalStacked
-      sizeValue={sizeValue}
+        sizeValue={sizeValue}
         labels={[
           "매우 적절함",
           "적절함",
@@ -273,10 +248,10 @@ export function BarVerticalStacked() {
           [0, null, 0, 0, 25],
           [0, null, 0, 0, 25],
         ]}
-        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]} 
-      /> */}
+        xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
+      />
       <Chart.BarVerticalStacked
-      sizeValue={sizeValue}
+        sizeValue={sizeValue}
         labels={genCharArray("a", "y")}
         series={[
           [4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -322,22 +297,22 @@ export function BarVerticalStacked() {
         ]}
         line={[
           {
-            name: "구간 평균 점수",
+            name: "1부터 9까지",
             series: [1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
           {
-            name: "전체 평균 점수",
+            name: "전부 15",
             series: Array.from({ length: 9 }).fill(15) as number[],
           },
-        ]} 
+        ]}
         override={{
           yAxis: {
             max: 100,
           },
-        }} 
+        }}
       />
       <Chart.BarVerticalStacked
-      sizeValue={sizeValue}
+        sizeValue={sizeValue}
         labels={[
           "인터넷 검색",
           "네이버 블로그",
@@ -369,19 +344,21 @@ export function BarVerticalStacked() {
         ]}
         line={[
           {
-            name: "구간 평균 점수",
+            name: "1부터 9까지",
             series: [1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
           {
-            name: "전체 평균 점수",
-            series: Array.from({ length: 9 }).fill(15) as number[],
+            name: "랜덤",
+            series: Array.from({ length: 9 }).map((item) =>
+              Math.ceil(Math.random() * (50 - 0) + 0)
+            ),
           },
         ]}
         override={{
           yAxis: {
             max: 100,
           },
-        }} 
+        }}
       />
     </>
   );

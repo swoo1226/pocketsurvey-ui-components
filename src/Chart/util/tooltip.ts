@@ -38,8 +38,7 @@ export const verticalStackedFormatter = (
     let percent = ""
     if (tooltipValue !== undefined) {
       value = `${tooltipValue ? tooltipValue : "-"}`
-      const _percent =
-        typeof param.data === "number" ? param.data : param.data?.value
+      const _percent = typeof param.data === "number" ? param.data : param.data?.value
       percent = _percent ? `(${_percent}%)` : "(0%)"
     } else {
       value =

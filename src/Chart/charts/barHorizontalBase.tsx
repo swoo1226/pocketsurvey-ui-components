@@ -6,7 +6,7 @@ import {
   getSizeCSS,
   mergeOption,
   getMaxLabelWidth,
-  chartColor
+  color
 } from "../util/index";
 
 type BarHorizontalBaseOptionPropsType = {
@@ -60,7 +60,7 @@ const barHorizontalBaseOption = ({
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
-        color: chartColor,
+        color: color.YELLOW,
         borderRadius: [0, 4, 4, 0],
       },
     });

@@ -4,16 +4,11 @@ import cloneDeep from "lodash/cloneDeep";
 import { EChartsOption } from "echarts";
 import { defaultOption } from "../charts/index";
 import hexMap from "./hexMap";
-import {sumReducer} from "./tooltip"
-export const chartColor = "#fac62d";
+import { sumReducer } from "./tooltip";
+import chroma from "chroma-js";
 
-export const getColors = (dataLength: number): string[] | undefined => {
-  if(hexMap.has(dataLength.toString())){
-    return hexMap.get(dataLength.toString());
-  } else {
-    return []
-  }
-};
+import {getColors, color} from "./color"
+export {getColors, color};
 
 type deepMergePropsType = {
   option: EChartsOption;
@@ -84,7 +79,7 @@ export const getMaxLabelWidth = (labels: string[], ellipsis?: number) => {
   }
 };
 
-const generate2DArray = (n:number, m:number) => {
+const generate2DArray = (n: number, m: number) => {
   const arr = [];
   for (let i = 0; i < n; i++) {
     arr.push(new Array(m).fill(null));
@@ -92,7 +87,7 @@ const generate2DArray = (n:number, m:number) => {
   return arr;
 };
 
-export const seriesToPercentArray = (series:(number | null)[][]) => {
+export const seriesToPercentArray = (series: (number | null)[][]) => {
   const n = series.length;
   const m = series[0].length;
   const percentArray = generate2DArray(n, m);
@@ -102,15 +97,15 @@ export const seriesToPercentArray = (series:(number | null)[][]) => {
     for (let i = 0; i < series.length; i++) {
       vertical.push(series[i][j]);
     }
-    const verticalSum = vertical.reduce(sumReducer) as number
+    const verticalSum = vertical.reduce(sumReducer) as number;
 
     for (let i = 0; i < n; i++) {
-      const value = series[i][j]
-      percentArray[i][j] = value 
-        ? parseFloat(((value / verticalSum)*100).toFixed(2))
-        : null; 
+      const value = series[i][j];
+      percentArray[i][j] = value
+        ? parseFloat(((value / verticalSum) * 100).toFixed(2))
+        : null;
     }
   }
 
-  return percentArray
+  return percentArray;
 };

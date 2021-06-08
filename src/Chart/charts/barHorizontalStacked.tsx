@@ -7,7 +7,7 @@ import {
   getMaxLabelWidth,
   mergeOption,
   getSizeCSS,
-  chartColor,
+  color,
   seriesToPercentArray
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
@@ -52,7 +52,7 @@ const barHorizontalStackedOption = ({
     },
   };
 
-  const colors = getColors(series.length) as string[];
+  const colors = getColors.barStacked(series.length)
   const percentSeries = seriesToPercentArray(series)
   
   const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
@@ -80,7 +80,7 @@ const barHorizontalStackedOption = ({
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index] ?? chartColor,
+          color: colors[index]
         },
       })),
     };
@@ -110,10 +110,12 @@ const barHorizontalStackedOption = ({
           item.value !== null &&
           item.value !== 0
       ) {
+        console.log("item:", item);
         (option.series as SeriesType)[i].data[index].itemStyle = {
           ...(option.series as SeriesType)[i].data[index].itemStyle,
           borderRadius: [0, 4, 4, 0],
         };
+        console.log("border:",border)
         border[index] = true;
       }
     });
