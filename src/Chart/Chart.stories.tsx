@@ -10,10 +10,13 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export function BarHorizontalBase() {
-  const sizeValue = number("sizeValue", 28);
-  const ellipsis = number("ellipsis", 14);
+export function BarHorizontalBase() { 
   return (
+    <>
+    <Chart.BarHorizontalBase
+      labels={['라벨 1번', '2번 라벨']}
+      series={[123, 456]}
+    />
     <Chart.BarHorizontalBase
       labels={[
         "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
@@ -35,7 +38,6 @@ export function BarHorizontalBase() {
         "네이버네이버네이버네이버네이버네이버 블로그",
         "뉴스기사",
       ]}
-      sizeValue={sizeValue}
       series={[
         74,
         24,
@@ -58,9 +60,9 @@ export function BarHorizontalBase() {
         23,
         5,
         2,
-      ]}
-      ellipsis={ellipsis}
+      ]} 
     />
+    </>
   );
 }
 
@@ -173,7 +175,6 @@ export function BarHorizontalStacked() {
 }
 
 export function BarVerticalStacked() { 
-  const sizeValue = number("sizeValue", 70);
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -188,7 +189,6 @@ export function BarVerticalStacked() {
     <>
     <h3>NPS</h3>
     <Chart.BarVerticalStacked
-      sizeValue={sizeValue}
       nps={true}
       labels={["비추천", "중립", "추천"]}
       series={[
@@ -234,7 +234,6 @@ export function BarVerticalStacked() {
       }}
       />
       <Chart.BarVerticalStacked
-        sizeValue={sizeValue} 
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         series={[
           [71, 64],
@@ -254,7 +253,6 @@ export function BarVerticalStacked() {
       />
 
       <Chart.BarVerticalStacked
-        sizeValue={sizeValue}
         labels={[
           "매우 적절함",
           "적절함",
@@ -272,7 +270,6 @@ export function BarVerticalStacked() {
         xAxisLabel={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
       />
       <Chart.BarVerticalStacked
-        sizeValue={sizeValue}
         labels={genCharArray("a", "y")}
         series={[
           [4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -333,7 +330,6 @@ export function BarVerticalStacked() {
         }}
       />
       <Chart.BarVerticalStacked
-        sizeValue={sizeValue}
         labels={[
           "인터넷 검색",
           "네이버 블로그",
