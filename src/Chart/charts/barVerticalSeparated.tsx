@@ -31,15 +31,9 @@ const getSeries = (series: number[][], seriesLabel: string[], colors: string[]) 
     };
   }[] = [];
 
-  for (let i = 0; i < series[0].length; i++) {
-    let data: number[] = [];
-
-    for (let j = 0; j < series.length; j++) {
-      data.push(series[j][i]);
-    }
-
+  for (let i = 0; i < series.length; i++) {
     seriesData.push({
-      data,
+      data: series[i],
       type: 'bar',
       name: seriesLabel[i],
       color: colors[i],
@@ -73,7 +67,7 @@ const barVerticalSeparatedOption = ({
   } : {}
 
   option.yAxis = { type: "value", show: true };
-  
+
   option.series = getSeries(hundredPercent?.series === true ? percentSeries : series, seriesLabel, colors);
 
   option.tooltip = {

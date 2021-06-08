@@ -13,24 +13,36 @@ export default {
 export function BarVerticalSeparated() {
   return (
     <Chart.BarVerticalSeparated
-      labels={["매우 만족", "만족", "불만족", "매우 불만족"]}
-      seriesLabel={['예', '아니오']}
+      labels={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
+      seriesLabel={["매우 만족", "만족", "불만족", "매우 불만족"]}
       series={[
         [
-          9647,
-          16,
+          28.6,
+          13.2,
+          4.1,
+          2.5,
+          7.2
         ],
         [
-          2722,
-          205,
+          71.4,
+          86.8,
+          95.9,
+          97.5,
+          92.8
         ],
         [
-          101,
-          392,
+          null,
+          null,
+          null,
+          null,
+          null
         ],
         [
-          13,
-          192,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       ]}
       hundredPercent={{ tooltip: false, series: false }}
