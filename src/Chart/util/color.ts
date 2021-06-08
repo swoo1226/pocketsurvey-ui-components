@@ -2,7 +2,6 @@ import range from "lodash/range"
 import chroma from "chroma-js"
 
 const autoGradient = (color: string, numColors: number, diverging: boolean) => {
-  console.log("함수 실행: autoGradient")
   const lab = chroma(color).lab()
   const lRange = 100 * (0.95 - 1 / numColors)
   const lStep = lRange / (numColors - 1)
@@ -28,7 +27,6 @@ const autoColors = (
   reverse: boolean,
   diverging: boolean
 ) => {
-  console.log("함수 실행: autoColors")
   if (diverging) {
     const colors = autoGradient(color, 3, diverging).concat(chroma("#f5f5f5"))
     if (reverse) colors.reverse()

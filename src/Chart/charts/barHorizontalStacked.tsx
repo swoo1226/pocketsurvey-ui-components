@@ -112,12 +112,10 @@ const barHorizontalStackedOption = ({
           item.value !== null &&
           item.value !== 0
       ) {
-        console.log("item:", item);
         (option.series as SeriesType)[i].data[index].itemStyle = {
           ...(option.series as SeriesType)[i].data[index].itemStyle,
           borderRadius: [0, 4, 4, 0],
         };
-        console.log("border:",border)
         border[index] = true;
       }
     });
