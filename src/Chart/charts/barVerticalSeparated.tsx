@@ -3,8 +3,8 @@
 import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, chartColor, getColors } from "../util/index";
-import { verticalSeparatedFormatter, verticalStackedFormatter } from "../util/tooltip"
+import { getSizeCSS, mergeOption, chartColor, getColors, seriesToPercentArray } from "../util/index";
+import { verticalStackedFormatter } from "../util/tooltip"
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
 
@@ -15,26 +15,12 @@ type BarVerticalSeparatedOptionPropsType = {
   override?: EChartsOption;
   lineWidth: number | null;
   hundredPercent?: {
-    tooltip: boolean
+    tooltip: boolean,
+    series: boolean
   }
 };
 
-const barVerticalSeparatedOption = ({
-  series,
-  seriesLabel,
-  labels,
-  lineWidth,
-  override,
-  hundredPercent,
-}: BarVerticalSeparatedOptionPropsType & {
-  lineWidth: number | null;
-}) => {
-  const option: EChartsOption = {};
-
-  option.yAxis = { type: "value", show: true };
-
-  const colors = getColors(series.length) as string[];
-
+const getSeries = (series: number[][], seriesLabel: string[], colors: string[]) => {
   const seriesData: {
     data: number[];
     type: string;
@@ -63,16 +49,32 @@ const barVerticalSeparatedOption = ({
     })
   }
 
-  option.series = seriesData;
+  return seriesData
+}
 
+const barVerticalSeparatedOption = ({
+  series,
+  seriesLabel,
+  labels,
+  lineWidth,
+  override,
+  hundredPercent,
+}: BarVerticalSeparatedOptionPropsType & {
+  lineWidth: number | null;
+}) => {
+  const option: EChartsOption = {};
+  const colors = getColors(series.length) as string[];
+  const percentSeries = seriesToPercentArray(series)
+  
   const extendFormatter = hundredPercent?.tooltip === true ? {
     formatter: (params) => {
       return verticalStackedFormatter(params, series);
     }
   } : {}
 
-  console.log('hundredPercent?.tooltip:', hundredPercent?.tooltip);
-  console.log('extendFormatter: ', extendFormatter);
+  option.yAxis = { type: "value", show: true };
+  
+  option.series = getSeries(hundredPercent?.series === true ? percentSeries : series, seriesLabel, colors);
 
   option.tooltip = {
     trigger: "axis",
