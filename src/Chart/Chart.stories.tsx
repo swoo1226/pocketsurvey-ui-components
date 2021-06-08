@@ -10,7 +10,48 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export function BarHorizontalBase() { 
+export function BarVerticalSeparated() {
+  return (
+    <Chart.BarVerticalSeparated
+      labels={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
+      seriesLabel={["매우 만족", "만족", "불만족", "매우 불만족"]}
+      series={[
+        [
+          28.6,
+          13.2,
+          4.1,
+          2.5,
+          7.2
+        ],
+        [
+          71.4,
+          86.8,
+          95.9,
+          97.5,
+          92.8
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ]}
+      hundredPercent={{ tooltip: false, series: false }}
+    />
+  );
+}
+
+export function BarHorizontalBase() {
+  const ellipsis = number("ellipsis", 10);
   return (
     <>
     <Chart.BarHorizontalBase
@@ -253,7 +294,7 @@ export function BarVerticalStacked() {
       />
 
       <Chart.BarVerticalStacked
-        labels={[
+      labels={[
           "매우 적절함",
           "적절함",
           "보통",
