@@ -36,6 +36,7 @@ const lineBaseOption = ({
         return obj;
       }
     },
+    extraCssText: "text-align: left;"
   };
   option.toolbox = {
     show: true,

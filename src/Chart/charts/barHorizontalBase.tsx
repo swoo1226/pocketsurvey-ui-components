@@ -84,6 +84,7 @@ const barHorizontalBaseOption = ({
     axisPointer: {
       type: "shadow",
     },
+    extraCssText: "text-align: left;"
   };
 
   option.grid = {
