@@ -68,6 +68,8 @@ const barHorizontalStackedOption = ({
     ...extendFormatter
   };
 
+  
+
   option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
     return {
       name: labels[index],

@@ -7,26 +7,26 @@ import hexMap from "./hexMap";
 import { sumReducer } from "./tooltip";
 import chroma from "chroma-js";
 
-import {getColors, color} from "./color"
-export {getColors, color};
+import { getColors, color } from "./color";
+export { getColors, color };
 
 type deepMergePropsType = {
   option: EChartsOption;
+  preset?: EChartsOption;
   override?: EChartsOption;
 };
 
 export const mergeOption = ({
   option,
-  override,
+  preset,
+  override
 }: deepMergePropsType): EChartsOption => {
   const _defaultOption = cloneDeep(defaultOption);
   const _option = cloneDeep(option);
-  const _override = override ? cloneDeep(override) : null;
-  const mergedOption = override
-    ? merge(_defaultOption, _option, _override)
-    : merge(_defaultOption, _option);
-
-  return mergedOption;
+  const _preset = preset ? cloneDeep(preset) : {};
+  const _override = override ? cloneDeep(override) : {};
+  
+  return merge(_defaultOption, _option, _preset, _override)
 };
 
 export const getSizeCSS = (
@@ -97,7 +97,12 @@ export const seriesToPercentArray = (series: (number | null)[][]) => {
     for (let i = 0; i < series.length; i++) {
       vertical.push(series[i][j]);
     }
-    const verticalSum = vertical.reduce(sumReducer) as number;
+    const verticalSum = vertical.reduce(
+      sumReducer as (
+        accumulator: number | null,
+        currentValue: null | number
+      ) => number
+    ) as number;
 
     for (let i = 0; i < n; i++) {
       const value = series[i][j];

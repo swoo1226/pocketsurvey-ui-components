@@ -2,19 +2,18 @@
 /* eslint-disable semi */
 import React from "react";
 import { EChartsOption } from "echarts";
-import { 
+import {
   mergeOption,
   getSizeCSS,
   getColors,
   seriesToPercentArray,
-  color
+  color,
 } from "../util/index";
 import { verticalStackedFormatter } from "../util/tooltip";
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+import {getPreset, BarVerticalStackedPresetType} from "../util/preset"
 import debounce from "lodash/debounce";
-import merge from "lodash/merge";
-import cloneDeep from "lodash/cloneDeep";
 import styled from "styled-components";
 
 type BarVerticalStackedOptionPropsType = {
@@ -30,7 +29,9 @@ type BarVerticalStackedOptionPropsType = {
   hundredPercent?: {
     series: boolean;
     tooltip: boolean;
-  }; 
+  };
+  nps?: boolean;
+  preset?:BarVerticalStackedPresetType
 };
 
 const barVerticalStackedOption = ({
@@ -40,8 +41,13 @@ const barVerticalStackedOption = ({
   override,
   line,
   lineWidth,
-  hundredPercent
-}: BarVerticalStackedOptionPropsType) => {
+  hundredPercent,
+  nps,
+  minify,
+  preset
+}: BarVerticalStackedOptionPropsType & {
+  minify: boolean;
+}) => {
   const option: EChartsOption = {};
 
   option.yAxis = {
@@ -65,8 +71,11 @@ const barVerticalStackedOption = ({
 
   const percentSeries = seriesToPercentArray(series);
 
-  const colors = getColors.barStacked(series.length)
-  
+  const colors =
+    nps === true
+      ? [color.NPS.RED, color.NPS.YELLOW, color.NPS.GREEN]
+      : getColors.barStacked(series.length);
+
   option.series = (hundredPercent?.series === true
     ? percentSeries
     : series
@@ -133,21 +142,22 @@ const barVerticalStackedOption = ({
         type: "line",
         symbolSize: 0,
         lineStyle: {
-          color: color.BLACK,
+          color: nps === true ? color.NPS.BLUE : color.BLACK,
           width: 2,
         },
         emphasis: {
-          lineStyle: { 
+          lineStyle: {
             width: 2,
           },
         },
         itemStyle: {
-          color: color.BLACK,
+          color: nps === true ? color.NPS.BLUE : color.BLACK,
         },
+        yAxisIndex: nps === true ? 1 : undefined,
       });
     }
   }
- 
+
   const extendFormatter =
     hundredPercent?.tooltip === true
       ? {
@@ -167,9 +177,17 @@ const barVerticalStackedOption = ({
     ...extendFormatter,
   };
 
+  option.grid = {
+    left: "100px",
+    right: "100px",
+    // left: minify ? "100px" : "10%",
+    // right: minify ? "100px" : "10%"
+  };
+
   return mergeOption({
     option,
     override,
+    preset: preset ? getPreset(preset, option) : undefined
   });
 };
 
@@ -177,13 +195,27 @@ type BarVerticalStackedPropsType = {
   width?: number | string;
   height?: number | string;
 } & Omit<BarVerticalStackedOptionPropsType, "lineWidth"> & {
-  sizeValue: number
-}
+    sizeValue: number;
+  };
 
-const EchartsWrapper = styled.div<{ minify: boolean, width?:string | number, height?: string | number }>`
+const EchartsWrapper = styled.div<{
+  minify: boolean;
+  width?: string | number;
+  height?: string | number;
+}>`
   ${(props) => props.minify && "overflow-x: scroll;"}
-  ${(props) => props.width ? typeof props.width === "number" ? `width: ${props.width}px;` : `width: ${props.width};` : "" }
-  ${(props) => props.height ? typeof props.height === "number" ? `height: ${props.height}px;` : `height: ${props.height};` : ""}
+  ${(props) =>
+    props.width
+      ? typeof props.width === "number"
+        ? `width: ${props.width}px;`
+        : `width: ${props.width};`
+      : ""}
+  ${(props) =>
+    props.height
+      ? typeof props.height === "number"
+        ? `height: ${props.height}px;`
+        : `height: ${props.height};`
+      : ""}
   overflow-y: hidden;
 `;
 
@@ -196,14 +228,16 @@ function BarVerticalStacked({
   width,
   height,
   hundredPercent,
-  sizeValue
+  sizeValue,
+  nps,
+  preset
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
   const resizeObject = useResizeDetector({ targetRef });
   const [minify, setMinify] = React.useState<boolean>(true);
 
-  const minWidth = (sizeValue * xAxisLabel.length) 
+  const minWidth = sizeValue * xAxisLabel.length + 200;
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
@@ -229,7 +263,12 @@ function BarVerticalStacked({
   }, [resizeObject.width, sizeValue]);
 
   return (
-    <EchartsWrapper ref={targetRef} minify={minify} width={width} height={height}>
+    <EchartsWrapper
+      ref={targetRef}
+      minify={minify}
+      width={width}
+      height={height}
+    >
       <EChartsReact
         style={getSizeCSS(minify ? minWidth : undefined, height)}
         option={barVerticalStackedOption({
@@ -239,7 +278,10 @@ function BarVerticalStacked({
           override,
           line,
           lineWidth,
-          hundredPercent
+          hundredPercent,
+          nps,
+          minify,
+          preset
         })}
         opts={{ renderer: "svg" }}
       />

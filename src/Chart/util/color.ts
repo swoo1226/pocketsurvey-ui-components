@@ -108,7 +108,13 @@ export const color = {
   LIGHT_YELLOW: "#FEF4D5",
   GRAY: "#818282",
   LIGHT_GRAY: "#F0F0F0",
-  BLACK: "#2B2E33"
+  BLACK: "#2B2E33",
+  NPS: {
+    RED:"#F37165",
+    YELLOW:"#FFD776",
+    GREEN: "#70D473",
+    BLUE:"#59C4DB"
+  }
 }
 
 export const getColors = {

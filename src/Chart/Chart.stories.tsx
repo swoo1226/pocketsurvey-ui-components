@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 export function BarHorizontalBase() {
-  const sizeValue = number("sizeValue", 26);
+  const sizeValue = number("sizeValue", 28);
   const ellipsis = number("ellipsis", 14);
   return (
     <Chart.BarHorizontalBase
@@ -164,7 +164,7 @@ export function BarHorizontalStacked() {
         ]}
         yAxisLabel={["1순위", "2순위"]}
         hundredPercent={{
-          series: false,
+          series: true,
           tooltip: true,
         }}
       />
@@ -173,7 +173,7 @@ export function BarHorizontalStacked() {
 }
 
 export function BarVerticalStacked() { 
-  const sizeValue = number("sizeValue", 100);
+  const sizeValue = number("sizeValue", 70);
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -186,8 +186,55 @@ export function BarVerticalStacked() {
 
   return (
     <>
+    <h3>NPS</h3>
+    <Chart.BarVerticalStacked
+      sizeValue={sizeValue}
+      nps={true}
+      labels={["비추천", "중립", "추천"]}
+      series={[
+        [60,67],
+        [21,33],
+        [18,0]
+      ]}
+      xAxisLabel={['2021-04 (131명)', '2021-05 (3명)']}
+      line={
+        [{
+          name: 'NPS',
+          series: [-41.98, -66.67]
+        }]
+      }
+      hundredPercent={{
+        series: false,
+        tooltip: true,
+      }}
+      override={{
+        yAxis: [
+          {
+            type: 'value', 
+            nameLocation: 'middle',
+            nameGap: 50,
+            min: 0,
+            max: 100,
+            interval: 10
+          },
+          {
+            opposite: true,
+            type: 'value', 
+            min: -100,
+            max: 100,
+            position: 'right',
+            interval: 20,
+            axisLine: {
+              onZero: 0,
+            },
+            nameLocation: 'middle',
+            nameGap: 50,
+          },
+        ],
+      }}
+      />
       <Chart.BarVerticalStacked
-        sizeValue={sizeValue}
+        sizeValue={sizeValue} 
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         series={[
           [71, 64],
@@ -203,32 +250,6 @@ export function BarVerticalStacked() {
         hundredPercent={{
           series: true,
           tooltip: true,
-        }}
-        override={{
-          yAxis: [
-            {
-              type: "value",
-              name: "응답률(%)",
-              nameLocation: "middle",
-              nameGap: 50,
-              min: 0,
-              max: 100,
-              interval: 10,
-            },
-            {
-              opposite: true,
-              type: "value",
-              name: "점수",
-              min: 0,
-              position: "right",
-              interval: 10,
-              axisLine: {
-                onZero: 0,
-              },
-              nameLocation: "middle",
-              nameGap: 50,
-            },
-          ],
         }}
       />
 
