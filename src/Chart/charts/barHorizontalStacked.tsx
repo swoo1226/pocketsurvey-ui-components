@@ -11,9 +11,11 @@ import {
   seriesToPercentArray
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
-import {verticalStackedFormatter} from "../util/tooltip"
+import {stackedFormatter} from "../util/tooltip"
 import styled from "styled-components"
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+
+const MAX_LABEL_LENGTH = 14
 
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -49,23 +51,27 @@ const barHorizontalStackedOption = ({
       showMaxLabel: true,
       height: 100,
       margin: 14,
+      formatter: (value: string) => {
+        if (value.length >= MAX_LABEL_LENGTH) {
+          return `${value.substr(0, MAX_LABEL_LENGTH)}...`;
+        }
+        return value;
+      },
     },
   };
 
   const colors = getColors.barStacked(series.length)
   const percentSeries = seriesToPercentArray(series)
   
-  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
-    return verticalStackedFormatter(params, series);
-  }} :{}  
-
   option.tooltip = {
     show: true,
     trigger: "axis",
     axisPointer: {
       type: "shadow",
     }, 
-    ...extendFormatter
+    formatter: (params: any) => {
+      return stackedFormatter(params, series, "horizontal", hundredPercent?.tooltip ?? false)
+    }
   };
 
   
@@ -123,7 +129,7 @@ const barHorizontalStackedOption = ({
   }
 
   option.grid = {
-    left: `${getMaxLabelWidth(yAxisLabel)}px`,
+    left: `${getMaxLabelWidth(yAxisLabel, MAX_LABEL_LENGTH)}px`,
   };
 
   return mergeOption({
