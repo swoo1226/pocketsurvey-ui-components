@@ -3,7 +3,8 @@
 import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, chartColor } from "../util/index";
+import { getSizeCSS, mergeOption, color } from "../util/index";
+import {getPreset, BarVerticalBasePresetType} from "../util/preset"
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
 
@@ -12,6 +13,7 @@ type BarVerticalBaseOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   lineWidth: number | null;
+  preset?: BarVerticalBasePresetType
 };
 
 const barVerticalBaseOption = ({
@@ -19,14 +21,13 @@ const barVerticalBaseOption = ({
   labels,
   lineWidth,
   override,
+  preset
 }: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
-}) => {
+}) => { 
   const option: EChartsOption = {};
 
   option.yAxis = { type: "value", show: true };
-
-  const dataLength = series.length; 
 
   const seriesData: {
     value: number;
@@ -40,7 +41,7 @@ const barVerticalBaseOption = ({
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
-        color: chartColor,
+        color: color.YELLOW,
         borderRadius: [4, 4, 0, 0],
       },
     });
@@ -63,6 +64,7 @@ const barVerticalBaseOption = ({
     axisPointer: {
       type: "shadow",
     },
+    extraCssText: "text-align: left;"
   };
 
   option.grid = {
@@ -87,6 +89,7 @@ const barVerticalBaseOption = ({
   return mergeOption({
     option,
     override,
+    preset: preset ? getPreset(preset) : undefined
   });
 };
 
@@ -100,7 +103,8 @@ function BarVerticalBase({
   height,
   series,
   labels,
-  override
+  override,
+  preset
 }: BarVerticalBasePropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
@@ -134,6 +138,7 @@ function BarVerticalBase({
           labels,
           lineWidth,
           override,
+          preset
         })}
         opts={{ renderer: "svg" }}
       />

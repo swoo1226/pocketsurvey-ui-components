@@ -6,21 +6,21 @@ import {
   getSizeCSS,
   mergeOption,
   getMaxLabelWidth,
-  chartColor
+  color
 } from "../util/index";
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
   labels: string[];
   override?: EChartsOption;
-  ellipsis?: number; //말줄임표를 적용하는 글자 수 ex) 14글자면 14글자 부터 자르고 ... 을 붙임
 };
+
+const MAX_LABEL_LENGTH = 14
 
 const barHorizontalBaseOption = ({
   series,
   labels,
-  override,
-  ellipsis,
+  override
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -28,7 +28,7 @@ const barHorizontalBaseOption = ({
     type: "value",
     show: true,
   };
-
+ 
   option.yAxis = {
     type: "category",
     z: 100,
@@ -39,17 +39,15 @@ const barHorizontalBaseOption = ({
       showMaxLabel: true,
       height: 100,
       margin: 14,
-      formatter: (value) => {
-        if (ellipsis && value.length >= ellipsis) {
-          return `${value.substr(0, ellipsis)}...`;
+      formatter: (value: string) => {
+        if (value.length >= MAX_LABEL_LENGTH) {
+          return `${value.substr(0, MAX_LABEL_LENGTH)}...`;
         }
         return value;
       },
     },
-  };
+  } as EChartsOption["yAxis"]
 
-  const dataLength = series.length;
-  
   const seriesData: {
     value: number;
     itemStyle: {
@@ -62,7 +60,7 @@ const barHorizontalBaseOption = ({
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
-        color: chartColor,
+        color: color.YELLOW,
         borderRadius: [0, 4, 4, 0],
       },
     });
@@ -71,6 +69,7 @@ const barHorizontalBaseOption = ({
   option.series = [
     {
       data: seriesData,
+      barMinWidth: 26,
       type: "bar",
       label: {
         show: true,
@@ -85,10 +84,11 @@ const barHorizontalBaseOption = ({
     axisPointer: {
       type: "shadow",
     },
+    extraCssText: "text-align: left;"
   };
 
   option.grid = {
-    left: `${getMaxLabelWidth(labels, ellipsis)}px`,
+    left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`
   };
 
   return mergeOption({
@@ -100,24 +100,26 @@ const barHorizontalBaseOption = ({
 type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
-} & BarHorizontalBaseOptionPropsType;
+} & BarHorizontalBaseOptionPropsType
 
 function BarHorizontalBase({
   width,
   height,
   series,
   labels,
-  override,
-  ellipsis,
+  override
 }: BarHorizontalBasePropsType): JSX.Element {
+  const sizeValue = 28
+  const minWidth = (sizeValue * series.length) + ((sizeValue * series.length) * 0.2) + 120
+  const defaultWidth = 300
+
   return (
     <EChartsReact
-      style={getSizeCSS(width, height)}
+      style={getSizeCSS(width, minWidth > defaultWidth ? minWidth: defaultWidth)}
       option={barHorizontalBaseOption({
         series,
         labels,
-        override,
-        ellipsis,
+        override
       })}
     />
   );

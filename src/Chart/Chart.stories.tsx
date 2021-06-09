@@ -13,39 +13,32 @@ export default {
 export function BarVerticalSeparated() {
   return (
     <Chart.BarVerticalSeparated
-      labels={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
-      seriesLabel={["매우 만족", "만족", "불만족", "매우 불만족"]}
-      series={[
-        [
-          28.6,
-          13.2,
-          4.1,
-          2.5,
-          7.2
-        ],
-        [
-          71.4,
-          86.8,
-          95.9,
-          97.5,
-          92.8
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
+      xAxisLabel={[
+        "신차 구매 등 차량 변경",
+        "거리 등 접근성",
+        "제휴 혜택 등 가격",
+        "기타:",
       ]}
-      hundredPercent={{ tooltip: false, series: false }}
+      label={["매우 만족", "만족", "불만족", "매우 불만족"]}
+      series={[
+        [28.6, 13.2, 4.1, 2.5, 7.2],
+        [71.4, 86.8, 95.9, 97.5, 92.8],
+        [
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+        ],
+        [
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+        ],
+      ]}
+      hundredPercent={{ tooltip: true, series: true }}
     />
   );
 }
@@ -53,18 +46,57 @@ export function BarVerticalSeparated() {
 export function BarHorizontalBase() {
   const ellipsis = number("ellipsis", 10);
   return (
-    <Chart.BarHorizontalBase
-      labels={[
-        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "네이버네이버네이버네이버네이버네이버 블로그",
-        "뉴스기사",
-      ]}
-      series={[74, 24, 5, 2, 23, 5, 2]}
-      ellipsis={ellipsis}
-    />
+    <>
+      <Chart.BarHorizontalBase
+        labels={["라벨 1번", "2번 라벨"]}
+        series={[123, 456]}
+      />
+      <Chart.BarHorizontalBase
+        labels={[
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+        ]}
+        series={[
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+        ]}
+      />
+    </>
   );
 }
 
@@ -125,6 +157,16 @@ export function PieBase() {
   return (
     <>
       <Chart.PieBase
+        labels={["선택지1", "선택지2"]}
+        series={[30, 50]}
+        showLabel={showLabel}
+      />
+      <Chart.PieBase
+        labels={["선택지1", "선택지2"]}
+        series={[60, 0]}
+        showLabel={showLabel}
+      />
+      <Chart.PieBase
         labels={Array.from({ length: 26 }, (_, i) => String(i + 1)).reverse()}
         series={Array.from({ length: 26 }, (_, i) => i + 1).reverse()}
         showLabel={showLabel}
@@ -150,24 +192,33 @@ export function Bubble() {
 
 export function BarHorizontalStacked() {
   return (
-    <Chart.BarHorizontalStacked
-      labels={["A", "B", "기타:"]}
-      series={[
-        [30, 20, 10],
-        [20, 10, 5],
-        [10, 5, 0],
-      ]}
-      yAxisLabel={["1순위", "2순위", "3순위"]}
-      hundredPercent={{
-        series: false,
-        tooltip: true,
-      }}
-    />
+    <>
+      <Chart.BarHorizontalStacked
+        labels={[
+          "서비스 응대 태도",
+          "정비 품질",
+          "소요시간",
+          "가격",
+          "고객대기공간",
+        ]}
+        series={[
+          [9517, 1038],
+          [864, 4196],
+          [989, 3029],
+          [1066, 2171],
+          [153, 665],
+        ]}
+        yAxisLabel={["1순위", "2순위"]}
+        hundredPercent={{
+          series: true,
+          tooltip: true,
+        }}
+      />
+    </>
   );
 }
 
 export function BarVerticalStacked() {
-  const percentTooltip = boolean("percentTooltip", false);
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -180,6 +231,52 @@ export function BarVerticalStacked() {
 
   return (
     <>
+      <h3>NPS</h3>
+      <Chart.BarVerticalStacked
+        nps={true}
+        labels={["비추천", "중립", "추천"]}
+        series={[
+          [60, 67],
+          [21, 33],
+          [18, 0],
+        ]}
+        xAxisLabel={["2021-04 (131명)", "2021-05 (3명)"]}
+        line={[
+          {
+            name: "NPS",
+            series: [-41.98, -66.67],
+          },
+        ]}
+        hundredPercent={{
+          series: false,
+          tooltip: true,
+        }}
+        override={{
+          yAxis: [
+            {
+              type: "value",
+              nameLocation: "middle",
+              nameGap: 50,
+              min: 0,
+              max: 100,
+              interval: 10,
+            },
+            {
+              opposite: true,
+              type: "value",
+              min: -100,
+              max: 100,
+              position: "right",
+              interval: 20,
+              axisLine: {
+                onZero: 0,
+              },
+              nameLocation: "middle",
+              nameGap: 50,
+            },
+          ],
+        }}
+      />
       <Chart.BarVerticalStacked
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
         series={[
@@ -197,100 +294,8 @@ export function BarVerticalStacked() {
           series: true,
           tooltip: true,
         }}
-        override={{
-          yAxis: [
-            {
-              type: "value",
-              name: "응답률(%)",
-              nameLocation: "middle",
-              nameGap: 50,
-              min: 0,
-              max: 100,
-              interval: 10,
-            },
-            {
-              opposite: true,
-              type: "value",
-              name: "점수",
-              min: 0,
-              position: "right",
-              interval: 10,
-              axisLine: {
-                onZero: 0,
-              },
-              nameLocation: "middle",
-              nameGap: 50,
-            },
-          ]
-        }}
       />
 
-      <Chart.BarVerticalStacked
-        labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
-        line={[
-          {
-            name: "점수",
-            series: [59.43, 59.25],
-          },
-        ]}
-        series={[
-          [71, 64],
-          [53, 63],
-          [60, 60],
-          [64, 59],
-          [70, 72],
-        ]}
-        xAxisLabel={[
-          "매장 직원의 고객 응대에 대해서 얼마나 만족하셨나요?",
-          "매장 및 화장실의 청결 상태에 대해서 얼마나 만족하셨나요?",
-        ]}
-        hundredPercent={{
-          series: false,
-          tooltip: true,
-        }}
-        override={{
-          stroke: {
-            width: [0, 2],
-          },
-          dataLabels: {
-            enabled: true,
-            background: {
-              enabled: true,
-              foreColor: "black",
-              borderColor: "black",
-              borderWidth: 0.1,
-              opacity: 0.7,
-              dropShadow: {},
-            },
-            style: {
-              colors: ["#fdeeb3", "#59c4db"],
-            },
-          },
-          yAxis: [
-            {
-              type: "value",
-              name: "응답률(%)",
-              nameLocation: "middle",
-              nameGap: 50,
-              min: 0,
-              interval: 10,
-            },
-            {
-              opposite: true,
-              type: "value",
-              name: "점수",
-              min: 0,
-              position: "right",
-              interval: 10,
-              axisLine: {
-                onZero: 0,
-              },
-              nameLocation: "middle",
-              nameGap: 50,
-            },
-          ],
-        }}
-      />
       <Chart.BarVerticalStacked
         labels={[
           "매우 적절함",
@@ -354,21 +359,19 @@ export function BarVerticalStacked() {
         ]}
         line={[
           {
-            name: "구간 평균 점수",
+            name: "1부터 9까지",
             series: [1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
           {
-            name: "전체 평균 점수",
+            name: "전부 15",
             series: Array.from({ length: 9 }).fill(15) as number[],
           },
         ]}
-        height={700}
         override={{
           yAxis: {
             max: 100,
           },
         }}
-        percentTooltip={percentTooltip}
       />
       <Chart.BarVerticalStacked
         labels={[
@@ -402,21 +405,21 @@ export function BarVerticalStacked() {
         ]}
         line={[
           {
-            name: "구간 평균 점수",
+            name: "1부터 9까지",
             series: [1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
           {
-            name: "전체 평균 점수",
-            series: Array.from({ length: 9 }).fill(15) as number[],
+            name: "랜덤",
+            series: Array.from({ length: 9 }).map((item) =>
+              Math.ceil(Math.random() * (50 - 0) + 0)
+            ),
           },
         ]}
-        height={700}
         override={{
           yAxis: {
             max: 100,
           },
         }}
-        percentTooltip={percentTooltip}
       />
     </>
   );

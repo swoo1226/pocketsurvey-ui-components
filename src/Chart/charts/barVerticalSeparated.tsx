@@ -3,24 +3,29 @@
 import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, chartColor, getColors, seriesToPercentArray } from "../util/index";
-import { verticalStackedFormatter } from "../util/tooltip"
+import {
+  getSizeCSS,
+  mergeOption,
+  getColors,
+  seriesToPercentArray,
+} from "../util/index";
+import { stackedFormatter } from "../util/tooltip";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import debounce from "lodash/debounce";
+import styled from "styled-components";
 
 type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
-  labels: string[];
-  seriesLabel: string[];
+  xAxisLabel: string[];
+  label: string[];
   override?: EChartsOption;
   lineWidth: number | null;
   hundredPercent?: {
-    tooltip: boolean,
-    series: boolean
-  }
+    tooltip: boolean;
+    series: boolean;
+  };
 };
 
-const getSeries = (series: number[][], seriesLabel: string[], colors: string[]) => {
+const getSeries = (series: number[][], label: string[], colors: string[]) => {
   const seriesData: {
     data: number[];
     type: string;
@@ -34,22 +39,22 @@ const getSeries = (series: number[][], seriesLabel: string[], colors: string[]) 
   for (let i = 0; i < series.length; i++) {
     seriesData.push({
       data: series[i],
-      type: 'bar',
-      name: seriesLabel[i],
+      type: "bar",
+      name: label[i],
       color: colors[i],
       itemStyle: {
         borderRadius: [4, 4, 0, 0],
       },
-    })
+    });
   }
 
-  return seriesData
-}
+  return seriesData;
+};
 
 const barVerticalSeparatedOption = ({
   series,
-  seriesLabel,
-  labels,
+  label,
+  xAxisLabel,
   lineWidth,
   override,
   hundredPercent,
@@ -57,34 +62,40 @@ const barVerticalSeparatedOption = ({
   lineWidth: number | null;
 }) => {
   const option: EChartsOption = {};
-  const colors = getColors(series.length) as string[];
-  const percentSeries = seriesToPercentArray(series)
-  
-  const extendFormatter = hundredPercent?.tooltip === true ? {
-    formatter: (params) => {
-      return verticalStackedFormatter(params, series);
-    }
-  } : {}
+  const colors = getColors.barStacked(series.length);
+  const percentSeries = seriesToPercentArray(series);
 
   option.yAxis = { type: "value", show: true };
 
-  option.series = getSeries(hundredPercent?.series === true ? percentSeries : series, seriesLabel, colors);
+  option.series = getSeries(
+    hundredPercent?.series === true ? percentSeries : series,
+    label,
+    colors
+  ) as EChartsOption["series"];
 
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
       type: "shadow",
     },
-    ...extendFormatter
+    formatter: (params: any) => {
+      return stackedFormatter(
+        params,
+        series,
+        "vertical-separated",
+        hundredPercent?.tooltip ?? false
+      );
+    },
   };
 
   option.grid = {
-    left: "10%",
+    left: "100px",
+    right: "100px",
   };
 
   option.xAxis = {
     type: "category",
-    data: labels,
+    data: xAxisLabel,
     axisLabel: {
       interval: 0,
       margin: 14,
@@ -101,60 +112,83 @@ const barVerticalSeparatedOption = ({
     option,
     override,
   });
-}
+};
 
 type BarVerticalSeparatedPropsType = {
   width?: number | string;
   height?: number | string;
-} & Omit<BarVerticalSeparatedOptionPropsType, "lineWidth">
+} & Omit<BarVerticalSeparatedOptionPropsType, "lineWidth">;
+
+const EchartsWrapper = styled.div<{
+  minify: boolean;
+  width?: string | number;
+  height?: string | number;
+}>`
+  ${(props) => props.minify && "overflow-x: scroll;"}
+  ${(props) =>
+    props.width
+      ? typeof props.width === "number"
+        ? `width: ${props.width}px;`
+        : `width: ${props.width};`
+      : ""}
+  ${(props) =>
+    props.height
+      ? typeof props.height === "number"
+        ? `height: ${props.height}px;`
+        : `height: ${props.height};`
+      : ""}
+`;
 
 function BarVerticalSeparated({
   width,
   height,
   series,
-  seriesLabel,
-  labels,
+  label,
+  xAxisLabel,
   override,
-  hundredPercent
+  hundredPercent,
 }: BarVerticalSeparatedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
+  const [minify, setMinify] = React.useState<boolean>(true);
+
+  const sizeValue = series.length * 30;
+  const minWidth = sizeValue * xAxisLabel.length + 200;
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
+    const clientWidth = targetRef.current?.clientWidth;
+    if (clientWidth) {
+      setMinify(minWidth > clientWidth);
+    }
   };
-
-  const delayed = React.useCallback(
-    debounce(() => calcSVGPathLineWidth(), 500),
-    []
-  );
 
   const resizeObject = useResizeDetector({ targetRef });
   React.useEffect(() => {
     calcSVGPathLineWidth();
   }, []);
   React.useEffect(() => {
-    delayed();
+    calcSVGPathLineWidth();
   }, [resizeObject.width]);
 
   return (
-    <div ref={targetRef}>
+    <EchartsWrapper ref={targetRef} minify={minify} width={width}>
       <EChartsReact
-        style={getSizeCSS(width, height)}
+        style={getSizeCSS(minify ? minWidth : undefined, height)}
         option={barVerticalSeparatedOption({
           series,
-          seriesLabel,
-          labels,
+          label,
+          xAxisLabel,
           lineWidth,
           override,
           hundredPercent,
         })}
         opts={{ renderer: "svg" }}
       />
-    </div>
+    </EchartsWrapper>
   );
 }
 
