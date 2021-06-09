@@ -46,16 +46,27 @@ const bubbleOption = ({data}) => {
   const colors = getColors(data.length) as String[];
   option.yAxis = {
     scale: true,
-  }
+    offset: 30,
+    splitLine: {
+      lineStyle: {
+        type: "dashed",
+      },
+    },
+  };
+  option.legend = {
+    top: "bottom",
+    // right: "10%",
+    // top: "3%",
+  },
   option.series = data.map((item,index) => ({
-        name: item[3],
+        name: item[0][3],
         type: "scatter",
         data: item,
         symbolSize: function (data: any) {
           return Math.sqrt(data[2]) / 1e2;
         },
-        emphasis: {
-          focus: "series",
+        // emphasis: {
+          // focus: "series",
           label: {
             show: true,
             formatter: function (param: any) {
@@ -63,7 +74,7 @@ const bubbleOption = ({data}) => {
             },
             position: "top",
           },
-        },
+        // },
         itemStyle: {
           shadowBlur: 10,
           shadowColor: "rgba(120, 36, 50, 0.5)",
@@ -89,11 +100,6 @@ const bubbleOption = ({data}) => {
       tooltip: {
         trigger: "item",
       },
-      legend: {
-        right: "10%",
-        top: "3%",
-        data: data.map((item) => item[0][3]),
-      },
       grid: {
         left: "8%",
         top: "10%",
@@ -101,6 +107,11 @@ const bubbleOption = ({data}) => {
       xAxis: {
         offset: 40,
         type: "time",
+        splitLine: {
+          lineStyle: {
+            type: "dashed"
+          }
+        },
         axisLabel: {
           formatter: (value: any) => {
             return new Date(value * 1000).toLocaleString("ko");
