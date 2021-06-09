@@ -13,37 +13,30 @@ export default {
 export function BarVerticalSeparated() {
   return (
     <Chart.BarVerticalSeparated
-      xAxisLabel={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
+      xAxisLabel={[
+        "신차 구매 등 차량 변경",
+        "거리 등 접근성",
+        "제휴 혜택 등 가격",
+        "기타:",
+      ]}
       label={["매우 만족", "만족", "불만족", "매우 불만족"]}
       series={[
+        [28.6, 13.2, 4.1, 2.5, 7.2],
+        [71.4, 86.8, 95.9, 97.5, 92.8],
         [
-          28.6,
-          13.2,
-          4.1,
-          2.5,
-          7.2
-        ],
-        [
-          71.4,
-          86.8,
-          95.9,
-          97.5,
-          92.8
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
         ],
         [
           Math.ceil(Math.random() * (50 - 0) + 0),
           Math.ceil(Math.random() * (50 - 0) + 0),
           Math.ceil(Math.random() * (50 - 0) + 0),
           Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0)
+          Math.ceil(Math.random() * (50 - 0) + 0),
         ],
-        [
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0)
-        ]
       ]}
       hundredPercent={{ tooltip: true, series: true }}
     />
@@ -54,55 +47,55 @@ export function BarHorizontalBase() {
   const ellipsis = number("ellipsis", 10);
   return (
     <>
-    <Chart.BarHorizontalBase
-      labels={['라벨 1번', '2번 라벨']}
-      series={[123, 456]}
-    />
-    <Chart.BarHorizontalBase
-      labels={[
-        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "네이버네이버네이버네이버네이버네이버 블로그",
-        "뉴스기사",
-        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "네이버네이버네이버네이버네이버네이버 블로그",
-        "뉴스기사",
-        "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "네이버네이버네이버네이버네이버네이버 블로그",
-        "뉴스기사",
-      ]}
-      series={[
-        74,
-        24,
-        5,
-        2,
-        23,
-        5,
-        2,
-        74,
-        24,
-        5,
-        2,
-        23,
-        5,
-        2,
-        74,
-        24,
-        5,
-        2,
-        23,
-        5,
-        2,
-      ]} 
-    />
+      <Chart.BarHorizontalBase
+        labels={["라벨 1번", "2번 라벨"]}
+        series={[123, 456]}
+      />
+      <Chart.BarHorizontalBase
+        labels={[
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+        ]}
+        series={[
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+          74,
+          24,
+          5,
+          2,
+          23,
+          5,
+          2,
+        ]}
+      />
     </>
   );
 }
@@ -215,7 +208,7 @@ export function BarHorizontalStacked() {
   );
 }
 
-export function BarVerticalStacked() { 
+export function BarVerticalStacked() {
   const genCharArray = (charA, charZ) => {
     var a = [],
       i = charA.charCodeAt(0),
@@ -228,51 +221,51 @@ export function BarVerticalStacked() {
 
   return (
     <>
-    <h3>NPS</h3>
-    <Chart.BarVerticalStacked
-      nps={true}
-      labels={["비추천", "중립", "추천"]}
-      series={[
-        [60,67],
-        [21,33],
-        [18,0]
-      ]}
-      xAxisLabel={['2021-04 (131명)', '2021-05 (3명)']}
-      line={
-        [{
-          name: 'NPS',
-          series: [-41.98, -66.67]
-        }]
-      }
-      hundredPercent={{
-        series: false,
-        tooltip: true,
-      }}
-      override={{
-        yAxis: [
+      <h3>NPS</h3>
+      <Chart.BarVerticalStacked
+        nps={true}
+        labels={["비추천", "중립", "추천"]}
+        series={[
+          [60, 67],
+          [21, 33],
+          [18, 0],
+        ]}
+        xAxisLabel={["2021-04 (131명)", "2021-05 (3명)"]}
+        line={[
           {
-            type: 'value', 
-            nameLocation: 'middle',
-            nameGap: 50,
-            min: 0,
-            max: 100,
-            interval: 10
+            name: "NPS",
+            series: [-41.98, -66.67],
           },
-          {
-            opposite: true,
-            type: 'value', 
-            min: -100,
-            max: 100,
-            position: 'right',
-            interval: 20,
-            axisLine: {
-              onZero: 0,
+        ]}
+        hundredPercent={{
+          series: false,
+          tooltip: true,
+        }}
+        override={{
+          yAxis: [
+            {
+              type: "value",
+              nameLocation: "middle",
+              nameGap: 50,
+              min: 0,
+              max: 100,
+              interval: 10,
             },
-            nameLocation: 'middle',
-            nameGap: 50,
-          },
-        ],
-      }}
+            {
+              opposite: true,
+              type: "value",
+              min: -100,
+              max: 100,
+              position: "right",
+              interval: 20,
+              axisLine: {
+                onZero: 0,
+              },
+              nameLocation: "middle",
+              nameGap: 50,
+            },
+          ],
+        }}
       />
       <Chart.BarVerticalStacked
         labels={["매우 만족함", "만족함", "보통", "불만족", "매우 불만족"]}
@@ -294,7 +287,7 @@ export function BarVerticalStacked() {
       />
 
       <Chart.BarVerticalStacked
-      labels={[
+        labels={[
           "매우 적절함",
           "적절함",
           "보통",

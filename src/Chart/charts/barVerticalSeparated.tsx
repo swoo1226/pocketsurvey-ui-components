@@ -11,7 +11,6 @@ import {
 } from "../util/index";
 import { stackedFormatter } from "../util/tooltip";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import debounce from "lodash/debounce";
 import styled from "styled-components";
 
 type BarVerticalSeparatedOptionPropsType = {
@@ -83,7 +82,7 @@ const barVerticalSeparatedOption = ({
       return stackedFormatter(
         params,
         series,
-        "vertical",
+        "vertical-separated",
         hundredPercent?.tooltip ?? false
       );
     },
@@ -153,8 +152,7 @@ function BarVerticalSeparated({
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
   const [minify, setMinify] = React.useState<boolean>(true);
 
-  const sizeValue = 105;
-
+  const sizeValue = series.length * 30;
   const minWidth = sizeValue * xAxisLabel.length + 200;
 
   const calcSVGPathLineWidth = () => {
@@ -168,17 +166,12 @@ function BarVerticalSeparated({
     }
   };
 
-  const delayed = React.useCallback(
-    debounce(() => calcSVGPathLineWidth(), 500),
-    []
-  );
-
   const resizeObject = useResizeDetector({ targetRef });
   React.useEffect(() => {
     calcSVGPathLineWidth();
   }, []);
   React.useEffect(() => {
-    delayed();
+    calcSVGPathLineWidth();
   }, [resizeObject.width]);
 
   return (
