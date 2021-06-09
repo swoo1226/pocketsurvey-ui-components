@@ -6,9 +6,10 @@ import {
   getColors,
   mergeOption,
   getSizeCSS,
-  verticalStackedFormatter,
-  chartColor
+  chartColor,
+  seriesToPercentArray
 } from "../util/index";
+import {verticalStackedFormatter } from "../util/tooltip"
 import EChartsReact from "echarts-for-react";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
@@ -25,8 +26,10 @@ type BarVerticalStackedOptionPropsType = {
     series: (number | null)[];
   }[];
   lineWidth: number | null;
-  percentTooltip?: boolean;
-  tooltipSeries?: number[][] //tooltip에서 실제 데이터를 넣기 위한 값. series에 퍼센트 값을 넣고, tooltipSeries에 실제 값을 넣는다.
+  hundredPercent?: {
+    series: boolean,
+    tooltip: boolean
+  }
 };
 
 const barVerticalStackedOption = ({
@@ -36,24 +39,9 @@ const barVerticalStackedOption = ({
   override,
   line,
   lineWidth,
-  percentTooltip,
-  tooltipSeries
+  hundredPercent
 }: BarVerticalStackedOptionPropsType) => {
   const option: EChartsOption = {};
-
-  option.tooltip = {
-    show: true,
-    showContent: true,
-    trigger: "axis",
-    axisPointer: {
-      type: "shadow",
-    },
-  };
-  option.tooltip = merge(cloneDeep(option.tooltip), {
-    formatter: (params) => {
-      return verticalStackedFormatter(params, percentTooltip, tooltipSeries);
-    },
-  });
   
   option.yAxis = {
     type: "value"
@@ -74,9 +62,11 @@ const barVerticalStackedOption = ({
 
   option.barCategoryGap = "40%";
 
+  const percentSeries = seriesToPercentArray(series)
+ 
   const colors = getColors(series.length) as string[];
 
-  option.series = series.map((items, index) => {
+  option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
     return {
       name: labels[index],
       type: "bar",
@@ -148,14 +138,26 @@ const barVerticalStackedOption = ({
       });
     }
   }
+  
+  console.log("option.series:", option.series)
+  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
+    return verticalStackedFormatter(params, series);
+  }} :{}  
 
-  const mergedOption = mergeOption({
+  option.tooltip = {
+    show: true,
+    showContent: true,
+    trigger: "axis",
+    axisPointer: {
+      type: "shadow",
+    },
+    ...extendFormatter
+  };
+
+  return mergeOption({
     option,
     override,
-  });
-
-  console.log("merdddgedOption:",mergedOption)
-  return mergedOption
+  }); 
 };
 
 type BarVerticalStackedPropsType = {
@@ -171,8 +173,7 @@ function BarVerticalStacked({
   line,
   width,
   height,
-  percentTooltip,
-  tooltipSeries
+  hundredPercent
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null)
@@ -210,8 +211,7 @@ function BarVerticalStacked({
           override,
           line,
           lineWidth,
-          percentTooltip,
-          tooltipSeries
+          hundredPercent
         })}
         opts={{ renderer: "svg" }}
       /> 

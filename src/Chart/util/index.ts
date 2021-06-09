@@ -4,7 +4,7 @@ import cloneDeep from "lodash/cloneDeep";
 import { EChartsOption } from "echarts";
 import { defaultOption } from "../charts/index";
 import hexMap from "./hexMap";
-
+import {sumReducer} from "./tooltip"
 export const chartColor = "#fac62d";
 
 export const getColors = (dataLength: number): string[] | undefined => {
@@ -84,57 +84,33 @@ export const getMaxLabelWidth = (labels: string[], ellipsis?: number) => {
   }
 };
 
-export const verticalStackedFormatter = (
-  params: {
-    dataIndex: number;
-    seriesIndex: number;
-    marker: string;
-    seriesName: string;
-    data:
-      | {
-          value: number | null;
-        }
-      | number
-      | null;
-    axisValueLabel: string;
-  }[],
-  percentTooltip?: boolean,
-  tooltipSeries?: number[][]
-) => {
-  const maxLabelWidth = getMaxLabelWidth(params.map((item) => item.seriesName));
-
-  const value: number | null = null;
-
-  const row = params.map((param) => {
-    let value: null | string = null;
-    if (tooltipSeries && tooltipSeries.length > param.seriesIndex) {
-      const tooltipValue = tooltipSeries[param.seriesIndex][param.dataIndex];
-      value = `${tooltipValue ? tooltipValue : "-"}`;
-    } else {
-      if (typeof param.data === "number") {
-        value = `${param.data}${percentTooltip === true ? "%" : ""}`;
-      } else {
-        if (param?.data?.value) {
-          value = `${param.data.value}${percentTooltip === true ? "%" : ""}`;
-        } else {
-          value = "-";
-        }
-      }
-    }
-
-    return `<div style="display: flex; justify-content: space-between;">
-      <div style="width: ${Math.ceil(maxLabelWidth) + 10}px; text-align: left;">
-        ${param.marker}
-        <span>${param.seriesName}</span>
-      </div>
-      <span style="font-weight:700;">${value}</span>
-      </div>`;
-  });
-  return `
-    <div style="text-align: left;">
-  <span>${params[0].axisValueLabel}</span>
-    ${row.join("")}
-    </div>
-  `;
+const generate2DArray = (n:number, m:number) => {
+  const arr = [];
+  for (let i = 0; i < n; i++) {
+    arr.push(new Array(m).fill(null));
+  }
+  return arr;
 };
 
+export const seriesToPercentArray = (series:(number | null)[][]) => {
+  const n = series.length;
+  const m = series[0].length;
+  const percentArray = generate2DArray(n, m);
+
+  for (let j = 0; j < m; j++) {
+    const vertical = [];
+    for (let i = 0; i < series.length; i++) {
+      vertical.push(series[i][j]);
+    }
+    const verticalSum = vertical.reduce(sumReducer) as number
+
+    for (let i = 0; i < n; i++) {
+      const value = series[i][j]
+      percentArray[i][j] = value 
+        ? parseFloat(((value / verticalSum)*100).toFixed(2))
+        : null; 
+    }
+  }
+
+  return percentArray
+};

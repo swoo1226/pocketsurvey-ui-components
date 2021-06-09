@@ -7,15 +7,20 @@ import {
   getMaxLabelWidth,
   mergeOption,
   getSizeCSS,
-  chartColor
+  chartColor,
+  seriesToPercentArray
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
-
+import {verticalStackedFormatter} from "../util/tooltip"
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
   labels: string[];
   override?: EChartsOption;
   yAxisLabel: string[];
+  hundredPercent?: {
+    series: boolean,
+    tooltip: boolean
+  }
 };
 
 const barHorizontalStackedOption = ({
@@ -23,16 +28,9 @@ const barHorizontalStackedOption = ({
   labels,
   yAxisLabel,
   override,
+  hundredPercent
 }: BarHorizontalStackedOptionPropsType) => {
   const option: EChartsOption = {};
-
-  option.tooltip = {
-    show: true,
-    trigger: "axis",
-    axisPointer: {
-      type: "shadow",
-    },
-  };
 
   option.xAxis = {
     type: "value",
@@ -52,8 +50,22 @@ const barHorizontalStackedOption = ({
   };
 
   const colors = getColors(series.length) as string[];
+  const percentSeries = seriesToPercentArray(series)
+  
+  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
+    return verticalStackedFormatter(params, series);
+  }} :{}  
 
-  option.series = series.map((items, index) => {
+  option.tooltip = {
+    show: true,
+    trigger: "axis",
+    axisPointer: {
+      type: "shadow",
+    }, 
+    ...extendFormatter
+  };
+
+  option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
     return {
       name: labels[index],
       type: "bar",
@@ -126,6 +138,7 @@ function BarHorizontalStacked({
   override,
   width,
   height,
+  hundredPercent
 }: BarHorizontalStackedPropsType): JSX.Element {
   return (
     <EChartsReact
@@ -135,6 +148,7 @@ function BarHorizontalStacked({
         labels,
         yAxisLabel,
         override,
+        hundredPercent
       })}
     />
   );

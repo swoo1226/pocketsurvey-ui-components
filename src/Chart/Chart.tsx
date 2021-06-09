@@ -10,6 +10,7 @@ import {
   BarVerticalBase,
   BarVerticalStacked,
   BarHorizontalStacked,
+  BarVerticalSeparated,
   LineBase,
   PieBase,
   Bubble,
@@ -22,6 +23,7 @@ Chart.BarHorizontalBase = BarHorizontalBase
 Chart.BarVerticalBase = BarVerticalBase
 Chart.BarHorizontalStacked = BarHorizontalStacked
 Chart.BarVerticalStacked = BarVerticalStacked
+Chart.BarVerticalSeparated = BarVerticalSeparated
 Chart.LineBase = LineBase
 Chart.PieBase = PieBase  
 Chart.Bubble = Bubble

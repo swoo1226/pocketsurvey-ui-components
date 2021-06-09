@@ -4,9 +4,7 @@ import React from "react";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, getColors, mergeOption, chartColor } from "../util";
-import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import cloneDeep from "lodash/cloneDeep";
-import merge from "lodash/merge";
+import { piePercentageFormatter, sumReducer } from "../util/tooltip" 
 
 type PieBaseOptionPropsType = {
   series: number[];
@@ -14,8 +12,6 @@ type PieBaseOptionPropsType = {
   override?: EChartsOption,
   showLabel?: boolean
 };
-
-const MIN_LABEL_WIDTH = 434;
 
 const PieBaseOption = ({
   series,
@@ -34,6 +30,9 @@ const PieBaseOption = ({
   };
   option.tooltip = {
     trigger: "item",
+    formatter: (params) => {
+      return piePercentageFormatter(params, series.reduce(sumReducer))
+    },
   };
   option.legend = {
     orient: "vertical",
