@@ -178,8 +178,6 @@ const barVerticalStackedOption = ({
   option.grid = {
     left: "100px",
     right: "100px",
-    // left: minify ? "100px" : "10%",
-    // right: minify ? "100px" : "10%"
   };
 
   return mergeOption({
