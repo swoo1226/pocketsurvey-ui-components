@@ -280,12 +280,12 @@ function BarVerticalStacked({
       ref={targetRef}
       minify={minify}
       width={width}
-      height={seriesCounted > 10 ? seriesCounted * 30 : height}
+      height={seriesCounted > 15 ? seriesCounted * 20 : height}
     >
       <EChartsReact
         style={getSizeCSS(
           minify ? minWidth : undefined,
-          seriesCounted > 10 ? seriesCounted * 30 : height
+          seriesCounted > 15 ? seriesCounted * 20 : height
         )}
         option={barVerticalStackedOption({
           series,
