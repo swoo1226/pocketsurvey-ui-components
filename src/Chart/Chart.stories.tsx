@@ -98,6 +98,16 @@ export function PieBase() {
   );
 }
 
+export function Bubble() {
+  return (
+    <>
+      <Chart.Bubble
+      />
+    </>
+  );
+}
+
+
 export function BarHorizontalStacked() {
   return (
     <Chart.BarHorizontalStacked

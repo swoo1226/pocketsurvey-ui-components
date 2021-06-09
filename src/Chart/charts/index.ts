@@ -6,6 +6,7 @@ import BarHorizontalStacked from "./barHorizontalStacked";
 import LineBase from "./lineBase";
 import PieBase from "./pieBase";
 import defaultOption from "./defaultOption";
+import Bubble from "./Bubble";
 
 export { BarHorizontalBase };
 export { BarVerticalBase };
@@ -14,3 +15,4 @@ export { BarHorizontalStacked };
 export { LineBase };
 export { PieBase };
 export { defaultOption };
+export {Bubble}

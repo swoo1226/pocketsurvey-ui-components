@@ -11,7 +11,8 @@ import {
   BarVerticalStacked,
   BarHorizontalStacked,
   LineBase,
-  PieBase
+  PieBase,
+  Bubble,
 } from "./charts" 
 function Chart() {
   return <></>
@@ -23,6 +24,7 @@ Chart.BarHorizontalStacked = BarHorizontalStacked
 Chart.BarVerticalStacked = BarVerticalStacked
 Chart.LineBase = LineBase
 Chart.PieBase = PieBase  
+Chart.Bubble = Bubble
 
 Chart.util = {
   getColors
