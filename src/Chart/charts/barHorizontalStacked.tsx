@@ -7,11 +7,16 @@ import {
   getMaxLabelWidth,
   mergeOption,
   getSizeCSS,
-  chartColor,
+  color,
   seriesToPercentArray
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
-import {verticalStackedFormatter} from "../util/tooltip"
+import {stackedFormatter} from "../util/tooltip"
+import styled from "styled-components"
+import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+
+const MAX_LABEL_LENGTH = 14
+
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
   labels: string[];
@@ -46,24 +51,30 @@ const barHorizontalStackedOption = ({
       showMaxLabel: true,
       height: 100,
       margin: 14,
+      formatter: (value: string) => {
+        if (value.length >= MAX_LABEL_LENGTH) {
+          return `${value.substr(0, MAX_LABEL_LENGTH)}...`;
+        }
+        return value;
+      },
     },
   };
 
-  const colors = getColors(series.length) as string[];
+  const colors = getColors.barStacked(series.length)
   const percentSeries = seriesToPercentArray(series)
   
-  const extendFormatter = hundredPercent?.tooltip === true ? {formatter: (params) => {
-    return verticalStackedFormatter(params, series);
-  }} :{}  
-
   option.tooltip = {
     show: true,
     trigger: "axis",
     axisPointer: {
       type: "shadow",
     }, 
-    ...extendFormatter
+    formatter: (params: any) => {
+      return stackedFormatter(params, series, "horizontal", hundredPercent?.tooltip ?? false)
+    }
   };
+
+  
 
   option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
     return {
@@ -73,10 +84,11 @@ const barHorizontalStackedOption = ({
       label: {
         show: false,
       },
+      barMinHeight: 56,
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index] ?? chartColor,
+          color: colors[index]
         },
       })),
     };
@@ -117,7 +129,7 @@ const barHorizontalStackedOption = ({
   }
 
   option.grid = {
-    left: `${getMaxLabelWidth(yAxisLabel)}px`,
+    left: `${getMaxLabelWidth(yAxisLabel, MAX_LABEL_LENGTH)}px`,
   };
 
   return mergeOption({
@@ -125,6 +137,10 @@ const barHorizontalStackedOption = ({
     override,
   });
 };
+
+const EchartsWrapper = styled.div`
+
+`
 
 type BarHorizontalStackedPropsType = {
   width?: number | string;
@@ -140,17 +156,35 @@ function BarHorizontalStacked({
   height,
   hundredPercent
 }: BarHorizontalStackedPropsType): JSX.Element {
+  const targetRef = React.useRef<HTMLDivElement>(null);
+  const [minify, setMinify] = React.useState<boolean>(false);
+  const minHeight = 67.2 * series.length + 120
+  
+  const resizeObject = useResizeDetector({ targetRef });
+
+  React.useEffect(() => {
+    if(targetRef.current?.clientHeight){
+      const clientHeight = targetRef.current?.clientHeight
+      if(clientHeight){
+        setMinify(minHeight > clientHeight)
+      }
+    }
+  }, [resizeObject.width]);
+
+
   return (
-    <EChartsReact
-      style={getSizeCSS(width, height)}
-      option={barHorizontalStackedOption({
-        series: series as (number | null)[][],
-        labels,
-        yAxisLabel,
-        override,
-        hundredPercent
-      })}
-    />
+    <EchartsWrapper ref={targetRef}>
+      <EChartsReact
+        style={getSizeCSS(width, minHeight)}
+        option={barHorizontalStackedOption({
+          series: series as (number | null)[][],
+          labels,
+          yAxisLabel,
+          override,
+          hundredPercent
+        })}
+      />
+    </EchartsWrapper>
   );
 }
 

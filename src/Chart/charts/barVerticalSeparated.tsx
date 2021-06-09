@@ -4,7 +4,7 @@ import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, chartColor, getColors, seriesToPercentArray } from "../util/index";
-import { verticalStackedFormatter } from "../util/tooltip"
+import { stackedFormatter } from "../util/tooltip"
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
 
@@ -34,7 +34,7 @@ const getSeries = (series: number[][], seriesLabel: string[], colors: string[]) 
   for (let i = 0; i < series.length; i++) {
     seriesData.push({
       data: series[i],
-      type: 'bar',
+      type: "bar",
       name: seriesLabel[i],
       color: colors[i],
       itemStyle: {
@@ -57,18 +57,18 @@ const barVerticalSeparatedOption = ({
   lineWidth: number | null;
 }) => {
   const option: EChartsOption = {};
-  const colors = getColors(series.length) as string[];
+  const colors = getColors.barStacked(series.length)
   const percentSeries = seriesToPercentArray(series)
   
   const extendFormatter = hundredPercent?.tooltip === true ? {
     formatter: (params) => {
-      return verticalStackedFormatter(params, series);
+      return stackedFormatter(params, series, "vertical", hundredPercent?.tooltip ?? false)
     }
   } : {}
 
   option.yAxis = { type: "value", show: true };
 
-  option.series = getSeries(hundredPercent?.series === true ? percentSeries : series, seriesLabel, colors);
+  option.series = getSeries(hundredPercent?.series === true ? percentSeries : series, seriesLabel, colors) as EChartsOption["series"];
 
   option.tooltip = {
     trigger: "axis",
