@@ -59,12 +59,6 @@ const barVerticalSeparatedOption = ({
   const option: EChartsOption = {};
   const colors = getColors.barStacked(series.length)
   const percentSeries = seriesToPercentArray(series)
-  
-  const extendFormatter = hundredPercent?.tooltip === true ? {
-    formatter: (params) => {
-      return stackedFormatter(params, series, "vertical", hundredPercent?.tooltip ?? false)
-    }
-  } : {}
 
   option.yAxis = { type: "value", show: true };
 
@@ -75,7 +69,14 @@ const barVerticalSeparatedOption = ({
     axisPointer: {
       type: "shadow",
     },
-    ...extendFormatter
+    formatter: (params: any) => {
+      return stackedFormatter(
+        params,
+        series,
+        "vertical",
+        hundredPercent?.tooltip ?? false
+      );
+    },
   };
 
   option.grid = {

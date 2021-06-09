@@ -45,7 +45,7 @@ export function BarVerticalSeparated() {
           null
         ]
       ]}
-      hundredPercent={{ tooltip: false, series: false }}
+      hundredPercent={{ tooltip: true, series: false }}
     />
   );
 }
