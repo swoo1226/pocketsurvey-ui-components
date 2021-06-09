@@ -44,6 +44,7 @@ const data = [
 const bubbleOption = ({data}) => {
   let option: EChartsOption = {};
   const colors = getColors(data.length) as String[];
+  option.center = ["50%", "50%"];
   option.yAxis = {
     scale: true,
     offset: 30,
@@ -57,31 +58,32 @@ const bubbleOption = ({data}) => {
     top: "bottom",
     // right: "10%",
     // top: "3%",
+    itemStyle: {},
   },
-  option.series = data.map((item,index) => ({
-        name: item[0][3],
-        type: "scatter",
-        data: item,
-        symbolSize: function (data: any) {
-          return Math.sqrt(data[2]) / 1e2;
+    (option.series = data.map((item, index) => ({
+      name: item[0][3],
+      type: "scatter",
+      data: item,
+      symbolSize: function (data: any) {
+        return Math.sqrt(data[2]) / 1e2;
+      },
+      // emphasis: {
+      // focus: "series",
+      label: {
+        show: true,
+        formatter: function (param: any) {
+          return param.data[3];
         },
-        // emphasis: {
-          // focus: "series",
-          label: {
-            show: true,
-            formatter: function (param: any) {
-              return param.data[3];
-            },
-            position: "top",
-          },
-        // },
-        itemStyle: {
-          shadowBlur: 10,
-          shadowColor: "rgba(120, 36, 50, 0.5)",
-          shadowOffsetY: 5,
-          color: colors[index],
-        },
-      }));
+        position: "top",
+      },
+      // },
+      itemStyle: {
+        shadowBlur: 10,
+        shadowColor: "rgba(120, 36, 50, 0.5)",
+        shadowOffsetY: 5,
+        color: colors[index],
+      },
+    })));
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
@@ -92,20 +94,20 @@ const bubbleOption = ({data}) => {
     
     {
       backgroundColor: "#FFFFFF",
-      title: {
-        text: "1990 与 2010 年各国家人均寿命与 GDP",
-        left: "5%",
-        top: "3%",
-      },
+      // title: {
+      //   text: "1990 与 2010 年各国家人均寿命与 GDP",
+      //   left: "5%",
+      //   top: "3%",
+      // },
       tooltip: {
         trigger: "item",
       },
       grid: {
-        left: "8%",
-        top: "10%",
+        // left: "8%",
+        top: 15,
       },
       xAxis: {
-        offset: 40,
+        // offset: 10,
         type: "time",
         splitLine: {
           lineStyle: {
@@ -188,7 +190,7 @@ function Bubble() {
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
   };
-  return <div ref={targetRef}><EChartsReact style={getSizeCSS(700, 500)} option={bubbleOption({data})} /></div>
+  return <div ref={targetRef}><EChartsReact style={getSizeCSS(700, 400)} option={bubbleOption({data})} /></div>
 }
 
 export default Bubble
