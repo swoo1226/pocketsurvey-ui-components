@@ -13,8 +13,8 @@ export default {
 export function BarVerticalSeparated() {
   return (
     <Chart.BarVerticalSeparated
-      labels={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
-      seriesLabel={["매우 만족", "만족", "불만족", "매우 불만족"]}
+      xAxisLabel={["신차 구매 등 차량 변경", "거리 등 접근성", "제휴 혜택 등 가격", "기타:"]}
+      label={["매우 만족", "만족", "불만족", "매우 불만족"]}
       series={[
         [
           28.6,
@@ -31,21 +31,21 @@ export function BarVerticalSeparated() {
           92.8
         ],
         [
-          null,
-          null,
-          null,
-          null,
-          null
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0)
         ],
         [
-          null,
-          null,
-          null,
-          null,
-          null
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0),
+          Math.ceil(Math.random() * (50 - 0) + 0)
         ]
       ]}
-      hundredPercent={{ tooltip: true, series: false }}
+      hundredPercent={{ tooltip: true, series: true }}
     />
   );
 }
