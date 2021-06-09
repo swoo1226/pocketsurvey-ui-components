@@ -16,39 +16,45 @@ import { getSizeCSS, chartColor, getColors } from "../util/index";
 const data = [
   [
     [1622937600, 62.9, 20194354, "North Korea", 1990],
-    [1623024000, 67.9, 22324354, "North Korea", 2000],
-    [1623110400, 71.4, 25155317, "North Korea", 2010],
-  ],
-  [
     [1622937600, 50.3, 20100054, "New Zealand", 1990],
-    [1623024000, 55.4, 3397534, "New Zealand", 2000],
-    [1623110400, 80.6, 4528526, "New Zealand", 2010],
-  ],
-  [
     [1622937600, 80.9, 10194354, "South Korea", 1990],
-    [1623024000, 72, 42972254, "South Korea", 2000],
-    [1623110400, 80.7, 50293439, "South Korea", 2010],
-  ],
-  [
     [1622937600, 68.9, 19194354, "Norway", 1990],
-    [1623024000, 76.8, 4240375, "Norway", 2000],
-    [1623110400, 81.6, 5210967, "Norway", 2010],
+    [1622937600, 74.9, 40194354, "Poland", 1990],
   ],
   [
-    [1622937600, 74.9, 40194354, "Poland", 1990],
+    [1623024000, 67.9, 22324354, "North Korea", 2000],
+    [1623024000, 55.4, 3397534, "New Zealand", 2000],
+    [1623024000, 72, 42972254, "South Korea", 2000],
+    [1623024000, 76.8, 4240375, "Norway", 2000],
     [1623024000, 70.8, 38195258, "Poland", 2000],
+  ],
+  [
+    [1623110400, 71.4, 25155317, "North Korea", 2010],
+    [1623110400, 80.6, 4528526, "New Zealand", 2010],
+    [1623110400, 80.7, 50293439, "South Korea", 2010],
+    [1623110400, 81.6, 5210967, "Norway", 2010],
     [1623110400, 77.3, 38611794, "Poland", 2010],
   ],
 ];
 
-const bubbleOption = ({data}) => {
+const bubbleOption = ({data:any}) => {
   let option: EChartsOption = {};
   const colors = getColors(data.length) as String[];
   option.yAxis = {
     scale: true,
+    offset: 30
   }
-  option.series = data.map((item,index) => ({
-        name: item[3],
+  option.legend = {
+    show: true,
+    type: "scroll",
+    right: "10%",
+    top: "3%",
+    orient: "vertical",
+    // data: ["1990", "2000", "2010"],
+    // data: data.map((item: any) => ({ name: item[0][3], icon: "circle", textStyle: "red" })),
+  };
+  option.series = data.map((item) => ({
+        name: item[0][4],
         type: "scatter",
         data: item,
         symbolSize: function (data: any) {
@@ -68,9 +74,9 @@ const bubbleOption = ({data}) => {
           shadowBlur: 10,
           shadowColor: "rgba(120, 36, 50, 0.5)",
           shadowOffsetY: 5,
-          color: colors[index],
+          // color: colors[index],
         },
-      }));
+      }))
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
@@ -89,17 +95,17 @@ const bubbleOption = ({data}) => {
       tooltip: {
         trigger: "item",
       },
-      legend: {
-        right: "10%",
-        top: "3%",
-        data: data.map((item) => item[0][3]),
-      },
+      // legend: {
+      //   right: "10%",
+      //   top: "3%",
+      //   data: data.map((item) => item[0][3]),
+      // },
       grid: {
         left: "8%",
         top: "10%",
       },
       xAxis: {
-        offset: 40,
+        offset: 30,
         type: "time",
         axisLabel: {
           formatter: (value: any) => {
