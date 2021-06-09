@@ -26,7 +26,7 @@ export const stackedFormatter = (
     axisValueLabel: string;
   }[],
   series: (number | null)[][],
-  chartType: "vertical" | "horizontal",
+  chartType: "vertical" | "horizontal" | "vertical-separated",
   showPercent: boolean
 ) => {
   const maxLabelWidth = getMaxLabelWidth(params.map((item) => item.seriesName))
