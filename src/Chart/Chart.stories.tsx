@@ -192,10 +192,10 @@ export function Bubble() {
   );
 }
 
-export function BarSwimlane() {
+export function BarNegative() {
   return (
     <>
-      <Chart.BarSwimlane
+      <Chart.BarNegative
         width={700}
         height={400}
         labels={[

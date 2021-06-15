@@ -9,7 +9,7 @@ import {
   color,
 } from "../util/index";
 
-type BarSwimlaneOptionPropsType = {
+type BarNegativeOptionPropsType = {
   series: number[];
   labels: string[];
   override?: EChartsOption;
@@ -18,12 +18,12 @@ type BarSwimlaneOptionPropsType = {
 
 const MAX_LABEL_LENGTH = 14;
 
-const barSwimlaneOption = ({
+const BarNegativeOption = ({
   series,
   labels,
   override,
   standard
-}: BarSwimlaneOptionPropsType) => {
+}: BarNegativeOptionPropsType) => {
   const option: EChartsOption = {};
 
   option.xAxis = {
@@ -120,19 +120,19 @@ const barSwimlaneOption = ({
   });
 };
 
-type BarSwimlanePropsType = {
+type BarNegativePropsType = {
   width?: number | string;
   height?: number | string;
-} & BarSwimlaneOptionPropsType;
+} & BarNegativeOptionPropsType;
 
-function BarSwimlane({
+function BarNegative({
   width,
   height,
   series,
   labels,
   override,
   standard
-}: BarSwimlanePropsType): JSX.Element {
+}: BarNegativePropsType): JSX.Element {
   const sizeValue = 28;
   const minWidth =
     sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
@@ -144,7 +144,7 @@ function BarSwimlane({
         width,
         minWidth > defaultWidth ? minWidth : defaultWidth
       )}
-      option={barSwimlaneOption({
+      option={BarNegativeOption({
         series,
         labels,
         override,
@@ -154,4 +154,4 @@ function BarSwimlane({
   );
 }
 
-export default BarSwimlane;
+export default BarNegative;
