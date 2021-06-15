@@ -43,7 +43,9 @@ const data = [
 
 const bubbleOption = ({data}) => {
   let option: EChartsOption = {};
-  const colors = getColors.bubble(data.length,0)
+  // 비교할 키워드 선택이 있는 경우에 getColors 사용
+  // const colors = getColors.bubble(data.length,0)  
+  const colors = data.map(() => "#FAC62D");
   option.center = ["50%", "50%"];
   option.yAxis = {
     scale: true,
@@ -54,44 +56,47 @@ const bubbleOption = ({data}) => {
       },
     },
   };
-  option.legend = {
-    top: "bottom",
+  // 비교할 키워드 선택이 있는 경우에 legend 표시
+  // option.legend = {
+    // top: "bottom",
     // right: "10%",
     // top: "3%",
-    itemStyle: {},
-  },
-    (option.series = data.map((item, index) => ({
-      name: item[0][3],
-      type: "scatter",
-      data: item,
-      symbolSize: function (data: any) {
-        return Math.sqrt(data[2]) / 1e2;
-      },
-      // emphasis: {
-      // focus: "series",
-      label: {
-        show: true,
-        formatter: function (param: any) {
-          return param.data[3];
-        },
-        position: "top",
-      },
+    // itemStyle: {},
+  // },
+
+  (option.series = data.map((item, index) => ({
+    name: item[0][3],
+    type: "scatter",
+    data: item,
+    symbolSize: function (data: any) {
+      return Math.sqrt(data[2]) / 1e2;
+    },
+    emphasis: {
+      focus: "series",
+      // label: {
+      //   show: true,
+      //   formatter: function (param: any) {
+      //     return param.data[3];
+      //   },
+      //   position: "top",
       // },
-      itemStyle: {
-        // shadowBlur: 10,
-        // shadowColor: "rgba(120, 36, 50, 0.5)",
-        // shadowOffsetY: 5,
-        color: colors[index],
-      },
-    })));
+    },
+    itemStyle: {
+      // shadowBlur: 10,
+      // shadowColor: "rgba(120, 36, 50, 0.5)",
+      // shadowOffsetY: 5,
+      color: colors[index],
+    },
+  })));
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
       type: "shadow",
     },
   };
-  Object.assign(option, 
-    
+  Object.assign(
+    option,
+
     {
       backgroundColor: "#FFFFFF",
       // title: {
@@ -101,6 +106,7 @@ const bubbleOption = ({data}) => {
       // },
       tooltip: {
         trigger: "item",
+        formatter: (v) => `<div>${v.seriesName}<hr/>${new Date(v.name * 1000).toLocaleDateString("ko")}</br>평균 점수 : ${v.value[1]}점</br>빈도 수 : ${v.value[2].toLocaleString()}건</div>`,
       },
       grid: {
         // left: "8%",
@@ -108,23 +114,25 @@ const bubbleOption = ({data}) => {
       },
       xAxis: {
         // offset: 10,
-        type: "time",
+        type: "category",
+        // type: "time",
         splitLine: {
           lineStyle: {
-            type: "dashed"
-          }
+            type: "dashed",
+          },
         },
         axisLabel: {
           formatter: (value: any) => {
-            return new Date(value * 1000).toLocaleString("ko");
+            return new Date(value * 1000).toLocaleDateString("ko");
           },
           interval: 0,
           margin: 14,
-          overflow: "truncate",
-          rotate: 0,
-          ellipsis: "...",
-          lineOverflow: "truncate",
-          width: 50
+          // overflow: "truncate",
+          rotate: 90,
+          // ellipsis: "...",
+          // lineOverflow: "truncate",
+          fontSize: 10,
+          width: 130,
         },
       },
       // series: [
@@ -178,19 +186,25 @@ const bubbleOption = ({data}) => {
       //   },
       // ],
     }
-    )
+  );
     return option
 }
-function Bubble() {
-  const targetRef = React.useRef<HTMLDivElement>(null);
-  const [lineWidth, setLineWidth] = React.useState<number | null>(null);
-  const calcSVGPathLineWidth = () => {
-    const svg = targetRef.current?.querySelector(
-      "svg > g:last-child > path"
-    ) as SVGSVGElement;
-    setLineWidth(svg?.getBBox()?.width);
-  };
-  return <div ref={targetRef}><EChartsReact style={getSizeCSS(700, 400)} option={bubbleOption({data})} /></div>
+
+type BubblePropsType = {
+  width?: number | string;
+  height?: number | string;
+  selected?: number[];
+}
+function Bubble({width, height}: BubblePropsType) {
+  // const targetRef = React.useRef<HTMLDivElement>(null);
+  // const [lineWidth, setLineWidth] = React.useState<number | null>(null);
+  // const calcSVGPathLineWidth = () => {
+  //   const svg = targetRef.current?.querySelector(
+  //     "svg > g:last-child > path"
+  //   ) as SVGSVGElement;
+  //   setLineWidth(svg?.getBBox()?.width);
+  // };
+  return <div><EChartsReact style={getSizeCSS(width, height)} option={bubbleOption({data})} /></div>
 }
 
 export default Bubble

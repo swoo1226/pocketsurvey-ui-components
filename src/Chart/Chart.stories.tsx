@@ -181,9 +181,12 @@ export function PieBase() {
 }
 
 export function Bubble() {
+
   return (
     <>
       <Chart.Bubble
+      width={700}
+      height={400}
       />
     </>
   );
