@@ -192,6 +192,33 @@ export function Bubble() {
   );
 }
 
+export function BarSwimlane() {
+  return (
+    <>
+      <Chart.BarSwimlane
+        width={700}
+        height={400}
+        labels={[
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+        ]}
+        series={[
+          74,
+          24,
+          5,
+          2,
+          23,
+          30,
+        ]}
+        standard={30}
+      />
+    </>
+  );
+}
 
 export function BarHorizontalStacked() {
   return (

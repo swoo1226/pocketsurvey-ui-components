@@ -14,6 +14,7 @@ import {
   LineBase,
   PieBase,
   Bubble,
+  BarSwimlane
 } from "./charts" 
 function Chart() {
   return <></>
@@ -27,6 +28,7 @@ Chart.BarVerticalSeparated = BarVerticalSeparated
 Chart.LineBase = LineBase
 Chart.PieBase = PieBase  
 Chart.Bubble = Bubble
+Chart.BarSwimlane = BarSwimlane
 
 Chart.util = {
   getColors
