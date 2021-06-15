@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { withKnobs, boolean, number, select } from "@storybook/addon-knobs";
-
+import React, { useState, useEffect } from "react";
+import { withKnobs, boolean, number, select, color } from "@storybook/addon-knobs";
+import DropDown from '../DropDown/DropDown'
 import Chart from "./Chart";
 import { Meta } from "@storybook/react/types-6-0";
 
@@ -193,8 +193,27 @@ export function Bubble() {
 }
 
 export function BarNegative() {
+  const [selected, setSelected] = useState(0)
+  const means = [40, 27, 15]
+  const disabled = boolean("disabled", false);
+  const mainColor = color("bold color", "#FAC62D");
+  const subColor = color("light color", "#fef4ce");
+  const [mean, setMean] = useState(means[0])
+  useEffect(()=>{setMean(means[selected])},[selected])
   return (
     <>
+      <DropDown
+        list={[
+          {selectionName: "전체 평균"},
+          { selectionName: "Q3"},
+          { selectionName: "Q6"},
+        ]}
+        selected={selected}
+        disable={disabled}
+        themeColor={{ mainColor, subColor }}
+        onItemClick={(index: number) => setSelected(index)}
+        iconColor="#FAC62D"
+      />
       <Chart.BarNegative
         width={700}
         height={400}
@@ -206,15 +225,8 @@ export function BarNegative() {
           "네이버네이버네이버네이버네이버네이버 블로그",
           "뉴스기사",
         ]}
-        series={[
-          74,
-          24,
-          5,
-          2,
-          23,
-          30,
-        ]}
-        standard={30}
+        series={[74, 24, 5, 2, 23, 30]}
+        standard={mean}
       />
     </>
   );
