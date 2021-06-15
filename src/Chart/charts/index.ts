@@ -3,7 +3,7 @@ import BarHorizontalBase from "./barHorizontalBase";
 import BarVerticalBase from "./barVerticalBase";
 import BarVerticalStacked from "./barVerticalStacked";
 import BarHorizontalStacked from "./barHorizontalStacked";
-import BarVerticalSeparated from './barVerticalSeparated';
+import BarVerticalSeparated from "./barVerticalSeparated";
 import LineBase from "./lineBase";
 import PieBase from "./pieBase";
 import defaultOption from "./defaultOption";

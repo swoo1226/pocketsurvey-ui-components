@@ -2,7 +2,7 @@
 import React from "react";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
-import { getSizeCSS, chartColor, getColors } from "../util/index";
+import { getSizeCSS, getColors } from "../util/index";
 
 // type LineBaseOptionPropsType = {
 //   series: number[];
@@ -43,7 +43,7 @@ const data = [
 
 const bubbleOption = ({data}) => {
   let option: EChartsOption = {};
-  const colors = getColors(data.length) as String[];
+  const colors = getColors.bubble(data.length,0)
   option.center = ["50%", "50%"];
   option.yAxis = {
     scale: true,
@@ -78,9 +78,9 @@ const bubbleOption = ({data}) => {
       },
       // },
       itemStyle: {
-        shadowBlur: 10,
-        shadowColor: "rgba(120, 36, 50, 0.5)",
-        shadowOffsetY: 5,
+        // shadowBlur: 10,
+        // shadowColor: "rgba(120, 36, 50, 0.5)",
+        // shadowOffsetY: 5,
         color: colors[index],
       },
     })));
