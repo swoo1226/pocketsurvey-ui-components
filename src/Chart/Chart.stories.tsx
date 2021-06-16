@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { withKnobs, boolean, number, select } from "@storybook/addon-knobs";
-
+import React, { useState, useEffect } from "react";
+import { withKnobs, boolean, number, select, color } from "@storybook/addon-knobs";
+import DropDown from '../DropDown/DropDown'
 import Chart from "./Chart";
 import { Meta } from "@storybook/react/types-6-0";
 
@@ -45,11 +45,32 @@ export function BarVerticalSeparated() {
 
 export function BarHorizontalBase() {
   const ellipsis = number("ellipsis", 10);
+  const [selected, setSelected] = useState(0);
+  const alignment = [null, "descend", "ascend"];
+  const disabled = boolean("disabled", false);
+  const mainColor = color("bold color", "#FAC62D");
+  const subColor = color("light color", "#fef4ce");
+  const [align, setAlign] = useState(null);
   return (
     <>
       <Chart.BarHorizontalBase
         labels={["라벨 1번", "2번 라벨"]}
         series={[123, 456]}
+      />
+      <DropDown
+        list={[
+          { selectionName: "정렬 없음" },
+          { selectionName: "내림차순" },
+          { selectionName: "오름차순" },
+        ]}
+        selected={selected}
+        disable={disabled}
+        themeColor={{ mainColor, subColor }}
+        onItemClick={(index: number) => {
+          setSelected(index);
+          setAlign(alignment[index]);
+        }}
+        iconColor="#FAC62D"
       />
       <Chart.BarHorizontalBase
         labels={[
@@ -72,29 +93,8 @@ export function BarHorizontalBase() {
           "네이버네이버네이버네이버네이버네이버 블로그",
           "뉴스기사",
         ]}
-        series={[
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-        ]}
+        series={[74, 24, 5, 2, 23, 5, 2, 74, 24, 5, 2, 23, 5, 2, 74, 24, 5, 2]}
+        align={align}
       />
     </>
   );
@@ -175,6 +175,58 @@ export function PieBase() {
         labels={["매우 만족함", "만족함", "보통", "불만족함", "매우 불만족함"]}
         series={[109, 650, 626, 3619, 3483].reverse()}
         showLabel={showLabel}
+      />
+    </>
+  );
+}
+
+export function Bubble() {
+
+  return (
+    <>
+      <Chart.Bubble
+      width={700}
+      height={400}
+      />
+    </>
+  );
+}
+
+export function BarNegative() {
+  const [selected, setSelected] = useState(0)
+  const means = [40, 27, 15]
+  const disabled = boolean("disabled", false);
+  const mainColor = color("bold color", "#FAC62D");
+  const subColor = color("light color", "#fef4ce");
+  const [mean, setMean] = useState(means[0])
+  useEffect(()=>{setMean(means[selected])},[selected])
+  return (
+    <>
+      <DropDown
+        list={[
+          {selectionName: "전체 평균"},
+          { selectionName: "Q3"},
+          { selectionName: "Q6"},
+        ]}
+        selected={selected}
+        disable={disabled}
+        themeColor={{ mainColor, subColor }}
+        onItemClick={(index: number) => setSelected(index)}
+        iconColor="#FAC62D"
+      />
+      <Chart.BarNegative
+        width={700}
+        height={400}
+        labels={[
+          "한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글한글",
+          "네이버 블로그",
+          "브런치",
+          "페이스북 페이지",
+          "네이버네이버네이버네이버네이버네이버 블로그",
+          "뉴스기사",
+        ]}
+        series={[74, 24, 5, 2, 23, 27]}
+        standard={mean}
       />
     </>
   );

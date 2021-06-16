@@ -12,7 +12,9 @@ import {
   BarHorizontalStacked,
   BarVerticalSeparated,
   LineBase,
-  PieBase
+  PieBase,
+  Bubble,
+  BarNegative
 } from "./charts" 
 function Chart() {
   return <></>
@@ -25,6 +27,8 @@ Chart.BarVerticalStacked = BarVerticalStacked
 Chart.BarVerticalSeparated = BarVerticalSeparated
 Chart.LineBase = LineBase
 Chart.PieBase = PieBase  
+Chart.Bubble = Bubble
+Chart.BarNegative = BarNegative
 
 Chart.util = {
   getColors

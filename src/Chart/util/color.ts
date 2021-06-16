@@ -141,5 +141,15 @@ export const getColors = {
       colors2: [color.LIGHT_GRAY, color.GRAY]
     })
     return colorChroma
+  }, 
+  bubble: (seriesLength: number, maxIndex: number) => {
+    const colorChorma = getColorChroma({
+      numColors: seriesLength - 1,
+      palette: "sequential",
+      colors: [color.GRAY, color.LIGHT_GRAY],
+    });
+
+    colorChorma.splice(0, 0, color.YELLOW);
+    return colorChorma;
   }
 }

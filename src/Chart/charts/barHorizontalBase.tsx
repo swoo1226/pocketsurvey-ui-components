@@ -13,6 +13,7 @@ type BarHorizontalBaseOptionPropsType = {
   series: number[];
   labels: string[];
   override?: EChartsOption;
+  align?: "descend"| "ascend"
 };
 
 const MAX_LABEL_LENGTH = 14
@@ -20,7 +21,8 @@ const MAX_LABEL_LENGTH = 14
 const barHorizontalBaseOption = ({
   series,
   labels,
-  override
+  override,
+  align
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -28,11 +30,15 @@ const barHorizontalBaseOption = ({
     type: "value",
     show: true,
   };
- 
+  console.log(labels, series)
+  const seriesCombinedLabels = labels.map((label, index) => [label, series[index]]).sort((a,b) => b[1] - a[1])
+  const alignedSeries = seriesCombinedLabels.map(item => item[1])
+  const alignedLabels = seriesCombinedLabels.map(item => item[0])
+  console.log(seriesCombinedLabels)
   option.yAxis = {
     type: "category",
     z: 100,
-    data: labels,
+    data: align ? align === "descend" ? alignedLabels : alignedLabels.reverse() : labels,
     show: true,
     inverse: true,
     axisLabel: {
@@ -46,7 +52,7 @@ const barHorizontalBaseOption = ({
         return value;
       },
     },
-  } as EChartsOption["yAxis"]
+  } as EChartsOption["yAxis"];
 
   const seriesData: {
     value: number;
@@ -55,8 +61,8 @@ const barHorizontalBaseOption = ({
       borderRadius: number[];
     };
   }[] = [];
-
-  series.map((number, index) => {
+  const standardSeries = align ? align === "descend" ? alignedSeries : alignedSeries.reverse() : series
+  standardSeries.map((number, index) => {
     seriesData.push({
       value: (number === 0 ? null : number) as number,
       itemStyle: {
@@ -100,6 +106,7 @@ const barHorizontalBaseOption = ({
 type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
+  align?: "descend"| "ascend"
 } & BarHorizontalBaseOptionPropsType
 
 function BarHorizontalBase({
@@ -107,7 +114,8 @@ function BarHorizontalBase({
   height,
   series,
   labels,
-  override
+  override,
+  align
 }: BarHorizontalBasePropsType): JSX.Element {
   const sizeValue = 28
   const minWidth = (sizeValue * series.length) + ((sizeValue * series.length) * 0.2) + 120
@@ -119,7 +127,8 @@ function BarHorizontalBase({
       option={barHorizontalBaseOption({
         series,
         labels,
-        override
+        override,
+        align
       })}
     />
   );
