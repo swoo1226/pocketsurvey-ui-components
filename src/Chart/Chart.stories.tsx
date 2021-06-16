@@ -45,11 +45,32 @@ export function BarVerticalSeparated() {
 
 export function BarHorizontalBase() {
   const ellipsis = number("ellipsis", 10);
+  const [selected, setSelected] = useState(0);
+  const alignment = [null, "descend", "ascend"];
+  const disabled = boolean("disabled", false);
+  const mainColor = color("bold color", "#FAC62D");
+  const subColor = color("light color", "#fef4ce");
+  const [align, setAlign] = useState(null);
   return (
     <>
       <Chart.BarHorizontalBase
         labels={["라벨 1번", "2번 라벨"]}
         series={[123, 456]}
+      />
+      <DropDown
+        list={[
+          { selectionName: "정렬 없음" },
+          { selectionName: "내림차순" },
+          { selectionName: "오름차순" },
+        ]}
+        selected={selected}
+        disable={disabled}
+        themeColor={{ mainColor, subColor }}
+        onItemClick={(index: number) => {
+          setSelected(index);
+          setAlign(alignment[index]);
+        }}
+        iconColor="#FAC62D"
       />
       <Chart.BarHorizontalBase
         labels={[
@@ -72,29 +93,8 @@ export function BarHorizontalBase() {
           "네이버네이버네이버네이버네이버네이버 블로그",
           "뉴스기사",
         ]}
-        series={[
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-          74,
-          24,
-          5,
-          2,
-          23,
-          5,
-          2,
-        ]}
+        series={[74, 24, 5, 2, 23, 5, 2, 74, 24, 5, 2, 23, 5, 2, 74, 24, 5, 2]}
+        align={align}
       />
     </>
   );
@@ -225,7 +225,7 @@ export function BarNegative() {
           "네이버네이버네이버네이버네이버네이버 블로그",
           "뉴스기사",
         ]}
-        series={[74, 24, 5, 2, 23, 30]}
+        series={[74, 24, 5, 2, 23, 27]}
         standard={mean}
       />
     </>
