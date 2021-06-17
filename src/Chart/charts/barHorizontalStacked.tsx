@@ -25,7 +25,8 @@ type BarHorizontalStackedOptionPropsType = {
   hundredPercent?: {
     series: boolean,
     tooltip: boolean
-  }
+  };
+  labelOption: "fixed" | "dynamic";
 };
 
 const barHorizontalStackedOption = ({
@@ -33,7 +34,8 @@ const barHorizontalStackedOption = ({
   labels,
   yAxisLabel,
   override,
-  hundredPercent
+  hundredPercent,
+  labelOption,
 }: BarHorizontalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -71,7 +73,20 @@ const barHorizontalStackedOption = ({
     }, 
     formatter: (params: any) => {
       return stackedFormatter(params, series, "horizontal", hundredPercent?.tooltip ?? false)
-    }
+    },
+    position(
+      pos: any,
+      params: any,
+      el: any,
+      elRect: any,
+      size: any,
+    ) {
+      if(labelOption === "fixed") {
+        const obj: any = { top: 10 };
+        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      }
+    },
   };
 
   
@@ -154,7 +169,8 @@ function BarHorizontalStacked({
   override,
   width,
   height,
-  hundredPercent
+  hundredPercent,
+  labelOption,
 }: BarHorizontalStackedPropsType): JSX.Element {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [minify, setMinify] = React.useState<boolean>(false);
@@ -181,7 +197,8 @@ function BarHorizontalStacked({
           labels,
           yAxisLabel,
           override,
-          hundredPercent
+          hundredPercent,
+          labelOption,
         })}
       />
     </EchartsWrapper>

@@ -9,15 +9,17 @@ import { piePercentageFormatter, sumReducer } from "../util/tooltip"
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption,
-  showLabel?: boolean
+  override?: EChartsOption;
+  showLabel?: boolean;
+  labelOption: "fixed" | "dynamic";
 };
 
 const PieBaseOption = ({
   series,
   labels,
   override, 
-  showLabel
+  showLabel,
+  labelOption,
 }: PieBaseOptionPropsType) => {  
   const option: EChartsOption = {};
 
@@ -33,7 +35,21 @@ const PieBaseOption = ({
     formatter: (params) => {
       return piePercentageFormatter(params, series.reduce(sumReducer))
     },
+    position(
+      pos: any,
+      params: any,
+      el: any,
+      elRect: any,
+      size: any,
+    ) {
+      if(labelOption === "fixed") {
+        const obj: any = { top: 10 };
+        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      }
+    }
   };
+
   option.legend = {
     orient: "vertical",
     right: "right",
@@ -60,10 +76,13 @@ const PieBaseOption = ({
       label: {
         show: showLabel === undefined ? true : showLabel,
         color: "#0e0c0c",
-        position: "outer",
+        position: "outside",
         alignTo: "edge",
         margin: 20,
         edgeDistance: "25%",
+        formatter: function(d) {
+          return  d.value;
+        }
       },
       itemStyle: {
         borderColor: "#fff",
@@ -94,7 +113,8 @@ function PieBase({
   override,
   width,
   height,
-  showLabel
+  showLabel,
+  labelOption,
 }: PieBasePropsType) {
   return (
     <EChartsReact
@@ -103,7 +123,8 @@ function PieBase({
         series,
         labels,
         override,
-        showLabel
+        showLabel,
+        labelOption,
       })}
     />
   );

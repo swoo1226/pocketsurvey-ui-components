@@ -14,6 +14,7 @@ type BarNegativeOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   standard: number;
+  labelOption: "dynamic" | "fixed";
 };
 
 const MAX_LABEL_LENGTH = 14;
@@ -30,7 +31,8 @@ function BarNegative({
   series,
   labels,
   override,
-  standard
+  standard,
+  labelOption,
 }: BarNegativePropsType): JSX.Element {
   console.log('평균 점수?', standard)
   const sizeValue = 28;
@@ -41,7 +43,8 @@ function BarNegative({
     series,
     labels,
     override,
-    standard
+    standard,
+    labelOption,
   }: BarNegativeOptionPropsType) => {
     const option: EChartsOption = {};
     console.log("평균 점수 in option object?", standard);
@@ -125,8 +128,21 @@ function BarNegative({
       axisPointer: {
         type: "shadow",
       },
+      position(
+        pos: any,
+        params: any,
+        el: any,
+        elRect: any,
+        size: any,
+      ) {
+        if(labelOption === "fixed") {
+          const obj: any = { top: 10 };
+          obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+          return obj;
+        }
+      },
       extraCssText: "text-align: left;",
-      formatter: (v) => {console.log(v[0]); return `${v[0].name}</br>${v[0].marker}${v[0].value + standard}`;}
+      formatter: (v) => {console.log(v[0]); return `${v[0].name}</br>${v[0].marker}${v[0].value + standard}`;},
     };
   
     option.grid = {
@@ -148,7 +164,8 @@ function BarNegative({
         series,
         labels,
         override,
-        standard
+        standard,
+        labelOption,
       })}
     />
   );
