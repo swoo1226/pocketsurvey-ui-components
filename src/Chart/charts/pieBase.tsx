@@ -57,7 +57,9 @@ const PieBaseOption = ({
   
   const maxSeries = Math.max.apply(null, series)
   const maxIndex = series.indexOf(maxSeries)
-  
+  series.sort(function (a,b) {
+    return a > b ? -1 : a < b ? 1 : 0;
+  })
   const seriesRemoveZero = series.map((value:number | null)=> {
     return value === 0 ? null : value
   })
