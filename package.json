@@ -1,6 +1,6 @@
 {
   "name": "@earlysloth/pocketsurvey-ui-components",
-  "version": "0.4.40",
+  "version": "0.4.41",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",
   "author": "earlysloth <survey@earlysloth.com>",
