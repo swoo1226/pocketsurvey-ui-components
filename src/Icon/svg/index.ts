@@ -97,4 +97,4 @@ export { ReactComponent as combineX } from "./combineX.svg"
 export { ReactComponent as textChart } from "./textChart.svg"
 export { ReactComponent as textChartSolid } from "./textChartSolid.svg"
 export { ReactComponent as swimlaneChart } from "./swimlaneChart.svg"
-export { ReactComponent as swimlaneChartSolid } from "./swimlaneChartSolid.svg";
+export { ReactComponent as swimlaneChartSolid } from "./swimlaneChartSolid.svg"
