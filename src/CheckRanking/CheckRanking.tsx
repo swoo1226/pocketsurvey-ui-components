@@ -67,7 +67,7 @@ function CheckRanking({
           return (
             <CheckRankingItem
               key={index}
-              onClick={() => onItemClick(index + 1)}
+              onClick={() => onItemClick(index)}
               data-testid="CheckRanking-item"
               isFocusBackgroundFunc={isFocusBackgroundFunc}
               checked={selected.includes(index + 1)}
