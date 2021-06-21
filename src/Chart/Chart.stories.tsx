@@ -160,6 +160,7 @@ export function PieBase() {
         labels={["선택지1", "선택지2"]}
         series={[30, 50]}
         showLabel={showLabel}
+        labelOption={'fixed'}
       />
       <Chart.PieBase
         labels={["선택지1", "선택지2"]}
