@@ -23,6 +23,7 @@ type BarVerticalSeparatedOptionPropsType = {
     tooltip: boolean;
     series: boolean;
   };
+  labelOption: "fixed" | "dynamic";
 };
 
 const getSeries = (series: number[][], label: string[], colors: string[]) => {
@@ -58,6 +59,7 @@ const barVerticalSeparatedOption = ({
   lineWidth,
   override,
   hundredPercent,
+  labelOption,
 }: BarVerticalSeparatedOptionPropsType & {
   lineWidth: number | null;
 }) => {
@@ -85,6 +87,19 @@ const barVerticalSeparatedOption = ({
         "vertical-separated",
         hundredPercent?.tooltip ?? false
       );
+    },
+    position(
+      pos: any,
+      params: any,
+      el: any,
+      elRect: any,
+      size: any,
+    ) {
+      if(labelOption === "fixed") {
+        const obj: any = { top: 10 };
+        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      }
     },
   };
 
@@ -147,6 +162,7 @@ function BarVerticalSeparated({
   xAxisLabel,
   override,
   hundredPercent,
+  labelOption,
 }: BarVerticalSeparatedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
@@ -185,6 +201,7 @@ function BarVerticalSeparated({
           lineWidth,
           override,
           hundredPercent,
+          labelOption,
         })}
         opts={{ renderer: "svg" }}
       />

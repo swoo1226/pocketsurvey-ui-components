@@ -13,7 +13,8 @@ type BarVerticalBaseOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   lineWidth: number | null;
-  preset?: BarVerticalBasePresetType
+  preset?: BarVerticalBasePresetType;
+  labelOption: "fixed" | "dynamic";
 };
 
 const barVerticalBaseOption = ({
@@ -21,7 +22,8 @@ const barVerticalBaseOption = ({
   labels,
   lineWidth,
   override,
-  preset
+  preset,
+  labelOption,
 }: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
 }) => { 
@@ -64,7 +66,20 @@ const barVerticalBaseOption = ({
     axisPointer: {
       type: "shadow",
     },
-    extraCssText: "text-align: left;"
+    extraCssText: "text-align: left;",
+    position(
+      pos: any,
+      params: any,
+      el: any,
+      elRect: any,
+      size: any,
+    ) {
+      if(labelOption === "fixed") {
+        const obj: any = { top: 10 };
+        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      }
+    },
   };
 
   option.grid = {
@@ -104,7 +119,8 @@ function BarVerticalBase({
   series,
   labels,
   override,
-  preset
+  preset,
+  labelOption,
 }: BarVerticalBasePropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
@@ -138,7 +154,8 @@ function BarVerticalBase({
           labels,
           lineWidth,
           override,
-          preset
+          preset,
+          labelOption,
         })}
         opts={{ renderer: "svg" }}
       />
