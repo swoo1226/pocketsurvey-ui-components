@@ -79,9 +79,9 @@ const PieBaseOption = ({
         alignTo: "edge",
         margin: 20,
         edgeDistance: "25%",
-        formatter: function(d) {
-          return  d.value;
-        }
+        // formatter: function(d) {
+        //   return  d.value;
+        // }
       },
       itemStyle: {
         borderColor: "#fff",
