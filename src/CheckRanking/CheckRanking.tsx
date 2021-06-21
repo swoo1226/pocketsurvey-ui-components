@@ -67,18 +67,18 @@ function CheckRanking({
           return (
             <CheckRankingItem
               key={index}
-              onClick={() => onItemClick(index + 1)}
+              onClick={() => onItemClick(index)}
               data-testid="CheckRanking-item"
               isFocusBackgroundFunc={isFocusBackgroundFunc}
-              checked={selected.includes(index + 1)}
+              checked={selected.includes(index)}
             >
               <CheckRankingSelectionItem
                 data-testid={`CheckRanking-${index}`}
-                checked={selected.includes(index + 1)}
+                checked={selected.includes(index)}
                 backgroundColor={backgroundColor}
               >
-                {selected.indexOf(index + 1) !== -1
-                  ? selected.indexOf(index + 1) + 1
+                {selected.indexOf(index) !== -1
+                  ? selected.indexOf(index) + 1
                   : null}
               </CheckRankingSelectionItem>
               <CheckRankingSelectionLabel>
