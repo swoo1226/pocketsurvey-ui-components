@@ -5,6 +5,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColors } from "../util";
 import { piePercentageFormatter, sumReducer } from "../util/tooltip" 
+import sum from "lodash/sum";
 
 type PieBaseOptionPropsType = {
   series: number[];
@@ -64,6 +65,26 @@ const PieBaseOption = ({
     return value === 0 ? null : value
   })
   
+  const makeETC = () => {
+    const portion = sum(series) * 0.1;
+    let result = 0;
+    for(let i = series.length - 1; i > 0 ; i--) {
+      if(series[i] < portion && result + series[i] < portion) {
+        result += series[i];
+        series.splice(i,1);
+        labels.splice(i,1);
+      }
+    }
+    if(result !== 0) {
+      series.push(result);
+      labels.push("그 외");
+    }
+    const temp:any[] = [];
+    series.map((value,index) => {
+      temp.push( {value, name: labels[index]})
+    })
+    return temp;
+  }
   option.series = [
     {
       color: getColors.pie(series.length, maxIndex),
@@ -72,9 +93,10 @@ const PieBaseOption = ({
       bottom: "15%",
       height: "70%",
       radius: "85%",
-      data: (seriesRemoveZero as number[]).map((value, index) => {
-        return { value, name: labels[index] };
-      }),
+      // data: (seriesRemoveZero as number[]).map((value, index) => {
+      //   return { value, name: labels[index] };
+      // }),
+      data: makeETC(),
       label: {
         show: showLabel === undefined ? true : showLabel,
         color: "#0e0c0c",
