@@ -103,8 +103,9 @@ const barVerticalStackedOption = ({
   });
 
   option.legend = {
-    orient: "vertical",
-    right: "right",
+    orient: 'horizontal',
+    x: 'center',
+    y: 'bottom',
   };
 
   type DataType = {
@@ -197,6 +198,7 @@ const barVerticalStackedOption = ({
     },
   };
 
+  option.color = colors;
   option.grid = {
     left: "100px",
     right: "100px",
