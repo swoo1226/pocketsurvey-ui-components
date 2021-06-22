@@ -182,7 +182,6 @@ export function PieBase() {
 }
 
 export function Bubble() {
-
   return (
     <>
       <Chart.Bubble

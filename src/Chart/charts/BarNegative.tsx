@@ -102,11 +102,11 @@ function BarNegative({
         value: diff,
         name: labels[index],
         itemStyle: {
-          color: color.YELLOW,
+          color: diff !== 0 ? color.YELLOW : "#59C4DB",
         },
         label: {
-          position: diff >= 0 ? "right" : "left"
-        }
+          position: diff >= 0 ? "right" : "left",
+        },
       });
     });
   
@@ -122,7 +122,6 @@ function BarNegative({
         },
       },
     ];
-  
     option.tooltip = {
       trigger: "axis",
       axisPointer: {
@@ -142,7 +141,7 @@ function BarNegative({
         }
       },
       extraCssText: "text-align: left;",
-      formatter: (v) => {console.log(v[0]); return `${v[0].name}</br>${v[0].marker}${v[0].value + standard}`;},
+      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${v[0].value + standard}`;}
     };
   
     option.grid = {
