@@ -75,7 +75,8 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "lint": "eslint ./src",
-    "build": "rollup -c",
-    "build:types": "tsc --emitDeclarationOnly"
+    "build-only": "rollup -c",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "rm -rf dist ; tsc --emitDeclarationOnly ; rollup -c"
   }
 }
