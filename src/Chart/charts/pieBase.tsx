@@ -35,19 +35,19 @@ const PieBaseOption = ({
     formatter: (params) => {
       return piePercentageFormatter(params, series.reduce(sumReducer))
     },
-    // position(
-    //   pos: any,
-    //   params: any,
-    //   el: any,
-    //   elRect: any,
-    //   size: any,
-    // ) {
-    //   if(labelOption === "fixed") {
-    //     const obj: any = { top: 10 };
-    //     obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
-    //     return obj;
-    //   }
-    // }
+    position(
+      pos: any,
+      params: any,
+      el: any,
+      elRect: any,
+      size: any,
+    ) {
+      if(labelOption === "fixed") {
+        const obj: any = { top: 10 };
+        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      }
+    }
   };
   option.legend = {
     orient: "vertical",
@@ -79,9 +79,9 @@ const PieBaseOption = ({
         alignTo: "edge",
         margin: 20,
         edgeDistance: "25%",
-        // formatter: function(d) {
-        //   return  d.value;
-        // }
+        formatter: function(d) {
+          return  d.value;
+        }
       },
       itemStyle: {
         borderColor: "#fff",
