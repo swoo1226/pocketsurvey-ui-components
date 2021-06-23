@@ -6,8 +6,9 @@ import {
   getSizeCSS,
   mergeOption,
   getMaxLabelWidth,
-  color
+  color,
 } from "../util/index";
+import styled from "styled-components";
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -17,7 +18,7 @@ type BarHorizontalBaseOptionPropsType = {
   labelOption?: "fixed" | "dynamic";
 };
 
-const MAX_LABEL_LENGTH = 14
+const MAX_LABEL_LENGTH = 14;
 
 const barHorizontalBaseOption = ({
   series,
@@ -32,15 +33,21 @@ const barHorizontalBaseOption = ({
     type: "value",
     show: true,
   };
-  console.log(labels, series)
-  const seriesCombinedLabels = labels.map((label, index) => [label, series[index]]).sort((a,b) => b[1] - a[1])
-  const alignedSeries = seriesCombinedLabels.map(item => item[1])
-  const alignedLabels = seriesCombinedLabels.map(item => item[0])
-  console.log(seriesCombinedLabels)
+  console.log(labels, series);
+  const seriesCombinedLabels = labels
+    .map((label, index) => [label, series[index]])
+    .sort((a, b) => b[1] - a[1]);
+  const alignedSeries = seriesCombinedLabels.map((item) => item[1]);
+  const alignedLabels = seriesCombinedLabels.map((item) => item[0]);
+  console.log(seriesCombinedLabels);
   option.yAxis = {
     type: "category",
     z: 100,
-    data: align ? align === "descend" ? alignedLabels : alignedLabels.reverse() : labels,
+    data: align
+      ? align === "descend"
+        ? alignedLabels
+        : alignedLabels.reverse()
+      : labels,
     show: true,
     inverse: true,
     axisLabel: {
@@ -63,7 +70,11 @@ const barHorizontalBaseOption = ({
       borderRadius: number[];
     };
   }[] = [];
-  const standardSeries = align ? align === "descend" ? alignedSeries : alignedSeries.reverse() : series
+  const standardSeries = align
+    ? align === "descend"
+      ? alignedSeries
+      : alignedSeries.reverse()
+    : series;
   standardSeries.map((number, index) => {
     seriesData.push({
       value: (number === 0 ? null : number) as number,
@@ -93,14 +104,8 @@ const barHorizontalBaseOption = ({
       type: "shadow",
     },
     extraCssText: "text-align: left;",
-    position(
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
-      if(labelOption === "fixed") {
+    position(pos: any, params: any, el: any, elRect: any, size: any) {
+      if (labelOption === "fixed") {
         const obj: any = { top: 10 };
         obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
@@ -109,7 +114,7 @@ const barHorizontalBaseOption = ({
   };
 
   option.grid = {
-    left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`
+    left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`,
   };
 
   return mergeOption({
@@ -121,9 +126,17 @@ const barHorizontalBaseOption = ({
 type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
-  align?: "descend"| "ascend";
-  labelOption?: "fixed" | "dynamic";
-} & BarHorizontalBaseOptionPropsType
+  align?: "descend" | "ascend";
+  labelOption: "fixed" | "dynamic";
+} & BarHorizontalBaseOptionPropsType;
+
+const EChartsWrapper = styled.div<{ height?: number | string }>`
+  ${(props) =>
+    props.height && typeof props.height === "number"
+      ? `height: ${props.height}px;`
+      : `height: ${props.height};`}
+  overflow-y: scroll;
+`;
 
 function BarHorizontalBase({
   width,
@@ -134,21 +147,27 @@ function BarHorizontalBase({
   align,
   labelOption="dynamic",
 }: BarHorizontalBasePropsType): JSX.Element {
-  const sizeValue = 28
-  const minWidth = (sizeValue * series.length) + ((sizeValue * series.length) * 0.2) + 120
-  const defaultWidth = 300
+  const sizeValue = 28;
+  const minHeight =
+    sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
+  const defaultHeight = 400;
 
   return (
-    <EChartsReact
-      style={getSizeCSS(width, minWidth > defaultWidth ? minWidth: defaultWidth)}
-      option={barHorizontalBaseOption({
-        series,
-        labels,
-        override,
-        align,
-        labelOption,
-      })}
-    />
+    <EChartsWrapper height={height ?? 400}>
+      <EChartsReact
+        style={getSizeCSS(
+          width,
+          minHeight > defaultHeight ? minHeight : defaultHeight
+        )}
+        option={barHorizontalBaseOption({
+          series,
+          labels,
+          override,
+          align,
+          labelOption,
+        })}
+      />
+    </EChartsWrapper>
   );
 }
 
