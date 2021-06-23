@@ -11,7 +11,7 @@ type PieBaseOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   showLabel?: boolean;
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 };
 
 const PieBaseOption = ({
@@ -19,7 +19,7 @@ const PieBaseOption = ({
   labels,
   override, 
   showLabel,
-  labelOption,
+  labelOption="dynamic",
 }: PieBaseOptionPropsType) => {  
   const option: EChartsOption = {};
 
@@ -113,7 +113,7 @@ function PieBase({
   width,
   height,
   showLabel,
-  labelOption,
+  labelOption="dynamic",
 }: PieBasePropsType) {
   return (
     <EChartsReact

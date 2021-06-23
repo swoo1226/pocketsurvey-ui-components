@@ -14,7 +14,7 @@ type BarNegativeOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   standard: number;
-  labelOption: "dynamic" | "fixed";
+  labelOption?: "dynamic" | "fixed";
 };
 
 const MAX_LABEL_LENGTH = 14;
@@ -32,7 +32,7 @@ function BarNegative({
   labels,
   override,
   standard,
-  labelOption,
+  labelOption="dynamic",
 }: BarNegativePropsType): JSX.Element {
   console.log('평균 점수?', standard)
   const sizeValue = 28;
@@ -44,7 +44,7 @@ function BarNegative({
     labels,
     override,
     standard,
-    labelOption,
+    labelOption="dynamic",
   }: BarNegativeOptionPropsType) => {
     const option: EChartsOption = {};
     console.log("평균 점수 in option object?", standard);

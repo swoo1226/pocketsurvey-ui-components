@@ -26,7 +26,7 @@ type BarHorizontalStackedOptionPropsType = {
     series: boolean,
     tooltip: boolean
   };
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 };
 
 const barHorizontalStackedOption = ({
@@ -35,7 +35,7 @@ const barHorizontalStackedOption = ({
   yAxisLabel,
   override,
   hundredPercent,
-  labelOption,
+  labelOption="dynamic",
 }: BarHorizontalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -170,7 +170,7 @@ function BarHorizontalStacked({
   width,
   height,
   hundredPercent,
-  labelOption,
+  labelOption="dynamic",
 }: BarHorizontalStackedPropsType): JSX.Element {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [minify, setMinify] = React.useState<boolean>(false);
