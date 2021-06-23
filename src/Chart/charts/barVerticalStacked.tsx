@@ -32,7 +32,7 @@ type BarVerticalStackedOptionPropsType = {
   };
   nps?: boolean;
   preset?: BarVerticalStackedPresetType;
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 };
 
 const barVerticalStackedOption = ({
@@ -46,7 +46,7 @@ const barVerticalStackedOption = ({
   nps,
   minify,
   preset,
-  labelOption,
+  labelOption="dynamic",
 }: BarVerticalStackedOptionPropsType & {
   minify: boolean;
 }) => {
@@ -262,7 +262,7 @@ function BarVerticalStacked({
   hundredPercent,
   nps,
   preset,
-  labelOption,
+  labelOption="dynamic",
 }: BarVerticalStackedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);

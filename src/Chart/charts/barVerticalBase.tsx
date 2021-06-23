@@ -14,7 +14,7 @@ type BarVerticalBaseOptionPropsType = {
   override?: EChartsOption;
   lineWidth: number | null;
   preset?: BarVerticalBasePresetType;
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 };
 
 const barVerticalBaseOption = ({
@@ -23,7 +23,7 @@ const barVerticalBaseOption = ({
   lineWidth,
   override,
   preset,
-  labelOption,
+  labelOption="dynamic",
 }: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
 }) => { 
@@ -120,7 +120,7 @@ function BarVerticalBase({
   labels,
   override,
   preset,
-  labelOption,
+  labelOption="dynamic",
 }: BarVerticalBasePropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);

@@ -19,7 +19,7 @@ const lineBaseOption = ({
   labels,
   hasMarker,
   smooth,
-  labelOption,
+  labelOption="dynamic",
   override,
 }: LineBaseOptionPropsType) => {
   const option: EChartsOption = {};
@@ -88,7 +88,7 @@ function LineBase({
   labels,
   hasMarker,
   smooth,
-  labelOption,
+  labelOption="dynamic",
   override,
 }: LineBasePropsType) {
   return (

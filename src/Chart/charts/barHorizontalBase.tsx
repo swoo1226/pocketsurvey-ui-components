@@ -14,7 +14,7 @@ type BarHorizontalBaseOptionPropsType = {
   labels: string[];
   override?: EChartsOption;
   align?: "descend"| "ascend";
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 };
 
 const MAX_LABEL_LENGTH = 14
@@ -24,7 +24,7 @@ const barHorizontalBaseOption = ({
   labels,
   override,
   align,
-  labelOption,
+  labelOption="dynamic",
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -122,7 +122,7 @@ type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
   align?: "descend"| "ascend";
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
 } & BarHorizontalBaseOptionPropsType
 
 function BarHorizontalBase({
@@ -132,7 +132,7 @@ function BarHorizontalBase({
   labels,
   override,
   align,
-  labelOption,
+  labelOption="dynamic",
 }: BarHorizontalBasePropsType): JSX.Element {
   const sizeValue = 28
   const minWidth = (sizeValue * series.length) + ((sizeValue * series.length) * 0.2) + 120
