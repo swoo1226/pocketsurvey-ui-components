@@ -43,8 +43,7 @@ export function BarVerticalSeparated() {
   );
 }
 
-export function BarHorizontalBase() {
-  const ellipsis = number("ellipsis", 10);
+export function BarHorizontalBase() { 
   const [selected, setSelected] = useState(0);
   const alignment = [null, "descend", "ascend"];
   const disabled = boolean("disabled", false);
