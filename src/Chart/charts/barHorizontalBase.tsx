@@ -1,5 +1,5 @@
 /* eslint-disable semi */
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import {
@@ -9,12 +9,13 @@ import {
   color,
 } from "../util/index";
 import styled from "styled-components";
+import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
   labels: string[];
   override?: EChartsOption;
-  align?: "descend"| "ascend";
+  align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
 };
 
@@ -25,7 +26,7 @@ const barHorizontalBaseOption = ({
   labels,
   override,
   align,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarHorizontalBaseOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -39,7 +40,7 @@ const barHorizontalBaseOption = ({
     .sort((a, b) => b[1] - a[1]);
   const alignedSeries = seriesCombinedLabels.map((item) => item[1]);
   const alignedLabels = seriesCombinedLabels.map((item) => item[0]);
-  console.log(seriesCombinedLabels);
+
   option.yAxis = {
     type: "category",
     z: 100,
@@ -127,15 +128,19 @@ type BarHorizontalBasePropsType = {
   width?: number | string;
   height?: number | string;
   align?: "descend" | "ascend";
-  labelOption: "fixed" | "dynamic";
+  labelOption?: "fixed" | "dynamic";
+  defaultHeight?: number;
 } & BarHorizontalBaseOptionPropsType;
 
-const EChartsWrapper = styled.div<{ height?: number | string }>`
+const EChartsWrapper = styled.div<{
+  height: number | string;
+  isOverflow: boolean;
+}>`
   ${(props) =>
     props.height && typeof props.height === "number"
       ? `height: ${props.height}px;`
       : `height: ${props.height};`}
-  overflow-y: scroll;
+  ${(props) => props.isOverflow && `overflow-y: scroll;`}
 `;
 
 function BarHorizontalBase({
@@ -145,19 +150,31 @@ function BarHorizontalBase({
   labels,
   override,
   align,
-  labelOption="dynamic",
+  labelOption = "dynamic"
 }: BarHorizontalBasePropsType): JSX.Element {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const sizeValue = 28;
   const minHeight =
     sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
-  const defaultHeight = 400;
+  const defaultHeight = 350;
+
+  const resizeObject = useResizeDetector({ targetRef });
+
+  useEffect(() => {
+    if (resizeObject.height) setIsOverflow(resizeObject.height < minHeight);
+  }, [resizeObject.height]);
 
   return (
-    <EChartsWrapper height={height ?? 400}>
+    <EChartsWrapper
+      height={height ?? defaultHeight}
+      ref={targetRef}
+      isOverflow={isOverflow}
+    >
       <EChartsReact
         style={getSizeCSS(
           width,
-          minHeight > defaultHeight ? minHeight : defaultHeight
+          minHeight > defaultHeight ? minHeight : undefined
         )}
         option={barHorizontalBaseOption({
           series,
