@@ -4,9 +4,10 @@ import { EChartsOption } from "echarts";
 import React from "react";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, color } from "../util/index";
-import {getPreset, BarVerticalBasePresetType} from "../util/preset"
+import { getPreset, BarVerticalBasePresetType } from "../util/preset";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
+import styled from "styled-components";
 
 type BarVerticalBaseOptionPropsType = {
   series: number[];
@@ -23,10 +24,10 @@ const barVerticalBaseOption = ({
   lineWidth,
   override,
   preset,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarVerticalBaseOptionPropsType & {
   lineWidth: number | null;
-}) => { 
+}) => {
   const option: EChartsOption = {};
 
   option.yAxis = { type: "value", show: true };
@@ -67,14 +68,8 @@ const barVerticalBaseOption = ({
       type: "shadow",
     },
     extraCssText: "text-align: left;",
-    position(
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
-      if(labelOption === "fixed") {
+    position(pos: any, params: any, el: any, elRect: any, size: any) {
+      if (labelOption === "fixed") {
         const obj: any = { top: 10 };
         obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
@@ -104,14 +99,27 @@ const barVerticalBaseOption = ({
   return mergeOption({
     option,
     override,
-    preset: preset ? getPreset(preset) : undefined
+    preset: preset ? getPreset(preset) : undefined,
   });
 };
 
 type BarVerticalBasePropsType = {
   width?: number | string;
   height?: number | string;
-} & Omit<BarVerticalBaseOptionPropsType, "lineWidth">
+} & Omit<BarVerticalBaseOptionPropsType, "lineWidth">;
+
+const EChartsWrapper = styled.div<{
+  minify: boolean;
+  width?: string | number;
+}>`
+  ${(props) => props.minify && "overflow-x: scroll;"}
+  ${(props) =>
+    props.width
+      ? typeof props.width === "number"
+        ? `width: ${props.width}px;`
+        : `width: ${props.width};`
+      : ""}
+`;
 
 function BarVerticalBase({
   width,
@@ -120,16 +128,24 @@ function BarVerticalBase({
   labels,
   override,
   preset,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarVerticalBasePropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
+  const [minify, setMinify] = React.useState<boolean>(true);
+
+  const sizeValue = 70;
+  const minWidth = sizeValue * series.length + 200;
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
       "svg > g:last-child > path"
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
+    const clientWidth = targetRef.current?.clientWidth;
+    if (clientWidth) {
+      setMinify(minWidth > clientWidth);
+    }
   };
 
   const delayed = React.useCallback(
@@ -146,9 +162,9 @@ function BarVerticalBase({
   }, [resizeObject.width]);
 
   return (
-    <div ref={targetRef}>
+    <EChartsWrapper ref={targetRef} width={width} minify={minify}>
       <EChartsReact
-        style={getSizeCSS(width, height)}
+        style={getSizeCSS(minify ? minWidth : undefined, height)}
         option={barVerticalBaseOption({
           series,
           labels,
@@ -159,7 +175,7 @@ function BarVerticalBase({
         })}
         opts={{ renderer: "svg" }}
       />
-    </div>
+    </EChartsWrapper>
   );
 }
 
