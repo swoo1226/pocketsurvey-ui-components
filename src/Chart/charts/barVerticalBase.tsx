@@ -78,7 +78,8 @@ const barVerticalBaseOption = ({
   };
 
   option.grid = {
-    left: "10%",
+    left: "100px",
+    right: "100px",
   };
 
   option.xAxis = {
