@@ -129,6 +129,7 @@ type BarHorizontalBasePropsType = {
   height?: number | string;
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
+  defaultHeight?: number;
 } & BarHorizontalBaseOptionPropsType;
 
 const EChartsWrapper = styled.div<{
@@ -149,7 +150,7 @@ function BarHorizontalBase({
   labels,
   override,
   align,
-  labelOption = "dynamic",
+  labelOption = "dynamic"
 }: BarHorizontalBasePropsType): JSX.Element {
   const targetRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);

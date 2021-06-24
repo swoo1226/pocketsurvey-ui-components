@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable semi */
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { EChartsOption } from "echarts";
 import {
   getColors,
@@ -8,14 +8,14 @@ import {
   mergeOption,
   getSizeCSS,
   color,
-  seriesToPercentArray
+  seriesToPercentArray,
 } from "../util/index";
 import EChartsReact from "echarts-for-react";
-import {stackedFormatter} from "../util/tooltip"
-import styled from "styled-components"
+import { stackedFormatter } from "../util/tooltip";
+import styled from "styled-components";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 
-const MAX_LABEL_LENGTH = 14
+const MAX_LABEL_LENGTH = 14;
 
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -23,8 +23,8 @@ type BarHorizontalStackedOptionPropsType = {
   override?: EChartsOption;
   yAxisLabel: string[];
   hundredPercent?: {
-    series: boolean,
-    tooltip: boolean
+    series: boolean;
+    tooltip: boolean;
   };
   labelOption?: "fixed" | "dynamic";
 };
@@ -35,7 +35,7 @@ const barHorizontalStackedOption = ({
   yAxisLabel,
   override,
   hundredPercent,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarHorizontalStackedOptionPropsType) => {
   const option: EChartsOption = {};
 
@@ -62,26 +62,25 @@ const barHorizontalStackedOption = ({
     },
   };
 
-  const colors = getColors.barStacked(series.length)
-  const percentSeries = seriesToPercentArray(series)
-  
+  const colors = getColors.barStacked(series.length);
+  const percentSeries = seriesToPercentArray(series);
+
   option.tooltip = {
     show: true,
     trigger: "axis",
     axisPointer: {
       type: "shadow",
-    }, 
-    formatter: (params: any) => {
-      return stackedFormatter(params, series, "horizontal", hundredPercent?.tooltip ?? false)
     },
-    position(
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
-      if(labelOption === "fixed") {
+    formatter: (params: any) => {
+      return stackedFormatter(
+        params,
+        series,
+        "horizontal",
+        hundredPercent?.tooltip ?? false
+      );
+    },
+    position(pos: any, params: any, el: any, elRect: any, size: any) {
+      if (labelOption === "fixed") {
         const obj: any = { top: 10 };
         obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
@@ -89,9 +88,10 @@ const barHorizontalStackedOption = ({
     },
   };
 
-  
-
-  option.series = (hundredPercent?.series === true ? percentSeries : series).map((items, index) => {
+  option.series = (hundredPercent?.series === true
+    ? percentSeries
+    : series
+  ).map((items, index) => {
     return {
       name: labels[index],
       type: "bar",
@@ -103,7 +103,7 @@ const barHorizontalStackedOption = ({
       data: items.map((item) => ({
         value: item as number,
         itemStyle: {
-          color: colors[index]
+          color: colors[index],
         },
       })),
     };
@@ -129,9 +129,9 @@ const barHorizontalStackedOption = ({
     (option.series[i].data as DataType).forEach((item, index) => {
       if (
         option.series !== undefined &&
-          border[index] === false &&
-          item.value !== null &&
-          item.value !== 0
+        border[index] === false &&
+        item.value !== null &&
+        item.value !== 0
       ) {
         (option.series as SeriesType)[i].data[index].itemStyle = {
           ...(option.series as SeriesType)[i].data[index].itemStyle,
@@ -153,9 +153,16 @@ const barHorizontalStackedOption = ({
   });
 };
 
-const EchartsWrapper = styled.div`
-
-`
+const EChartsWrapper = styled.div<{
+  height: number | string;
+  isOverflow: boolean;
+}>`
+  ${(props) =>
+    props.height && typeof props.height === "number"
+      ? `height: ${props.height}px;`
+      : `height: ${props.height};`}
+  ${(props) => props.isOverflow && `overflow-y: scroll;`}
+`;
 
 type BarHorizontalStackedPropsType = {
   width?: number | string;
@@ -170,28 +177,37 @@ function BarHorizontalStacked({
   width,
   height,
   hundredPercent,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarHorizontalStackedPropsType): JSX.Element {
-  const targetRef = React.useRef<HTMLDivElement>(null);
-  const [minify, setMinify] = React.useState<boolean>(false);
-  const minHeight = 67.2 * series.length + 120
-  
+  const targetRef = useRef<HTMLDivElement>(null);
+  const [isOverflow, setIsOverflow] = useState<boolean>(false);
+  const [minify, setMinify] = useState<boolean>(false);
+  const minHeight = 67.2 * series.length + 120;
+  const defaultHeight = 350;
+
   const resizeObject = useResizeDetector({ targetRef });
 
-  React.useEffect(() => {
-    if(targetRef.current?.clientHeight){
-      const clientHeight = targetRef.current?.clientHeight
-      if(clientHeight){
-        setMinify(minHeight > clientHeight)
+  useEffect(() => {
+    if (targetRef.current?.clientHeight) {
+      const clientHeight = targetRef.current?.clientHeight;
+      if (clientHeight) {
+        setMinify(minHeight > clientHeight);
       }
     }
   }, [resizeObject.width]);
 
+  useEffect(() => {
+    if (resizeObject.height) setIsOverflow(resizeObject.height < minHeight);
+  }, [resizeObject.height]);
 
   return (
-    <EchartsWrapper ref={targetRef}>
+    <EChartsWrapper
+      ref={targetRef}
+      height={height ?? defaultHeight}
+      isOverflow={isOverflow}
+    >
       <EChartsReact
-        style={getSizeCSS(width, minHeight)}
+        style={getSizeCSS(width, minHeight > defaultHeight ? minHeight : undefined)}
         option={barHorizontalStackedOption({
           series: series as (number | null)[][],
           labels,
@@ -201,7 +217,7 @@ function BarHorizontalStacked({
           labelOption,
         })}
       />
-    </EchartsWrapper>
+    </EChartsWrapper>
   );
 }
 

@@ -220,6 +220,7 @@ const EchartsWrapper = styled.div<{
   minify: boolean;
   width?: string | number;
   height?: string | number;
+  isOverflow: boolean;
 }>`
   ${(props) => props.minify && "overflow-x: scroll;"}
   ${(props) =>
@@ -234,7 +235,7 @@ const EchartsWrapper = styled.div<{
         ? `height: ${props.height}px;`
         : `height: ${props.height};`
       : ""}
-  overflow-y: hidden;
+  ${(props)=> props.isOverflow && `overflow-y: scroll;`}
 `;
 
 const countSeries = (series: (number | null)[][]) => {
@@ -268,7 +269,8 @@ function BarVerticalStacked({
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
   const resizeObject = useResizeDetector({ targetRef });
   const [minify, setMinify] = React.useState<boolean>(true);
-
+  const [isOverflow, setIsOverflow] = React.useState<boolean>(false);
+  
   const sizeValue = 70;
 
   const minWidth = sizeValue * xAxisLabel.length + 200;
@@ -296,19 +298,26 @@ function BarVerticalStacked({
     delayed();
   }, [resizeObject.width, sizeValue]);
 
+  React.useEffect(() => {
+    if (resizeObject.height) setIsOverflow(resizeObject.height < minHeight);
+  }, [resizeObject.height]);
+
   const seriesCounted = countSeries(series);
+  const minHeight = 40 * seriesCounted + 120;
+  const defaultHeight = 350;
 
   return (
     <EchartsWrapper
       ref={targetRef}
       minify={minify}
       width={width}
-      height={seriesCounted > 15 ? seriesCounted * 20 : height}
+      height={height ?? defaultHeight}
+      isOverflow={isOverflow}
     >
       <EChartsReact
         style={getSizeCSS(
           minify ? minWidth : undefined,
-          seriesCounted > 15 ? seriesCounted * 20 : height
+          minHeight > defaultHeight ? minHeight : undefined
         )}
         option={barVerticalStackedOption({
           series,
