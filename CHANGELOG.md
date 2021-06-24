@@ -1,5 +1,5 @@
 # 0.4.59 (2021.06.24)
-- barHorizontalBase, barHorizontalStacked, barVerticalStacked 차트에서 세로 스크롤이 있을 때 overflow-y 옵션을 넣게 수정
+- barHorizontalBase, barHorizontalStacked, barVerticalStacked 차트에서 세로 스크롤, overflow-y 옵션 추가
 
 # 0.4.58 (2021.06.23)
 - NPS 차트의 라인은 원 모양 심볼 크기를 설정
