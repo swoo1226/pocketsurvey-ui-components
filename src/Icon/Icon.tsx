@@ -16,6 +16,7 @@ export type IconProps = {
   rotate?: number
   color: string
   onClick?: () => void
+  onMouseOver?: () => void
   useCursor?: boolean
 }
 
@@ -32,6 +33,7 @@ function Icon({
   rotate,
   color,
   onClick,
+  onMouseOver,
   useCursor,
 }: IconProps): JSX.Element {
   const SVGIcon = icons[icon]
@@ -47,6 +49,7 @@ function Icon({
       }}
       className={className}
       onClick={onClick}
+      onMouseOver={onMouseOver}
     />
   )
 }
