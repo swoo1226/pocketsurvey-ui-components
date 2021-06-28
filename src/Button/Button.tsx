@@ -1,10 +1,12 @@
 import React from "react"
 import styled from "styled-components"
+import loadingSpinner from "../Icon/svg/loadingSpinner.svg"
 
 const ButtonContainer = styled.div<{
   backgroundColor: string
   hoverBackgroundColor: string
   disabled: boolean
+  isLoading?: boolean
 }>`
   width: fit-content;
   padding: 14px 28px;
@@ -17,6 +19,42 @@ const ButtonContainer = styled.div<{
   &:hover {
     background-color: ${props =>
     props.disabled ? "#dfdedd" : props.hoverBackgroundColor};
+    background-color: ${props => 
+    props.isLoading ? "#FEF4CE" : props.hoverBackgroundColor};
+  }
+  background-color: ${props =>
+    props.isLoading ? "#FEF4CE" : props.backgroundColor};
+  .loadingSpinner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    img {
+      width: calc(1.7 * 14px);
+      height: calc(1.2 * 14px);
+      -webkit-animation: spin 1s linear infinite;
+      -moz-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+    }
+    @-moz-keyframes spin {
+      100% {
+        -moz-transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
   }
 `
 
@@ -30,6 +68,7 @@ export type ButtonType = {
   disabled: boolean
   className?: string
   backgroundColor?: string
+  isLoading?: boolean
 }
 
 function Button({
@@ -38,7 +77,8 @@ function Button({
   theme,
   disabled,
   className,
-  backgroundColor
+  backgroundColor,
+  isLoading,
 }: ButtonType): JSX.Element {
   function switchTheme(): {
     innerBackgroundColor: string
@@ -83,8 +123,14 @@ function Button({
       hoverBackgroundColor={innerHoverBackgroundColor}
       disabled={disabled}
       className={className}
+      isLoading={isLoading}
     >
-      {children}
+      {
+        isLoading ? (<div className="loadingSpinner">
+          <img alt="loading" src={loadingSpinner} />
+        </div>) : 
+          (children)
+      }
     </ButtonContainer>
   )
 }
