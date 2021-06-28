@@ -33,8 +33,8 @@ const ButtonContainer = styled.div<{
     margin: 0;
     padding: 0;
     img {
-      width: 1.7rem;
-      height: 1.2rem;
+      width: calc(1.7 * 14px);
+      height: calc(1.2 * 14px);
       -webkit-animation: spin 1s linear infinite;
       -moz-animation: spin 1s linear infinite;
       animation: spin 1s linear infinite;
