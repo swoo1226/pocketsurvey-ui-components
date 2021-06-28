@@ -16,8 +16,14 @@ export function Index(): JSX.Element {
 	const backgroundColor = text("backgroundColor", "#FAC62D")
 
 	return (
+		<>
+		<Button theme={theme} disabled={disabled} onClick={() => alert("BasicButton")} backgroundColor={backgroundColor} isLoading={true}>
+			벝흔
+		</Button>
+		<br/>
 		<Button theme={theme} disabled={disabled} onClick={() => alert("BasicButton")} backgroundColor={backgroundColor}>
 			벝흔
 		</Button>
+		</>
 	)
 }
