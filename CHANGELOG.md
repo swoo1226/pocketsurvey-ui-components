@@ -1,3 +1,6 @@
+# 0.5.21 (2021.06.30)
+- barHorizontalBase 차트에서 overflow-x를 hidden으로 설정
+
 # 0.5.1 (2021.06.28)
 - Button컴포넌트에 isLoading 옵션을 적용할 수 있도록하게 함. 
 - isLoading 옵션 적용시, 스피너 사용
