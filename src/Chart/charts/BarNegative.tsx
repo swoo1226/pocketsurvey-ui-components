@@ -118,7 +118,7 @@ function BarNegative({
         label: {
           show: true,
           color: "#000",
-          formatter: (v) => (v.value as number + standard).toFixed(0) + "점"
+          formatter: (v) => (v.value as number + standard).toFixed(2) + "점"
         },
       },
     ];
@@ -141,7 +141,7 @@ function BarNegative({
         }
       },
       extraCssText: "text-align: left;",
-      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${v[0].value + standard}점`;}
+      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${(v[0].value + standard).toFixed(2)}점`;}
     };
   
     option.grid = {
