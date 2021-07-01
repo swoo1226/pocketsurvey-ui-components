@@ -34,7 +34,7 @@ function BarNegative({
   standard,
   labelOption="dynamic",
 }: BarNegativePropsType): JSX.Element {
-  console.log('평균 점수?', standard)
+  console.log("평균 점수?", standard)
   const sizeValue = 28;
   const minWidth =
   sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
@@ -52,7 +52,7 @@ function BarNegative({
       type: "value",
       show: true,
       axisLabel: {
-          show: false
+        show: false
       }
     };
   
@@ -65,10 +65,10 @@ function BarNegative({
       nameLocation: "start",
       inverse: true,
       axisLine: {
-          lineStyle: {
-              color: "#59C4DB",
-              width: 3
-          }
+        lineStyle: {
+          color: "#59C4DB",
+          width: 3
+        }
       },
       axisLabel: {
         showMaxLabel: true,
@@ -118,7 +118,7 @@ function BarNegative({
         label: {
           show: true,
           color: "#000",
-          formatter: (v) => (v.value as number + standard).toFixed(0)
+          formatter: (v) => (v.value as number + standard).toFixed(0) + "점"
         },
       },
     ];
@@ -141,7 +141,7 @@ function BarNegative({
         }
       },
       extraCssText: "text-align: left;",
-      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${v[0].value + standard}`;}
+      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${v[0].value + standard}점`;}
     };
   
     option.grid = {
