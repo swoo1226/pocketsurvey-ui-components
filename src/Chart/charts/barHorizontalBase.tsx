@@ -141,6 +141,7 @@ const EChartsWrapper = styled.div<{
       ? `height: ${props.height}px;`
       : `height: ${props.height};`}
   ${(props) => props.isOverflow && `overflow-y: scroll;`}
+  overflow-x: hidden;
 `;
 
 function BarHorizontalBase({
