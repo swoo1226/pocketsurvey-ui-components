@@ -10,6 +10,7 @@ import {
 } from "../util/index";
 import styled from "styled-components";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+import { scrollBar } from "../style"
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -130,17 +131,19 @@ type BarHorizontalBasePropsType = {
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
   defaultHeight?: number;
+  temp: number;
 } & BarHorizontalBaseOptionPropsType;
 
 const EChartsWrapper = styled.div<{
   height: number | string;
   isOverflow: boolean;
 }>`
+  ${scrollBar}
   ${(props) =>
     props.height && typeof props.height === "number"
       ? `height: ${props.height}px;`
       : `height: ${props.height};`}
-  ${(props) => props.isOverflow && `overflow-y: scroll;`}
+  ${(props) => props.isOverflow && "overflow-y: scroll;"}
   overflow-x: hidden;
 `;
 
@@ -151,13 +154,14 @@ function BarHorizontalBase({
   labels,
   override,
   align,
-  labelOption = "dynamic"
+  labelOption = "dynamic",
+  temp,
 }: BarHorizontalBasePropsType): JSX.Element {
   const targetRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
-  const sizeValue = 28;
-  const minHeight =
-    sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
+  const sizeValue = 26;
+  const minHeight = sizeValue * series.length + 120 + temp * series.length;
+  // 120: 60 top padding + 60 bottom padding || 10: 바 차트 사이의 간격
   const defaultHeight = 350;
 
   const resizeObject = useResizeDetector({ targetRef });
