@@ -12,6 +12,7 @@ import {
 import { stackedFormatter } from "../util/tooltip";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import styled from "styled-components";
+import { scrollBar } from "../style"
 
 type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
@@ -103,6 +104,12 @@ const barVerticalSeparatedOption = ({
     },
   };
 
+  option.legend = {
+    orient: "horizontal",
+    x: "center",
+    y: "bottom",
+  };
+
   option.grid = {
     left: "100px",
     right: "100px",
@@ -139,6 +146,7 @@ const EchartsWrapper = styled.div<{
   width?: string | number;
   height?: string | number;
 }>`
+  ${scrollBar}
   ${(props) => props.minify && "overflow-x: scroll;"}
   ${(props) =>
     props.width

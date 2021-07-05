@@ -65,9 +65,9 @@ const PieBaseOption = ({
     {
       color: getColors.pie(series.length, maxIndex),
       type: "pie",
-      top: "15%",
-      bottom: "15%",
-      height: "70%",
+      top: "5%",
+      bottom: "5%",
+      height: "90%",
       radius: "85%",
       data: (seriesRemoveZero as number[]).map((value, index) => {
         return { value, name: labels[index] };

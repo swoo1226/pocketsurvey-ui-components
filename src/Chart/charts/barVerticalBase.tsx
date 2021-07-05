@@ -8,6 +8,7 @@ import { getPreset, BarVerticalBasePresetType } from "../util/preset";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import debounce from "lodash/debounce";
 import styled from "styled-components";
+import { scrollBar } from "../style"
 
 type BarVerticalBaseOptionPropsType = {
   series: number[];
@@ -113,6 +114,7 @@ const EChartsWrapper = styled.div<{
   minify: boolean;
   width?: string | number;
 }>`
+  ${scrollBar}
   ${(props) => props.minify && "overflow-x: scroll;"}
   ${(props) =>
     props.width

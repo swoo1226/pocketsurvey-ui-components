@@ -14,6 +14,7 @@ import EChartsReact from "echarts-for-react";
 import { stackedFormatter } from "../util/tooltip";
 import styled from "styled-components";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
+import { scrollBar } from "../style";
 
 const MAX_LABEL_LENGTH = 14;
 
@@ -157,11 +158,12 @@ const EChartsWrapper = styled.div<{
   height: number | string;
   isOverflow: boolean;
 }>`
+  ${scrollBar}
   ${(props) =>
     props.height && typeof props.height === "number"
       ? `height: ${props.height}px;`
       : `height: ${props.height};`}
-  ${(props) => props.isOverflow && `overflow-y: scroll;`}
+  ${(props) => props.isOverflow && "overflow-y: scroll;"}
 `;
 
 type BarHorizontalStackedPropsType = {
@@ -182,7 +184,7 @@ function BarHorizontalStacked({
   const targetRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const [minify, setMinify] = useState<boolean>(false);
-  const minHeight = 67.2 * series.length + 120;
+  const minHeight = 26 * series.length + 120;
   const defaultHeight = 350;
 
   const resizeObject = useResizeDetector({ targetRef });
@@ -207,7 +209,10 @@ function BarHorizontalStacked({
       isOverflow={isOverflow}
     >
       <EChartsReact
-        style={getSizeCSS(width, minHeight > defaultHeight ? minHeight : undefined)}
+        style={getSizeCSS(
+          width,
+          minHeight > defaultHeight ? minHeight : undefined
+        )}
         option={barHorizontalStackedOption({
           series: series as (number | null)[][],
           labels,

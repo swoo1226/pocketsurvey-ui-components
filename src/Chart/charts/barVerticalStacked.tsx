@@ -15,6 +15,7 @@ import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import { getPreset, BarVerticalStackedPresetType } from "../util/preset";
 import debounce from "lodash/debounce";
 import styled from "styled-components";
+import { scrollBar } from "../style"
 
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -103,9 +104,9 @@ const barVerticalStackedOption = ({
   });
 
   option.legend = {
-    orient: 'horizontal',
-    x: 'center',
-    y: 'bottom',
+    orient: "horizontal",
+    x: "center",
+    y: "bottom",
   };
 
   type DataType = {
@@ -222,6 +223,7 @@ const EchartsWrapper = styled.div<{
   height?: string | number;
   isOverflow: boolean;
 }>`
+  ${scrollBar}
   ${(props) => props.minify && "overflow-x: scroll;"}
   ${(props) =>
     props.width
@@ -235,7 +237,7 @@ const EchartsWrapper = styled.div<{
         ? `height: ${props.height}px;`
         : `height: ${props.height};`
       : ""}
-  ${(props)=> props.isOverflow && `overflow-y: scroll;`}
+  ${(props)=> props.isOverflow && "overflow-y: scroll;"}
 `;
 
 const countSeries = (series: (number | null)[][]) => {
