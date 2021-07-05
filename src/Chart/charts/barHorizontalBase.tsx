@@ -131,7 +131,6 @@ type BarHorizontalBasePropsType = {
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
   defaultHeight?: number;
-  temp: number;
 } & BarHorizontalBaseOptionPropsType;
 
 const EChartsWrapper = styled.div<{
@@ -154,14 +153,14 @@ function BarHorizontalBase({
   labels,
   override,
   align,
-  labelOption = "dynamic",
-  temp,
+  labelOption = "dynamic"
 }: BarHorizontalBasePropsType): JSX.Element {
   const targetRef = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const sizeValue = 26;
-  const minHeight = sizeValue * series.length + 120 + temp * series.length;
-  // 120: 60 top padding + 60 bottom padding || 10: 바 차트 사이의 간격
+  const marginBetweenBar = 10;
+  const minHeight = sizeValue * series.length + 120 + marginBetweenBar * series.length;
+  // 120: 60 top padding + 60 bottom padding, marginBetweenBar: 바 차트 사이의 간격
   const defaultHeight = 350;
 
   const resizeObject = useResizeDetector({ targetRef });
