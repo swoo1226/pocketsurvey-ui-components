@@ -1,5 +1,9 @@
+# 0.5.3 (2021.07.02)
+- 충돌로 인한 버전을 올립니다.
+
 # 0.5.22 (2021.07.01)
 - barNegaitve 차트의 serise, tooltip 모두 소수점 둘째 자리까지 표시
+
 # 0.5.21 (2021.06.30)
 
 - barHorizontalBase 차트에서 overflow-x를 hidden으로 설정
@@ -13,6 +17,9 @@
 
 - Button컴포넌트에 isLoading 옵션을 적용할 수 있도록하게 함.
 - isLoading 옵션 적용시, 스피너 사용
+
+# 0.5.0.1 (2021.06.25)
+- Icon컴포넌트에 onMouseLeave 이벤트를 추가
 
 # 0.5.0 (2021.06.25)
 

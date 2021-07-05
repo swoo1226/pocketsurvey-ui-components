@@ -34,3 +34,24 @@ export function Index() {
     />
   )
 }
+
+export function mouseover() {
+  const theme = select('icon name', iconTypes, 'singleChoice')
+  const width = number('width', 50)
+  const color = text('color', 'black')
+  const rotate = number('rotate', 0)
+
+  console.log(theme, color)
+  return (
+    <Icon
+      icon={theme}
+      width={width}
+      color={color}
+      rotate={rotate}
+      onClick={() => alert('Hello!')}
+      onMouseOver={() => alert('mouseover!')}
+      onMouseLeave={() => alert('mousedown!')}
+      useCursor={true}
+    />
+  )
+}
