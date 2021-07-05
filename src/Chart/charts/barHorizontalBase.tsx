@@ -161,7 +161,7 @@ function BarHorizontalBase({
   const marginBetweenBar = 10;
   const minHeight = sizeValue * series.length + 120 + marginBetweenBar * series.length;
   // 120: 60 top padding + 60 bottom padding, marginBetweenBar: 바 차트 사이의 간격
-  const defaultHeight = 350;
+  const defaultHeight = 300;
 
   const resizeObject = useResizeDetector({ targetRef });
 
