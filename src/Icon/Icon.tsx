@@ -17,6 +17,7 @@ export type IconProps = {
   color: string
   onClick?: () => void
   onMouseOver?: () => void
+  onMouseLeave?: () => void
   useCursor?: boolean
 }
 
@@ -34,6 +35,7 @@ function Icon({
   color,
   onClick,
   onMouseOver,
+  onMouseLeave,
   useCursor,
 }: IconProps): JSX.Element {
   const SVGIcon = icons[icon]
@@ -50,6 +52,7 @@ function Icon({
       className={className}
       onClick={onClick}
       onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
     />
   )
 }
