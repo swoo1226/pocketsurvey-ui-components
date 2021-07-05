@@ -1,6 +1,9 @@
 # 0.5.3 (2021.07.02)
 - 충돌로 인한 버전을 올립니다.
 
+# 0.5.22 (2021.07.01)
+- barNegaitve 차트의 serise, tooltip 모두 소수점 둘째 자리까지 표시
+
 # 0.5.21 (2021.06.30)
 
 - barHorizontalBase 차트에서 overflow-x를 hidden으로 설정
