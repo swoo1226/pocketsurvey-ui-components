@@ -21,8 +21,7 @@ export function Index() {
   const width = number('width', 50)
   const color = text('color', 'black')
   const rotate = number('rotate', 0)
-
-  console.log(theme, color)
+ 
   return (
     <Icon
       icon={theme}
@@ -41,7 +40,6 @@ export function mouseover() {
   const color = text('color', 'black')
   const rotate = number('rotate', 0)
 
-  console.log(theme, color)
   return (
     <Icon
       icon={theme}

@@ -20,7 +20,6 @@ export function Single() {
       selected={selected}
       disabled={disabled}
       onItemClick={(index: number) => {
-        console.log(index);
         if (selected.includes(index)) {
           setSelected(selected.filter((item) => item != index));
         } else {

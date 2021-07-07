@@ -34,7 +34,6 @@ function BarNegative({
   standard,
   labelOption="dynamic",
 }: BarNegativePropsType): JSX.Element {
-  console.log("평균 점수?", standard)
   const sizeValue = 28;
   const minWidth =
   sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
@@ -47,7 +46,6 @@ function BarNegative({
     labelOption="dynamic",
   }: BarNegativeOptionPropsType) => {
     const option: EChartsOption = {};
-    console.log("평균 점수 in option object?", standard);
     option.xAxis = {
       type: "value",
       show: true,
@@ -94,10 +92,7 @@ function BarNegative({
       }
     }[] = [];
     series.map((number, index) => {
-      console.log("기준 점수 ", standard)
-      console.log("series 점수 ", number)
       const diff = number - standard
-      console.log("점수 차이", diff)
       seriesData.push({
         value: diff,
         name: labels[index],
