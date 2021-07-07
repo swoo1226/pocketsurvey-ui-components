@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import { withKnobs, boolean, select, text } from "@storybook/addon-knobs"
-
+import { goPay } from "../Innopay/innopay"
 import Button from "./Button"
 import { Meta } from "@storybook/react/types-6-0"
 
@@ -19,6 +19,15 @@ export function Index(): JSX.Element {
 		<>
 		<Button theme={theme} disabled={disabled} backgroundColor={backgroundColor} 
 		onClick ={() => {
+			goPay({
+				goodsName: 'test',
+				price: 1004,
+				buyer: {
+					name: 'test',
+					phone: '010-1234-5678',
+					email: '123@123.123'
+				}
+			})
 			setIsSpinner(!isSpinner)
 		}}
 		isLoading={isSpinner}>
