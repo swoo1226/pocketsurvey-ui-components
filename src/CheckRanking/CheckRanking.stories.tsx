@@ -13,9 +13,7 @@ export default {
 export function Single() {
   const [selected, setSelected] = useState([3])
   const backgroundColor = text("backgroundColor", "#f2ab28")
-  useEffect(() => {
-    console.log(selected)
-  }, [selected])
+
   return (
     <CheckRanking
       selections={[

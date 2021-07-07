@@ -35,7 +35,6 @@ const barHorizontalBaseOption = ({
     type: "value",
     show: true,
   };
-  console.log(labels, series);
   const seriesCombinedLabels = labels
     .map((label, index) => [label, series[index]])
     .sort((a, b) => b[1] - a[1]);
