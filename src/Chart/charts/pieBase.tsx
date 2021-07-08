@@ -21,7 +21,7 @@ const seriesRemoveZero = (sortedData:{id: number, value: number | null}[]) => {
 };
 
 const makeData = (series: number[], labels: string[]) => {
-  const clonedSeries:{id:number; value: number}[] = [];
+  let sortedSeries:{id:number; value: number}[] = [];
   const clonedLabels:{id: number; value: string}[] = [];
   const sortedLabelArr:{id:number, value:string}[] = [];
 
@@ -30,38 +30,38 @@ const makeData = (series: number[], labels: string[]) => {
   });
 
   series.map((item:number, index:number) => {
-    clonedSeries.push({id:index, value: item})
+    sortedSeries.push({id:index, value: item})
   })
 
   //1. 내림차순 정렬
-  const sortedData = sortBy(clonedSeries, "value").reverse();
-  sortedData.map((item:{id:number;value:number}) => {
+  sortedSeries = sortBy(sortedSeries, "value").reverse();
+  sortedSeries.map((item:{id:number;value:number}) => {
     const index = findIndex(clonedLabels, function(o){ return o.id == item.id});
     sortedLabelArr.push({id: clonedLabels[index].id, value: clonedLabels[index].value});
   })
 
   //2. 0을 null로 치환
-  seriesRemoveZero(sortedData)
+  seriesRemoveZero(sortedSeries)
 
   //3. 10%에 해당하는 값을 찾고, 그 외로 묶기 
-  const portion = sumBy(sortedData, function(o) { return o.value}) * 0.1;
+  const portion = sumBy(sortedSeries, function(o) { return o.value}) * 0.1;
   let result = 0;
 
-    //묶인 값들은 label, serires 배열에서 값을 삭제. 
-  for(let i = sortedData.length -1; i >=0; i-- ) {
-    if(sortedData[i].value < portion && result + sortedData[i].value < portion) {
-      result += sortedData[i].value;
-      const index= findIndex(sortedData, function(o) { return o.id == sortedData[i].id})
+  //묶인 값들은 label, serires 배열에서 값을 삭제. 
+  for(let i = sortedSeries.length -1; i >=0; i-- ) {
+    if(sortedSeries[i].value < portion && result + sortedSeries[i].value < portion) {
+      result += sortedSeries[i].value;
+      const index= findIndex(sortedSeries, function(o) { return o.id == sortedSeries[i].id})
       sortedLabelArr.splice(index,1);
-      sortedData.splice(i,1);
+      sortedSeries.splice(i,1);
     }
   }
   if(result !== 0) {
-    sortedData.push({id:9999, value: result})
+    sortedSeries.push({id:9999, value: result})
     sortedLabelArr.push({id:9999, value: "그 외"})
   }
   return {
-    series: sortedData,
+    series: sortedSeries,
     label: sortedLabelArr,
   }
 };
