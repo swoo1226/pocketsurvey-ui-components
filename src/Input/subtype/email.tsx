@@ -17,93 +17,67 @@ const EMAIL_LIST = [
   "@naver.com",
 ]
 
-const emailAutoComplete = (
-  selected: number | null,
-  setSelected: React.Dispatch<React.SetStateAction<number | null>>,
-  value: string,
-  setValue: React.Dispatch<React.SetStateAction<string>>,
-  setShowAutocomplete: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  const atSignIndex = value.lastIndexOf("@")
-  if (atSignIndex === -1) {
-    setShowAutocomplete(false)
-    setSelected(null)
-    return null
-  }
-  if (atSignIndex) {
-    console.log("if (atSignIndex) {")
-    const afterAtSign = value.substring(atSignIndex)
-    const autoCompleteEmail = EMAIL_LIST.filter(
-      (email) => email.includes(afterAtSign) && email !== afterAtSign
-    )
-    if (autoCompleteEmail.length > 0) {
-      setShowAutocomplete(true)
-      return (
-        <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
-          {autoCompleteEmail.map((email: string, index: number) => (
-            <AutocompleteUl
-              selected={selected === index}
-              onMouseEnter={() => setSelected(index)}
-              key={index}
-              onClick={() =>
-                setValue(`${value}${email.replace(afterAtSign, "")}`)
-              }
-              // onKeyDown={(event) => {
-              //   if (event.key === "Enter" || event.keyCode == 32) {
-              //     setValue(`${value}${email.replace(afterAtSign, "")}`)
-              //   }
-              // }}
-            >
-              <b>{value}</b>
-              {email.replace(afterAtSign, "")}
-            </AutocompleteUl>
-          ))}
-        </AutocompleteWrapper>
-      )
-    }
-  }
-  setShowAutocomplete(false)
-  setSelected(null)
-  return null
-}
-
-const upDownAutoComplete = (
-  selected: number | null,
-  setSelected: React.Dispatch<React.SetStateAction<number | null>>,
-  key: "ArrowUp" | "ArrowDown",
-  showAutocomplete: boolean
-) => {
-  if (showAutocomplete === false) return
-  const lastIndex = EMAIL_LIST.length - 1
-  if (key === "ArrowUp") {
-    if (selected === null || selected === 0) {
-      //마지막으로 가는 케이스
-      setSelected(lastIndex)
-    } else {
-      //하나 올라가는 케이스
-      setSelected(selected - 1)
-    }
-  }
-
-  if (key === "ArrowDown") {
-    if (selected === null || lastIndex === selected) {
-      //제일 위로 가는 케이스
-      setSelected(0)
-    } else {
-      //하나 내려가는 케이스
-      setSelected(selected + 1)
-    }
-  }
-}
+const MAX_VIEW_LIMIT = 5
 
 function Email(): JSX.Element {
   const [value, setValue] = useState<string>("")
   const [selected, setSelected] = useState<number | null>(null)
-  const [showAutocomplete, setShowAutocomplete] = useState<boolean>(true)
+  const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
 
   useEffect(() => {
-    console.log("showAutocomplete:", showAutocomplete)
-  }, [showAutocomplete])
+    const atSignIndex = value.lastIndexOf("@")
+    if (atSignIndex === -1) {
+      setSelected(null)
+      setAutocomplete([])
+      return
+    }
+    if (atSignIndex) {
+      console.log("if (atSignIndex) {")
+      const afterAtSign = value.substring(atSignIndex)
+      const autoCompleteEmail = EMAIL_LIST.filter(
+        (email) => email.includes(afterAtSign) && email !== afterAtSign
+      )
+      setAutocomplete(autoCompleteEmail)
+      return
+    }
+    setSelected(null)
+    setAutocomplete([])
+  }, [value])
+
+  useEffect(() => {
+    console.log("selected:", selected)
+  }, [selected])
+
+  const upDownAutoComplete = (key: "ArrowUp" | "ArrowDown") => {
+    if(autocomplete.length === 0){
+      setSelected(null)
+      return 
+    }
+    const lastIndex =
+      autocomplete.length - 1 >= MAX_VIEW_LIMIT - 1
+        ? MAX_VIEW_LIMIT - 1
+        : autocomplete.length - 1
+
+    if (key === "ArrowUp") {
+      if (selected === null || selected === 0) {
+        //마지막으로 가는 케이스
+        setSelected(lastIndex)
+      } else {
+        //하나 올라가는 케이스
+        setSelected(selected - 1)
+      }
+    }
+
+    if (key === "ArrowDown") {
+      if (selected === null || lastIndex === selected) {
+        //제일 위로 가는 케이스
+        setSelected(0)
+      } else {
+        //하나 내려가는 케이스
+        setSelected(selected + 1)
+      }
+    }
+  }
 
   return (
     <>
@@ -112,23 +86,45 @@ function Email(): JSX.Element {
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={(event) => {
           if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            upDownAutoComplete(
-              selected,
-              setSelected,
-              event.key,
-              showAutocomplete
-            )
+            upDownAutoComplete(event.key)
+          }
+          if (event.key === "Enter" || event.keyCode == 32) {
+            if (
+              autocomplete.length > 0 &&
+              selected !== null &&
+              autocomplete.length > selected
+            ) {
+              const afterAtSign = value.substring(value.lastIndexOf("@"))
+              setValue(
+                `${value}${autocomplete[selected].replace(afterAtSign, "")}`
+              )
+              setSelected(null)
+              setAutocomplete([])
+            }
           }
         }}
       ></input>
-      {showAutocomplete &&
-        emailAutoComplete(
-          selected,
-          setSelected,
-          value,
-          setValue,
-          setShowAutocomplete
-        )}
+      {autocomplete.length > 0 && (
+        <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
+          {autocomplete.map((email: string, index: number) => {
+            if (index >= MAX_VIEW_LIMIT) return null
+            const afterAtSign = value.substring(value.lastIndexOf("@"))
+            return (
+              <AutocompleteUl
+                selected={selected === index}
+                onMouseEnter={() => setSelected(index)}
+                key={index}
+                onClick={() =>
+                  setValue(`${value}${email.replace(afterAtSign, "")}`)
+                }
+              >
+                <b>{value}</b>
+                {email.replace(afterAtSign, "")}
+              </AutocompleteUl>
+            )
+          })}
+        </AutocompleteWrapper>
+      )}
     </>
   )
 }
