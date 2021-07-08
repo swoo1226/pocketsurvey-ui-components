@@ -69,3 +69,11 @@ export function Index() {
     />
   )
 }
+
+export function Email(){
+  return <Input.Email/>
+}
+
+export function Account(){
+  return <Input.Account/>
+}

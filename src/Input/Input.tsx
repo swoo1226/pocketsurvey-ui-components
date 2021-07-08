@@ -2,6 +2,8 @@ import React from "react"
 import styled from "styled-components"
 
 import Icon, { IconType } from "../Icon/Icon"
+import Email from "./subtype/email"
+import Account from "./subtype/account"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
@@ -171,4 +173,6 @@ function Input({
   )
 }
 
+Input.Email = Email
+Input.Account = Account
 export default Input
