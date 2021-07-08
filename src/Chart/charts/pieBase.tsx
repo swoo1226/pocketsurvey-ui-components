@@ -44,7 +44,7 @@ const makeData = (series: number[], labels: string[]) => {
   seriesRemoveZero(sortedData)
 
   //3. 10%에 해당하는 값을 찾고, 그 외로 묶기 
-  const portion = sumBy(sortedData, function(o:any) { return o.value}) * 0.1;
+  const portion = sumBy(sortedData, function(o) { return o.value}) * 0.1;
   let result = 0;
 
     //묶인 값들은 label, serires 배열에서 값을 삭제. 
