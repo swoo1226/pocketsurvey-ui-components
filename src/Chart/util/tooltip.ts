@@ -1,3 +1,4 @@
+import { findIndex } from "lodash"
 import { getMaxLabelWidth } from "./index"
 
 export const sumReducer = (accumulator: number, currentValue: null | number) =>
@@ -77,21 +78,25 @@ export const stackedFormatter = (
 export const piePercentageFormatter = (
   params: {
     data: {
-      name: string;
+      id: number;
       value: number | null;
     };
     marker: string;
   },
-  seriesSum: number
+  seriesSum: number,
+  label:{
+    id:number, 
+    value: string,
+  }[],
 ): string => {
   const percentValue = params.data.value
     ? (params.data.value / seriesSum) * 100
     : 0
   const percent = params.data.value ? `${percentValue.toFixed(2)}%` : "0%"
-
+  const index = findIndex(label, function(o:any) { return o.id == params.data.id})  
   return `
   <div style="text-align: left;">
-  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;">${params.data.value} (${percent})</p>
+  ${params.marker} ${label[index].value} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${params.data.value} (${percent})</p>
     </div>
     `
 }
