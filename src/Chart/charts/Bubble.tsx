@@ -42,7 +42,7 @@ const data = [
 ];
 
 const bubbleOption = ({data}) => {
-  let option: EChartsOption = {};
+  const option: EChartsOption = {};
   // 비교할 키워드 선택이 있는 경우에 getColors 사용
   // const colors = getColors.bubble(data.length,0)  
   const colors = data.map(() => "#FAC62D");
@@ -58,10 +58,10 @@ const bubbleOption = ({data}) => {
   };
   // 비교할 키워드 선택이 있는 경우에 legend 표시
   // option.legend = {
-    // top: "bottom",
-    // right: "10%",
-    // top: "3%",
-    // itemStyle: {},
+  // top: "bottom",
+  // right: "10%",
+  // top: "3%",
+  // itemStyle: {},
   // },
 
   (option.series = data.map((item, index) => ({
@@ -187,7 +187,7 @@ const bubbleOption = ({data}) => {
       // ],
     }
   );
-    return option
+  return option
 }
 
 type BubblePropsType = {

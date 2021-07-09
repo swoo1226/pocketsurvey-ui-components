@@ -147,9 +147,9 @@ export const getColors = {
       numColors: seriesLength - 1,
       palette: "sequential",
       colors: [color.GRAY, color.LIGHT_GRAY],
-    });
+    })
 
-    colorChorma.splice(0, 0, color.YELLOW);
-    return colorChorma;
+    colorChorma.splice(0, 0, color.YELLOW)
+    return colorChorma
   }
 }
