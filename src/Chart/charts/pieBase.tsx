@@ -5,7 +5,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColors } from "../util";
 import { piePercentageFormatter, sumReducer } from "../util/tooltip";
-import { sumBy, reverse, sortBy, findIndex } from "lodash";
+import _ from "lodash";
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
@@ -38,9 +38,9 @@ const alignSeriesASC = ({
 }: SeriesLabelType & {
   clonedLabels: { id: number; value: string }[];
 }) => {
-  sortedSeries = sortBy(sortedSeries, "value").reverse();
+  sortedSeries = _.sortBy(sortedSeries, "value").reverse();
   sortedSeries.map((item: { id: number; value: number | null}) => {
-    const index = findIndex(clonedLabels, function (o) {
+    const index = _.findIndex(clonedLabels, function (o) {
       return o.id == item.id;
     });
     sortedLabelArr.push({
@@ -60,7 +60,7 @@ const searchBindLeastData = ({
   sortedLabelArr,
 }: SeriesLabelType) => {
   const portion =
-    sumBy(sortedSeries, function (o) {
+    _.sumBy(sortedSeries, function (o) {
       return o.value;
     }) * 0.1;
   let result = 0;
@@ -74,7 +74,7 @@ const searchBindLeastData = ({
           result + sortedValue < portion
       ) {
         result += sortedValue;
-        const index = findIndex(sortedSeries, function (o) {
+        const index = _.findIndex(sortedSeries, function (o) {
           return o.id == sortedSeries[i].id;
         });
         sortedLabelArr.splice(index, 1);
