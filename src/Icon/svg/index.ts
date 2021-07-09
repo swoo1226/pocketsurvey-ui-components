@@ -100,3 +100,4 @@ export { ReactComponent as textChartSolid } from "./textChartSolid.svg";
 export { ReactComponent as swimlaneChart } from "./swimlaneChart.svg";
 export { ReactComponent as swimlaneChartSolid } from "./swimlaneChartSolid.svg";
 export { ReactComponent as analyzing } from "./analyzing.svg";
+export { ReactComponent as fileUpload } from "./fileUpload.svg";
