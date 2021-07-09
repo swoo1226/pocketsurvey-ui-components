@@ -4,8 +4,8 @@ import React from "react";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColors } from "../util";
-import { piePercentageFormatter, sumReducer } from "../util/tooltip" 
-import { sumBy, reverse ,sortBy, findIndex } from 'lodash';
+import { piePercentageFormatter, sumReducer } from "../util/tooltip";
+import { sumBy, reverse, sortBy, findIndex } from "lodash";
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
@@ -14,65 +14,126 @@ type PieBaseOptionPropsType = {
   labelOption?: "fixed" | "dynamic";
 };
 
-const seriesRemoveZero = (sortedData:{id: number, value: number | null}[]) => {
-  sortedData.map((item:{id:number,value:number | null}, index:number)=> {
-    sortedData[index].value = item.value === 0 ? null : item.value;
-  })
+type SeriesLabelType = {
+  sortedSeries: { id: number; value: number | null }[];
+  sortedLabelArr: { id: number; value: string }[];
 };
 
-const makeData = (series: number[], labels: string[]) => {
-  let sortedSeries:{id:number; value: number}[] = [];
-  const clonedLabels:{id: number; value: string}[] = [];
-  const sortedLabelArr:{id:number, value:string}[] = [];
+const seriesRemoveZero = (
+  sortedData: { id: number; value: number | null }[]
+) => {
+  sortedData.map(
+    (item: { id: number; value: number | null }, index: number) => {
+      sortedData[index].value = item.value === 0 ? null : item.value;
+    }
+  );
 
-  labels.map((item: string, index:number) => {
-    clonedLabels.push({id:index, value: item})
+  return { sortedData };
+};
+
+const alignSeriesASC = ({
+  sortedSeries,
+  clonedLabels,
+  sortedLabelArr,
+}: SeriesLabelType & {
+  clonedLabels: { id: number; value: string }[];
+}) => {
+  sortedSeries = sortBy(sortedSeries, "value").reverse();
+  sortedSeries.map((item: { id: number; value: number | null}) => {
+    const index = findIndex(clonedLabels, function (o) {
+      return o.id == item.id;
+    });
+    sortedLabelArr.push({
+      id: clonedLabels[index].id,
+      value: clonedLabels[index].value,
+    });
   });
 
-  series.map((item:number, index:number) => {
-    sortedSeries.push({id:index, value: item})
-  })
+  return {
+    sortedSeries,
+    sortedLabelArr,
+  };
+};
 
-  //1. 내림차순 정렬
-  sortedSeries = sortBy(sortedSeries, "value").reverse();
-  sortedSeries.map((item:{id:number;value:number}) => {
-    const index = findIndex(clonedLabels, function(o){ return o.id == item.id});
-    sortedLabelArr.push({id: clonedLabels[index].id, value: clonedLabels[index].value});
-  })
-
-  //2. 0을 null로 치환
-  seriesRemoveZero(sortedSeries)
-
-  //3. 10%에 해당하는 값을 찾고, 그 외로 묶기 
-  const portion = sumBy(sortedSeries, function(o) { return o.value}) * 0.1;
+const searchBindLeastData = ({
+  sortedSeries,
+  sortedLabelArr,
+}: SeriesLabelType) => {
+  const portion =
+    sumBy(sortedSeries, function (o) {
+      return o.value;
+    }) * 0.1;
   let result = 0;
 
-  //묶인 값들은 label, serires 배열에서 값을 삭제. 
-  for(let i = sortedSeries.length -1; i >=0; i-- ) {
-    if(sortedSeries[i].value < portion && result + sortedSeries[i].value < portion) {
-      result += sortedSeries[i].value;
-      const index= findIndex(sortedSeries, function(o) { return o.id == sortedSeries[i].id})
-      sortedLabelArr.splice(index,1);
-      sortedSeries.splice(i,1);
+  //묶인 값들은 label, serires 배열에서 값을 삭제.
+  for (let i = sortedSeries.length - 1; i >= 0; i--) {
+    if( sortedSeries[i].value !== null) {
+      const sortedValue = sortedSeries[i].value as number;
+      if (
+        sortedValue < portion &&
+          result + sortedValue < portion
+      ) {
+        result += sortedValue;
+        const index = findIndex(sortedSeries, function (o) {
+          return o.id == sortedSeries[i].id;
+        });
+        sortedLabelArr.splice(index, 1);
+        sortedSeries.splice(i, 1);
+      }
     }
+   
+    
   }
-  if(result !== 0) {
-    sortedSeries.push({id:9999, value: result})
-    sortedLabelArr.push({id:9999, value: "그 외"})
+  if (result !== 0) {
+    sortedSeries.push({ id: 9999, value: result });
+    sortedLabelArr.push({ id: 9999, value: "그 외" });
   }
+
+  return { sortedSeries, sortedLabelArr };
+};
+
+const bindLeastData = (series: number[], labels: string[]) => {
+  const unSortedSeries: { id: number; value: number }[] = [];
+  const clonedLabels: { id: number; value: string }[] = [];
+  const unSortedLabelArr: { id: number; value: string }[] = [];
+
+  labels.map((item: string, index: number) => {
+    clonedLabels.push({ id: index, value: item });
+  });
+  
+  series.map((item: number, index: number) => {
+    unSortedSeries.push({ id: index, value: item });
+  });
+
+  //1. 내림차순 정렬
+  const { sortedSeries, sortedLabelArr } = alignSeriesASC({
+    sortedSeries: unSortedSeries,
+    clonedLabels,
+    sortedLabelArr: unSortedLabelArr,
+  });
+
+  //2. 0을 null로 치환
+  const { sortedData } = seriesRemoveZero(sortedSeries);
+
+  //3. 10%에 해당하는 값을 찾고, 그 외로 묶기
+  const result = searchBindLeastData({
+    sortedSeries: sortedData,
+    sortedLabelArr: sortedLabelArr,
+  });
+
   return {
-    series: sortedSeries,
-    label: sortedLabelArr,
-  }
+    series: result.sortedSeries,
+    label: result.sortedLabelArr,
+  };
 };
 const PieBaseOption = ({
   series,
   labels,
-  override, 
+  override,
   showLabel,
-  labelOption="dynamic",
-}: PieBaseOptionPropsType) => {  
-  const processedData = makeData(series, labels);
+  labelOption = "dynamic",
+}: PieBaseOptionPropsType) => {
+  const processedData = bindLeastData(series, labels);
   const option: EChartsOption = {};
 
   option.center = ["50%", "50%"];
@@ -85,30 +146,28 @@ const PieBaseOption = ({
   option.tooltip = {
     trigger: "item",
     formatter: (params) => {
-      return piePercentageFormatter(params, series.reduce(sumReducer), processedData.label)
+      return piePercentageFormatter(
+        params,
+        series.reduce(sumReducer),
+        processedData.label
+      );
     },
-    position(
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
-      if(labelOption === "fixed") {
+    position(pos: any, params: any, el: any, elRect: any, size: any) {
+      if (labelOption === "fixed") {
         const obj: any = { top: 10 };
         obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
       }
-    }
+    },
   };
   option.legend = {
     orient: "vertical",
     right: "right",
   };
-  
-  const maxSeries = Math.max.apply(null, series)
-  const maxIndex = series.indexOf(maxSeries)
-  
+
+  const maxSeries = Math.max.apply(null, series);
+  const maxIndex = series.indexOf(maxSeries);
+
   option.series = [
     {
       color: getColors.pie(series.length, maxIndex),
@@ -125,9 +184,9 @@ const PieBaseOption = ({
         alignTo: "edge",
         margin: 20,
         edgeDistance: "25%",
-        formatter: function(d) {
-          return  d.value;
-        }
+        formatter: function (d) {
+          return d.value;
+        },
       },
       itemStyle: {
         borderColor: "#fff",
@@ -139,7 +198,7 @@ const PieBaseOption = ({
         },
       },
     },
-  ]; 
+  ];
 
   return mergeOption({
     option,
@@ -159,7 +218,7 @@ function PieBase({
   width,
   height,
   showLabel,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: PieBasePropsType) {
   return (
     <EChartsReact
