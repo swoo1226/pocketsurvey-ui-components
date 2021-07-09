@@ -157,13 +157,13 @@ export function PieBase() {
     <>
       <Chart.PieBase
         labels={["선택지1", "선택지2"]}
-        series={[30, 50]}
+        series={[10, 50]}
         showLabel={showLabel}
         labelOption={'fixed'}
       />
       <Chart.PieBase
-        labels={["선택지1", "선택지2"]}
-        series={[60, 0]}
+        labels={["선택지1", "선택지2", "선택지3", "선택지4", "선택지5", "선택지6"]}
+        series={[60, 0, 280, 439, 30.2, 4092]}
         showLabel={showLabel}
       />
       <Chart.PieBase
