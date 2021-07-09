@@ -29,6 +29,7 @@ const ModalBlackCurtain = styled.div`
 const ModalContainer = styled.div<{
   hasBorderTop: boolean
   isProgressBar: boolean
+  maxHeight? : string
 }>`
   width: 460px;
   padding: 28px;
@@ -42,6 +43,7 @@ const ModalContainer = styled.div<{
       ? "7px solid #FAC609"
       : undefined};
   position: relative;
+  max-height: ${props => props.maxHeight ? props.maxHeight : undefined};
 `
 const ModalTitleContainer = styled.div`
   width: 100%;
@@ -51,8 +53,9 @@ const ModalTitle = styled.p`
   all: unset;
   font-size: 20px;
 `
-const ModalContentContainer = styled.div`
+const ModalContentContainer = styled.div<{maxHeight?: string}>`
   height: 100%;
+  overflow: ${props => props.maxHeight ? "scroll" : undefined};
 `
 const ModalBottomContainer = styled.div`
   width: 100%;
@@ -96,6 +99,8 @@ type ModalType = {
   percent?: number
   barColor?: string
   buttonColor?: string
+  maxHeight?: string
+  useCancelButton? : boolean
 }
 
 function Modal({
@@ -110,6 +115,8 @@ function Modal({
   barColor,
   isProgressBar,
   buttonColor,
+  maxHeight,
+  useCancelButton = true,
 }: ModalType): JSX.Element {
   return (
     <ModalBackground>
@@ -118,6 +125,7 @@ function Modal({
         hasBorderTop={hasBorderTop}
         className={className}
         isProgressBar={isProgressBar!}
+        maxHeight={maxHeight}
       >
         {isProgressBar && (
           <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />
@@ -125,17 +133,21 @@ function Modal({
         <ModalTitleContainer>
           <ModalTitle>{title}</ModalTitle>
         </ModalTitleContainer>
-        <ModalContentContainer>{children}</ModalContentContainer>
+        <ModalContentContainer maxHeight={maxHeight}>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
-            <ModalButton
-              backgroundColor={"#FFFFFF"}
-              hoverBackgroundColor={"#F0F0F0"}
-              color={"#818282"}
-              onClick={() => onCancel()}
-            >
-              취소
-            </ModalButton>
+            {
+              useCancelButton && (
+                <ModalButton
+                  backgroundColor={"#FFFFFF"}
+                  hoverBackgroundColor={"#F0F0F0"}
+                  color={"#818282"}
+                  onClick={() => onCancel()}
+                >
+                  취소
+                </ModalButton>
+              )
+            }
             <ModalButton
               backgroundColor={buttonColor ? buttonColor : "#FAC62D"}
               hoverBackgroundColor={buttonColor ? buttonColor : "#FAC62D"}
