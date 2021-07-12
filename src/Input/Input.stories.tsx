@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   withKnobs,
   number,
@@ -6,34 +6,34 @@ import {
   text,
   select,
   color,
-} from '@storybook/addon-knobs'
+} from "@storybook/addon-knobs";
 
-import Input from './Input'
-import { Meta } from '@storybook/react/types-6-0'
-import { singleChoice } from '../Icon/svg'
+import Input from "./Input";
+import { Meta } from "@storybook/react/types-6-0";
+import { singleChoice } from "../Icon/svg";
 
 export default {
   component: Input,
-  title: 'Components/Input',
+  title: "Components/Input",
   decorators: [withKnobs],
-} as Meta
+} as Meta;
 
 export function Index() {
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<string>("");
 
-  const width = number('width', 300)
-  const placeholder = text('placeholder', '텍스트를 입력해주세요.')
-  const errorMessage = text('errorMessage', '에러메시지')
-  const disabled = boolean('disabled', false)
-  const useCancelButton = boolean('useCancelButton', false)
-  const isError = boolean('isError', false)
-  const mode = select('mode', ['line', 'basic'], 'line')
-  const readOnly = boolean('readOnly', false)
-  const tabIndex = number('tabIndex', 10)
-  const borderColor = color('borderColor', '#FAC609')
-  const iconButton = text('link', 'singleChoice')
-  const textColor = text('textColor', '#DFDEDD')
-  const buttonAlways = boolean('buttonAlways', true)
+  const width = number("width", 300);
+  const placeholder = text("placeholder", "텍스트를 입력해주세요.");
+  const errorMessage = text("errorMessage", "에러메시지");
+  const disabled = boolean("disabled", false);
+  const useCancelButton = boolean("useCancelButton", false);
+  const isError = boolean("isError", false);
+  const mode = select("mode", ["line", "basic"], "line");
+  const readOnly = boolean("readOnly", false);
+  const tabIndex = number("tabIndex", 10);
+  const borderColor = color("borderColor", "#FAC609");
+  const iconButton = text("link", "singleChoice");
+  const textColor = text("textColor", "#DFDEDD");
+  const buttonAlways = boolean("buttonAlways", true);
   return (
     <Input
       mode={mode}
@@ -48,36 +48,40 @@ export function Index() {
       readOnly={readOnly}
       tabIndex={tabIndex}
       onFocus={() => {
-        console.log('onFocus')
+        console.log("onFocus");
       }}
       onClick={() => {
-        console.log('onClick')
+        console.log("onClick");
       }}
       onBlur={() => {
-        console.log('onBlur')
+        console.log("onBlur");
       }}
       onClickCancelButton={() => {
-        console.log('onClickCancelButton')
+        console.log("onClickCancelButton");
       }}
       onKeyDown={() => {
-        console.log('onKeyDown')
+        console.log("onKeyDown");
       }}
       borderColor={borderColor}
-      iconButton={'link'}
+      iconButton={"link"}
       textColor={textColor}
       buttonAlways={buttonAlways}
     />
-  )
+  );
 }
 
-export function Email(){
-  return <Input.Email/>
+export function Email() {
+  return <Input.Email />;
 }
 
-export function Account(){
-  return <Input.Account/>
+export function Account() {
+  return <Input.Account />;
 }
 
-export function Phone(){
-  return <Input.Phone/>
+export function Phone() {
+  return <Input.Phone />;
+}
+
+export function Number() {
+  return <Input.Number />;
 }
