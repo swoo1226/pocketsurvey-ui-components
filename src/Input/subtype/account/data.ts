@@ -1,6 +1,6 @@
 import { ListType } from "../account"
 
-export const bank:ListType = [
+export const banks: ListType = [
   {
     name: "카카오뱅크",
     icon: "kakaobank",
@@ -115,7 +115,7 @@ export const bank:ListType = [
   },
 ]
 
-export const stock:ListType = [
+export const stock: ListType = [
   {
     name: "교보증권",
     icon: "1",
