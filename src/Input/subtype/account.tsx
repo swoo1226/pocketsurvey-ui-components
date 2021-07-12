@@ -9,6 +9,7 @@ export type ListType = {
 }[];
 
 const SelectBank = styled.div`
+  width: 100px;
   border: solid 1px gray;
 `
 
@@ -18,9 +19,35 @@ const SelectorTab = styled.div<{ isSelected: boolean }>`
   ${(props) => props.isSelected && "font-weight: 700;"}
 `
 
-const SelectorList = styled.div``
+const SelectorList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 430px;
+  max-height: 400px;
+  justify-content: flex-start;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(195, 195, 195, 0.75);
+    -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
+  }
+`
+
+const AccountInput = styled.input`
+  &:disabled {
+    background: #ccc;
+  }
+`
 
 const BankSelection = styled.div`
+  width: 200px;
+  height: 50px;
   display: flex;
   align-items: center;
 `
@@ -37,6 +64,7 @@ const BankTitle = styled.p`
 `
 
 function Account() {
+  const [selected, setSelected] = useState<string>("")
   const [bankFilter, setBankFilter] = useState<string>("")
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
@@ -47,25 +75,30 @@ function Account() {
     setFilteredBank(
       bankFilter.length === 0
         ? banks
-        : banks.filter((item) =>
-          Hangul.search(item.name, bankFilter) >= 0
-        )
+        : banks.filter((item) => Hangul.search(item.name, bankFilter) >= 0)
     )
     setFilteredStock(
       bankFilter.length === 0
         ? stock
-        : stock.filter((item) =>
-          Hangul.search(item.name, bankFilter) >= 0
-        )
+        : stock.filter((item) => Hangul.search(item.name, bankFilter) >= 0)
     )
   }, [bankFilter])
 
   return (
     <>
-      <SelectBank onClick={() => setIsModalOpen(true)}>은행/증권사</SelectBank>
+      <SelectBank onClick={() => setIsModalOpen(!isModalOpen)}>
+        {selected || "은행/증권사"}
+      </SelectBank>
+
+      <AccountInput disabled={selected === "" ? true : false}></AccountInput>
 
       {isModalOpen && (
         <SelectorContainer>
+          <input
+            value={bankFilter}
+            onChange={(event) => setBankFilter(event.target.value)}
+            placeholder={"은행/증권사 검색"}
+          />
           <SelectorTab
             onClick={() => setTabIndex(0)}
             isSelected={tabIndex === 0}
@@ -78,20 +111,21 @@ function Account() {
           >
             증권사
           </SelectorTab>
-          <input
-            value={bankFilter}
-            onChange={(event) => setBankFilter(event.target.value)}
-            placeholder={"은행/증권사 검색"}
-          />
 
           {tabIndex === 0 && (
-            <>
+            <SelectorList>
               {filteredBank.length > 0 ? (
                 filteredBank.map((item, index: number) => {
                   // eslint-disable-next-line @typescript-eslint/no-var-requires
                   const image = require(`./account/assets/${item.icon}.png`)
                   return (
-                    <BankSelection key={index}>
+                    <BankSelection
+                      key={index}
+                      onClick={(event) => {
+                        setSelected(item.name)
+                        setIsModalOpen(false)
+                      }}
+                    >
                       <BankIcon src={image}></BankIcon>
                       <BankTitle>{item.name}</BankTitle>
                     </BankSelection>
@@ -100,11 +134,11 @@ function Account() {
               ) : (
                 <p>일치하는 은행이 없습니다.</p>
               )}
-            </>
+            </SelectorList>
           )}
 
           {tabIndex === 1 && (
-            <>
+            <SelectorList>
               {filteredStock.length > 0 ? (
                 filteredStock.map((item, index: number) => {
                   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -119,7 +153,7 @@ function Account() {
               ) : (
                 <p>일치하는 증권사가 없습니다.</p>
               )}
-            </>
+            </SelectorList>
           )}
         </SelectorContainer>
       )}
