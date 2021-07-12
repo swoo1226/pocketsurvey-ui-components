@@ -77,3 +77,7 @@ export function Email(){
 export function Account(){
   return <Input.Account/>
 }
+
+export function Phone(){
+  return <Input.Phone/>
+}

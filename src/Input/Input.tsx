@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Icon, { IconType } from "../Icon/Icon"
 import Email from "./subtype/email"
 import Account from "./subtype/account"
+import Phone from "./subtype/phone"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
@@ -175,4 +176,5 @@ function Input({
 
 Input.Email = Email
 Input.Account = Account
+Input.Phone = Phone
 export default Input
