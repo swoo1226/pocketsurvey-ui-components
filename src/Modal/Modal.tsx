@@ -2,6 +2,7 @@ import React from "react"
 import styled, {css} from "styled-components"
 
 import ProgressBar from "../ProgressBar/ProgressBar"
+import Button from "../Button/Button"
 
 const scrollBar = css`
   ::-webkit-scrollbar {
@@ -42,7 +43,6 @@ const ModalBlackCurtain = styled.div`
 const ModalContainer = styled.div<{
   hasBorderTop: boolean
   isProgressBar: boolean
-  maxHeight? : string
 }>`
   width: 460px;
   padding: 28px;
@@ -56,7 +56,7 @@ const ModalContainer = styled.div<{
       ? "7px solid #FAC609"
       : undefined};
   position: relative;
-  max-height: ${props => props.maxHeight ? props.maxHeight : undefined};
+  max-height: 90vh;
 `
 
 const ModalTitleContainer = styled.div`
@@ -67,9 +67,10 @@ const ModalTitle = styled.p`
   all: unset;
   font-size: 20px;
 `
-const ModalContentContainer = styled.div<{maxHeight?: string}>`
+const ModalContentContainer = styled.div`
   height: 100%;
-  overflow: ${props => props.maxHeight ? "scroll" : undefined};
+  max-height: 100%;
+  overflow-y: auto;
   ${scrollBar}
 `
 const ModalBottomContainer = styled.div`
@@ -83,22 +84,9 @@ const ModalBottomContainer = styled.div`
 const ModalBottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-`
-const ModalButton = styled.button<{
-  backgroundColor: string
-  hoverBackgroundColor: string
-  color: string
-}>`
-  cursor: pointer;
-  width: 86px;
-  height: 40px;
-  background-color: ${props => props.backgroundColor};
-  color: ${props => props.color};
-  border: 0;
-  border-radius: 3px;
-  margin: 0 2px;
-  &:hover {
-    background-color: ${props => props.hoverBackgroundColor};
+
+  & div {
+    margin: 0 2px;
   }
 `
 
@@ -114,8 +102,9 @@ type ModalType = {
   percent?: number
   barColor?: string
   buttonColor?: string
-  maxHeight?: string
   useCancelButton? : boolean
+  disabled? : boolean
+  isLoading? : boolean
 }
 
 function Modal({
@@ -130,8 +119,9 @@ function Modal({
   barColor,
   isProgressBar,
   buttonColor,
-  maxHeight,
   useCancelButton = true,
+  disabled = false,
+  isLoading,
 }: ModalType): JSX.Element {
   return (
     <ModalBackground>
@@ -140,7 +130,6 @@ function Modal({
         hasBorderTop={hasBorderTop}
         className={className}
         isProgressBar={isProgressBar!}
-        maxHeight={maxHeight}
       >
         {isProgressBar && (
           <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />
@@ -148,29 +137,15 @@ function Modal({
         <ModalTitleContainer>
           <ModalTitle>{title}</ModalTitle>
         </ModalTitleContainer>
-        <ModalContentContainer maxHeight={maxHeight}>{children}</ModalContentContainer>
+        <ModalContentContainer>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
             {
               useCancelButton && (
-                <ModalButton
-                  backgroundColor={"#FFFFFF"}
-                  hoverBackgroundColor={"#F0F0F0"}
-                  color={"#818282"}
-                  onClick={() => onCancel()}
-                >
-                  취소
-                </ModalButton>
+                <Button theme='cancel' disabled={false} onClick={() => onCancel()}>취소</Button>
               )
             }
-            <ModalButton
-              backgroundColor={buttonColor ? buttonColor : "#FAC62D"}
-              hoverBackgroundColor={buttonColor ? buttonColor : "#FAC62D"}
-              color={"#111111"}
-              onClick={() => onClick()}
-            >
-              {buttonName}
-            </ModalButton>
+            <Button theme='primary' disabled={disabled} backgroundColor={disabled ? "#DFDEDD": buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
           </ModalBottomButtonContainer>
         </ModalBottomContainer>
       </ModalContainer>
