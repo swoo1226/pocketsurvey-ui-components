@@ -8,7 +8,7 @@ import LineBase from "./lineBase";
 import PieBase from "./pieBase";
 import defaultOption from "./defaultOption";
 import Bubble from "./Bubble";
-import BarNegative from './BarNegative'
+import BarNegative from "./BarNegative"
 
 export { BarHorizontalBase };
 export { BarVerticalBase };
