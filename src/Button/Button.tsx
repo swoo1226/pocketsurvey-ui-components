@@ -11,19 +11,15 @@ const ButtonContainer = styled.div<{
   width: fit-content;
   padding: 14px 28px;
   background-color: ${props =>
-    props.disabled ? "#dfdedd" : props.backgroundColor};
+    props.disabled ? "#dfdedd" : props.isLoading ? "#FEF4CE" : props.backgroundColor};
   color: ${props =>
     props.disabled ? "#818282" : "#111111"};
   border-radius: 3px;
   cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
   &:hover {
     background-color: ${props =>
-    props.disabled ? "#dfdedd" : props.hoverBackgroundColor};
-    background-color: ${props => 
-    props.isLoading ? "#FEF4CE" : props.hoverBackgroundColor};
+    props.disabled ? "#dfdedd" : props.isLoading ? "#FEF4CE" : props.hoverBackgroundColor};
   }
-  background-color: ${props =>
-    props.isLoading ? "#FEF4CE" : props.backgroundColor};
   .loadingSpinner {
     position: relative;
     display: flex;
@@ -59,7 +55,7 @@ const ButtonContainer = styled.div<{
 `
 
 type SizeType = "small" | "medium" | "big"
-type ThemeType = "primary" | "secondary" | "tertiary"
+type ThemeType = "primary" | "secondary" | "tertiary" | "cancel"
 
 export type ButtonType = {
   children: React.ReactNode
@@ -106,6 +102,11 @@ function Button({
         innerBackgroundColor: "#F0F0F0",
         innerHoverBackgroundColor: "#EBEBEB",
       }
+    case "cancel":
+      return {
+        innerBackgroundColor: "#FFFFFF",
+        innerHoverBackgroundColor: "#F0F0F0",
+      }
     default:
       return {
         innerBackgroundColor: "#FAC62D",
@@ -126,7 +127,7 @@ function Button({
       isLoading={isLoading}
     >
       {
-        isLoading ? (<div className="loadingSpinner">
+        !disabled && isLoading ? (<div className="loadingSpinner">
           <img alt="loading" src={loadingSpinner} />
         </div>) : 
           (children)

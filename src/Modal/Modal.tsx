@@ -1,7 +1,21 @@
 import React from "react"
-import styled from "styled-components"
+import styled, {css} from "styled-components"
 
 import ProgressBar from "../ProgressBar/ProgressBar"
+import Button from "../Button/Button"
+
+const scrollBar = css`
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(195, 195, 195, 0.75);
+    -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
+  }
+`
 
 const ModalBackground = styled.div`
   width: 100vw;
@@ -42,7 +56,9 @@ const ModalContainer = styled.div<{
       ? "7px solid #FAC609"
       : undefined};
   position: relative;
+  max-height: 90vh;
 `
+
 const ModalTitleContainer = styled.div`
   width: 100%;
   height: 30px;
@@ -53,6 +69,9 @@ const ModalTitle = styled.p`
 `
 const ModalContentContainer = styled.div`
   height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  ${scrollBar}
 `
 const ModalBottomContainer = styled.div`
   width: 100%;
@@ -65,22 +84,9 @@ const ModalBottomContainer = styled.div`
 const ModalBottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-`
-const ModalButton = styled.button<{
-  backgroundColor: string
-  hoverBackgroundColor: string
-  color: string
-}>`
-  cursor: pointer;
-  width: 86px;
-  height: 40px;
-  background-color: ${props => props.backgroundColor};
-  color: ${props => props.color};
-  border: 0;
-  border-radius: 3px;
-  margin: 0 2px;
-  &:hover {
-    background-color: ${props => props.hoverBackgroundColor};
+
+  & div {
+    margin: 0 2px;
   }
 `
 
@@ -96,6 +102,9 @@ type ModalType = {
   percent?: number
   barColor?: string
   buttonColor?: string
+  useCancelButton? : boolean
+  disabled? : boolean
+  isLoading? : boolean
 }
 
 function Modal({
@@ -110,6 +119,9 @@ function Modal({
   barColor,
   isProgressBar,
   buttonColor,
+  useCancelButton = true,
+  disabled = false,
+  isLoading,
 }: ModalType): JSX.Element {
   return (
     <ModalBackground>
@@ -128,22 +140,12 @@ function Modal({
         <ModalContentContainer>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
-            <ModalButton
-              backgroundColor={"#FFFFFF"}
-              hoverBackgroundColor={"#F0F0F0"}
-              color={"#818282"}
-              onClick={() => onCancel()}
-            >
-              취소
-            </ModalButton>
-            <ModalButton
-              backgroundColor={buttonColor ? buttonColor : "#FAC62D"}
-              hoverBackgroundColor={buttonColor ? buttonColor : "#FAC62D"}
-              color={"#111111"}
-              onClick={() => onClick()}
-            >
-              {buttonName}
-            </ModalButton>
+            {
+              useCancelButton && (
+                <Button theme='cancel' disabled={false} onClick={() => onCancel()}>취소</Button>
+              )
+            }
+            <Button theme='primary' disabled={disabled} backgroundColor={disabled ? "#DFDEDD": buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
           </ModalBottomButtonContainer>
         </ModalBottomContainer>
       </ModalContainer>
