@@ -210,9 +210,14 @@ const SelectorList = styled.div`
 `
 
 const AccountInput = styled.input`
-  &:disabled {
-    background: #ccc;
-  }
+  box-sizing: border-box;
+  margin-left: 13px;
+
+  padding: 7px;
+  height: 35px;
+  width: 210px;
+  border: 1px solid #dfdedd;
+  border-radius: 3px;
 `
 
 const BankSelection = styled.div`
@@ -267,28 +272,32 @@ function Account({ value, onChange }: AccountPropsType) {
   }, [select, accountNumber])
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
       <DropDown
         placeholder={"은행/증권사 선택"}
         list={[
           {
-            selectionName:"은행",
-            isHr: true
+            selectionName: "은행",
+            isHr: true,
           },
           ...filteredBank.map((item) => {
             return {
               selectionName: item.name,
-              png: switchIcon(item.icon)
+              png: switchIcon(item.icon),
             }
           }),
           {
-            selectionName:"증권사",
-            isHr: true
+            selectionName: "증권사",
+            isHr: true,
           },
           ...filteredStock.map((item) => {
             return {
               selectionName: item.name,
-              png: switchIcon(item.icon)
+              png: switchIcon(item.icon),
             }
           }),
         ]}
@@ -301,13 +310,13 @@ function Account({ value, onChange }: AccountPropsType) {
             ...filteredBank.map((item) => {
               return {
                 selectionName: item.name,
-                png: switchIcon(item.icon)
+                png: switchIcon(item.icon),
               }
             }),
             ...filteredStock.map((item) => {
               return {
                 selectionName: item.name,
-                png: switchIcon(item.icon)
+                png: switchIcon(item.icon),
               }
             }),
           ]
@@ -323,17 +332,7 @@ function Account({ value, onChange }: AccountPropsType) {
           setAccountNumber(event.target.value.replace(/[^0-9-]/gi, ""))
         }}
       ></AccountInput>
-
-      {isModalOpen && (
-        <SelectorContainer>
-          <input
-            value={bankFilter}
-            onChange={(event) => setBankFilter(event.target.value)}
-            placeholder={"은행/증권사 검색"}
-          />
-        </SelectorContainer>
-      )}
-    </>
+    </div>
   )
 }
 
