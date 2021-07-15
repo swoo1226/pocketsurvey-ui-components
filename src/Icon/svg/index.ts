@@ -102,3 +102,4 @@ export { ReactComponent as swimlaneChartSolid } from "./swimlaneChartSolid.svg";
 export { ReactComponent as analyzing } from "./analyzing.svg";
 export { ReactComponent as fileUpload } from "./fileUpload.svg";
 export { ReactComponent as lineBar } from "./lineBar.svg";
+export { ReactComponent as kakaoChannel } from "./kakaoChannel.svg";
