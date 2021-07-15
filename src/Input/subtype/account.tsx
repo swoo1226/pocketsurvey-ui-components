@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import * as Hangul from "hangul-js"
-import { banks, stock } from "./account/data" 
+import DropDown from "../../DropDown/DropDown"
+import { banks, stock } from "./account/data"
 import Iconnh from "./account/assets/nh.png"
 import Iconepost from "./account/assets/epost.png"
 import Iconbnp from "./account/assets/bnp.png"
@@ -58,7 +59,7 @@ import Iconshinhan from "./account/assets/shinhan.png"
 import Iconkdb from "./account/assets/kdb.png"
 
 const switchIcon = (iconName: string) => {
-  switch(iconName){
+  switch (iconName) {
   case "nh":
     return Iconnh
   case "epost":
@@ -238,6 +239,7 @@ type AccountPropsType = {
 };
 function Account({ value, onChange }: AccountPropsType) {
   const [select, setSelect] = useState<string>("")
+  const [dropdownSelect, setDropdownSelect] = useState<number | null>(null)
   const [accountNumber, setAccountNumber] = useState<string>("")
   const [bankFilter, setBankFilter] = useState<string>("")
   const [filteredBank, setFilteredBank] = useState<ListType>([])
@@ -259,20 +261,64 @@ function Account({ value, onChange }: AccountPropsType) {
   }, [bankFilter])
 
   useEffect(() => {
-    if(select && accountNumber){
+    if (select && accountNumber) {
       onChange(`${select} ${accountNumber.replace(/[^0-9]/g, "")}`)
     }
   }, [select, accountNumber])
 
   return (
     <>
-      <SelectBank onClick={() => setIsModalOpen(!isModalOpen)}>
-        {select || "은행/증권사"}
-      </SelectBank>
+      <DropDown
+        placeholder={"은행/증권사 선택"}
+        list={[
+          {
+            selectionName:"은행",
+            isHr: true
+          },
+          ...filteredBank.map((item) => {
+            return {
+              selectionName: item.name,
+              png: switchIcon(item.icon)
+            }
+          }),
+          {
+            selectionName:"증권사",
+            isHr: true
+          },
+          ...filteredStock.map((item) => {
+            return {
+              selectionName: item.name,
+              png: switchIcon(item.icon)
+            }
+          }),
+        ]}
+        disable={false}
+        selected={dropdownSelect}
+        themeColor={{ mainColor: "#FAC62D", subColor: "#fef4ce" }}
+        onItemClick={(index: number) => {
+          setDropdownSelect(index)
+          const list = [
+            ...filteredBank.map((item) => {
+              return {
+                selectionName: item.name,
+                png: switchIcon(item.icon)
+              }
+            }),
+            ...filteredStock.map((item) => {
+              return {
+                selectionName: item.name,
+                png: switchIcon(item.icon)
+              }
+            }),
+          ]
+          setSelect(list[index].selectionName)
+        }}
+        iconColor="#FAC62D"
+      />
 
       <AccountInput
         disabled={select === "" ? true : false}
-        value={accountNumber} 
+        value={accountNumber}
         onChange={(event) => {
           setAccountNumber(event.target.value.replace(/[^0-9-]/gi, ""))
         }}
@@ -285,64 +331,6 @@ function Account({ value, onChange }: AccountPropsType) {
             onChange={(event) => setBankFilter(event.target.value)}
             placeholder={"은행/증권사 검색"}
           />
-          <SelectorTab
-            onClick={() => setTabIndex(0)}
-            isSelected={tabIndex === 0}
-          >
-            은행
-          </SelectorTab>
-          <SelectorTab
-            onClick={() => setTabIndex(1)}
-            isSelected={tabIndex === 1}
-          >
-            증권사
-          </SelectorTab>
-
-          {tabIndex === 0 && (
-            <SelectorList>
-              {filteredBank.length > 0 ? (
-                filteredBank.map((item, index: number) => { 
-                  return (
-                    <BankSelection
-                      key={index}
-                      onClick={(event) => {
-                        setSelect(item.name)
-                        setIsModalOpen(false)
-                      }}
-                    >
-                      <BankIcon src={switchIcon(item.icon)}></BankIcon>
-                      <BankTitle>{item.name}</BankTitle>
-                    </BankSelection>
-                  )
-                })
-              ) : (
-                <p>일치하는 은행이 없습니다.</p>
-              )}
-            </SelectorList>
-          )}
-
-          {tabIndex === 1 && (
-            <SelectorList>
-              {filteredStock.length > 0 ? (
-                filteredStock.map((item, index: number) => { 
-                  return (
-                    <BankSelection
-                      key={index}
-                      onClick={(event) => {
-                        setSelect(item.name)
-                        setIsModalOpen(false)
-                      }}
-                    >
-                      <BankIcon src={switchIcon(item.icon)}></BankIcon>
-                      <BankTitle>{item.name}</BankTitle>
-                    </BankSelection>
-                  )
-                })
-              ) : (
-                <p>일치하는 증권사가 없습니다.</p>
-              )}
-            </SelectorList>
-          )}
         </SelectorContainer>
       )}
     </>

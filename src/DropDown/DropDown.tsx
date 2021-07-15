@@ -95,8 +95,10 @@ const DropDownItemText = styled.p`
 export type DropDownType = {
   list: {
     selectionName: string;
+    isHr?: boolean;
     icon?: IconType;
     hidden?: boolean;
+    png?: any;
   }[];
   iconColor?: string;
   selected: number | null;
@@ -111,6 +113,7 @@ export type DropDownType = {
   height?: number;
   width?: number;
   zIndex?: number;
+  isAccountMode?: boolean;
 };
 
 function DropDown({
@@ -125,6 +128,7 @@ function DropDown({
   height = 34,
   width = 200,
   zIndex = 20,
+  isAccountMode = false,
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
@@ -183,6 +187,15 @@ function DropDown({
                   width={18}
                 />
               )}
+              {list[selected].png && (
+                <img
+                  style={{
+                    width: "21px",
+                    height: "21px",
+                  }}
+                  src={list[selected].png}
+                />
+              )}
               <DropDownItemText>
                 {list[selected].selectionName}
               </DropDownItemText>
@@ -211,27 +224,56 @@ function DropDown({
         height={height}
       >
         {list.map((item, index) => (
-          <DropDownItem
-            key={index}
-            index={index}
-            selected={selected!}
-            themeColor={themeColor.subColor}
-            onClick={() => {
-              onItemClick(index)
-              setIsShowList(false)
-            }}
-            height={height}
-            hidden={item.hidden}
-          >
-            {item.icon && (
-              <Icon
-                color={disable ? "#818282" : iconColor!}
-                icon={item.icon}
-                width={18}
-              />
+          <>
+            {item.isHr ? (
+              <>
+                <p
+                  style={{
+                    marginTop: "4px",
+                    marginBottom: "4px",
+                    marginLeft: "9px",
+                    fontSize: "13px",
+                    fontWeight: 500,
+                  }}
+                >
+                  {item.selectionName}
+                </p>
+              </>
+            ) : (
+              <>
+                <DropDownItem
+                  key={index}
+                  index={index}
+                  selected={selected!}
+                  themeColor={themeColor.subColor}
+                  onClick={() => {
+                    onItemClick(index)
+                    setIsShowList(false)
+                  }}
+                  height={height}
+                  hidden={item.hidden}
+                >
+                  {item.icon && (
+                    <Icon
+                      color={disable ? "#818282" : iconColor!}
+                      icon={item.icon}
+                      width={18}
+                    />
+                  )}
+                  {item.png && (
+                    <img
+                      style={{
+                        width: "21px",
+                        height: "21px",
+                      }}
+                      src={item.png}
+                    />
+                  )}
+                  <DropDownItemText>{item.selectionName}</DropDownItemText>
+                </DropDownItem>
+              </>
             )}
-            <DropDownItemText>{item.selectionName}</DropDownItemText>
-          </DropDownItem>
+          </>
         ))}
       </DropDownList>
     </DropDownContainer>

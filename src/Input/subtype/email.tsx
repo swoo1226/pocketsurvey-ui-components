@@ -38,7 +38,7 @@ type EmailPropsType = {
 
 const EmailInput = styled.input`
   padding: 7px;
-  width: 329px;
+  width: 646px;
   height: 21px;
   border: 1px solid #dfdedd;
   border-radius: 3px;
@@ -105,17 +105,19 @@ function Email({ value, onChange, width, isMobile }: EmailPropsType) {
 
   if (isMobile) {
     return (
-      <EmailInput
-        type="email"
-        placeholder="email@pocketsurvey.co.kr"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
+      <div>
+        <EmailInput
+          type="email"
+          placeholder="email@pocketsurvey.co.kr"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
+      </div>
     )
   }
 
   return (
-    <>
+    <div>
       <EmailInput
         type="email"
         placeholder="email@pocketsurvey.co.kr"
@@ -162,7 +164,7 @@ function Email({ value, onChange, width, isMobile }: EmailPropsType) {
           })}
         </AutocompleteWrapper>
       )}
-    </>
+    </div>
   )
 }
 
