@@ -38,7 +38,7 @@ type EmailPropsType = {
 
 const EmailInput = styled.input`
   padding: 7px;
-  width: 646px;
+  width: 329px;
   height: 21px;
   border: 1px solid #dfdedd;
   border-radius: 3px;
