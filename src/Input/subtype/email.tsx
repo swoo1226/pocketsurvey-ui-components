@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 
-const AutocompleteWrapper = styled.div``
+const AutocompleteWrapper = styled.div`
+  width: 329px;
+`
 
 const AutocompleteUl = styled.ul<{ selected: boolean }>`
+  height: 35px;
+  padding-left: 15px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 330px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  ${(props) => props.selected && "background-color: #989898;"}
+  font-size: 14px;
+  ${(props) => props.selected && "background-color: #dfdedd;"}
 `
 
 const EMAIL_LIST = [
@@ -19,12 +29,31 @@ const EMAIL_LIST = [
 
 const MAX_VIEW_LIMIT = 5
 
-function Email(): JSX.Element {
-  const [value, setValue] = useState<string>("")
+type EmailPropsType = {
+  value: string;
+  onChange: (value: string) => void;
+  width?: number | string;
+  isMobile: boolean;
+};
+
+const EmailInput = styled.input`
+  padding: 7px;
+  width: 329px;
+  height: 21px;
+  border: 1px solid #dfdedd;
+  border-radius: 3px;
+`
+
+function Email({ value, onChange, width, isMobile }: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
 
   useEffect(() => {
+    // setValidation(
+    //   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
+    //     value
+    //   )
+    // )
     const atSignIndex = value.lastIndexOf("@")
     if (atSignIndex === -1) {
       setSelected(null)
@@ -32,7 +61,6 @@ function Email(): JSX.Element {
       return
     }
     if (atSignIndex) {
-      console.log("if (atSignIndex) {")
       const afterAtSign = value.substring(atSignIndex)
       const autoCompleteEmail = EMAIL_LIST.filter(
         (email) => email.includes(afterAtSign) && email !== afterAtSign
@@ -44,14 +72,10 @@ function Email(): JSX.Element {
     setAutocomplete([])
   }, [value])
 
-  useEffect(() => {
-    console.log("selected:", selected)
-  }, [selected])
-
   const upDownAutoComplete = (key: "ArrowUp" | "ArrowDown") => {
-    if(autocomplete.length === 0){
+    if (autocomplete.length === 0) {
       setSelected(null)
-      return 
+      return
     }
     const lastIndex =
       autocomplete.length - 1 >= MAX_VIEW_LIMIT - 1
@@ -79,11 +103,24 @@ function Email(): JSX.Element {
     }
   }
 
+  if (isMobile) {
+    return (
+      <EmailInput
+        type="email"
+        placeholder="email@pocketsurvey.co.kr"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    )
+  }
+
   return (
     <>
-      <input
+      <EmailInput
+        type="email"
+        placeholder="email@pocketsurvey.co.kr"
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         onKeyDown={(event) => {
           if (event.key === "ArrowUp" || event.key === "ArrowDown") {
             upDownAutoComplete(event.key)
@@ -95,7 +132,7 @@ function Email(): JSX.Element {
               autocomplete.length > selected
             ) {
               const afterAtSign = value.substring(value.lastIndexOf("@"))
-              setValue(
+              onChange(
                 `${value}${autocomplete[selected].replace(afterAtSign, "")}`
               )
               setSelected(null)
@@ -103,7 +140,7 @@ function Email(): JSX.Element {
             }
           }
         }}
-      ></input>
+      ></EmailInput>
       {autocomplete.length > 0 && (
         <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
           {autocomplete.map((email: string, index: number) => {
@@ -115,7 +152,7 @@ function Email(): JSX.Element {
                 onMouseEnter={() => setSelected(index)}
                 key={index}
                 onClick={() =>
-                  setValue(`${value}${email.replace(afterAtSign, "")}`)
+                  onChange(`${value}${email.replace(afterAtSign, "")}`)
                 }
               >
                 <b>{value}</b>

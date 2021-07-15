@@ -1,21 +1,44 @@
 import React, { useState } from "react"
+import styled from "styled-components"
 
-function Number() {
-  const [value, setValue] = useState<string>("")
+type NumberPropsType = {
+  value: string;
+  onChange: (value: string) => void;
+  isMobile?: boolean;
+};
 
-  return (
-    <input
+const NumberInput = styled.input`
+  padding: 7px;
+  width: 329px;
+  height: 21px;
+  border: 1px solid #dfdedd;
+  border-radius: 3px;
+`
+
+function Number({ value, onChange, isMobile }: NumberPropsType) {
+  if (isMobile) {
+    <NumberInput
+      placeholder="숫자를 입력해주세요"
       type="number"
+      pattern="\d*"
       value={value}
       onChange={(event) => {
-        const valueLength = value.length
-        const lastChar = value.substr(valueLength - 1, valueLength)
-        console.log("lastChar:", lastChar)
-        // if (["+", "-"].includes(lastChar) && valueLength !== 0) return
-        // TODO: 특수문자 입력 가능 조건 작성 
-        setValue(event.target.value)
+        if (/^[+-]?\d*(\.?\d*)$/.test(event.target.value)) {
+          onChange(event.target.value)
+        }
       }}
-    ></input>
+    ></NumberInput>
+  }
+  return (
+    <NumberInput
+      placeholder="숫자를 입력해주세요"
+      value={value}
+      onChange={(event) => {
+        if (/^[+-]?\d*(\.?\d*)$/.test(event.target.value)) {
+          onChange(event.target.value)
+        }
+      }}
+    ></NumberInput>
   )
 }
 

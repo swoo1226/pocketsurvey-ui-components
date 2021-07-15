@@ -63,8 +63,13 @@ const BankTitle = styled.p`
   margin-left: 9px;
 `
 
-function Account() {
-  const [selected, setSelected] = useState<string>("")
+type AccountPropsType = {
+  value: string;
+  onChange: (value: string) => void;
+};
+function Account({ value, onChange }: AccountPropsType) {
+  const [select, setSelect] = useState<string>("")
+  const [accountNumber, setAccountNumber] = useState<string>("")
   const [bankFilter, setBankFilter] = useState<string>("")
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
@@ -84,13 +89,23 @@ function Account() {
     )
   }, [bankFilter])
 
+  useEffect(() => {
+    onChange(`${select} ${accountNumber}`)
+  }, [select, accountNumber])
+
   return (
     <>
       <SelectBank onClick={() => setIsModalOpen(!isModalOpen)}>
-        {selected || "은행/증권사"}
+        {select || "은행/증권사"}
       </SelectBank>
 
-      <AccountInput disabled={selected === "" ? true : false}></AccountInput>
+      <AccountInput
+        disabled={select === "" ? true : false}
+        value={accountNumber} 
+        onChange={(event) => {
+          setAccountNumber(event.target.value.replace(/[^0-9-]/gi, ""))
+        }}
+      ></AccountInput>
 
       {isModalOpen && (
         <SelectorContainer>
@@ -122,7 +137,7 @@ function Account() {
                     <BankSelection
                       key={index}
                       onClick={(event) => {
-                        setSelected(item.name)
+                        setSelect(item.name)
                         setIsModalOpen(false)
                       }}
                     >
@@ -144,7 +159,13 @@ function Account() {
                   // eslint-disable-next-line @typescript-eslint/no-var-requires
                   const image = require(`./account/assets/${item.icon}.png`)
                   return (
-                    <BankSelection key={index}>
+                    <BankSelection
+                      key={index}
+                      onClick={(event) => {
+                        setSelect(item.name)
+                        setIsModalOpen(false)
+                      }}
+                    >
                       <BankIcon src={image}></BankIcon>
                       <BankTitle>{item.name}</BankTitle>
                     </BankSelection>

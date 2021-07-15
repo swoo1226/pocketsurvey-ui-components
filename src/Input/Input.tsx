@@ -6,6 +6,7 @@ import Email from "./subtype/email"
 import Account from "./subtype/account"
 import Phone from "./subtype/phone"
 import Number from "./subtype/number"
+import URL from "./subtype/url"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
@@ -179,5 +180,6 @@ Input.Email = Email
 Input.Account = Account
 Input.Phone = Phone
 Input.Number = Number
+Input.Url = URL
 
 export default Input

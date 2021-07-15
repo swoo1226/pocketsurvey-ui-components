@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React from "react"
+import styled from "styled-components"
 
 const hypenAutoComplete = (value: string) => {
   if (value.length <= 3) return value
   const startIndex = value.substr(0, 2) === "02" ? 2 : 3
   //02 (서울)만 2자리고 나머지 010, 070, 다른 지역번호는 3자리
-  const length = value.length - startIndex 
-  
+  const length = value.length - startIndex
+
   if (length <= 4) {
     return `${value.substr(0, startIndex)}-${value.substr(startIndex)}`
   }
@@ -24,19 +25,31 @@ const hypenAutoComplete = (value: string) => {
   return value
 }
 
-function Phone() {
-  const [value, setValue] = useState<string>("")
+type PhonePropsType = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+const PhoneInput = styled.input`
+  padding: 7px;
+  width: 329px;
+  height: 21px;
+  border: 1px solid #dfdedd;
+  border-radius: 3px;
+`
+
+function Phone({ value, onChange }: PhonePropsType) {
   return (
-    <input
+    <PhoneInput
       type="tel"
       value={value}
-      placeholder="010-2000-0000"
+      placeholder="(000)-000-0000"
       onChange={(event) => {
         const phoneNumberOnly = event.target.value.replace(/[^0-9]/g, "")
         if (phoneNumberOnly.length <= 3) {
-          setValue(phoneNumberOnly)
+          onChange(phoneNumberOnly)
         } else {
-          setValue(hypenAutoComplete(phoneNumberOnly))
+          onChange(hypenAutoComplete(phoneNumberOnly))
         }
       }}
     />

@@ -71,17 +71,73 @@ export function Index() {
 }
 
 export function Email() {
-  return <Input.Email />;
+  const [value, setValue] = useState<string>("");
+  return (
+    <Input.Email
+      value={value}
+      onChange={(value: string) => setValue(value)}
+      isMobile={false}
+    />
+  );
 }
 
 export function Account() {
-  return <Input.Account />;
+  const [value, setValue] = useState<string>("");
+  return (
+    <>
+      <p>value: {value}</p>
+      <Input.Account
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+      />
+    </>
+  );
 }
 
 export function Phone() {
-  return <Input.Phone />;
+  const [value, setValue] = useState<string>("");
+  return (
+    <>
+      <p>value: {value}</p>
+      <Input.Phone
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+      />
+    </>
+  );
 }
 
 export function Number() {
-  return <Input.Number />;
+  const [value, setValue] = useState<string>("");
+  return (
+    <>
+      <p>value: {value}</p>
+      <Input.Number
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+      />
+    </>
+  );
+}
+
+
+export function URL() {
+  const [value, setValue] = useState<string>("");
+  return (
+    <>
+      <p>value: {value}</p>
+      <Input.Url
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+      />
+    </>
+  );
 }
