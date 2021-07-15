@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 
 const hypenAutoComplete = (value: string) => {
@@ -39,17 +39,22 @@ const PhoneInput = styled.input`
 `
 
 function Phone({ value, onChange }: PhonePropsType) {
+  const [innerValue, setInnerValue] = useState<string>("")
+  useEffect(() => {
+    onChange(innerValue.replace(/[^0-9]/g, ""))
+  }, [innerValue])
+  
   return (
     <PhoneInput
       type="tel"
-      value={value}
+      value={innerValue}
       placeholder="(000)-000-0000"
       onChange={(event) => {
         const phoneNumberOnly = event.target.value.replace(/[^0-9]/g, "")
         if (phoneNumberOnly.length <= 3) {
-          onChange(phoneNumberOnly)
+          setInnerValue(phoneNumberOnly)
         } else {
-          onChange(hypenAutoComplete(phoneNumberOnly))
+          setInnerValue(hypenAutoComplete(phoneNumberOnly))
         }
       }}
     />
