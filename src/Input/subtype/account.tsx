@@ -247,7 +247,10 @@ function Account({ value, onChange }: AccountPropsType) {
         ]}
         disable={false}
         selected={dropdownSelect}
-        themeColor={{ mainColor: dropdownSelect !== null ? "#FAC62D": "#DFDEDD", subColor: "#fef4ce" }}
+        themeColor={{
+          mainColor: dropdownSelect !== null ? "#FAC62D" : "#DFDEDD",
+          subColor: "#fef4ce",
+        }}
         onItemClick={(index: number) => {
           setDropdownSelect(index)
           const list = [

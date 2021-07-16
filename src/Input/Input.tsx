@@ -62,12 +62,16 @@ const InputBox = styled.div<{
         : props.disabled && "background-color: #F0F0F0;"
     }`}
 `
-const InputElement = styled.input<{ width: number; textColor?: string, fontSize?: number; }>`
+const InputElement = styled.input<{
+  width: number;
+  textColor?: string;
+  fontSize?: number;
+}>`
   all: unset;
   border: none;
   width: ${(props) => props.width}px;
   color: ${(props) => props.textColor};
-  ${(props)=> props.fontSize && `font-size: ${props.fontSize}px;`}
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
   &::placeholder {
     color: #dfdedd;
   }
@@ -133,7 +137,7 @@ function Input({
   buttonAlways,
   type,
   pattern,
-  fontSize
+  fontSize,
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {

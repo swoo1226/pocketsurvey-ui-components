@@ -38,7 +38,13 @@ type EmailPropsType = {
   focusingIndex?: number;
 };
 
-function Email({ value, onChange, width, isMobile, focusingIndex }: EmailPropsType) {
+function Email({
+  value,
+  onChange,
+  width,
+  isMobile,
+  focusingIndex,
+}: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
 
