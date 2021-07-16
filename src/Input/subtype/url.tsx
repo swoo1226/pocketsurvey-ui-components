@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
 import styled from "styled-components"
 import Input from "../Input"
@@ -21,9 +22,13 @@ function URL({ value, onChange }: URLPropsType) {
       isError={false}
       errorMessage={""}
       borderColor={"#FAC609"}
-      value={value}
+      value={value ?? "https://"}
       placeholder="https://"
-      onChange={(innerValue: string) => {
+      onChange={(_innerValue: string) => {
+        const prevValueLength = value.length
+        const innerValue =
+          prevValueLength === 0 ? "https://" + _innerValue : _innerValue
+
         const http = innerValue.split("http://").length - 1
         const https = innerValue.split("https://").length - 1
 
