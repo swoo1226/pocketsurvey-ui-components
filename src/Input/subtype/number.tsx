@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-
+import Input from "../Input"
 type NumberPropsType = {
   value: string;
   onChange: (value: string) => void;
@@ -17,28 +17,38 @@ const NumberInput = styled.input`
 
 function Number({ value, onChange, isMobile }: NumberPropsType) {
   if (isMobile) {
-    <NumberInput
+    <Input
+      mode={"basic"}
+      width={329}
+      isError={false}
+      errorMessage={""}
+      borderColor={"#FAC609"}
       placeholder="숫자를 입력해주세요"
       type="number"
       pattern="\d*"
       value={value}
-      onChange={(event) => {
-        if (/^[+-]?\d*(\.?\d*)$/.test(event.target.value)) {
-          onChange(event.target.value)
+      onChange={(innerValue: string) => {
+        if (/^[+-]?\d*(\.?\d*)$/.test(innerValue)) {
+          onChange(innerValue)
         }
       }}
-    ></NumberInput>
+    ></Input>
   }
   return (
-    <NumberInput
+    <Input
+      mode={"basic"}
+      width={329}
+      isError={false}
+      errorMessage={""}
+      borderColor={"#FAC609"}
       placeholder="숫자를 입력해주세요"
       value={value}
-      onChange={(event) => {
-        if (/^[+-]?\d*(\.?\d*)$/.test(event.target.value)) {
-          onChange(event.target.value)
+      onChange={(innerValue: string) => {
+        if (/^[+-]?\d*(\.?\d*)$/.test(innerValue)) {
+          onChange(innerValue)
         }
       }}
-    ></NumberInput>
+    ></Input>
   )
 }
 

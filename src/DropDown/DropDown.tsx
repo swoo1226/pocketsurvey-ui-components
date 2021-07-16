@@ -3,6 +3,12 @@ import styled from "styled-components"
 
 import Icon, { IconType } from "../Icon/Icon"
 
+const PNG = styled.img`
+  width: 21px;
+  height: 21px;
+  margin-bottom: 0px !important;
+`
+
 const DropDownContainer = styled.div<{
   width: number;
 }>`
@@ -188,11 +194,7 @@ function DropDown({
                 />
               )}
               {list[selected].png && (
-                <img
-                  style={{
-                    width: "21px",
-                    height: "21px",
-                  }}
+                <PNG
                   src={list[selected].png}
                 />
               )}
@@ -261,11 +263,7 @@ function DropDown({
                     />
                   )}
                   {item.png && (
-                    <img
-                      style={{
-                        width: "21px",
-                        height: "21px",
-                      }}
+                    <PNG
                       src={item.png}
                     />
                   )}

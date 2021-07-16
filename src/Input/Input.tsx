@@ -10,13 +10,13 @@ import URL from "./subtype/url"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
-  width: number
-  disabled: boolean
-  mode: "line" | "basic"
-  borderColor: string
+  width: number;
+  disabled: boolean;
+  mode: "line" | "basic";
+  borderColor: string;
 }>`
-  padding: 7px ${props => props.width * 0.05}px;
-  ${props =>
+  padding: 7px ${(props) => props.width * 0.05}px;
+  ${(props) =>
     `${
       props.mode == "line"
         ? `
@@ -27,7 +27,7 @@ const InputBox = styled.div<{
             `
     }`}
   &:hover {
-    ${props =>
+    ${(props) =>
     !props.disabled
       ? props.mode == "line"
         ? `border-bottom: 1px solid ${
@@ -39,7 +39,7 @@ const InputBox = styled.div<{
       : ""}
   }
   &:focus-within {
-    ${props =>
+    ${(props) =>
     !props.disabled
       ? props.mode == "line"
         ? `border-bottom: 1px solid ${
@@ -52,10 +52,10 @@ const InputBox = styled.div<{
   }
   display: flex;
   align-items: center;
-  width: ${props => props.width}px;
-  border-radius: ${props => (props.mode == "line" ? "0px" : "3px")};
+  width: ${(props) => props.width}px;
+  border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
-  ${props =>
+  ${(props) =>
     `${
       props.mode == "line"
         ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
@@ -65,8 +65,8 @@ const InputBox = styled.div<{
 const InputElement = styled.input<{ width: number; textColor?: string }>`
   all: unset;
   border: none;
-  width: ${props => props.width}px;
-  color: ${props => props.textColor};
+  width: ${(props) => props.width}px;
+  color: ${(props) => props.textColor};
   &::placeholder {
     color: #dfdedd;
   }
@@ -78,31 +78,33 @@ const SubText = styled.p`
 `
 
 export type InputType = {
-  mode: "line" | "basic"
-  placeholder: string
-  value: string
-  onChange: (value: string) => void
-  width: number
-  isError: boolean
-  errorMessage: string
-  disabled?: boolean
-  useCancelButton?: boolean
-  tabIndex?: number
-  readOnly?: boolean
-  onFocus?: () => void
-  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  onBlur?: () => void
-  iconButton?: IconType
+  mode: "line" | "basic";
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  width: number;
+  isError: boolean;
+  errorMessage: string;
+  disabled?: boolean;
+  useCancelButton?: boolean;
+  tabIndex?: number;
+  readOnly?: boolean;
+  onFocus?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  iconButton?: IconType;
   onClickCancelButton?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void
-  className?: string
-  borderColor: string
-  autoFocus?: boolean
-  textColor?: string
-  buttonAlways?: boolean
-}
+  ) => void;
+  className?: string;
+  borderColor: string;
+  autoFocus?: boolean;
+  textColor?: string;
+  buttonAlways?: boolean;
+  type?: string;
+  pattern?: string;
+};
 
 function Input({
   mode,
@@ -127,6 +129,8 @@ function Input({
   autoFocus = false,
   textColor,
   buttonAlways,
+  type,
+  pattern,
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
@@ -144,14 +148,15 @@ function Input({
         borderColor={borderColor}
       >
         <InputElement
-          type="text"
+          pattern={pattern ? pattern : undefined}
+          type={type ?? "text"}
           value={value}
           readOnly={readOnly}
           tabIndex={tabIndex}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={onFocus}
-          onClick={e => (onClick && e ? onClick(e) : undefined)}
-          onKeyDown={e => {
+          onClick={(e) => (onClick && e ? onClick(e) : undefined)}
+          onKeyDown={(e) => {
             onKeyDown ? onKeyDown(e) : undefined
           }}
           onBlur={onBlur}

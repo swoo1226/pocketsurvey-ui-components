@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import * as Hangul from "hangul-js"
+import Input from "../Input"
 import DropDown from "../../DropDown/DropDown"
 import { banks, stock } from "./account/data"
 import Iconnh from "./account/assets/nh.png"
@@ -178,70 +179,11 @@ export type ListType = {
   icon: string;
 }[];
 
-const SelectBank = styled.div`
-  width: 100px;
-  border: solid 1px gray;
-`
-
-const SelectorContainer = styled.div``
-
-const SelectorTab = styled.div<{ isSelected: boolean }>`
-  ${(props) => props.isSelected && "font-weight: 700;"}
-`
-
-const SelectorList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 430px;
-  max-height: 400px;
-  justify-content: flex-start;
-  overflow-y: scroll;
-
-  ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(195, 195, 195, 0.75);
-    -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
-  }
-`
-
-const AccountInput = styled.input`
-  box-sizing: border-box;
-  margin-left: 13px;
-
-  padding: 7px;
-  height: 35px;
-  width: 210px;
-  border: 1px solid #dfdedd;
-  border-radius: 3px;
-`
-
-const BankSelection = styled.div`
-  width: 200px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-`
-const BankIcon = styled.img`
-  width: 48px;
-  height: auto;
-  padding-bottom: 4px;
-  -webkit-user-drag: none;
-`
-
-const BankTitle = styled.p`
-  font-weight: 500;
-  margin-left: 9px;
-`
-
 type AccountPropsType = {
   value: string;
   onChange: (value: string) => void;
 };
+
 function Account({ value, onChange }: AccountPropsType) {
   const [select, setSelect] = useState<string>("")
   const [dropdownSelect, setDropdownSelect] = useState<number | null>(null)
@@ -249,8 +191,6 @@ function Account({ value, onChange }: AccountPropsType) {
   const [bankFilter, setBankFilter] = useState<string>("")
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [tabIndex, setTabIndex] = useState<number>(0) // 은행, 증권사
 
   useEffect(() => {
     setFilteredBank(
@@ -275,10 +215,13 @@ function Account({ value, onChange }: AccountPropsType) {
     <div
       style={{
         display: "flex",
+        justifyContent: "space-between",
+        width: "445px",
       }}
     >
       <DropDown
         placeholder={"은행/증권사 선택"}
+        height={34}
         list={[
           {
             selectionName: "은행",
@@ -325,13 +268,19 @@ function Account({ value, onChange }: AccountPropsType) {
         iconColor="#FAC62D"
       />
 
-      <AccountInput
+      <Input
+        placeholder=""
+        mode="basic"
+        width={210}
+        isError={false}
+        errorMessage={""}
+        borderColor={"#FAC609"}
         disabled={select === "" ? true : false}
         value={accountNumber}
-        onChange={(event) => {
-          setAccountNumber(event.target.value.replace(/[^0-9-]/gi, ""))
+        onChange={(innerValue: string) => {
+          setAccountNumber(innerValue.replace(/[^0-9-]/gi, ""))
         }}
-      ></AccountInput>
+      ></Input>
     </div>
   )
 }

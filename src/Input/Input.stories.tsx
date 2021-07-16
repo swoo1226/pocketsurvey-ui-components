@@ -128,7 +128,7 @@ export function Number() {
 
 
 export function URL() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>("https://");
   return (
     <>
       <p>value: {value}</p>

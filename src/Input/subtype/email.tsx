@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import Input from "../Input"
 
 const AutocompleteWrapper = styled.div`
   width: 329px;
@@ -36,24 +37,11 @@ type EmailPropsType = {
   isMobile: boolean;
 };
 
-const EmailInput = styled.input`
-  padding: 7px;
-  width: 329px;
-  height: 21px;
-  border: 1px solid #dfdedd;
-  border-radius: 3px;
-`
-
 function Email({ value, onChange, width, isMobile }: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
 
   useEffect(() => {
-    // setValidation(
-    //   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
-    //     value
-    //   )
-    // )
     const atSignIndex = value.lastIndexOf("@")
     if (atSignIndex === -1) {
       setSelected(null)
@@ -106,11 +94,16 @@ function Email({ value, onChange, width, isMobile }: EmailPropsType) {
   if (isMobile) {
     return (
       <div>
-        <EmailInput
+        <Input
+          mode="basic"
+          width={329}
+          isError={false}
+          errorMessage={""}
+          borderColor={"#FAC609"}
           type="email"
           placeholder="email@pocketsurvey.co.kr"
           value={value}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={(innerValue: string) => onChange(innerValue)}
         />
       </div>
     )
@@ -118,11 +111,16 @@ function Email({ value, onChange, width, isMobile }: EmailPropsType) {
 
   return (
     <div>
-      <EmailInput
+      <Input
+        mode="basic"
+        width={329}
+        isError={false}
+        errorMessage={""}
+        borderColor={"#FAC609"}
         type="email"
         placeholder="email@pocketsurvey.co.kr"
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(innerValue: string) => onChange(innerValue)}
         onKeyDown={(event) => {
           if (event.key === "ArrowUp" || event.key === "ArrowDown") {
             upDownAutoComplete(event.key)
@@ -142,7 +140,7 @@ function Email({ value, onChange, width, isMobile }: EmailPropsType) {
             }
           }
         }}
-      ></EmailInput>
+      />
       {autocomplete.length > 0 && (
         <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
           {autocomplete.map((email: string, index: number) => {

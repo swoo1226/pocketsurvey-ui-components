@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import Input from "../Input"
 
 const hypenAutoComplete = (value: string) => {
   if (value.length <= 3) return value
@@ -30,27 +31,26 @@ type PhonePropsType = {
   onChange: (value: string) => void;
 };
 
-const PhoneInput = styled.input`
-  padding: 7px;
-  width: 329px;
-  height: 21px;
-  border: 1px solid #dfdedd;
-  border-radius: 3px;
-`
 
 function Phone({ value, onChange }: PhonePropsType) {
   const [innerValue, setInnerValue] = useState<string>("")
   useEffect(() => {
+    // 밖에서 읽을 때는 -을 제외한 숫자만 있어야함
     onChange(innerValue.replace(/[^0-9]/g, ""))
   }, [innerValue])
   
   return (
-    <PhoneInput
+    <Input
+      mode="basic"
+      width={329}
+      isError={false}
+      errorMessage={""}
+      borderColor={"#FAC609"}
       type="tel"
       value={innerValue}
       placeholder="(000)-000-0000"
-      onChange={(event) => {
-        const phoneNumberOnly = event.target.value.replace(/[^0-9]/g, "")
+      onChange={(inputInnerValue: string) => {
+        const phoneNumberOnly = inputInnerValue.replace(/[^0-9]/g, "")
         if (phoneNumberOnly.length <= 3) {
           setInnerValue(phoneNumberOnly)
         } else {
