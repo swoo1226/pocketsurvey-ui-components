@@ -35,11 +35,16 @@ type EmailPropsType = {
   onChange: (value: string) => void;
   width?: number | string;
   isMobile: boolean;
+  focusingIndex?: number;
 };
 
-function Email({ value, onChange, width, isMobile }: EmailPropsType) {
+function Email({ value, onChange, width, isMobile, focusingIndex }: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
+
+  useEffect(() => {
+    setAutocomplete([])
+  }, [focusingIndex])
 
   useEffect(() => {
     const atSignIndex = value.lastIndexOf("@")
