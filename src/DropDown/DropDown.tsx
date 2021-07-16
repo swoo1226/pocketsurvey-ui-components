@@ -207,7 +207,7 @@ function DropDown({
                   color={disable ? "#818282" : iconColor!}
                   icon={list[selected].icon!}
                   width={18}
-                  rotate={list[selected].rotate ?? undefined}
+                  rotate={list[selected].rotate ?? 0}
                 />
               )}
               {list[selected].png && (
@@ -281,7 +281,7 @@ function DropDown({
                       color={disable ? "#818282" : iconColor!}
                       icon={item.icon}
                       width={18}
-                      rotate={list[selected].rotate ?? undefined}
+                      rotate={item.rotate ?? 0}
                     />
                   )}
                   {item.png && (
