@@ -112,6 +112,7 @@ export type DropDownType = {
     selectionName: string;
     isHr?: boolean;
     icon?: IconType;
+    rotate?: number;
     hidden?: boolean;
     png?: any;
   }[];
@@ -206,6 +207,7 @@ function DropDown({
                   color={disable ? "#818282" : iconColor!}
                   icon={list[selected].icon!}
                   width={18}
+                  rotate={list[selected].rotate ?? undefined}
                 />
               )}
               {list[selected].png && (
@@ -279,9 +281,15 @@ function DropDown({
                       color={disable ? "#818282" : iconColor!}
                       icon={item.icon}
                       width={18}
+                      rotate={list[selected].rotate ?? undefined}
                     />
                   )}
-                  {item.png && <PNG src={item.png} pngImageCropCircle={pngImageCropCircle}/>}
+                  {item.png && (
+                    <PNG
+                      src={item.png}
+                      pngImageCropCircle={pngImageCropCircle}
+                    />
+                  )}
                   <DropDownItemText>{item.selectionName}</DropDownItemText>
                 </DropDownItem>
               </>
