@@ -3,10 +3,12 @@ import styled from "styled-components"
 
 import Icon, { IconType } from "../Icon/Icon"
 
-const PNG = styled.img`
+const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
   width: 21px;
   height: 21px;
   margin-bottom: 0px !important;
+  ${(props) =>
+    props.pngImageCropCircle && "object-fit:cover; border-radius:50%;"}
 `
 
 const DropDownContainer = styled.div<{
@@ -56,18 +58,24 @@ const DropDownList = styled.div<{
   width: number;
   zIndex: number;
   height: number;
+  listMaxHeight?: number;
+  textColor?: string;
+  fontSize?: number;
 }>`
   width: ${(props) => props.width}px;
   z-index: ${(props) => props.zIndex};
   height: ${(props) => props.listLength * props.height}px;
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
-  color: ${(props) => (props.disable ? "#818282" : "#111111")};
+  color: ${(props) =>
+    props.disable ? props.textColor ?? "#818282" : "#111111"};
   border-radius: 3px;
   padding: 8px 0;
-  max-height: 200px;
+  max-height: ${(props) => `${props.listMaxHeight}px` ?? "200px"};
   overflow-y: auto;
   background: #ffffff;
+  margin: 7px 0px;
+  ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
 `
 const DropDownItem = styled.div<{
   index: number;
@@ -88,7 +96,7 @@ const DropDownItem = styled.div<{
     props.selected == props.index ? "#F0F0F0" : props.themeColor};
   }
 `
-const DropDownItemText = styled.p`
+const DropDownItemText = styled.p<{ fontSize?: number }>`
   white-space: nowrap;
   overflow: hidden;
   align-items: center;
@@ -96,6 +104,7 @@ const DropDownItemText = styled.p`
   margin: 0;
   margin-left: 6px;
   text-overflow: ellipsis;
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
 `
 
 export type DropDownType = {
@@ -113,13 +122,16 @@ export type DropDownType = {
     mainColor: string;
     subColor: string;
   };
+  textColor?: string;
   onItemClick: (index: number) => void;
   className?: string;
   placeholder?: string;
   height?: number;
   width?: number;
   zIndex?: number;
-  isAccountMode?: boolean;
+  listMaxHeight?: number;
+  fontSize?: number;
+  pngImageCropCircle?: boolean;
 };
 
 function DropDown({
@@ -127,6 +139,7 @@ function DropDown({
   selected,
   disable,
   themeColor,
+  textColor,
   onItemClick,
   className,
   iconColor,
@@ -134,7 +147,9 @@ function DropDown({
   height = 34,
   width = 200,
   zIndex = 20,
-  isAccountMode = false,
+  listMaxHeight,
+  fontSize,
+  pngImageCropCircle,
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
@@ -196,14 +211,17 @@ function DropDown({
               {list[selected].png && (
                 <PNG
                   src={list[selected].png}
+                  pngImageCropCircle={pngImageCropCircle}
                 />
               )}
-              <DropDownItemText>
+              <DropDownItemText fontSize={fontSize}>
                 {list[selected].selectionName}
               </DropDownItemText>
             </React.Fragment>
           ) : (
-            <DropDownItemText>{placeholder}</DropDownItemText>
+            <DropDownItemText fontSize={fontSize}>
+              {placeholder}
+            </DropDownItemText>
           )}
         </DropDownBox>
         <Icon
@@ -224,6 +242,9 @@ function DropDown({
         width={width}
         zIndex={zIndex}
         height={height}
+        listMaxHeight={listMaxHeight}
+        textColor={textColor}
+        fontSize={fontSize}
       >
         {list.map((item, index) => (
           <>
@@ -231,11 +252,9 @@ function DropDown({
               <>
                 <p
                   style={{
-                    marginTop: "4px",
-                    marginBottom: "4px",
-                    marginLeft: "9px",
-                    fontSize: "13px",
+                    fontSize: "14px",
                     fontWeight: 500,
+                    margin: "21px 14px",
                   }}
                 >
                   {item.selectionName}
@@ -262,11 +281,7 @@ function DropDown({
                       width={18}
                     />
                   )}
-                  {item.png && (
-                    <PNG
-                      src={item.png}
-                    />
-                  )}
+                  {item.png && <PNG src={item.png} pngImageCropCircle={pngImageCropCircle}/>}
                   <DropDownItemText>{item.selectionName}</DropDownItemText>
                 </DropDownItem>
               </>
