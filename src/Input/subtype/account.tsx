@@ -220,6 +220,7 @@ function Account({ value, onChange }: AccountPropsType) {
       }}
     >
       <DropDown
+        listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
         height={34}
         list={[
@@ -246,7 +247,7 @@ function Account({ value, onChange }: AccountPropsType) {
         ]}
         disable={false}
         selected={dropdownSelect}
-        themeColor={{ mainColor: "#FAC62D", subColor: "#fef4ce" }}
+        themeColor={{ mainColor: dropdownSelect !== null ? "#FAC62D": "#DFDEDD", subColor: "#fef4ce" }}
         onItemClick={(index: number) => {
           setDropdownSelect(index)
           const list = [
@@ -266,10 +267,12 @@ function Account({ value, onChange }: AccountPropsType) {
           setSelect(list[index].selectionName)
         }}
         iconColor="#FAC62D"
+        fontSize={14}
+        pngImageCropCircle={true}
       />
 
       <Input
-        placeholder=""
+        placeholder="계좌번호를 입력해주세요."
         mode="basic"
         width={210}
         isError={false}
@@ -280,6 +283,7 @@ function Account({ value, onChange }: AccountPropsType) {
         onChange={(innerValue: string) => {
           setAccountNumber(innerValue.replace(/[^0-9-]/gi, ""))
         }}
+        fontSize={14}
       ></Input>
     </div>
   )
