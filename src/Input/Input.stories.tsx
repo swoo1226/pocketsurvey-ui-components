@@ -72,12 +72,18 @@ export function Index() {
 
 export function Email() {
   const [value, setValue] = useState<string>("");
+  const [focusIndex, setFocusIndex] = useState<number>(0);
   return (
-    <Input.Email
-      value={value}
-      onChange={(value: string) => setValue(value)}
-      isMobile={false}
-    />
+    <>
+      <Input.Email
+        value={value}
+        onChange={(value: string) => setValue(value)}
+        isMobile={false}
+        focusingIndex={focusIndex}
+      />
+      <p>focusIndex: {focusIndex}</p>
+      <button onClick={() => setFocusIndex(focusIndex + 1)}>+1</button>
+    </>
   );
 }
 
@@ -126,9 +132,8 @@ export function Number() {
   );
 }
 
-
 export function URL() {
-  const [value, setValue] = useState<string>("https://");
+  const [value, setValue] = useState<string>("");
   return (
     <>
       <p>value: {value}</p>

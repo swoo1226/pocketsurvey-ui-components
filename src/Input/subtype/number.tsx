@@ -16,12 +16,14 @@ const NumberInput = styled.input`
 `
 
 function Number({ value, onChange, isMobile }: NumberPropsType) {
+  const [errorMessage, setErrorMessage] = useState<string>("")
+
   if (isMobile) {
     <Input
       mode={"basic"}
       width={329}
-      isError={false}
-      errorMessage={""}
+      isError={errorMessage ? true : false}
+      errorMessage={errorMessage}
       borderColor={"#FAC609"}
       placeholder="숫자를 입력해주세요"
       type="number"
@@ -30,22 +32,29 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
       onChange={(innerValue: string) => {
         if (/^[+-]?\d*(\.?\d*)$/.test(innerValue)) {
           onChange(innerValue)
+          setErrorMessage("")
+        } else {
+          setErrorMessage("숫자만 입력 가능합니다.")
         }
       }}
     ></Input>
   }
+
   return (
     <Input
       mode={"basic"}
       width={329}
-      isError={false}
-      errorMessage={""}
+      isError={errorMessage ? true : false}
+      errorMessage={errorMessage}
       borderColor={"#FAC609"}
       placeholder="숫자를 입력해주세요"
       value={value}
       onChange={(innerValue: string) => {
         if (/^[+-]?\d*(\.?\d*)$/.test(innerValue)) {
           onChange(innerValue)
+          setErrorMessage("")
+        } else {
+          setErrorMessage("숫자만 입력 가능합니다.")
         }
       }}
     ></Input>

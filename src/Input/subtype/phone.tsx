@@ -31,30 +31,40 @@ type PhonePropsType = {
   onChange: (value: string) => void;
 };
 
-
 function Phone({ value, onChange }: PhonePropsType) {
+  const [errorMessage, setErrorMessage] = useState<string>("")
+
   const [innerValue, setInnerValue] = useState<string>("")
   useEffect(() => {
-    // 밖에서 읽을 때는 -을 제외한 숫자만 있어야함
+    // 컴포넌트 외부에서 value 값을 읽을 때는 -을 제외한 숫자만 있어야함
     onChange(innerValue.replace(/[^0-9]/g, ""))
   }, [innerValue])
-  
+
   return (
     <Input
       mode="basic"
       width={329}
-      isError={false}
-      errorMessage={""}
+      isError={errorMessage ? true : false}
+      errorMessage={errorMessage}
       borderColor={"#FAC609"}
       type="tel"
       value={innerValue}
       placeholder="(000)-000-0000"
       onChange={(inputInnerValue: string) => {
-        const phoneNumberOnly = inputInnerValue.replace(/[^0-9]/g, "")
-        if (phoneNumberOnly.length <= 3) {
-          setInnerValue(phoneNumberOnly)
+        if (/^([0-9]|-)+$/g.test(inputInnerValue)) {
+          const phoneNumberOnly = inputInnerValue.replace(/[^0-9]/g, "")
+          if (phoneNumberOnly.length <= 3) {
+            setInnerValue(phoneNumberOnly)
+          } else {
+            setInnerValue(hypenAutoComplete(phoneNumberOnly))
+          }
+          setErrorMessage("")
         } else {
-          setInnerValue(hypenAutoComplete(phoneNumberOnly))
+          if (inputInnerValue.length === 0) {
+            setInnerValue("")
+          } else {
+            setErrorMessage("숫자만 입력 가능합니다.")
+          }
         }
       }}
     />
