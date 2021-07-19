@@ -17,6 +17,7 @@ declare global {
 function URL({ value, onChange }: URLPropsType) {
   return (
     <Input
+      type="url"
       mode="basic"
       width={646}
       isError={false}

@@ -106,8 +106,9 @@ function Email({
     return (
       <div>
         <Input
+          fullWidthMode={true}
           mode="basic"
-          width={329}
+          width={300}
           isError={false}
           errorMessage={""}
           borderColor={"#FAC609"}
@@ -152,7 +153,7 @@ function Email({
           }
         }}
       />
-      {autocomplete.length > 0 && (
+      {!isMobile && autocomplete.length > 0 && (
         <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
           {autocomplete.map((email: string, index: number) => {
             if (index >= MAX_VIEW_LIMIT) return null

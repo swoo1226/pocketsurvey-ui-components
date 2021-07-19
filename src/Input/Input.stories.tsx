@@ -83,6 +83,13 @@ export function Email() {
       />
       <p>focusIndex: {focusIndex}</p>
       <button onClick={() => setFocusIndex(focusIndex + 1)}>+1</button>
+      <p>mobile</p>
+      <Input.Email
+        value={value}
+        onChange={(value: string) => setValue(value)}
+        isMobile={true}
+        focusingIndex={focusIndex}
+      />
     </>
   );
 }
@@ -127,6 +134,16 @@ export function Number() {
         onChange={(value: string) => {
           setValue(value);
         }}
+      />
+
+      <h1>mobile</h1>
+      <Input.Number
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+        isMobile
+        fullWidth
       />
     </>
   );

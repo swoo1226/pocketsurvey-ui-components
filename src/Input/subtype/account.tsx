@@ -1,63 +1,65 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
 import * as Hangul from "hangul-js"
-import Input from "../Input"
-import DropDown from "../../DropDown/DropDown"
+
+import React, { useEffect, useState } from "react"
 import { banks, stock } from "./account/data"
-import Iconnh from "./account/assets/nh.png"
-import Iconepost from "./account/assets/epost.png"
-import Iconbnp from "./account/assets/bnp.png"
-import Iconboc from "./account/assets/boc.png"
-import Icon8 from "./account/assets/8.png"
-import Iconnacufok from "./account/assets/nacufok.png"
-import Icon14 from "./account/assets/14.png"
-import Icon28 from "./account/assets/28.png"
-import Icon29 from "./account/assets/29.png"
-import Iconhana from "./account/assets/hana.png"
-import Icon15 from "./account/assets/15.png"
-import Iconsc from "./account/assets/sc.png"
-import Iconccb from "./account/assets/ccb.png"
-import Icon17 from "./account/assets/17.png"
-import Icon16 from "./account/assets/16.png"
-import Iconsb from "./account/assets/sb.png"
-import Iconkbank from "./account/assets/kbank.png"
-import Icon13 from "./account/assets/13.png"
-import Iconciti from "./account/assets/citi.png"
-import Iconjp from "./account/assets/jp.png"
-import Icon11 from "./account/assets/11.png"
-import Iconibk from "./account/assets/ibk.png"
+
+import DropDown from "../../DropDown/DropDown"
+import Icon1 from "./account/assets/1.png"
 import Icon10 from "./account/assets/10.png"
-import Iconkb from "./account/assets/kb.png"
-import Icon21 from "./account/assets/21.png"
+import Icon11 from "./account/assets/11.png"
+import Icon13 from "./account/assets/13.png"
+import Icon14 from "./account/assets/14.png"
+import Icon15 from "./account/assets/15.png"
+import Icon16 from "./account/assets/16.png"
+import Icon17 from "./account/assets/17.png"
+import Icon18 from "./account/assets/18.png"
+import Icon19 from "./account/assets/19.png"
+import Icon2 from "./account/assets/2.png"
 import Icon20 from "./account/assets/20.png"
-import Iconsh from "./account/assets/sh.png"
-import Iconsj from "./account/assets/sj.png"
+import Icon21 from "./account/assets/21.png"
 import Icon22 from "./account/assets/22.png"
 import Icon23 from "./account/assets/23.png"
-import Iconkfcc from "./account/assets/kfcc.png"
-import Icon27 from "./account/assets/27.png"
-import Iconwoori from "./account/assets/woori.png"
-import Icon26 from "./account/assets/26.png"
-import Icon18 from "./account/assets/18.png"
 import Icon24 from "./account/assets/24.png"
-import Iconamerica from "./account/assets/america.png"
 import Icon25 from "./account/assets/25.png"
-import Icon19 from "./account/assets/19.png"
-import Icondgb from "./account/assets/dgb.png"
-import Icon4 from "./account/assets/4.png"
-import Iconkjbank from "./account/assets/kjbank.png"
-import Icon5 from "./account/assets/5.png"
-import Iconhsbc from "./account/assets/hsbc.png"
-import Icon7 from "./account/assets/7.png"
-import Icondeutsche from "./account/assets/deutsche.png"
-import Icon6 from "./account/assets/6.png"
-import Iconkakaobank from "./account/assets/kakaobank.png"
-import Icon2 from "./account/assets/2.png"
-import Iconbnk from "./account/assets/bnk.png"
+import Icon26 from "./account/assets/26.png"
+import Icon27 from "./account/assets/27.png"
+import Icon28 from "./account/assets/28.png"
+import Icon29 from "./account/assets/29.png"
 import Icon3 from "./account/assets/3.png"
-import Icon1 from "./account/assets/1.png"
-import Iconshinhan from "./account/assets/shinhan.png"
+import Icon4 from "./account/assets/4.png"
+import Icon5 from "./account/assets/5.png"
+import Icon6 from "./account/assets/6.png"
+import Icon7 from "./account/assets/7.png"
+import Icon8 from "./account/assets/8.png"
+import Iconamerica from "./account/assets/america.png"
+import Iconbnk from "./account/assets/bnk.png"
+import Iconbnp from "./account/assets/bnp.png"
+import Iconboc from "./account/assets/boc.png"
+import Iconccb from "./account/assets/ccb.png"
+import Iconciti from "./account/assets/citi.png"
+import Icondeutsche from "./account/assets/deutsche.png"
+import Icondgb from "./account/assets/dgb.png"
+import Iconepost from "./account/assets/epost.png"
+import Iconhana from "./account/assets/hana.png"
+import Iconhsbc from "./account/assets/hsbc.png"
+import Iconibk from "./account/assets/ibk.png"
+import Iconjp from "./account/assets/jp.png"
+import Iconkakaobank from "./account/assets/kakaobank.png"
+import Iconkb from "./account/assets/kb.png"
+import Iconkbank from "./account/assets/kbank.png"
 import Iconkdb from "./account/assets/kdb.png"
+import Iconkfcc from "./account/assets/kfcc.png"
+import Iconkjbank from "./account/assets/kjbank.png"
+import Iconnacufok from "./account/assets/nacufok.png"
+import Iconnh from "./account/assets/nh.png"
+import Iconsb from "./account/assets/sb.png"
+import Iconsc from "./account/assets/sc.png"
+import Iconsh from "./account/assets/sh.png"
+import Iconshinhan from "./account/assets/shinhan.png"
+import Iconsj from "./account/assets/sj.png"
+import Iconwoori from "./account/assets/woori.png"
+import Input from "../Input"
+import styled from "styled-components"
 
 const switchIcon = (iconName: string) => {
   switch (iconName) {
@@ -191,7 +193,8 @@ function Account({ value, onChange }: AccountPropsType) {
   const [bankFilter, setBankFilter] = useState<string>("")
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
-
+  const [errorMessage, setErrorMessage] = useState<string>("")
+  
   useEffect(() => {
     setFilteredBank(
       bankFilter.length === 0
@@ -275,16 +278,22 @@ function Account({ value, onChange }: AccountPropsType) {
       />
 
       <Input
+        isError={errorMessage ? true : false}
+        errorMessage={errorMessage}
         placeholder="계좌번호를 입력해주세요."
         mode="basic"
+        inputMode="decimal"
         width={210}
-        isError={false}
-        errorMessage={""}
         borderColor={"#FAC609"}
         disabled={select === "" ? true : false}
         value={accountNumber}
         onChange={(innerValue: string) => {
-          setAccountNumber(innerValue.replace(/[^0-9-]/gi, ""))
+          if(/^[0-9-]*$/.test(innerValue)){
+            setAccountNumber(innerValue)
+            setErrorMessage("")
+          } else {
+            setErrorMessage("숫자와 하이픈(-)만 입력 가능합니다.")
+          }
         }}
         fontSize={14}
       ></Input>

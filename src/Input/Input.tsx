@@ -8,14 +8,20 @@ import Phone from "./subtype/phone"
 import Number from "./subtype/number"
 import URL from "./subtype/url"
 
+type inputModeType = "text" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | "search"
+
 const InputContainer = styled.div``
 const InputBox = styled.div<{
   width: number;
   disabled: boolean;
   mode: "line" | "basic";
   borderColor: string;
+  fullWidthMode?: boolean;
 }>`
-  padding: 7px ${(props) => props.width * 0.05}px;
+  padding: 7px
+    ${(props) =>
+    props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
+
   ${(props) =>
     `${
       props.mode == "line"
@@ -52,7 +58,7 @@ const InputBox = styled.div<{
   }
   display: flex;
   align-items: center;
-  width: ${(props) => props.width}px;
+  width: ${(props) => (props.fullWidthMode ? "100%px" : `${props.width}px`)};
   border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
   ${(props) =>
@@ -66,10 +72,15 @@ const InputElement = styled.input<{
   width: number;
   textColor?: string;
   fontSize?: number;
+  fullWidthMode?: boolean;
 }>`
   all: unset;
   border: none;
-  width: ${(props) => props.width}px;
+  ${(props) =>
+    props.fullWidthMode
+      ? "width: 100%;"
+      : `width: ${props.width}px;
+  `}
   color: ${(props) => props.textColor};
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
   &::placeholder {
@@ -88,6 +99,7 @@ export type InputType = {
   value: string;
   onChange: (value: string) => void;
   width: number;
+  fullWidthMode?: boolean;
   isError: boolean;
   errorMessage: string;
   disabled?: boolean;
@@ -110,6 +122,7 @@ export type InputType = {
   type?: string;
   pattern?: string;
   fontSize?: number;
+  inputMode?: inputModeType;
 };
 
 function Input({
@@ -138,6 +151,8 @@ function Input({
   type,
   pattern,
   fontSize,
+  fullWidthMode = false,
+  inputMode
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
@@ -153,6 +168,7 @@ function Input({
         disabled={disabled}
         mode={mode}
         borderColor={borderColor}
+        fullWidthMode={fullWidthMode}
       >
         <InputElement
           pattern={pattern ? pattern : undefined}
@@ -173,6 +189,8 @@ function Input({
           autoFocus={autoFocus}
           textColor={disabled ? "#DFDEDD" : textColor}
           fontSize={fontSize}
+          fullWidthMode={fullWidthMode}
+          inputMode={inputMode}
         />
         {showButton() && (
           <Icon
