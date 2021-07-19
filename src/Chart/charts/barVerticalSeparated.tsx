@@ -18,7 +18,7 @@ type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
   xAxisLabel: string[];
   label: string[];
-  override?: EChartsOption;
+  override?: any;
   lineWidth: number | null;
   hundredPercent?: {
     tooltip: boolean;

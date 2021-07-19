@@ -1,3 +1,9 @@
+# 0.5.8 (2021.07.16)
+
+- 계좌번호, 이메일, 숫자, 전화번호, url input 서브타입 추가
+- input 서브타입에서 사용할 컨포넌트 (Dropdown) 새로운 키 생성
+- 차트 override 옵션 타입을 EChartsOption에서 any로 수정
+
 # 0.5.71 (2021.07.15)
 
 - kakaoChannel 아이콘 에셋 추가

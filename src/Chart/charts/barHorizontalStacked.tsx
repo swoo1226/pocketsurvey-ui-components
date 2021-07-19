@@ -21,7 +21,7 @@ const MAX_LABEL_LENGTH = 14;
 type BarHorizontalStackedOptionPropsType = {
   series: (number | null)[][];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   yAxisLabel: string[];
   hundredPercent?: {
     series: boolean;

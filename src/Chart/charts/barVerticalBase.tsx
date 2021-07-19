@@ -13,7 +13,7 @@ import { scrollBar } from "../style"
 type BarVerticalBaseOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   lineWidth: number | null;
   preset?: BarVerticalBasePresetType;
   labelOption?: "fixed" | "dynamic";

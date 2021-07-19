@@ -2,16 +2,27 @@ import React from "react"
 import styled from "styled-components"
 
 import Icon, { IconType } from "../Icon/Icon"
+import Email from "./subtype/email"
+import Account from "./subtype/account"
+import Phone from "./subtype/phone"
+import Number from "./subtype/number"
+import URL from "./subtype/url"
+
+type inputModeType = "text" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | "search"
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
-  width: number
-  disabled: boolean
-  mode: "line" | "basic"
-  borderColor: string
+  width: number;
+  disabled: boolean;
+  mode: "line" | "basic";
+  borderColor: string;
+  fullWidthMode?: boolean;
 }>`
-  padding: 7px ${props => props.width * 0.05}px;
-  ${props =>
+  padding: 7px
+    ${(props) =>
+    props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
+
+  ${(props) =>
     `${
       props.mode == "line"
         ? `
@@ -22,7 +33,7 @@ const InputBox = styled.div<{
             `
     }`}
   &:hover {
-    ${props =>
+    ${(props) =>
     !props.disabled
       ? props.mode == "line"
         ? `border-bottom: 1px solid ${
@@ -34,7 +45,7 @@ const InputBox = styled.div<{
       : ""}
   }
   &:focus-within {
-    ${props =>
+    ${(props) =>
     !props.disabled
       ? props.mode == "line"
         ? `border-bottom: 1px solid ${
@@ -47,21 +58,31 @@ const InputBox = styled.div<{
   }
   display: flex;
   align-items: center;
-  width: ${props => props.width}px;
-  border-radius: ${props => (props.mode == "line" ? "0px" : "3px")};
+  width: ${(props) => (props.fullWidthMode ? "100%px" : `${props.width}px`)};
+  border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
-  ${props =>
+  ${(props) =>
     `${
       props.mode == "line"
         ? props.disabled && "border-bottom: 1px dashed #dfdedd;"
         : props.disabled && "background-color: #F0F0F0;"
     }`}
 `
-const InputElement = styled.input<{ width: number; textColor?: string }>`
+const InputElement = styled.input<{
+  width: number;
+  textColor?: string;
+  fontSize?: number;
+  fullWidthMode?: boolean;
+}>`
   all: unset;
   border: none;
-  width: ${props => props.width}px;
-  color: ${props => props.textColor};
+  ${(props) =>
+    props.fullWidthMode
+      ? "width: 100%;"
+      : `width: ${props.width}px;
+  `}
+  color: ${(props) => props.textColor};
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
   &::placeholder {
     color: #dfdedd;
   }
@@ -73,31 +94,36 @@ const SubText = styled.p`
 `
 
 export type InputType = {
-  mode: "line" | "basic"
-  placeholder: string
-  value: string
-  onChange: (value: string) => void
-  width: number
-  isError: boolean
-  errorMessage: string
-  disabled?: boolean
-  useCancelButton?: boolean
-  tabIndex?: number
-  readOnly?: boolean
-  onFocus?: () => void
-  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  onBlur?: () => void
-  iconButton?: IconType
+  mode: "line" | "basic";
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  width: number;
+  fullWidthMode?: boolean;
+  isError: boolean;
+  errorMessage: string;
+  disabled?: boolean;
+  useCancelButton?: boolean;
+  tabIndex?: number;
+  readOnly?: boolean;
+  onFocus?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  iconButton?: IconType;
   onClickCancelButton?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void
-  className?: string
-  borderColor: string
-  autoFocus?: boolean
-  textColor?: string
-  buttonAlways?: boolean
-}
+  ) => void;
+  className?: string;
+  borderColor: string;
+  autoFocus?: boolean;
+  textColor?: string;
+  buttonAlways?: boolean;
+  type?: string;
+  pattern?: string;
+  fontSize?: number;
+  inputMode?: inputModeType;
+};
 
 function Input({
   mode,
@@ -122,6 +148,11 @@ function Input({
   autoFocus = false,
   textColor,
   buttonAlways,
+  type,
+  pattern,
+  fontSize,
+  fullWidthMode = false,
+  inputMode
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
@@ -137,16 +168,18 @@ function Input({
         disabled={disabled}
         mode={mode}
         borderColor={borderColor}
+        fullWidthMode={fullWidthMode}
       >
         <InputElement
-          type="text"
+          pattern={pattern ? pattern : undefined}
+          type={type ?? "text"}
           value={value}
           readOnly={readOnly}
           tabIndex={tabIndex}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={onFocus}
-          onClick={e => (onClick && e ? onClick(e) : undefined)}
-          onKeyDown={e => {
+          onClick={(e) => (onClick && e ? onClick(e) : undefined)}
+          onKeyDown={(e) => {
             onKeyDown ? onKeyDown(e) : undefined
           }}
           onBlur={onBlur}
@@ -155,6 +188,9 @@ function Input({
           disabled={disabled}
           autoFocus={autoFocus}
           textColor={disabled ? "#DFDEDD" : textColor}
+          fontSize={fontSize}
+          fullWidthMode={fullWidthMode}
+          inputMode={inputMode}
         />
         {showButton() && (
           <Icon
@@ -170,5 +206,11 @@ function Input({
     </InputContainer>
   )
 }
+
+Input.Email = Email
+Input.Account = Account
+Input.Phone = Phone
+Input.Number = Number
+Input.Url = URL
 
 export default Input

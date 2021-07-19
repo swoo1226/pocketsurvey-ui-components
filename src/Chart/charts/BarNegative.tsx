@@ -12,7 +12,7 @@ import {
 type BarNegativeOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   standard: number;
   labelOption?: "dynamic" | "fixed";
 };
