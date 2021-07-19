@@ -105,6 +105,14 @@ export function Account() {
           setValue(value);
         }}
       />
+      <h1>mobile</h1>
+      <Input.Account
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+        isMobile
+      />
     </>
   );
 }
@@ -119,6 +127,14 @@ export function Phone() {
         onChange={(value: string) => {
           setValue(value);
         }}
+      />
+      <h1>mobile</h1>
+      <Input.Phone
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+        isMobile={true}
       />
     </>
   );
@@ -143,7 +159,6 @@ export function Number() {
           setValue(value);
         }}
         isMobile
-        fullWidth
       />
     </>
   );
@@ -159,6 +174,14 @@ export function URL() {
         onChange={(value: string) => {
           setValue(value);
         }}
+      />
+      <h1>mobile</h1>
+      <Input.Url
+        value={value}
+        onChange={(value: string) => {
+          setValue(value);
+        }}
+        isMobile={true}
       />
     </>
   );

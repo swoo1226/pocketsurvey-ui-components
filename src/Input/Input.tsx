@@ -58,7 +58,7 @@ const InputBox = styled.div<{
   }
   display: flex;
   align-items: center;
-  width: ${(props) => (props.fullWidthMode ? "100%px" : `${props.width}px`)};
+  width: ${(props) => (props.fullWidthMode ? "100%" : `${props.width}px`)};
   border-radius: ${(props) => (props.mode == "line" ? "0px" : "3px")};
   justify-content: space-between;
   ${(props) =>

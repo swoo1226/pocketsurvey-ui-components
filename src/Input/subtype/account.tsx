@@ -176,6 +176,13 @@ const switchIcon = (iconName: string) => {
   }
 }
 
+const Wrapper = styled.div<{ isMobile?: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  ${(props) =>
+    props.isMobile ? "flex-direction: column; height: 75px;" : "width: 445px;"}
+`
+
 export type ListType = {
   name: string;
   icon: string;
@@ -184,9 +191,10 @@ export type ListType = {
 type AccountPropsType = {
   value: string;
   onChange: (value: string) => void;
+  isMobile?: boolean;
 };
 
-function Account({ value, onChange }: AccountPropsType) {
+function Account({ value, onChange, isMobile }: AccountPropsType) {
   const [select, setSelect] = useState<string>("")
   const [dropdownSelect, setDropdownSelect] = useState<number | null>(null)
   const [accountNumber, setAccountNumber] = useState<string>("")
@@ -194,7 +202,7 @@ function Account({ value, onChange }: AccountPropsType) {
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
   const [errorMessage, setErrorMessage] = useState<string>("")
-  
+
   useEffect(() => {
     setFilteredBank(
       bankFilter.length === 0
@@ -215,13 +223,7 @@ function Account({ value, onChange }: AccountPropsType) {
   }, [select, accountNumber])
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        width: "445px",
-      }}
-    >
+    <Wrapper isMobile={isMobile}>
       <DropDown
         listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
@@ -283,12 +285,13 @@ function Account({ value, onChange }: AccountPropsType) {
         placeholder="계좌번호를 입력해주세요."
         mode="basic"
         inputMode="decimal"
-        width={210}
+        fullWidthMode={isMobile ? true : false}
+        width={isMobile ? 300 : 210}
         borderColor={"#FAC609"}
         disabled={select === "" ? true : false}
         value={accountNumber}
         onChange={(innerValue: string) => {
-          if(/^[0-9-]*$/.test(innerValue)){
+          if (/^[0-9-]*$/.test(innerValue)) {
             setAccountNumber(innerValue)
             setErrorMessage("")
           } else {
@@ -297,7 +300,7 @@ function Account({ value, onChange }: AccountPropsType) {
         }}
         fontSize={14}
       ></Input>
-    </div>
+    </Wrapper>
   )
 }
 
