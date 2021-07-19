@@ -6,22 +6,18 @@ import Input from "../Input"
 type URLPropsType = {
   value: string;
   onChange: (value: string) => void;
+  isMobile?: boolean; 
 };
 
-declare global {
-  interface String {
-    count(char: string): number;
-  }
-}
-
-function URL({ value, onChange }: URLPropsType) {
+function URL({ value, onChange, isMobile }: URLPropsType) {
   return (
     <Input
       type="url"
       mode="basic"
-      width={646}
+      width={isMobile ? 300 : 646}
       isError={false}
       errorMessage={""}
+      fullWidthMode={isMobile ? true : false }
       borderColor={"#FAC609"}
       value={value ?? "https://"}
       placeholder="https://"

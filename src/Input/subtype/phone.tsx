@@ -29,9 +29,10 @@ const hypenAutoComplete = (value: string) => {
 type PhonePropsType = {
   value: string;
   onChange: (value: string) => void;
+  isMobile?: boolean;
 };
 
-function Phone({ value, onChange }: PhonePropsType) {
+function Phone({ value, onChange, isMobile }: PhonePropsType) {
   const [errorMessage, setErrorMessage] = useState<string>("")
 
   const [innerValue, setInnerValue] = useState<string>("")
@@ -48,6 +49,7 @@ function Phone({ value, onChange }: PhonePropsType) {
       errorMessage={errorMessage}
       borderColor={"#FAC609"}
       type="tel"
+      fullWidthMode={isMobile ? true : false }
       value={innerValue}
       placeholder="(000)-000-0000"
       onChange={(inputInnerValue: string) => {
