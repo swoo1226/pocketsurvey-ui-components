@@ -15,7 +15,7 @@ import { scrollBar } from "../style"
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
 };

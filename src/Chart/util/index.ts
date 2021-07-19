@@ -13,7 +13,7 @@ export { getColors, color };
 type deepMergePropsType = {
   option: EChartsOption;
   preset?: EChartsOption;
-  override?: EChartsOption;
+  override?: any;
 };
 
 export const mergeOption = ({

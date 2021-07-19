@@ -20,7 +20,7 @@ import { scrollBar } from "../style"
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   xAxisLabel: string[];
   line?: {
     name: string;

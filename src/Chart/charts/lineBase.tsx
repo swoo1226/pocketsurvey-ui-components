@@ -11,7 +11,7 @@ type LineBaseOptionPropsType = {
   hasMarker?: boolean;
   smooth?: boolean;
   labelOption?: "dynamic" | "fixed";
-  override?: EChartsOption;
+  override?: any;
 };
 
 const lineBaseOption = ({

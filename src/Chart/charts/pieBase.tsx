@@ -9,7 +9,7 @@ import _ from "lodash";
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
-  override?: EChartsOption;
+  override?: any;
   showLabel?: boolean;
   labelOption?: "fixed" | "dynamic";
 };
