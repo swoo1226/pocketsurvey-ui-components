@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Icon, { IconType } from "../Icon/Icon"
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
-  width: 21px !important;
+  width: 23px !important;
   height: 21px !important;
   margin-bottom: 0px !important;
   ${(props) =>
