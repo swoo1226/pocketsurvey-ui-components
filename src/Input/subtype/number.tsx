@@ -13,7 +13,7 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
   if (isMobile) {
     return (
       <Input
-        inputMode={"numeric"}
+        inputMode={"decimal"}
         type="text"
         mode={"basic"}
         width={300}

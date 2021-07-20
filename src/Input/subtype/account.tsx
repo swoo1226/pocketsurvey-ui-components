@@ -289,7 +289,7 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
         errorMessage={errorMessage}
         placeholder="계좌번호를 입력해주세요."
         mode="basic"
-        inputMode="decimal"
+        inputMode="numeric"
         fullWidthMode={isMobile ? true : false}
         width={isMobile ? 300 : 230}
         borderColor={"#FAC609"}
