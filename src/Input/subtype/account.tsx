@@ -179,8 +179,11 @@ const switchIcon = (iconName: string) => {
 const Wrapper = styled.div<{ isMobile?: boolean }>`
   display: flex;
   justify-content: space-between;
-  ${(props) =>
-    props.isMobile ? "flex-direction: column; height: 75px;" : "width: 445px;"}
+  ${(props) => (props.isMobile ? "flex-direction: column;" : "width: 445px;")}
+`
+
+const CustomDropDown = styled(DropDown)<{ isMobile?: boolean }>`
+  ${(props) => props.isMobile && "margin-bottom: 10px;"}
 `
 
 export type ListType = {
@@ -224,10 +227,12 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
 
   return (
     <Wrapper isMobile={isMobile}>
-      <DropDown
+      <CustomDropDown
+        containerHeight={"100%"}
+        isMobile={isMobile}
         listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
-        height={34}
+        height={44}
         list={[
           {
             selectionName: "은행",
@@ -286,10 +291,11 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
         mode="basic"
         inputMode="decimal"
         fullWidthMode={isMobile ? true : false}
-        width={isMobile ? 300 : 210}
+        width={isMobile ? 300 : 230}
         borderColor={"#FAC609"}
         disabled={select === "" ? true : false}
         value={accountNumber}
+        fontSize={14}
         onChange={(innerValue: string) => {
           if (/^[0-9-]*$/.test(innerValue)) {
             setAccountNumber(innerValue)
@@ -298,7 +304,6 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
             setErrorMessage("숫자와 하이픈(-)만 입력 가능합니다.")
           }
         }}
-        fontSize={14}
       ></Input>
     </Wrapper>
   )

@@ -4,8 +4,8 @@ import styled from "styled-components"
 import Icon, { IconType } from "../Icon/Icon"
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
-  width: 21px;
-  height: 21px;
+  width: 23px !important;
+  height: 21px !important;
   margin-bottom: 0px !important;
   ${(props) =>
     props.pngImageCropCircle && "object-fit:cover; border-radius:50%;"}
@@ -13,10 +13,12 @@ const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
 
 const DropDownContainer = styled.div<{
   width: number;
+  containerHeight?: string
 }>`
   width: ${(props) => props.width}px;
   font-size: 12px;
   text-align: left;
+  ${(props)=> props.containerHeight && `height: ${props.containerHeight};`}
 `
 
 const DropDownBoxContainer = styled.div<{
@@ -75,7 +77,7 @@ const DropDownList = styled.div<{
   overflow-y: auto;
   background: #ffffff;
   margin: 7px 0px;
-  ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
 `
 const DropDownItem = styled.div<{
   index: number;
@@ -133,6 +135,7 @@ export type DropDownType = {
   listMaxHeight?: number;
   fontSize?: number;
   pngImageCropCircle?: boolean;
+  containerHeight?: string;
 };
 
 function DropDown({
@@ -151,6 +154,7 @@ function DropDown({
   listMaxHeight,
   fontSize,
   pngImageCropCircle,
+  containerHeight
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
@@ -181,6 +185,7 @@ function DropDown({
       ref={selectionListRef}
       className={className}
       width={width}
+      containerHeight={containerHeight}
     >
       <DropDownBoxContainer
         onClick={() => {

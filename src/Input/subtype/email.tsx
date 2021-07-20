@@ -106,6 +106,7 @@ function Email({
     return (
       <div>
         <Input
+          fontSize={14}
           fullWidthMode={true}
           mode="basic"
           width={300}
@@ -124,6 +125,7 @@ function Email({
   return (
     <div>
       <Input
+        fontSize={14}
         mode="basic"
         width={329}
         isError={false}
