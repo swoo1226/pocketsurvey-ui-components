@@ -83,6 +83,7 @@ const InputElement = styled.input<{
   `}
   color: ${(props) => props.textColor};
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
+  cursor: auto;
   &::placeholder {
     color: #dfdedd;
   }
