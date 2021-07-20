@@ -49,6 +49,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
       errorMessage={errorMessage}
       borderColor={"#FAC609"}
       type="tel"
+      fontSize={14}
       fullWidthMode={isMobile ? true : false }
       value={innerValue}
       placeholder="(000)-000-0000"

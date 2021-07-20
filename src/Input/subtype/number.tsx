@@ -18,6 +18,7 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
         mode={"basic"}
         width={300}
         fullWidthMode={true}
+        fontSize={14}
         isError={errorMessage ? true : false}
         errorMessage={errorMessage}
         borderColor={"#FAC609"}

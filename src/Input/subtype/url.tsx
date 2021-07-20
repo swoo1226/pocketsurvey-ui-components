@@ -21,6 +21,7 @@ function URL({ value, onChange, isMobile }: URLPropsType) {
       borderColor={"#FAC609"}
       value={value ?? "https://"}
       placeholder="https://"
+      fontSize={14}
       onChange={(_innerValue: string) => {
         const prevValueLength = value.length
         const innerValue =
