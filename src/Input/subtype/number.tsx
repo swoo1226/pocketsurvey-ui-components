@@ -33,7 +33,7 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
             setErrorMessage("숫자만 입력 가능합니다.")
           }
         }}
-      ></Input>
+      />
     )
   }
 
@@ -46,6 +46,7 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
       borderColor={"#FAC609"}
       placeholder="숫자를 입력해주세요"
       value={value}
+      fontSize={14}
       onChange={(innerValue: string) => {
         if (/^[+-]?\d*(\.?\d*)$/.test(innerValue)) {
           onChange(innerValue)
