@@ -205,7 +205,6 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
   const [filteredBank, setFilteredBank] = useState<ListType>([])
   const [filteredStock, setFilteredStock] = useState<ListType>([])
   const [errorMessage, setErrorMessage] = useState<string>("")
-  const [firstTyping, setFirstTyping] = useState<boolean>(false)
 
   useEffect(() => {
     setFilteredBank(
@@ -222,8 +221,7 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
 
   useEffect(() => {
     if (select && accountNumber) {
-      if (firstTyping)
-        onChange(`${select} ${accountNumber.replace(/[^0-9]/g, "")}`)
+      onChange(`${select} ${accountNumber.replace(/[^0-9]/g, "")}`)
     }
   }, [select, accountNumber])
 
@@ -299,7 +297,6 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
         value={accountNumber}
         fontSize={14}
         onChange={(innerValue: string) => {
-          if (!firstTyping) setFirstTyping(true)
           if (/^[0-9-]*$/.test(innerValue)) {
             setAccountNumber(innerValue)
             setErrorMessage("")
