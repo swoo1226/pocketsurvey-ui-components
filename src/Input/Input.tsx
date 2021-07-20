@@ -18,9 +18,9 @@ const InputBox = styled.div<{
   borderColor: string;
   fullWidthMode?: boolean;
 }>`
-  padding: 7px
-    ${(props) =>
-    props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
+  padding: 7px 14px;
+    /* ${(props) =>
+    props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px; */
 
   ${(props) =>
     `${
