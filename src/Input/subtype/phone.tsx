@@ -34,11 +34,12 @@ type PhonePropsType = {
 
 function Phone({ value, onChange, isMobile }: PhonePropsType) {
   const [errorMessage, setErrorMessage] = useState<string>("")
-
+  const [firstTyping, setFirstTyping] = useState<boolean>(false)
   const [innerValue, setInnerValue] = useState<string>("")
+
   useEffect(() => {
     // 컴포넌트 외부에서 value 값을 읽을 때는 -을 제외한 숫자만 있어야함
-    onChange(innerValue.replace(/[^0-9]/g, ""))
+    if(firstTyping) onChange(innerValue.replace(/[^0-9]/g, ""))
   }, [innerValue])
 
   return (
@@ -54,6 +55,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
       value={innerValue}
       placeholder="(000)-000-0000"
       onChange={(inputInnerValue: string) => {
+        if(!firstTyping) setFirstTyping(true)
         if (/^([0-9]|-)+$/g.test(inputInnerValue)) {
           const phoneNumberOnly = inputInnerValue.replace(/[^0-9]/g, "")
           if (phoneNumberOnly.length <= 3) {
