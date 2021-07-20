@@ -4,8 +4,8 @@ import styled from "styled-components"
 import Icon, { IconType } from "../Icon/Icon"
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
-  width: 21px;
-  height: 21px;
+  width: 21px !important;
+  height: 21px !important;
   margin-bottom: 0px !important;
   ${(props) =>
     props.pngImageCropCircle && "object-fit:cover; border-radius:50%;"}
@@ -75,7 +75,7 @@ const DropDownList = styled.div<{
   overflow-y: auto;
   background: #ffffff;
   margin: 7px 0px;
-  ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
 `
 const DropDownItem = styled.div<{
   index: number;
