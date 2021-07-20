@@ -228,10 +228,11 @@ function Account({ value, onChange, isMobile }: AccountPropsType) {
   return (
     <Wrapper isMobile={isMobile}>
       <CustomDropDown
+        containerHeight={"100%"}
         isMobile={isMobile}
         listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
-        height={34}
+        height={44}
         list={[
           {
             selectionName: "은행",

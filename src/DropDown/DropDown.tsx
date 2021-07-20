@@ -13,10 +13,12 @@ const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
 
 const DropDownContainer = styled.div<{
   width: number;
+  containerHeight?: string
 }>`
   width: ${(props) => props.width}px;
   font-size: 12px;
   text-align: left;
+  ${(props)=> props.containerHeight && `height: ${props.containerHeight};`}
 `
 
 const DropDownBoxContainer = styled.div<{
@@ -133,6 +135,7 @@ export type DropDownType = {
   listMaxHeight?: number;
   fontSize?: number;
   pngImageCropCircle?: boolean;
+  containerHeight?: string;
 };
 
 function DropDown({
@@ -151,6 +154,7 @@ function DropDown({
   listMaxHeight,
   fontSize,
   pngImageCropCircle,
+  containerHeight
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
@@ -181,6 +185,7 @@ function DropDown({
       ref={selectionListRef}
       className={className}
       width={width}
+      containerHeight={containerHeight}
     >
       <DropDownBoxContainer
         onClick={() => {
