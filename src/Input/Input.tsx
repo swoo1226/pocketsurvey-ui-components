@@ -8,7 +8,15 @@ import Phone from "./subtype/phone"
 import Number from "./subtype/number"
 import URL from "./subtype/url"
 
-type inputModeType = "text" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | "search"
+type inputModeType =
+  | "text"
+  | "none"
+  | "tel"
+  | "url"
+  | "email"
+  | "numeric"
+  | "decimal"
+  | "search";
 
 const InputContainer = styled.div``
 const InputBox = styled.div<{
@@ -18,18 +26,17 @@ const InputBox = styled.div<{
   borderColor: string;
   fullWidthMode?: boolean;
 }>`
-  padding: 14px;
-    /* ${(props) =>
-    props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px; */
-
   ${(props) =>
     `${
       props.mode == "line"
         ? `
                 border-bottom: 1px solid #dfdedd;
+                padding: 14px;
+    ${props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
             `
         : `
                 border: 1px solid #dfdedd; 
+                padding: 11px 14px;
             `
     }`}
   &:hover {
@@ -73,6 +80,7 @@ const InputElement = styled.input<{
   textColor?: string;
   fontSize?: number;
   fullWidthMode?: boolean;
+  mode: "line" | "basic";
 }>`
   all: unset;
   border: none;
@@ -87,6 +95,7 @@ const InputElement = styled.input<{
   &::placeholder {
     color: #dfdedd;
   }
+  ${(props) => props.mode === "basic" && "line-height: 10; height: 20px;"}
 `
 const SubText = styled.p`
   margin-top: 4px;
@@ -153,7 +162,7 @@ function Input({
   pattern,
   fontSize,
   fullWidthMode = false,
-  inputMode
+  inputMode,
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
@@ -172,6 +181,7 @@ function Input({
         fullWidthMode={fullWidthMode}
       >
         <InputElement
+          mode={mode}
           pattern={pattern ? pattern : undefined}
           type={type ?? "text"}
           value={value}
