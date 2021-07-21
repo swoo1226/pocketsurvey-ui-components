@@ -36,6 +36,7 @@ type EmailPropsType = {
   width?: number | string;
   isMobile: boolean;
   focusingIndex?: number;
+  onKeyDown?: any;
 };
 
 function Email({
@@ -44,6 +45,7 @@ function Email({
   width,
   isMobile,
   focusingIndex,
+  onKeyDown
 }: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
@@ -106,6 +108,7 @@ function Email({
     return (
       <div>
         <Input
+          onKeyDown={onKeyDown ?? undefined}
           fontSize={14}
           fullWidthMode={true}
           mode="basic"
@@ -125,6 +128,7 @@ function Email({
   return (
     <div>
       <Input
+        onKeyDown={onKeyDown ?? undefined}
         fontSize={14}
         mode="basic"
         width={329}

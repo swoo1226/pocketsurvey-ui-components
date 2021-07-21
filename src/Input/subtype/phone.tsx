@@ -30,9 +30,10 @@ type PhonePropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean;
+  onKeyDown?: any;
 };
 
-function Phone({ value, onChange, isMobile }: PhonePropsType) {
+function Phone({ value, onChange, isMobile, onKeyDown }: PhonePropsType) {
   const [errorMessage, setErrorMessage] = useState<string>("")
   const [firstTyping, setFirstTyping] = useState<boolean>(false)
   const [innerValue, setInnerValue] = useState<string>("")
@@ -44,6 +45,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
 
   return (
     <Input
+      onKeyDown={onKeyDown ?? undefined}
       mode="basic"
       width={329}
       isError={errorMessage ? true : false}
