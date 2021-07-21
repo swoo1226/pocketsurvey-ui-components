@@ -7,11 +7,13 @@ type URLPropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean; 
+  onKeyDown?: any
 };
 
-function URL({ value, onChange, isMobile }: URLPropsType) {
+function URL({ value, onChange, isMobile, onKeyDown }: URLPropsType) {
   return (
     <Input
+      onKeyDown={onKeyDown ?? undefined}
       type="url"
       mode="basic"
       width={isMobile ? 300 : 646}

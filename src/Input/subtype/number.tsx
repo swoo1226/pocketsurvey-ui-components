@@ -5,14 +5,16 @@ type NumberPropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean;
+  onKeyDown?: any
 };
 
-function Number({ value, onChange, isMobile }: NumberPropsType) {
+function Number({ value, onChange, isMobile, onKeyDown }: NumberPropsType) {
   const [errorMessage, setErrorMessage] = useState<string>("")
 
   if (isMobile) {
     return (
       <Input
+        onKeyDown={onKeyDown ?? undefined}
         inputMode={"decimal"}
         type="text"
         mode={"basic"}
@@ -39,6 +41,7 @@ function Number({ value, onChange, isMobile }: NumberPropsType) {
 
   return (
     <Input
+      onKeyDown={onKeyDown ?? undefined}
       mode={"basic"}
       width={329}
       isError={errorMessage ? true : false}
