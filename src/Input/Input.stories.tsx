@@ -104,6 +104,9 @@ export function Account() {
         onChange={(value: string) => {
           setValue(value);
         }}
+        dropdownSelectCallback={()=> {
+          console.log("드롭다운 선택 완료")
+        }}
       />
       <h1>mobile</h1>
       <Input.Account
@@ -173,6 +176,9 @@ export function URL() {
         value={value}
         onChange={(value: string) => {
           setValue(value);
+        }}
+        onKeyDown={(event)=>{
+          console.log("키 다운 이벤트")
         }}
       />
       <h1>mobile</h1>
