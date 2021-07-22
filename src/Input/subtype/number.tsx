@@ -5,16 +5,14 @@ type NumberPropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean;
-  onKeyDown?: any
 };
 
-function Number({ value, onChange, isMobile, onKeyDown }: NumberPropsType) {
+function Number({ value, onChange, isMobile }: NumberPropsType) {
   const [errorMessage, setErrorMessage] = useState<string>("")
 
   if (isMobile) {
     return (
       <Input
-        onKeyDown={onKeyDown ?? undefined}
         inputMode={"decimal"}
         type="text"
         mode={"basic"}
@@ -35,13 +33,13 @@ function Number({ value, onChange, isMobile, onKeyDown }: NumberPropsType) {
             setErrorMessage("숫자만 입력 가능합니다.")
           }
         }}
+        ignorePlaceholderColor
       />
     )
   }
 
   return (
     <Input
-      onKeyDown={onKeyDown ?? undefined}
       mode={"basic"}
       width={329}
       isError={errorMessage ? true : false}
@@ -58,6 +56,7 @@ function Number({ value, onChange, isMobile, onKeyDown }: NumberPropsType) {
           setErrorMessage("숫자만 입력 가능합니다.")
         }
       }}
+      ignorePlaceholderColor
     ></Input>
   )
 }

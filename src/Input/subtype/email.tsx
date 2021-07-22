@@ -36,7 +36,6 @@ type EmailPropsType = {
   width?: number | string;
   isMobile: boolean;
   focusingIndex?: number;
-  onKeyDown?: any;
 };
 
 function Email({
@@ -44,8 +43,7 @@ function Email({
   onChange,
   width,
   isMobile,
-  focusingIndex,
-  onKeyDown
+  focusingIndex
 }: EmailPropsType) {
   const [selected, setSelected] = useState<number | null>(null)
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST)
@@ -108,7 +106,6 @@ function Email({
     return (
       <div>
         <Input
-          onKeyDown={onKeyDown ?? undefined}
           fontSize={14}
           fullWidthMode={true}
           mode="basic"
@@ -120,6 +117,7 @@ function Email({
           placeholder="email@pocketsurvey.co.kr"
           value={value}
           onChange={(innerValue: string) => onChange(innerValue)}
+          ignorePlaceholderColor
         />
       </div>
     )
@@ -128,7 +126,6 @@ function Email({
   return (
     <div>
       <Input
-        onKeyDown={onKeyDown ?? undefined}
         fontSize={14}
         mode="basic"
         width={329}
@@ -158,6 +155,7 @@ function Email({
             }
           }
         }}
+        ignorePlaceholderColor
       />
       {!isMobile && autocomplete.length > 0 && (
         <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
