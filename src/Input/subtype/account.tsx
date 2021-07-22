@@ -233,7 +233,7 @@ function Account({ value, onChange, isMobile, dropdownSelectCallback }: AccountP
         isMobile={isMobile}
         listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
-        height={44}
+        height={45}
         list={[
           {
             selectionName: "은행",
