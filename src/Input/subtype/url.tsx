@@ -7,13 +7,11 @@ type URLPropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean; 
-  onKeyDown?: any
 };
 
-function URL({ value, onChange, isMobile, onKeyDown }: URLPropsType) {
+function URL({ value, onChange, isMobile }: URLPropsType) {
   return (
     <Input
-      onKeyDown={onKeyDown ?? undefined}
       type="url"
       mode="basic"
       width={isMobile ? 300 : 646}
@@ -44,6 +42,7 @@ function URL({ value, onChange, isMobile, onKeyDown }: URLPropsType) {
           onChange(innerValue)
         }
       }}
+      ignorePlaceholderColor
     />
   )
 }

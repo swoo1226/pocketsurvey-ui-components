@@ -195,11 +195,10 @@ type AccountPropsType = {
   value: string;
   onChange: (value: string) => void;
   isMobile?: boolean;
-  onKeyDown?: any;
   dropdownSelectCallback?: () => void;
 };
 
-function Account({ value, onChange, isMobile, onKeyDown, dropdownSelectCallback }: AccountPropsType) {
+function Account({ value, onChange, isMobile, dropdownSelectCallback }: AccountPropsType) {
   const [select, setSelect] = useState<string>("")
   const [dropdownSelect, setDropdownSelect] = useState<number | null>(null)
   const [accountNumber, setAccountNumber] = useState<string>("")
@@ -234,7 +233,7 @@ function Account({ value, onChange, isMobile, onKeyDown, dropdownSelectCallback 
         isMobile={isMobile}
         listMaxHeight={428}
         placeholder={"은행/증권사 선택"}
-        height={44}
+        height={45}
         list={[
           {
             selectionName: "은행",
@@ -288,7 +287,6 @@ function Account({ value, onChange, isMobile, onKeyDown, dropdownSelectCallback 
       />
 
       <Input
-        onKeyDown={onKeyDown ?? undefined}
         isError={errorMessage ? true : false}
         errorMessage={errorMessage}
         placeholder="계좌번호를 입력해주세요."
@@ -308,6 +306,7 @@ function Account({ value, onChange, isMobile, onKeyDown, dropdownSelectCallback 
             setErrorMessage("숫자와 하이픈(-)만 입력 가능합니다.")
           }
         }}
+        ignorePlaceholderColor
       ></Input>
     </Wrapper>
   )

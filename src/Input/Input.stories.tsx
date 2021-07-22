@@ -177,9 +177,6 @@ export function URL() {
         onChange={(value: string) => {
           setValue(value);
         }}
-        onKeyDown={(event)=>{
-          console.log("키 다운 이벤트")
-        }}
       />
       <h1>mobile</h1>
       <Input.Url
