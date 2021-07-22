@@ -81,6 +81,7 @@ const InputElement = styled.input<{
   fontSize?: number;
   fullWidthMode?: boolean;
   mode: "line" | "basic";
+  ignorePlaceholderColor?: boolean;
 }>`
   all: unset;
   border: none;
@@ -92,9 +93,14 @@ const InputElement = styled.input<{
   color: ${(props) => props.textColor};
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
   cursor: auto;
+  ${(props) =>
+    (props.ignorePlaceholderColor === undefined ||
+      props.ignorePlaceholderColor === false) &&
+    `
   &::placeholder {
     color: #dfdedd;
   }
+  `}
   ${(props) => props.mode === "basic" && "line-height: 10; height: 20px;"}
 `
 const SubText = styled.p`
@@ -133,6 +139,7 @@ export type InputType = {
   pattern?: string;
   fontSize?: number;
   inputMode?: inputModeType;
+  ignorePlaceholderColor?: boolean;
 };
 
 function Input({
@@ -163,6 +170,7 @@ function Input({
   fontSize,
   fullWidthMode = false,
   inputMode,
+  ignorePlaceholderColor,
 }: InputType): JSX.Element {
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
@@ -202,6 +210,7 @@ function Input({
           fontSize={fontSize}
           fullWidthMode={fullWidthMode}
           inputMode={inputMode}
+          ignorePlaceholderColor={ignorePlaceholderColor}
         />
         {showButton() && (
           <Icon
