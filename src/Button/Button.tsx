@@ -26,8 +26,8 @@ const ButtonContainer = styled.div<{
     align-items: center;
     justify-content: center;
     height: 100%;
-    margin: 0;
-    padding: 0;
+    /* margin: 0; */
+    /* padding: 0; */
     img {
       width: calc(1.7 * 14px);
       height: calc(1.2 * 14px);
