@@ -19,13 +19,13 @@ function URL({ value, onChange, isMobile }: URLPropsType) {
       errorMessage={""}
       fullWidthMode={isMobile ? true : false }
       borderColor={"#FAC609"}
-      value={value ?? "https://"}
-      placeholder="https://"
+      value={value ?? "http://"}
+      placeholder="http://"
       fontSize={14}
       onChange={(_innerValue: string) => {
         const prevValueLength = value.length
         const innerValue =
-          prevValueLength === 0 ? "https://" + _innerValue : _innerValue
+          prevValueLength === 0 ? "http://" + _innerValue : _innerValue
 
         const http = innerValue.split("http://").length - 1
         const https = innerValue.split("https://").length - 1
