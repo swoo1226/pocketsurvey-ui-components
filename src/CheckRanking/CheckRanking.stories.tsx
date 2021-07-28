@@ -32,6 +32,7 @@ export function Single() {
       }}
       isFocusBackgroundFunc={true}
       backgroundColor={backgroundColor}
+      disableHoverBackground
     />
   )
 }

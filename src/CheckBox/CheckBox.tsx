@@ -10,16 +10,27 @@ const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
 `
 const CheckBoxContainer = styled.div``
 const CheckBoxList = styled.div``
-const CheckBoxItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
+const CheckBoxItem = styled.div<{
+  isFocusBackgroundFunc: boolean;
+  checked: boolean;
+  disableHoverBackground?: boolean;
+}>`
   cursor: pointer;
   display: flex;
   align-items: center;
   margin-bottom: 7px;
   padding: 10px 7px;
-  &:hover{
-    background-color: #F0F0F0;
+  ${(props) =>
+    !props.disableHoverBackground &&
+    `
+  &:hover {
+    background-color: #f0f0f0;
   }
-  ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
+  `}
+  ${(props) =>
+    props.isFocusBackgroundFunc && props.checked
+      ? "background-color: #F0F0F0;"
+      : ""}
   border-radius: 3px;
 `
 const CheckBoxSelectionLabel = styled.label`
@@ -43,10 +54,18 @@ const CheckBoxSelectionItem = styled.div<{
         : "1px solid #DFDEDD"};
 
   background-color: ${(props) =>
-    props.disabled ? "#F0F0F0" : props.checked ? props.backgroundColor ?? "#f2ab28" : "#FFFFFF"};
+    props.disabled
+      ? "#F0F0F0"
+      : props.checked
+        ? props.backgroundColor ?? "#f2ab28"
+        : "#FFFFFF"};
   &:hover {
     ${(props) =>
-    props.disabled ? "" : props.checked ? "" : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`};
+    props.disabled
+      ? ""
+      : props.checked
+        ? ""
+        : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`};
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
   ${CheckBoxImage} {
@@ -64,6 +83,7 @@ export type CheckBoxType = {
   disabled?: boolean;
   isFocusBackgroundFunc?: boolean;
   backgroundColor?: string;
+  disableHoverBackground?: boolean;
 };
 
 function CheckBox({
@@ -73,7 +93,8 @@ function CheckBox({
   className,
   disabled,
   isFocusBackgroundFunc,
-  backgroundColor
+  backgroundColor,
+  disableHoverBackground
 }: CheckBoxType): JSX.Element {
   return (
     <CheckBoxContainer className={className}>
@@ -86,6 +107,7 @@ function CheckBox({
               data-testid="checkbox-item"
               isFocusBackgroundFunc={isFocusBackgroundFunc}
               checked={selected.includes(index)}
+              disableHoverBackground={disableHoverBackground}
             >
               <CheckBoxSelectionItem
                 data-testid={`checkbox-${index}`}

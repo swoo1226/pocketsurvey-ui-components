@@ -5,21 +5,35 @@ const CheckRankingContainer = styled.div`
   margin-top: 28px;
 `
 const CheckRankingList = styled.div``
-const CheckRankingItem = styled.div<{ isFocusBackgroundFunc: boolean, checked: boolean }>`
+const CheckRankingItem = styled.div<{
+  isFocusBackgroundFunc: boolean;
+  checked: boolean;
+  disableHoverBackground?: boolean;
+}>`
   display: flex;
   align-items: center;
   margin-bottom: 7px;
   padding: 10px 7px;
-  &:hover{
-    background-color: #F0F0F0;
+  ${(props) =>
+    !props.disableHoverBackground &&
+    `
+  &:hover {
+    background-color: #f0f0f0;
   }
-  ${props => props.isFocusBackgroundFunc && props.checked ? "background-color: #F0F0F0;" : ""}
+  `}
+  ${(props) =>
+    props.isFocusBackgroundFunc && props.checked
+      ? "background-color: #F0F0F0;"
+      : ""}
   border-radius: 3px;
 `
 const CheckRankingSelectionLabel = styled.label`
   margin-left: 14px;
 `
-const CheckRankingSelectionItem = styled.div<{ checked: boolean, backgroundColor?: string }>`
+const CheckRankingSelectionItem = styled.div<{
+  checked: boolean;
+  backgroundColor?: string;
+}>`
   width: 21px;
   height: 21px;
   border-radius: 3px;
@@ -31,11 +45,15 @@ const CheckRankingSelectionItem = styled.div<{ checked: boolean, backgroundColor
   justify-content: center;
 
   padding-top: 3px;
-  background-color: ${props => (props.checked ? props.backgroundColor ??"#f2ab28" : "#FFFFFF")};
-  border: ${props => (props.checked ? "" : "1px solid #DFDEDD")};
+  background-color: ${(props) =>
+    props.checked ? props.backgroundColor ?? "#f2ab28" : "#FFFFFF"};
+  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
 
   &:hover {
-    ${props => (props.checked ? "" : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`)};
+    ${(props) =>
+    props.checked
+      ? ""
+      : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`};
   }
 
   color: #ffffff;
@@ -43,22 +61,24 @@ const CheckRankingSelectionItem = styled.div<{ checked: boolean, backgroundColor
 
 export type CheckRankingType = {
   selections: {
-    label: string
-  }[]
-  selected: number[]
-  onItemClick: (index: number) => void
-  className?: string
-  isFocusBackgroundFunc?: boolean
+    label: string;
+  }[];
+  selected: number[];
+  onItemClick: (index: number) => void;
+  className?: string;
+  isFocusBackgroundFunc?: boolean;
   backgroundColor?: string;
-}
+  disableHoverBackground?: boolean;
+};
 
 function CheckRanking({
   selections,
   selected,
   onItemClick,
   className,
-  isFocusBackgroundFunc=false,
-  backgroundColor
+  isFocusBackgroundFunc = false,
+  backgroundColor,
+  disableHoverBackground,
 }: CheckRankingType): JSX.Element {
   return (
     <CheckRankingContainer className={className}>
@@ -71,6 +91,7 @@ function CheckRanking({
               data-testid="CheckRanking-item"
               isFocusBackgroundFunc={isFocusBackgroundFunc}
               checked={selected.includes(index)}
+              disableHoverBackground={disableHoverBackground}
             >
               <CheckRankingSelectionItem
                 data-testid={`CheckRanking-${index}`}
