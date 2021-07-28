@@ -29,6 +29,7 @@ export function Single() {
       // itemWidth="100%"
       isFocusBackgroundFunc={true}
       backgroundColor={backgroundColor}
+      disableHoverBackground
     />
   );
 }
