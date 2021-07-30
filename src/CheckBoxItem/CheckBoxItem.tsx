@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 type CheckBoxItemPropsType = {
+    className?: string;
     checked: boolean;
     onClick: (checked: boolean) => void;
     backgroundColor: string;
@@ -48,9 +49,10 @@ const CheckBoxSelectionItem = styled.div<{
   }
 `
 
-function CheckBoxItem({ checked, onClick, backgroundColor }: CheckBoxItemPropsType) {
+function CheckBoxItem({ className, checked, onClick, backgroundColor }: CheckBoxItemPropsType) {
   return (
     <CheckBox
+      className={className}
       onClick={() => onClick(!checked)}
     >
       <CheckBoxSelectionItem
