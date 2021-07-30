@@ -19,8 +19,6 @@ const CheckBox = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-bottom: 7px;
-  padding: 10px 7px;
   border-radius: 3px;
 `
 
