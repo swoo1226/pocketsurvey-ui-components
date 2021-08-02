@@ -1,3 +1,7 @@
+# 0.6.6 (2021.08.02)
+- dataTable을 solid로 변경
+- 새로운 dataTable.svg 추기 
+
 # 0.6.4 (2021.07.29)
 - edit.svg 추가
 

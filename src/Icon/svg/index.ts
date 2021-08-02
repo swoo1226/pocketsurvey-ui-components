@@ -82,6 +82,7 @@ export { ReactComponent as changeChart } from "./changeChart.svg";
 export { ReactComponent as colorPalette } from "./colorPalette.svg";
 export { ReactComponent as compareData } from "./compareData.svg";
 export { ReactComponent as customizeText } from "./customizeText.svg";
+export { ReactComponent as dataTableSolid } from "./dataTableSolid.svg";
 export { ReactComponent as dataTable } from "./dataTable.svg";
 export { ReactComponent as filter } from "./filter.svg";
 export { ReactComponent as lineChart } from "./lineChart.svg";
