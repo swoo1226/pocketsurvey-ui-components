@@ -1,3 +1,6 @@
+# 0.6.61 (2021.08.03)
+- file upload 아이콘 변경
+
 # 0.6.6 (2021.08.02)
 - dataTable을 solid로 변경
 - 새로운 dataTable.svg 추기 
