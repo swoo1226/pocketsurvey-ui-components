@@ -73,7 +73,7 @@ const DropDownList = styled.div<{
     props.disable ? props.textColor ?? "#818282" : "#111111"};
   border-radius: 3px;
   padding: 8px 0;
-  max-height: ${(props) => `${props.listMaxHeight}px` ?? "200px"};
+  max-height: ${(props) => `${props.listMaxHeight ?? 200}px`};
   overflow-y: auto;
   background: #ffffff;
   margin: 7px 0px;
