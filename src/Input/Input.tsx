@@ -31,7 +31,7 @@ const InputBox = styled.div<{
       props.mode == "line"
         ? `
                 border-bottom: 1px solid #dfdedd;
-                padding: 14px;
+                padding: 7px;
     ${props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
             `
         : `
