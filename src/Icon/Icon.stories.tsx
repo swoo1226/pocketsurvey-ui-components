@@ -30,6 +30,7 @@ export function Index() {
       rotate={rotate}
       onClick={() => alert('Hello!')}
       useCursor={true}
+      hoveredColor={'red'}
     />
   )
 }
