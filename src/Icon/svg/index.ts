@@ -105,3 +105,4 @@ export { ReactComponent as fileUpload } from "./fileUpload.svg";
 export { ReactComponent as lineBar } from "./lineBar.svg";
 export { ReactComponent as kakaoChannel } from "./kakaoChannel.svg";
 export { ReactComponent as edit } from "./edit.svg";
+export { ReactComponent as sort } from "./sort.svg";

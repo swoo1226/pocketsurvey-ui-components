@@ -19,6 +19,7 @@ export type IconProps = {
   onMouseOver?: () => void
   onMouseLeave?: () => void
   useCursor?: boolean
+  hoveredColor?: string
 }
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
@@ -37,7 +38,9 @@ function Icon({
   onMouseOver,
   onMouseLeave,
   useCursor,
+  hoveredColor,
 }: IconProps): JSX.Element {
+  const [isHover, setIsHover] = React.useState<boolean>(false)
   const SVGIcon = icons[icon]
 
   return (
@@ -46,13 +49,23 @@ function Icon({
         width: `${width}px`,
         height: `${width}px`,
         transform: `rotate(${rotate}deg)`,
-        fill: color,
+        fill: isHover && hoveredColor ? hoveredColor : color,
         cursor: `${useCursor ? "pointer" : "default"}`,
       }}
       className={className}
       onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
+      onMouseOver={() => {
+        if (onMouseOver) {
+          onMouseOver()
+        }
+        setIsHover(true)
+      }}
+      onMouseLeave={() => {
+        if (onMouseLeave) {
+          onMouseLeave()
+        }
+        setIsHover(false)
+      }}
     />
   )
 }
