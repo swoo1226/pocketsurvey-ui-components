@@ -176,16 +176,30 @@ function BarHorizontalBase({
     }
   }, [resizeObject.height]);
 
+  let wrapperHeight = 0
+  if(domHeight < defaultHeight){
+    // 차트 돔 크기 < 기본 세로 지정 값 (14개 차트)
+    if(minHeight < domHeight){
+      wrapperHeight = domHeight
+    } else {
+      wrapperHeight = minHeight
+    }
+  } else {
+    wrapperHeight = defaultHeight
+  }
+
+  console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
+ 
   return (
     <EChartsWrapper
-      height={height ?? (domHeight && domHeight < defaultHeight ? domHeight: defaultHeight)}
+      height={height ?? wrapperHeight}
       ref={targetRef}
       isOverflow={isOverflow}
     >
       <EChartsReact
         style={getSizeCSS(
           width,
-          minHeight > defaultHeight ? minHeight : undefined
+          minHeight
         )}
         option={barHorizontalBaseOption({
           series,
