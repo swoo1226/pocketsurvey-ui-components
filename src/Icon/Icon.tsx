@@ -40,7 +40,7 @@ function Icon({
   useCursor,
   hoveredColor,
 }: IconProps): JSX.Element {
-  const [isHover, setIsHover] = React.useState<boolean>(false);
+  const [isHover, setIsHover] = React.useState<boolean>(false)
   const SVGIcon = icons[icon]
 
   return (
