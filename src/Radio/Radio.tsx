@@ -5,6 +5,7 @@ const RadioContainer = styled.div``
 const RadioList = styled.div``
 const RadioItem = styled.div<{
   itemWidth?: string;
+  disabled?:boolean;
   isFocusBackgroundFunc: boolean;
   checked: boolean;
   disableHoverBackground?: boolean;
@@ -23,9 +24,11 @@ const RadioItem = styled.div<{
   }
   `}
   ${(props) =>
-    props.isFocusBackgroundFunc && props.checked
+    props.isFocusBackgroundFunc && props.checked 
       ? "background-color: #F0F0F0;"
       : ""}
+${(props)=> props.disabled? "background-color: #F0F0F0;":""}
+
   border-radius: 3px;
 `
 const RadioSelectionLabel = styled.label`
@@ -120,6 +123,7 @@ function Radio({
             <RadioItem
               disableHoverBackground={disableHoverBackground}
               onClick={() => onItemClickWrapper(index)}
+              disabled={disabled && item.label === disableValue}
               key={index}
               data-testid={`radio-item-${index}`}
               itemWidth={itemWidth}

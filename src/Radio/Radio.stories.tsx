@@ -27,6 +27,7 @@ export function Single() {
       selections={selections}
       selected={selected}
       disabled={disabled}
+      disableValue={"baNaNa"}
       onItemClick={(index: number | null) =>
         index === null ? setSelected("") : setSelected(selections[index].label)
       }
