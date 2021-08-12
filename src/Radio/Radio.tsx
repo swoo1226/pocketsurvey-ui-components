@@ -69,8 +69,10 @@ export type RadioType = {
   name: string;
   selections: {
     label: string;
+
   }[];
   selected: string | null;
+  disableValue?:string,
   onItemClick: (index: number | null) => void;
   className?: string;
   disabled?: boolean;
@@ -83,16 +85,20 @@ export type RadioType = {
 function Radio({
   selections,
   selected,
+  disableValue,
   onItemClick,
   className,
   disabled,
   itemWidth,
   isFocusBackgroundFunc = false,
   backgroundColor,
-  disableHoverBackground,
+  disableHoverBackground
 }: RadioType): JSX.Element {
   const onItemClickWrapper = (index: number) => {
-    if (disabled) return
+    if (disabled) {
+      if (!disableValue) return // 없으면 전부 선택 불가능
+      if (disableValue && selections[index].label === disableValue) return
+    }
     const prev: number | null = selected
       ? selections.map((item) => item.label).indexOf(selected)
       : null
@@ -122,7 +128,13 @@ function Radio({
             >
               <RadioSelectionItem
                 checked={selected === item.label ? "checked" : "notChecked"}
-                disabled={disabled}
+                disabled={
+                  disabled
+                    ? disableValue
+                      ? item.label === disableValue
+                      : true
+                    : false
+                }
                 data-testid={`radio-selection-item-${index}`}
                 backgroundColor={backgroundColor}
               />

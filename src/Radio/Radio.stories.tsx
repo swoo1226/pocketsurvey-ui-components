@@ -13,10 +13,14 @@ export default {
 export function Single() {
   const [selected, setSelected] = useState<string>("apple"); // const selected = text("selected", "apple");
   const name = text("name", "radio-1");
-  const disabled = boolean("disabled", false);
-  const selections = [{ label: "apple" }, { label: "mango" }];
+  const disabled = boolean("disabled", true);
+  const selections = [
+    { label: "apple" },
+    { label: "mango" },
+    { label: "baNaNa" },
+  ];
 
-  const backgroundColor = text("backgroundColor", "#FAC62D")
+  const backgroundColor = text("backgroundColor", "#FAC62D");
   return (
     <Radio
       name={name}
@@ -26,7 +30,7 @@ export function Single() {
       onItemClick={(index: number | null) =>
         index === null ? setSelected("") : setSelected(selections[index].label)
       }
-      // itemWidth="100%"
+      // disableValue="apple"
       isFocusBackgroundFunc={true}
       backgroundColor={backgroundColor}
       disableHoverBackground
@@ -40,7 +44,6 @@ export function Multiple() {
 
   const radio2Selected = text("radio2Selected", "포도");
   const radio2Name = text("radio2Name", "radio-2");
-
 
   return (
     <div>
