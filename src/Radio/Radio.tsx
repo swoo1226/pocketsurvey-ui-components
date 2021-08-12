@@ -69,8 +69,10 @@ export type RadioType = {
   name: string;
   selections: {
     label: string;
+
   }[];
   selected: string | null;
+  disableValue?:string,
   onItemClick: (index: number | null) => void;
   className?: string;
   disabled?: boolean;
@@ -83,6 +85,7 @@ export type RadioType = {
 function Radio({
   selections,
   selected,
+  disableValue,
   onItemClick,
   className,
   disabled,
@@ -122,7 +125,7 @@ function Radio({
             >
               <RadioSelectionItem
                 checked={selected === item.label ? "checked" : "notChecked"}
-                disabled={disabled}
+                disabled={disableValue === item.label ? true:false}
                 data-testid={`radio-selection-item-${index}`}
                 backgroundColor={backgroundColor}
               />
