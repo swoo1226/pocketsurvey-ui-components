@@ -92,10 +92,13 @@ function Radio({
   itemWidth,
   isFocusBackgroundFunc = false,
   backgroundColor,
-  disableHoverBackground,
+  disableHoverBackground
 }: RadioType): JSX.Element {
   const onItemClickWrapper = (index: number) => {
-    if (disabled) return
+    if (disabled) {
+      if (!disableValue) return // 없으면 전부 선택 불가능
+      if (disableValue && selections[index].label === disableValue) return
+    }
     const prev: number | null = selected
       ? selections.map((item) => item.label).indexOf(selected)
       : null
@@ -125,7 +128,13 @@ function Radio({
             >
               <RadioSelectionItem
                 checked={selected === item.label ? "checked" : "notChecked"}
-                disabled={disableValue === item.label}
+                disabled={
+                  disabled
+                    ? disableValue
+                      ? item.label === disableValue
+                      : true
+                    : false
+                }
                 data-testid={`radio-selection-item-${index}`}
                 backgroundColor={backgroundColor}
               />
