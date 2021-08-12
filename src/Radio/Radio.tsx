@@ -125,7 +125,7 @@ function Radio({
             >
               <RadioSelectionItem
                 checked={selected === item.label ? "checked" : "notChecked"}
-                disabled={disableValue === item.label ? true:false}
+                disabled={disableValue === item.label}
                 data-testid={`radio-selection-item-${index}`}
                 backgroundColor={backgroundColor}
               />
