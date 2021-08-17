@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { getMaxLabelWidth } from "./index"
 
 export const sumReducer = (accumulator: number, currentValue: null | number) =>
@@ -56,10 +55,9 @@ export const stackedFormatter = (
       type = "line"
     }
 
-    (type === "bar" ? barRow : lineRow).push(`<div style="display: flex; justify-content: space-between;">
-    <div style="width: ${
-  Math.ceil(maxLabelWidth) + 10
-}px; text-align: left;">
+    (type === "bar" ? barRow : lineRow)
+      .push(`<div style="display: flex; justify-content: space-between;">
+    <div style="width: ${Math.ceil(maxLabelWidth) + 10}px; text-align: left;">
       ${param.marker}
       <span>${param.seriesName}</span>
     </div>
@@ -80,23 +78,20 @@ export const piePercentageFormatter = (
     data: {
       id: number;
       value: number | null;
+      name: string;
     };
     marker: string;
   },
-  seriesSum: number,
-  label:{
-    id:number, 
-    value: string,
-  }[],
+  seriesSum: number
 ): string => {
   const percentValue = params.data.value
     ? (params.data.value / seriesSum) * 100
     : 0
   const percent = params.data.value ? `${percentValue.toFixed(2)}%` : "0%"
-  const index = _.findIndex(label, function(o) { return o.id == params.data.id})  
+
   return `
   <div style="text-align: left;">
-  ${params.marker} ${label[index].value} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${params.data.value} (${percent})</p>
+  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${params.data.value} (${percent})</p>
     </div>
     `
 }
