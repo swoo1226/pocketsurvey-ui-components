@@ -106,12 +106,14 @@ type ModalType = {
   disabled? : boolean
   isLoading? : boolean
   cancelDisabled?: boolean
+  cancelButtonName?: string
 }
 
 function Modal({
   children,
   title,
   buttonName,
+  cancelButtonName = "취소",
   onClick,
   onCancel,
   hasBorderTop,
@@ -144,7 +146,7 @@ function Modal({
           <ModalBottomButtonContainer>
             {
               useCancelButton && (
-                <Button theme='cancel' disabled={cancelDisabled === undefined ? false : cancelDisabled} onClick={() => onCancel()}>취소</Button>
+                <Button theme='cancel' disabled={cancelDisabled === undefined ? false : cancelDisabled} onClick={() => onCancel()}>{cancelButtonName}</Button>
               )
             }
             <Button theme='primary' disabled={disabled} backgroundColor={disabled ? "#DFDEDD": buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
