@@ -28,6 +28,7 @@ const RadioItem = styled.div<{
       ? "background-color: #F0F0F0;"
       : ""}
 ${(props)=> props.disabled? "background-color: #F0F0F0;":""}
+${(props)=> props.disabled? "color: #818282;":""}
 
   border-radius: 3px;
 `
