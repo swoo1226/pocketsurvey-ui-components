@@ -4,6 +4,10 @@
 
 # 0.6.73 (2021.08.12)
 
+- radio버튼 특정 item만 disabled 됐을 때 background변하게 수정
+
+# 0.6.73 (2021.08.12)
+
 - radio버튼 특정 item만 disabled되는 로직 추가
 
 # 0.6.72 (2021.08.10)
