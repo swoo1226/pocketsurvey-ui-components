@@ -2,7 +2,7 @@
 
 - 모달 취소 버튼 네이밍 커스텀 가능하도록 cancelButtonName props 추가
 
-# 0.6.73 (2021.08.12)
+# 0.6.74 (2021.08.12)
 
 - radio버튼 특정 item만 disabled 됐을 때 background변하게 수정
 
