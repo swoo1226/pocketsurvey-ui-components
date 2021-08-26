@@ -98,7 +98,7 @@ export function BarVerticalBase() {
         "지인 소개",
         "뉴스기사",
       ]}
-      series={[74, 24, 5, 0, 23, 5, 2]}
+      series={[60.1341234, 24.23423132123, 5.1235545209, 0, 23, 5, 2]}
       override={{
         series: [
           {
