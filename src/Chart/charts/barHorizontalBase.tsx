@@ -155,29 +155,51 @@ function BarHorizontalBase({
   labelOption = "dynamic"
 }: BarHorizontalBasePropsType): JSX.Element {
   const targetRef = useRef<HTMLDivElement>(null);
+  const [domHeight, setDomHeight] = useState<number>(0)
   const [isOverflow, setIsOverflow] = useState<boolean>(false);
   const sizeValue = 26;
   const marginBetweenBar = 10;
   const minHeight = sizeValue * series.length + 120 + marginBetweenBar * series.length;
   // 120: 60 top padding + 60 bottom padding, marginBetweenBar: 바 차트 사이의 간격
-  const defaultHeight = 300;
+  const defaultHeight = 560; //14개의 요소는 스크롤 없이 보여주도록 수정 
 
   const resizeObject = useResizeDetector({ targetRef });
 
   useEffect(() => {
-    if (resizeObject.height) setIsOverflow(resizeObject.height < minHeight);
+    if (resizeObject.height){
+      setIsOverflow(resizeObject.height < minHeight);
+      const chartElemet = targetRef?.current?.querySelector(".echarts-for-react") ?? null
+      if(chartElemet){
+        const px = parseInt(getComputedStyle(chartElemet).height.replace("px",""),10)
+        setDomHeight(px)
+      }
+    }
   }, [resizeObject.height]);
 
+  let wrapperHeight = 0
+  if(domHeight < defaultHeight){
+    // 차트 돔 크기 < 기본 세로 지정 값 (14개 차트)
+    if(minHeight < domHeight){
+      wrapperHeight = domHeight
+    } else {
+      wrapperHeight = minHeight
+    }
+  } else {
+    wrapperHeight = defaultHeight
+  }
+
+  console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
+ 
   return (
     <EChartsWrapper
-      height={height ?? defaultHeight}
+      height={height ?? wrapperHeight}
       ref={targetRef}
       isOverflow={isOverflow}
     >
       <EChartsReact
         style={getSizeCSS(
           width,
-          minHeight > defaultHeight ? minHeight : undefined
+          minHeight
         )}
         option={barHorizontalBaseOption({
           series,

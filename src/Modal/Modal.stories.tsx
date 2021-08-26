@@ -29,6 +29,7 @@ export function MassiveUpload() {
         onCancel={() => alert('닫기')}
         buttonColor="#5875ad"
         disabled={true}
+        cancelButtonName={'닫으시오'}
         // isLoading={true}
       >
         <div>
