@@ -1,3 +1,19 @@
+# 0.6.82 (2021.08.25)
+
+- barVerticalBase 차트에서 표시할 점수를 소수점 둘째자리까지로 한정
+
+# 0.6.81 (2021.08.24)
+
+- 버튼에 ref 넘길 수 있도록 props 추가
+
+# 0.6.8 (2021.08.18)
+
+- 모달 취소 버튼 네이밍 커스텀 가능하도록 cancelButtonName props 추가
+
+# 0.6.74 (2021.08.12)
+
+- radio버튼 특정 item만 disabled 됐을 때 background변하게 수정
+
 # 0.6.73 (2021.08.12)
 
 - radio버튼 특정 item만 disabled되는 로직 추가
