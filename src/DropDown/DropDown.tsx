@@ -200,9 +200,9 @@ function DropDown({
       >
         <DropDownBox
           onClick={() => {
-    
-            setIsShowList(!isShowList)
- 
+            if(!disable){
+              setIsShowList(!isShowList)
+            }
           }}
           disable={disable}
           themeColor={themeColor.mainColor}
