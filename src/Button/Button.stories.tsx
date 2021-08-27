@@ -21,9 +21,6 @@ export function Index(): JSX.Element {
   const [isSpinner, setIsSpinner] = useState<boolean>(true);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    console.log("buttonRef:", buttonRef?.current);
-  }, [buttonRef]);
 
   return (
     <>
@@ -35,7 +32,6 @@ export function Index(): JSX.Element {
           setIsSpinner(!isSpinner);
         }}
         isLoading={isSpinner}
-        buttonRef={buttonRef}
       >
         벝흔
       </Button>

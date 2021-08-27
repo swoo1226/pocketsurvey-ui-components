@@ -77,7 +77,7 @@ export type ButtonType = {
   className?: string;
   backgroundColor?: string;
   isLoading?: boolean;
-  buttonRef?: React.RefObject<HTMLDivElement>;
+  buttonRef?: React.RefObject<HTMLDivElement> | React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 };
 
 function Button({
