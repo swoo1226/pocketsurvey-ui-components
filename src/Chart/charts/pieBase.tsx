@@ -181,7 +181,7 @@ const PieBaseOption = ({
         show: showLabel === undefined ? true : showLabel,
         color: "#0e0c0c",
         position: "outside",
-        alignTo: "edge",
+        alignTo: "labelLine",
         margin: 20,
         edgeDistance: "25%",
         formatter: function (d) {
