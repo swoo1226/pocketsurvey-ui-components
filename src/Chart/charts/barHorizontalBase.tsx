@@ -11,6 +11,7 @@ import {
 import styled from "styled-components";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import { scrollBar } from "../style"
+import {ellipsisBarChartData} from "../util/chartData"
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -190,6 +191,7 @@ function BarHorizontalBase({
 
   console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
  
+  const chartData = ellipsisBarChartData(series, labels)
   return (
     <EChartsWrapper
       height={height ?? wrapperHeight}
@@ -202,8 +204,8 @@ function BarHorizontalBase({
           minHeight
         )}
         option={barHorizontalBaseOption({
-          series,
-          labels,
+          series: chartData.series,
+          labels: chartData.labels,
           override,
           align,
           labelOption,
