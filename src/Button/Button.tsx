@@ -3,22 +3,34 @@ import styled from "styled-components"
 import loadingSpinner from "../Icon/svg/loadingSpinner.svg"
 
 const ButtonContainer = styled.div<{
-  backgroundColor: string
-  hoverBackgroundColor: string
-  disabled: boolean
-  isLoading?: boolean
+  backgroundColor: string;
+  hoverBackgroundColor: string;
+  disabled: boolean;
+  isLoading?: boolean;
 }>`
   width: fit-content;
   padding: 14px 28px;
-  background-color: ${props =>
-    props.disabled ? "#dfdedd" : props.isLoading ? "#FEF4CE" : props.backgroundColor};
-  color: ${props =>
-    props.disabled ? "#818282" : props.hoverBackgroundColor === "#F0F0F0" ? "#818282": "#111111"};
+  background-color: ${(props) =>
+    props.disabled
+      ? "#dfdedd"
+      : props.isLoading
+        ? "#FEF4CE"
+        : props.backgroundColor};
+  color: ${(props) =>
+    props.disabled
+      ? "#818282"
+      : props.hoverBackgroundColor === "#F0F0F0"
+        ? "#818282"
+        : "#111111"};
   border-radius: 3px;
-  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   &:hover {
-    background-color: ${props =>
-    props.disabled ? "#dfdedd" : props.isLoading ? "#FEF4CE" : props.hoverBackgroundColor};
+    background-color: ${(props) =>
+    props.disabled
+      ? "#dfdedd"
+      : props.isLoading
+        ? "#FEF4CE"
+        : props.hoverBackgroundColor};
   }
   .loadingSpinner {
     position: relative;
@@ -54,18 +66,19 @@ const ButtonContainer = styled.div<{
   }
 `
 
-type SizeType = "small" | "medium" | "big"
-type ThemeType = "primary" | "secondary" | "tertiary" | "cancel"
+type SizeType = "small" | "medium" | "big";
+type ThemeType = "primary" | "secondary" | "tertiary" | "cancel";
 
 export type ButtonType = {
-  children: React.ReactNode
-  onClick: () => void
-  theme: ThemeType
-  disabled: boolean
-  className?: string
-  backgroundColor?: string
-  isLoading?: boolean
-}
+  children: React.ReactNode;
+  onClick: () => void;
+  theme: ThemeType;
+  disabled: boolean;
+  className?: string;
+  backgroundColor?: string;
+  isLoading?: boolean;
+  buttonRef?: React.RefObject<HTMLDivElement> | React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
+};
 
 function Button({
   children,
@@ -75,12 +88,13 @@ function Button({
   className,
   backgroundColor,
   isLoading,
+  buttonRef,
 }: ButtonType): JSX.Element {
   function switchTheme(): {
-    innerBackgroundColor: string
-    innerHoverBackgroundColor: string
+    innerBackgroundColor: string;
+    innerHoverBackgroundColor: string;
     } {
-    if(backgroundColor){
+    if (backgroundColor) {
       return {
         innerBackgroundColor: backgroundColor,
         innerHoverBackgroundColor: backgroundColor,
@@ -125,13 +139,15 @@ function Button({
       disabled={disabled}
       className={className}
       isLoading={isLoading}
+      ref={buttonRef}
     >
-      {
-        !disabled && isLoading ? (<div className="loadingSpinner">
+      {!disabled && isLoading ? (
+        <div className="loadingSpinner">
           <img alt="loading" src={loadingSpinner} />
-        </div>) : 
-          (children)
-      }
+        </div>
+      ) : (
+        children
+      )}
     </ButtonContainer>
   )
 }

@@ -1,3 +1,4 @@
+
 /* eslint-disable semi */
 export { ReactComponent as chartLine } from "./100Chartline.svg";
 export { ReactComponent as arrow } from "./arrow.svg";
@@ -106,3 +107,7 @@ export { ReactComponent as lineBar } from "./lineBar.svg";
 export { ReactComponent as kakaoChannel } from "./kakaoChannel.svg";
 export { ReactComponent as edit } from "./edit.svg";
 export { ReactComponent as sort } from "./sort.svg";
+export { ReactComponent as duplicate } from "./duplicate.svg";
+export {ReactComponent as duplicateSandbox} from "./duplicate_sandbox.svg"
+export {ReactComponent as delete} from "./delete.svg"
+
