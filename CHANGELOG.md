@@ -1,3 +1,7 @@
+# 0.6.89 (2021.8.31)
+
+- pie chart에 label alignTo를 edge에서 labelLine으로 변경
+
 # 0.6.88 (2021.08.27)
 
 - 복제(sandbox 용), 삭제 icon export 문 추가
