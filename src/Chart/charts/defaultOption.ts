@@ -1,6 +1,6 @@
 import { EChartsOption } from "echarts"
 
-const option:EChartsOption = {
+const option: EChartsOption = {
   xAxis: {
     axisLabel: {
       color: "#333",
@@ -13,7 +13,7 @@ const option:EChartsOption = {
     axisTick: {
       show: false,
     },
-    show: true
+    show: true,
   },
   yAxis: {
     axisLabel: {
@@ -27,9 +27,11 @@ const option:EChartsOption = {
     axisTick: {
       show: false,
     },
-    show: true
+    show: true,
+  },
+  textStyle: {
+    fontFamily: "Spoqa Han Sans Neo",
   },
 }
- 
 
 export default option
