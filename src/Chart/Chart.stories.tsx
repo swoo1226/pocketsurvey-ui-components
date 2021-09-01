@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { withKnobs, boolean, number, select, color } from "@storybook/addon-knobs";
-import DropDown from '../DropDown/DropDown'
+import {
+  withKnobs,
+  boolean,
+  number,
+  select,
+  color,
+} from "@storybook/addon-knobs";
+import DropDown from "../DropDown/DropDown";
 import Chart from "./Chart";
 import { Meta } from "@storybook/react/types-6-0";
 
@@ -43,7 +49,7 @@ export function BarVerticalSeparated() {
   );
 }
 
-export function BarHorizontalBase() { 
+export function BarHorizontalBase() {
   const [selected, setSelected] = useState(0);
   const alignment = [null, "descend", "ascend"];
   const disabled = boolean("disabled", false);
@@ -141,16 +147,38 @@ export function LineBase() {
 
 export function PieBase() {
   const showLabel = boolean("showLabel", true);
+
+  const mockData = [
+    ["가나다라마가나다라마가나다라마가나다라마가", 10],
+    ["B", 20],
+    ["C", 11],
+    ["D", 13],
+    ["E", 2],
+    ["F", 5],
+    ["G", 7],
+    ["H", 8],
+    ["I", 1],
+    ["J", 3],
+    ["K", 4],
+  ];
+
   return (
     <>
       <Chart.PieBase
-        labels={["선택지1", "선택지2"]}
-        series={[10, 50]}
+        labels={mockData.map((mock) => mock[0]) as string[]}
+        series={mockData.map((mock) => mock[1]) as number[]}
         showLabel={showLabel}
-        labelOption={'fixed'}
+        labelOption={"fixed"}
       />
       <Chart.PieBase
-        labels={["선택지1", "선택지2", "선택지3", "선택지4", "선택지5", "선택지6"]}
+        labels={[
+          "선택지1",
+          "선택지2",
+          "선택지3",
+          "선택지4",
+          "선택지5",
+          "선택지6",
+        ]}
         series={[60, 0, 280, 439, 30.2, 4092]}
         showLabel={showLabel}
       />
@@ -171,29 +199,28 @@ export function PieBase() {
 export function Bubble() {
   return (
     <>
-      <Chart.Bubble
-      width={700}
-      height={400}
-      />
+      <Chart.Bubble width={700} height={400} />
     </>
   );
 }
 
 export function BarNegative() {
-  const [selected, setSelected] = useState(0)
-  const means = [40, 27, 15]
+  const [selected, setSelected] = useState(0);
+  const means = [40, 27, 15];
   const disabled = boolean("disabled", false);
   const mainColor = color("bold color", "#FAC62D");
   const subColor = color("light color", "#fef4ce");
-  const [mean, setMean] = useState(means[0])
-  useEffect(()=>{setMean(means[selected])},[selected])
+  const [mean, setMean] = useState(means[0]);
+  useEffect(() => {
+    setMean(means[selected]);
+  }, [selected]);
   return (
     <>
       <DropDown
         list={[
-          {selectionName: "전체 평균"},
-          { selectionName: "Q3"},
-          { selectionName: "Q6"},
+          { selectionName: "전체 평균" },
+          { selectionName: "Q3" },
+          { selectionName: "Q6" },
         ]}
         selected={selected}
         disable={disabled}
