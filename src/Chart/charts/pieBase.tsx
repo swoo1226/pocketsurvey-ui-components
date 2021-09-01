@@ -5,7 +5,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColors } from "../util";
 import { piePercentageFormatter, sumReducer } from "../util/tooltip";
-import { ellipsisPieChartData } from "../util/chartData";
+import { ellipsisPieChartData, zipChartData } from "../util/chartData";
 
 type PieBaseOptionPropsType = {
   series: number[];
@@ -26,7 +26,7 @@ const PieBaseOption = ({
   // 슬라이스를 최대 6개 까지 제한하고, 나머지는 그 외 로 처리한다.
   const processedData = ellipsisPieChartData(series, labels);
 
-  console.log("processedData", processedData)
+  console.log("processedData", processedData);
   const option: EChartsOption = {};
 
   option.center = ["50%", "50%"];
@@ -58,9 +58,12 @@ const PieBaseOption = ({
   };
 
   // 그 외 가 아닌 데이터 중 가장 큰 데이터의 인덱스를 구한다.
-  const hasOther = processedData.labels.indexOf("그 외")
-  
-  const seriesWithoutOther = hasOther === -1 ? processedData.series : processedData.series.filter((_,index) => index !== hasOther)
+  const hasOther = processedData.labels.indexOf("그 외");
+
+  const seriesWithoutOther =
+    hasOther === -1
+      ? processedData.series
+      : processedData.series.filter((_, index) => index !== hasOther);
   const maxSeries = Math.max.apply(null, seriesWithoutOther);
   const maxIndex = seriesWithoutOther.indexOf(maxSeries);
 
@@ -72,7 +75,12 @@ const PieBaseOption = ({
       bottom: "5%",
       height: "90%",
       radius: "85%",
-      data: { value: processedData.series, name: processedData.labels },
+      data: zipChartData(processedData.series, processedData.labels).map((item)=>{
+        return {
+          value: item.series,
+          name: item.label
+        }
+      }),
       label: {
         show: showLabel === undefined ? true : showLabel,
         color: "#0e0c0c",
@@ -106,7 +114,6 @@ type PieBasePropsType = {
   width?: number | string;
   height?: number | string;
 } & PieBaseOptionPropsType;
-
 
 function PieBase({
   series,
