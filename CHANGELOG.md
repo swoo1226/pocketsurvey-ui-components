@@ -1,4 +1,8 @@
-# 0.6.89 (2021.8.31)
+# 0.6.90 (2021.09.01)
+
+- 복제(sandbox 용) icon 변경(아이콘 명 blockDuplicate)
+
+# 0.6.89 (2021.08.31)
 
 - pie chart에 label alignTo를 edge에서 labelLine으로 변경
 
