@@ -85,14 +85,6 @@ const compressedSeries = (series: number[][], label: string[]) => {
 } 
 
 const getSeries = (isHundredPercent: boolean, series: number[][], label: string[], colors: string[]) => {
-  const rawData = series.map((_, colIndex) => series.map(row => row[colIndex]))
-  const dataLength = rawData[0].length;
-
-  if (dataLength > 6) {
-    series = compressedSeries(rawData, label)
-    label = [...label, "그 외"]
-  }
-  
   series = isHundredPercent ? seriesToPercentArray(series) : series;
   const seriesData: {
     data: number[];
@@ -134,8 +126,17 @@ const barVerticalSeparatedOption = ({
   const option: EChartsOption = {};
   const colors = getColors.barStacked(series.length);
   const percentSeries = seriesToPercentArray(series);
+  
+  const rawData = series.map((_, colIndex) => series.map(row => row[colIndex]))
+  const dataLength = rawData[0].length;
+
+  if (dataLength > 6) {
+    series = compressedSeries(rawData, label)
+    label = [...label, "그 외"]
+  }
 
   option.yAxis = { type: "value", show: true };
+
 
   option.series = getSeries(
     hundredPercent?.series ? true : false,
