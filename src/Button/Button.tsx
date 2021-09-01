@@ -67,7 +67,7 @@ const ButtonContainer = styled.div<{
 `
 
 type SizeType = "small" | "medium" | "big";
-type ThemeType = "primary" | "secondary" | "tertiary" | "cancel";
+type ThemeType = "primary" | "secondary" | "tertiary" | "cancel" | "selectAll" | "emptyArr";
 
 export type ButtonType = {
   children: React.ReactNode;
@@ -121,6 +121,17 @@ function Button({
         innerBackgroundColor: "#FFFFFF",
         innerHoverBackgroundColor: "#F0F0F0",
       }
+    case "selectAll":
+      return {
+        innerBackgroundColor: "#F0F0F0",
+        innerHoverBackgroundColor: "#DFDEDD",
+      }
+    case "emptyArr":
+      return {
+        innerBackgroundColor: "#818282",
+        innerHoverBackgroundColor: "#818282",
+      }
+
     default:
       return {
         innerBackgroundColor: "#FAC62D",
