@@ -40,7 +40,7 @@ const getSeries = (series: number[][], label: string[], colors: string[]) => {
 
   for (let i = 0; i < series.length; i++) {
     seriesData.push({
-      data: series[i],
+      data: series[i].map((item) => +item.toFixed(1)),
       type: "bar",
       name: label[i],
       color: colors[i],
