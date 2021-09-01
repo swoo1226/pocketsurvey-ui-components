@@ -86,7 +86,7 @@ export function BarHorizontalBase() {
           "지인 소개",
           "뉴스기사",
         ]}
-        series={[74, 24, 5, 0, 23, 5, 2]}
+        series={[74, 24, 5, 1, 23, 5, 2]}
         align={align}
       />
     </>
