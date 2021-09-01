@@ -25,8 +25,6 @@ const PieBaseOption = ({
   const dataLength = series.length;
   // 슬라이스를 최대 6개 까지 제한하고, 나머지는 그 외 로 처리한다.
   const processedData = ellipsisPieChartData(series, labels);
-
-  console.log("processedData", processedData);
   const option: EChartsOption = {};
 
   option.center = ["50%", "50%"];

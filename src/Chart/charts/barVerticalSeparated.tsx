@@ -13,6 +13,7 @@ import { stackedFormatter } from "../util/tooltip";
 import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
 import styled from "styled-components";
 import { scrollBar } from "../style"
+import { ellipsisPieChartData, zipChartData } from "../util/chartData";
 
 type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
@@ -27,46 +28,71 @@ type BarVerticalSeparatedOptionPropsType = {
   labelOption?: "fixed" | "dynamic";
 };
 
-const compressedSeries = (series: number[][]) => {
-  const sortedRawData = series.map((item,index) => item.sort((a, b) => b - a));
-  const sumOfSeriesArr = series.map((item, index) => item.reduce((acc, cur) => acc + cur, 0))
-
+const compressedSeries = (series: number[][], label: string[]) => {
   const compressSeriesArr: any[] = [];
-  for (let i = 0; i < sortedRawData.length; i+=1) {
-    let sumOther = 0;
-    let lastIndex = 0;
-
-    for (let j = sortedRawData[i].length - 1; j >= 0; j -= 1) {
-      sumOther += sortedRawData[i][j];
-      if (sumOther > sumOfSeriesArr[i] / 10) {
-        break;
+  const labelIndexMap = new Map<string, number>()
+  label.forEach((item, index)=> {
+    labelIndexMap.set(item, index)
+  })
+  
+  for (let i = 0; i < series.length; i+=1) {
+    const compressSeries = Array.from({length: label.length+1}).fill(0);
+    const ellipsisChartData: any = ellipsisPieChartData(series[i], label)
+    for (let j = 0; j < ellipsisChartData.labels.length; j+=1) {
+      const labelIndex = labelIndexMap.get(ellipsisChartData.labels[j])
+      if (labelIndex !== undefined) {
+        compressSeries[labelIndex] = ellipsisChartData.series[j]
+      } else {
+        compressSeries[compressSeries.length - 1] = ellipsisChartData.series[j]
       }
-      lastIndex = j;
     }
 
+    compressSeriesArr.push(compressSeries)
+    // const sortedRawData = series.map((item,index) => item.sort((a, b) => b - a));
+    // const sumOfSeriesArr = series.map((item, index) => item.reduce((acc, cur) => acc + cur, 0))
+
+    // let sumOther = 0;
+    // let lastIndex = 0;
+
+    // for (let j = sortedRawData[i].length - 1; j >= 0; j -= 1) {
+    //   sumOther += sortedRawData[i][j];
+    //   if (sumOther > sumOfSeriesArr[i] / 10) {
+    //     break;
+    //   }
+    //   lastIndex = j;
+    // }
+
     
-    if (lastIndex >= 6) {
-      lastIndex = 5;
-    }
+    // if (lastIndex >= 6) {
+    //   lastIndex = 5;
+    // }
     
-    compressSeriesArr.push([...sortedRawData[i].slice(0, lastIndex),
-      sortedRawData[i]
-        .slice(lastIndex)
-        .reduce((acc, cur) => acc + cur, 0), 
-    ])
+    // compressSeriesArr.push([...sortedRawData[i].slice(0, lastIndex),
+    //   sortedRawData[i]
+    //     .slice(lastIndex)
+    //     .reduce((acc, cur) => acc + cur, 0), 
+    // ])
   }
-  return compressSeriesArr;
+  // console.log("compressSeriesArr", compressSeriesArr)
+
+  const arr2D = Array(series.length+1).fill(0).map(x => Array(series[0].length).fill(0))
+  for (let i = 0; i < compressSeriesArr.length; i+= 1) {
+    for (let j =0; j <compressSeriesArr[i].length; j+= 1){
+      arr2D[j][i] = compressSeriesArr[i][j]
+    }
+  }
+  return arr2D;
 } 
 
 const getSeries = (isHundredPercent: boolean, series: number[][], label: string[], colors: string[]) => {
   const rawData = series.map((_, colIndex) => series.map(row => row[colIndex]))
   const dataLength = rawData[0].length;
-  
-  if (dataLength > 6) {
-    const test = compressedSeries(rawData)
-    console.log("test", test)
-  }
 
+  if (dataLength > 6) {
+    series = compressedSeries(rawData, label)
+    label = [...label, "그 외"]
+  }
+  
   series = isHundredPercent ? seriesToPercentArray(series) : series;
   const seriesData: {
     data: number[];
@@ -80,7 +106,8 @@ const getSeries = (isHundredPercent: boolean, series: number[][], label: string[
 
   for (let i = 0; i < series.length; i++) {
     seriesData.push({
-      data: series[i].map((item) => +item.toFixed(1)),
+      // data: series[i].map((item) => item && +item.toFixed(1)),
+      data: series[i].map((item) => item && +item.toFixed(1)),
       type: "bar",
       name: label[i],
       color: colors[i],
@@ -109,12 +136,6 @@ const barVerticalSeparatedOption = ({
   const percentSeries = seriesToPercentArray(series);
 
   option.yAxis = { type: "value", show: true };
-
-  // option.series = getSeries(
-  //   hundredPercent?.series === true ? percentSeries : series,
-  //   label,
-  //   colors
-  // ) as EChartsOption["series"];
 
   option.series = getSeries(
     hundredPercent?.series ? true : false,
