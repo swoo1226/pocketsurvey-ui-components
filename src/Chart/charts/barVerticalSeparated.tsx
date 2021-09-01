@@ -106,12 +106,12 @@ const barVerticalSeparatedOption = ({
 
   option.legend = {
     orient: "horizontal",
-    x: "center",
-    y: "bottom",
+    left: "left",
+    width: "10%",
   };
 
   option.grid = {
-    left: "100px",
+    left: "15%",
     right: "100px",
   };
 
