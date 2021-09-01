@@ -27,7 +27,47 @@ type BarVerticalSeparatedOptionPropsType = {
   labelOption?: "fixed" | "dynamic";
 };
 
-const getSeries = (series: number[][], label: string[], colors: string[]) => {
+const compressedSeries = (series: number[][]) => {
+  const sortedRawData = series.map((item,index) => item.sort((a, b) => b - a));
+  const sumOfSeriesArr = series.map((item, index) => item.reduce((acc, cur) => acc + cur, 0))
+
+  const compressSeriesArr: any[] = [];
+  for (let i = 0; i < sortedRawData.length; i+=1) {
+    let sumOther = 0;
+    let lastIndex = 0;
+
+    for (let j = sortedRawData[i].length - 1; j >= 0; j -= 1) {
+      sumOther += sortedRawData[i][j];
+      if (sumOther > sumOfSeriesArr[i] / 10) {
+        break;
+      }
+      lastIndex = j;
+    }
+
+    
+    if (lastIndex >= 6) {
+      lastIndex = 5;
+    }
+    
+    compressSeriesArr.push([...sortedRawData[i].slice(0, lastIndex),
+      sortedRawData[i]
+        .slice(lastIndex)
+        .reduce((acc, cur) => acc + cur, 0), 
+    ])
+  }
+  return compressSeriesArr;
+} 
+
+const getSeries = (isHundredPercent: boolean, series: number[][], label: string[], colors: string[]) => {
+  const rawData = series.map((_, colIndex) => series.map(row => row[colIndex]))
+  const dataLength = rawData[0].length;
+  
+  if (dataLength > 6) {
+    const test = compressedSeries(rawData)
+    console.log("test", test)
+  }
+
+  series = isHundredPercent ? seriesToPercentArray(series) : series;
   const seriesData: {
     data: number[];
     type: string;
@@ -70,8 +110,15 @@ const barVerticalSeparatedOption = ({
 
   option.yAxis = { type: "value", show: true };
 
+  // option.series = getSeries(
+  //   hundredPercent?.series === true ? percentSeries : series,
+  //   label,
+  //   colors
+  // ) as EChartsOption["series"];
+
   option.series = getSeries(
-    hundredPercent?.series === true ? percentSeries : series,
+    hundredPercent?.series ? true : false,
+    series, 
     label,
     colors
   ) as EChartsOption["series"];

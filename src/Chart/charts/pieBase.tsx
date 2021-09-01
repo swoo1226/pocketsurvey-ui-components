@@ -5,6 +5,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, getColors } from "../util";
 import { piePercentageFormatter, sumReducer } from "../util/tooltip";
+import { ellipsisPieChartData } from "../util/chartData";
 
 type PieBaseOptionPropsType = {
   series: number[];
@@ -23,8 +24,9 @@ const PieBaseOption = ({
 }: PieBaseOptionPropsType) => {
   const dataLength = series.length;
   // 슬라이스를 최대 6개 까지 제한하고, 나머지는 그 외 로 처리한다.
-  const processedData = getPieData(series, labels);
+  const processedData = ellipsisPieChartData(series, labels);
 
+  console.log("processedData", processedData)
   const option: EChartsOption = {};
 
   option.center = ["50%", "50%"];
@@ -56,9 +58,9 @@ const PieBaseOption = ({
   };
 
   // 그 외 가 아닌 데이터 중 가장 큰 데이터의 인덱스를 구한다.
-  const seriesWithoutOther = processedData
-    .filter((item) => item.label !== "그 외")
-    .map((item) => item.series);
+  const hasOther = processedData.labels.indexOf("그 외")
+  
+  const seriesWithoutOther = hasOther === -1 ? processedData.series : processedData.series.filter((_,index) => index !== hasOther)
   const maxSeries = Math.max.apply(null, seriesWithoutOther);
   const maxIndex = seriesWithoutOther.indexOf(maxSeries);
 
@@ -70,10 +72,7 @@ const PieBaseOption = ({
       bottom: "5%",
       height: "90%",
       radius: "85%",
-      data: processedData.map((item) => {
-        return { value: item.series, name: item.label };
-      }),
-
+      data: { value: processedData.series, name: processedData.labels },
       label: {
         show: showLabel === undefined ? true : showLabel,
         color: "#0e0c0c",
@@ -108,57 +107,6 @@ type PieBasePropsType = {
   height?: number | string;
 } & PieBaseOptionPropsType;
 
-const getPieData = (series: number[], labels: string[]) => {
-  const rawData: {
-    series: number;
-    label: string;
-  }[] = [];
-  const dataLength = series.length;
-  for (let i = 0; i < dataLength; i += 1) {
-    rawData.push({
-      series: series[i],
-      label: labels[i],
-    });
-  }
-
-  const sumOfSeries = series.reduce((acc, cur) => acc + cur, 0);
-
-  const sortedRawData = rawData.sort((a, b) => b.series - a.series);
-
-  if (dataLength <= 6) {
-    // 데이터의 개수가 6개 이하라서 '그 외' 를 처리할 필요가 없다.
-    return sortedRawData;
-  }
-
-  // 데이터의 개수가 많아서 최대 6개로 제한하고 나머지 데이터는 '그 외' 로 처리한다.
-  let sumOther = 0;
-  let lastIndex = 0;
-
-  // 그 외 처리 조건 1.총합 10% 이하인 데이터는 그 외로 처리한다.
-  // 내림차순 정렬 된 데이터를 마지막부터 접근하면서 그 합이 10%를 초과했을 때 인덱스를 구한다.
-  for (let i = dataLength - 1; i >= 0; i -= 1) {
-    sumOther += sortedRawData[i].series;
-    if (sumOther > sumOfSeries / 10) {
-      break;
-    }
-    lastIndex = i;
-  }
-
-  // 그 외 처리 조건 2. 1로직을 거치고 나서 데이터가 6개 초과면 6개까지로 제한한다.
-  if (lastIndex > 6) {
-    lastIndex = 5;
-  }
-
-  return [
-    ...sortedRawData.slice(0, lastIndex),
-    {
-      series: sortedRawData
-        .slice(lastIndex)
-        .reduce((acc, cur) => acc + cur.series, 0),
-      label: "그 외",
-    },
-  ];
-};
 
 function PieBase({
   series,
