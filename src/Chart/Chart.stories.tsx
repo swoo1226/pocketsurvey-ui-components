@@ -16,7 +16,20 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
+const getRandomNumber = () => Math.ceil(Math.random() * (50 - 0) + 0);
+
 export function BarVerticalSeparated() {
+  const CHART_DATA_LENGTH = 8;
+
+  const getRandomNumberArray = (length: number) =>
+    Array(length)
+      .fill(0)
+      .map((_) => Math.ceil(Math.random() * (50 - 0) + 0));
+
+  const series = Array(CHART_DATA_LENGTH)
+    .fill(number)
+    .map((_) => getRandomNumberArray(CHART_DATA_LENGTH));
+    
   return (
     <Chart.BarVerticalSeparated
       xAxisLabel={[
@@ -30,7 +43,7 @@ export function BarVerticalSeparated() {
         [28.6, 13.2, 4.1, 2.5, 7.2],
         [71.4, 86.8, 95.9, 97.5, 92.8],
         [
-          Math.ceil(Math.random() * (50 - 0) + 0),
+          ,
           Math.ceil(Math.random() * (50 - 0) + 0),
           Math.ceil(Math.random() * (50 - 0) + 0),
           Math.ceil(Math.random() * (50 - 0) + 0),
