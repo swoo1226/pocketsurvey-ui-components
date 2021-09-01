@@ -156,10 +156,6 @@ export function PieBase() {
     ["E", 2],
     ["F", 5],
     ["G", 7],
-    ["H", 8],
-    ["I", 1],
-    ["J", 3],
-    ["K", 4],
   ];
 
   return (

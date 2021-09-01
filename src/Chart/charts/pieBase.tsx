@@ -145,7 +145,7 @@ const getPieData = (series: number[], labels: string[]) => {
   }
 
   // 그 외 처리 조건 2. 1로직을 거치고 나서 데이터가 6개 초과면 6개까지로 제한한다.
-  if (lastIndex > 6) {
+  if (lastIndex >= 6) {
     lastIndex = 5;
   }
 
