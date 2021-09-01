@@ -149,7 +149,7 @@ export function PieBase() {
   const showLabel = boolean("showLabel", true);
 
   const mockData = [
-    ["A", 10],
+    ["가나다라마가나다라마가나다라마가나다라마가", 10],
     ["B", 20],
     ["C", 11],
     ["D", 13],

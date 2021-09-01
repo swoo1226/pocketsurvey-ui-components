@@ -49,7 +49,10 @@ const PieBaseOption = ({
   };
   option.legend = {
     orient: "vertical",
-    right: "right",
+    left: "left",
+    width: "180px",
+    formatter: (name: string) =>
+      name.length > 20 ? `${name.substr(0, 20)}...` : name,
   };
 
   // 그 외 가 아닌 데이터 중 가장 큰 데이터의 인덱스를 구한다.
