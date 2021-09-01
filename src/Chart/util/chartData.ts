@@ -8,7 +8,7 @@ type ChartDataReturnType = {
   labels: string[];
 };
 
-const zipChartData = (
+export const zipChartData = (
   seriesList: number[],
   labelsList: string[]
 ): ZippedChartDataType[] =>
