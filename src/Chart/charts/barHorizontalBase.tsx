@@ -129,7 +129,7 @@ type BarHorizontalBasePropsType = {
   height?: number | string;
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
-  defaultHeight?: number; 
+  defaultHeight?: number;
 } & BarHorizontalBaseOptionPropsType;
 
 function BarHorizontalBase({
@@ -158,6 +158,7 @@ function BarHorizontalBase({
         align,
         labelOption,
       })}
+      opts={{ renderer: "svg" }}
     />
   );
 }

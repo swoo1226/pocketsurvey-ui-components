@@ -50,11 +50,11 @@ const PieBaseOption = ({
   option.legend = {
     orient: "vertical",
     left: "left",
-    width: 220
+    width: 220,
   };
   option.grid = {
-    left: 220
-  }
+    left: 220,
+  };
 
   // 그 외 가 아닌 데이터 중 가장 큰 데이터의 인덱스를 구한다.
   const seriesWithoutOther = processedData
@@ -180,6 +180,7 @@ function PieBase({
         showLabel,
         labelOption,
       })}
+      opts={{ renderer: "svg" }}
     />
   );
 }
