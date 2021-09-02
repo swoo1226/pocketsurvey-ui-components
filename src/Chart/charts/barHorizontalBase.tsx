@@ -8,10 +8,7 @@ import {
   getMaxLabelWidth,
   color,
 } from "../util/index";
-import styled from "styled-components";
-import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import { scrollBar } from "../style"
-import {ellipsisBarChartData} from "../util/chartData"
+import { ellipsisBarChartData, zipChartData } from "../util/chartData";
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -21,7 +18,7 @@ type BarHorizontalBaseOptionPropsType = {
   labelOption?: "fixed" | "dynamic";
 };
 
-const MAX_LABEL_LENGTH = 14;
+const MAX_LABEL_LENGTH = 20;
 
 const barHorizontalBaseOption = ({
   series,
@@ -90,8 +87,9 @@ const barHorizontalBaseOption = ({
   option.series = [
     {
       data: seriesData,
-      barMinWidth: 26,
+      barWidth: 26,
       type: "bar",
+      barCategoryGap: 40,
       label: {
         show: true,
         color: "#000",
@@ -116,7 +114,8 @@ const barHorizontalBaseOption = ({
   };
 
   option.grid = {
-    left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`,
+    // left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`,
+    left: 220,
   };
 
   return mergeOption({
@@ -130,88 +129,36 @@ type BarHorizontalBasePropsType = {
   height?: number | string;
   align?: "descend" | "ascend";
   labelOption?: "fixed" | "dynamic";
-  defaultHeight?: number;
+  defaultHeight?: number; 
 } & BarHorizontalBaseOptionPropsType;
-
-const EChartsWrapper = styled.div<{
-  height: number | string;
-  isOverflow: boolean;
-}>`
-  ${scrollBar}
-  ${(props) =>
-    props.height && typeof props.height === "number"
-      ? `height: ${props.height}px;`
-      : `height: ${props.height};`}
-  ${(props) => props.isOverflow && "overflow-y: scroll;"}
-  overflow-x: hidden;
-`;
 
 function BarHorizontalBase({
   width,
-  height,
   series,
   labels,
   override,
   align,
-  labelOption = "dynamic"
+  labelOption = "dynamic",
 }: BarHorizontalBasePropsType): JSX.Element {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [domHeight, setDomHeight] = useState<number>(0)
-  const [isOverflow, setIsOverflow] = useState<boolean>(false);
-  const sizeValue = 26;
-  const marginBetweenBar = 10;
-  const minHeight = sizeValue * series.length + 120 + marginBetweenBar * series.length;
-  // 120: 60 top padding + 60 bottom padding, marginBetweenBar: 바 차트 사이의 간격
-  const defaultHeight = 560; //14개의 요소는 스크롤 없이 보여주도록 수정 
+  const getHeight = (dataLength: number) => {
+    const padding = 120;
+    const barWidth =
+      40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
+    return barWidth * dataLength + padding;
+  };
 
-  const resizeObject = useResizeDetector({ targetRef });
-
-  useEffect(() => {
-    if (resizeObject.height){
-      setIsOverflow(resizeObject.height < minHeight);
-      const chartElemet = targetRef?.current?.querySelector(".echarts-for-react") ?? null
-      if(chartElemet){
-        const px = parseInt(getComputedStyle(chartElemet).height.replace("px",""),10)
-        setDomHeight(px)
-      }
-    }
-  }, [resizeObject.height]);
-
-  let wrapperHeight = 0
-  if(domHeight < defaultHeight){
-    // 차트 돔 크기 < 기본 세로 지정 값 (14개 차트)
-    if(minHeight < domHeight){
-      wrapperHeight = domHeight
-    } else {
-      wrapperHeight = minHeight
-    }
-  } else {
-    wrapperHeight = defaultHeight
-  }
-
-  console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
- 
-  const chartData = ellipsisBarChartData(series, labels)
+  const chartData = ellipsisBarChartData(series, labels);
   return (
-    <EChartsWrapper
-      height={height ?? wrapperHeight}
-      ref={targetRef}
-      isOverflow={isOverflow}
-    >
-      <EChartsReact
-        style={getSizeCSS(
-          width,
-          minHeight
-        )}
-        option={barHorizontalBaseOption({
-          series: chartData.series,
-          labels: chartData.labels,
-          override,
-          align,
-          labelOption,
-        })}
-      />
-    </EChartsWrapper>
+    <EChartsReact
+      style={getSizeCSS(width, getHeight(chartData.series.length))}
+      option={barHorizontalBaseOption({
+        series: chartData.series,
+        labels: chartData.labels,
+        override,
+        align,
+        labelOption,
+      })}
+    />
   );
 }
 
