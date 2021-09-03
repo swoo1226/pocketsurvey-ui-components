@@ -20,22 +20,18 @@ export type IconProps = {
   onMouseLeave?: () => void
   useCursor?: boolean
   hoveredColor?: string
-  selectCursor?:cursorStyle
+  selectCursor?:CursorStyleType
 }
 
-export enum cursorStyle {
-  default = "default",
-  pointer = "pointer",
-  text = "text",
-  move = "move",
-  noDrop = "no-drop",
-  grab = "grab",
-  grabbing = "grabbing",
-  colResize = "col-resize", 
-  rowResize = "row-resize",
-  zoomIn = "zoom-in",
-  zoomOut = "zoom-out"
-}
+
+
+
+
+export type CursorStyleType = "default"|"pointer"|"text"|"move"|"no-drop"|"grab"|"grabbing"|"col-resize"|"row-resize"|"zoom-in"|"zoom-out"
+ 
+  
+  
+
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
  *
@@ -59,7 +55,7 @@ function Icon({
   const [isHover, setIsHover] = React.useState<boolean>(false)
   const SVGIcon = icons[icon]
 
-  const switchingCursorPointer = (useCursor?:boolean,cursor?:cursorStyle) => {
+  const switchingCursorPointer = (useCursor?:boolean,cursor?:CursorStyleType) => {
     if(useCursor){
       if(cursor){
         return cursor
@@ -70,7 +66,7 @@ function Icon({
       return "default"
     }
   }
-
+  
   return (
     <SVGIcon
       style={{
