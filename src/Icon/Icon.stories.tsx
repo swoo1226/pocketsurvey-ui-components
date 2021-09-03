@@ -7,7 +7,7 @@ import {
   boolean,
 } from '@storybook/addon-knobs'
 
-import Icon, { iconTypes } from './Icon'
+import Icon, { iconTypes, cursorStyle} from './Icon'
 import { Meta } from '@storybook/react/types-6-0'
 
 export default {
@@ -31,6 +31,7 @@ export function Index() {
       onClick={() => alert('Hello!')}
       useCursor={true}
       hoveredColor={'red'}
+      selectCursor= {cursorStyle.zoomOut}
     />
   )
 }
@@ -51,6 +52,7 @@ export function mouseover() {
       onMouseOver={() => alert('mouseover!')}
       onMouseLeave={() => alert('mousedown!')}
       useCursor={true}
+
     />
   )
 }
