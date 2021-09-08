@@ -27,3 +27,23 @@ export function Index() {
 		/>
 	)
 }
+
+export function Disable() {
+	const [isToggleOn, setIsToggleOn] = useState<boolean>(false)
+
+	const toggleOnBackgroundColor = color(
+		"Toggle on background-color",
+		"#59c4db",
+	)
+	const hoveredBackgroundColor = color("Hover on background-color", "#818282")
+
+	return (
+		<Toggle
+			toggleOnBackgroundColor={toggleOnBackgroundColor}
+			hoveredBackgroundColor={hoveredBackgroundColor}
+			isToggleOn={isToggleOn}
+			setIsToggleOn={setIsToggleOn}
+			disable={true}
+		/>
+	)
+}
