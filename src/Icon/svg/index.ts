@@ -110,4 +110,5 @@ export { ReactComponent as sort } from "./sort.svg";
 export { ReactComponent as duplicate } from "./duplicate.svg";
 export {ReactComponent as blockDuplicate} from "./blockDuplicate.svg"
 export {ReactComponent as delete} from "./delete.svg"
+export {ReactComponent as abcReport} from "./abcReport.svg"
 
