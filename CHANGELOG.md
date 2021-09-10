@@ -1,3 +1,11 @@
+# 0.6.98 (2021.09.10)
+
+- dropdown에서 dropdown list hover시 cursor pointer
+
+# 0.6.97 (2021.09.09)
+
+- abcReport Icon 추가
+
 # 0.6.96 (2021.09.08)
 
 - Toggle disable 상태일 때 ui추가
