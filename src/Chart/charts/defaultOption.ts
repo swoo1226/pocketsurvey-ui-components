@@ -1,13 +1,13 @@
-import { EChartsOption } from "echarts"
+import { EChartsOption } from 'echarts';
 
 const option: EChartsOption = {
   xAxis: {
     axisLabel: {
-      color: "#333",
+      color: '#333',
     },
     axisLine: {
       lineStyle: {
-        color: "#818282",
+        color: '#818282',
       },
     },
     axisTick: {
@@ -17,11 +17,11 @@ const option: EChartsOption = {
   },
   yAxis: {
     axisLabel: {
-      color: "#333",
+      color: '#333',
     },
     axisLine: {
       lineStyle: {
-        color: "#818282",
+        color: '#818282',
       },
     },
     axisTick: {
@@ -30,8 +30,8 @@ const option: EChartsOption = {
     show: true,
   },
   textStyle: {
-    fontFamily: "Spoqa Han Sans Neo",
+    fontFamily: 'Spoqa Han Sans Neo',
   },
-}
+};
 
-export default option
+export default option;

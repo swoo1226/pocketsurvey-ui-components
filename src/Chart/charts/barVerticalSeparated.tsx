@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable semi */
-import { EChartsOption } from "echarts";
-import React from "react";
-import EChartsReact from "echarts-for-react";
+import { EChartsOption } from 'echarts';
+import React from 'react';
+import EChartsReact from 'echarts-for-react';
+import { useResizeDetector } from 'react-resize-detector/build/withPolyfill';
+import styled from 'styled-components';
 import {
   getSizeCSS,
   mergeOption,
   getColors,
   seriesToPercentArray,
-} from "../util/index";
-import { stackedFormatter } from "../util/tooltip";
-import { useResizeDetector } from "react-resize-detector/build/withPolyfill";
-import styled from "styled-components";
-import { scrollBar } from "../style"
-import { ellipsisPieChartData, zipChartData } from "../util/chartData";
+} from '../util/index';
+import { stackedFormatter } from '../util/tooltip';
+import { scrollBar } from '../style';
+import { ellipsisPieChartData, zipChartData } from '../util/chartData';
 
 type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
@@ -25,29 +25,29 @@ type BarVerticalSeparatedOptionPropsType = {
     tooltip: boolean;
     series: boolean;
   };
-  labelOption?: "fixed" | "dynamic";
+  labelOption?: 'fixed' | 'dynamic';
 };
 
 const compressedSeries = (series: number[][], label: string[]) => {
   const compressSeriesArr: any[] = [];
-  const labelIndexMap = new Map<string, number>()
-  label.forEach((item, index)=> {
-    labelIndexMap.set(item, index)
-  })
-  
-  for (let i = 0; i < series.length; i+=1) {
-    const compressSeries = Array.from({length: label.length+1}).fill(0);
-    const ellipsisChartData: any = ellipsisPieChartData(series[i], label)
-    for (let j = 0; j < ellipsisChartData.labels.length; j+=1) {
-      const labelIndex = labelIndexMap.get(ellipsisChartData.labels[j])
+  const labelIndexMap = new Map<string, number>();
+  label.forEach((item, index) => {
+    labelIndexMap.set(item, index);
+  });
+
+  for (let i = 0; i < series.length; i += 1) {
+    const compressSeries = Array.from({ length: label.length + 1 }).fill(0);
+    const ellipsisChartData: any = ellipsisPieChartData(series[i], label);
+    for (let j = 0; j < ellipsisChartData.labels.length; j += 1) {
+      const labelIndex = labelIndexMap.get(ellipsisChartData.labels[j]);
       if (labelIndex !== undefined) {
-        compressSeries[labelIndex] = ellipsisChartData.series[j]
+        compressSeries[labelIndex] = ellipsisChartData.series[j];
       } else {
-        compressSeries[compressSeries.length - 1] = ellipsisChartData.series[j]
+        compressSeries[compressSeries.length - 1] = ellipsisChartData.series[j];
       }
     }
 
-    compressSeriesArr.push(compressSeries)
+    compressSeriesArr.push(compressSeries);
     // const sortedRawData = series.map((item,index) => item.sort((a, b) => b - a));
     // const sumOfSeriesArr = series.map((item, index) => item.reduce((acc, cur) => acc + cur, 0))
 
@@ -62,27 +62,26 @@ const compressedSeries = (series: number[][], label: string[]) => {
     //   lastIndex = j;
     // }
 
-    
     // if (lastIndex >= 6) {
     //   lastIndex = 5;
     // }
-    
+
     // compressSeriesArr.push([...sortedRawData[i].slice(0, lastIndex),
     //   sortedRawData[i]
     //     .slice(lastIndex)
-    //     .reduce((acc, cur) => acc + cur, 0), 
+    //     .reduce((acc, cur) => acc + cur, 0),
     // ])
   }
   // console.log("compressSeriesArr", compressSeriesArr)
 
-  const arr2D = Array(series.length+1).fill(0).map(x => Array(series[0].length).fill(0))
-  for (let i = 0; i < compressSeriesArr.length; i+= 1) {
-    for (let j =0; j <compressSeriesArr[i].length; j+= 1){
-      arr2D[j][i] = compressSeriesArr[i][j]
+  const arr2D = Array(series.length + 1).fill(0).map((x) => Array(series[0].length).fill(0));
+  for (let i = 0; i < compressSeriesArr.length; i += 1) {
+    for (let j = 0; j < compressSeriesArr[i].length; j += 1) {
+      arr2D[j][i] = compressSeriesArr[i][j];
     }
   }
   return arr2D;
-} 
+};
 
 const getSeries = (isHundredPercent: boolean, series: number[][], label: string[], colors: string[]) => {
   series = isHundredPercent ? seriesToPercentArray(series) : series;
@@ -100,7 +99,7 @@ const getSeries = (isHundredPercent: boolean, series: number[][], label: string[
     seriesData.push({
       // data: series[i].map((item) => item && +item.toFixed(1)),
       data: series[i].map((item) => item && +item.toFixed(1)),
-      type: "bar",
+      type: 'bar',
       name: label[i],
       color: colors[i],
       itemStyle: {
@@ -119,45 +118,42 @@ const barVerticalSeparatedOption = ({
   lineWidth,
   override,
   hundredPercent,
-  labelOption="dynamic",
+  labelOption = 'dynamic',
 }: BarVerticalSeparatedOptionPropsType & {
   lineWidth: number | null;
 }) => {
   const option: EChartsOption = {};
   const colors = getColors.barStacked(series.length);
   const percentSeries = seriesToPercentArray(series);
-  
-  const rawData = series.map((_, colIndex) => series.map(row => row[colIndex]))
+
+  const rawData = series.map((_, colIndex) => series.map((row) => row[colIndex]));
   const dataLength = rawData[0].length;
 
   if (dataLength > 6) {
-    series = compressedSeries(rawData, label)
-    label = [...label, "그 외"]
+    series = compressedSeries(rawData, label);
+    label = [...label, '그 외'];
   }
 
-  option.yAxis = { type: "value", show: true };
-
+  option.yAxis = { type: 'value', show: true };
 
   option.series = getSeries(
-    hundredPercent?.series ? true : false,
-    series, 
+    !!hundredPercent?.series,
+    series,
     label,
-    colors
-  ) as EChartsOption["series"];
+    colors,
+  ) as EChartsOption['series'];
 
   option.tooltip = {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "shadow",
+      type: 'shadow',
     },
-    formatter: (params: any) => {
-      return stackedFormatter(
-        params,
-        series,
-        "vertical-separated",
-        hundredPercent?.tooltip ?? false
-      );
-    },
+    formatter: (params: any) => stackedFormatter(
+      params,
+      series,
+      'vertical-separated',
+      hundredPercent?.tooltip ?? false,
+    ),
     position(
       pos: any,
       params: any,
@@ -165,39 +161,39 @@ const barVerticalSeparatedOption = ({
       elRect: any,
       size: any,
     ) {
-      if(labelOption === "fixed") {
+      if (labelOption === 'fixed') {
         const obj: any = { top: 10 };
-        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
       }
     },
   };
 
   option.legend = {
-    orient: "horizontal",
-    left: "left",
-    width: "10%",
+    orient: 'horizontal',
+    left: 'left',
+    width: '10%',
   };
 
   option.grid = {
-    left: "15%",
-    right: "100px",
+    left: '15%',
+    right: '100px',
   };
 
   option.xAxis = {
-    type: "category",
+    type: 'category',
     data: xAxisLabel,
     axisLabel: {
       interval: 0,
       margin: 14,
       width: lineWidth ? Math.ceil(lineWidth / series.length) : 0,
-      //@ts-ignore
-      overflow: "truncate",
+      // @ts-ignore
+      overflow: 'truncate',
     },
-    show: lineWidth ? true : false,
+    show: !!lineWidth,
   };
 
-  option.barCategoryGap = "40%";
+  option.barCategoryGap = '40%';
 
   return mergeOption({
     option,
@@ -208,7 +204,7 @@ const barVerticalSeparatedOption = ({
 type BarVerticalSeparatedPropsType = {
   width?: number | string;
   height?: number | string;
-} & Omit<BarVerticalSeparatedOptionPropsType, "lineWidth">;
+} & Omit<BarVerticalSeparatedOptionPropsType, 'lineWidth'>;
 
 const EchartsWrapper = styled.div<{
   minify: boolean;
@@ -216,19 +212,17 @@ const EchartsWrapper = styled.div<{
   height?: string | number;
 }>`
   ${scrollBar}
-  ${(props) => props.minify && "overflow-x: scroll;"}
-  ${(props) =>
-    props.width
-      ? typeof props.width === "number"
-        ? `width: ${props.width}px;`
-        : `width: ${props.width};`
-      : ""}
-  ${(props) =>
-    props.height
-      ? typeof props.height === "number"
-        ? `height: ${props.height}px;`
-        : `height: ${props.height};`
-      : ""}
+  ${(props) => props.minify && 'overflow-x: scroll;'}
+  ${(props) => (props.width
+    ? typeof props.width === 'number'
+      ? `width: ${props.width}px;`
+      : `width: ${props.width};`
+    : '')}
+  ${(props) => (props.height
+    ? typeof props.height === 'number'
+      ? `height: ${props.height}px;`
+      : `height: ${props.height};`
+    : '')}
 `;
 
 function BarVerticalSeparated({
@@ -239,7 +233,7 @@ function BarVerticalSeparated({
   xAxisLabel,
   override,
   hundredPercent,
-  labelOption="dynamics",
+  labelOption = 'dynamics',
 }: BarVerticalSeparatedPropsType) {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [lineWidth, setLineWidth] = React.useState<number | null>(null);
@@ -250,7 +244,7 @@ function BarVerticalSeparated({
 
   const calcSVGPathLineWidth = () => {
     const svg = targetRef.current?.querySelector(
-      "svg > g:last-child > path"
+      'svg > g:last-child > path',
     ) as SVGSVGElement;
     setLineWidth(svg?.getBBox()?.width);
     const clientWidth = targetRef.current?.clientWidth;
@@ -280,7 +274,7 @@ function BarVerticalSeparated({
           hundredPercent,
           labelOption,
         })}
-        opts={{ renderer: "svg" }}
+        opts={{ renderer: 'svg' }}
       />
     </EchartsWrapper>
   );

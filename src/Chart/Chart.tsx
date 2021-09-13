@@ -1,10 +1,5 @@
-/* eslint-disable semi */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
-import React from "react"
-import { getColors } from "./util/index"
+import React from 'react';
+import { getColors } from './util/index';
 import {
   BarHorizontalBase,
   BarVerticalBase,
@@ -14,24 +9,25 @@ import {
   LineBase,
   PieBase,
   Bubble,
-  BarNegative
-} from "./charts" 
+  BarNegative,
+} from './charts';
+
 function Chart() {
-  return <></>
+  return <></>;
 }
 
-Chart.BarHorizontalBase = BarHorizontalBase
-Chart.BarVerticalBase = BarVerticalBase
-Chart.BarHorizontalStacked = BarHorizontalStacked
-Chart.BarVerticalStacked = BarVerticalStacked
-Chart.BarVerticalSeparated = BarVerticalSeparated
-Chart.LineBase = LineBase
-Chart.PieBase = PieBase  
-Chart.Bubble = Bubble
-Chart.BarNegative = BarNegative
+Chart.BarHorizontalBase = BarHorizontalBase;
+Chart.BarVerticalBase = BarVerticalBase;
+Chart.BarHorizontalStacked = BarHorizontalStacked;
+Chart.BarVerticalStacked = BarVerticalStacked;
+Chart.BarVerticalSeparated = BarVerticalSeparated;
+Chart.LineBase = LineBase;
+Chart.PieBase = PieBase;
+Chart.Bubble = Bubble;
+Chart.BarNegative = BarNegative;
 
 Chart.util = {
-  getColors
-}
+  getColors,
+};
 
-export default Chart
+export default Chart;

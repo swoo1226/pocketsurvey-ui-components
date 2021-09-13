@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
-import Icon, { IconType } from "../Icon/Icon"
+import Icon, { IconType } from '../Icon/Icon';
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
   width: 23px !important;
   height: 21px !important;
   margin-bottom: 0px !important;
-  ${(props) =>
-    props.pngImageCropCircle && "object-fit:cover; border-radius:50%;"}
-`
+  ${(props) => props.pngImageCropCircle && 'object-fit:cover; border-radius:50%;'}
+`;
 
 const DropDownContainer = styled.div<{
   width: number;
@@ -18,8 +17,8 @@ const DropDownContainer = styled.div<{
   width: ${(props) => props.width}px;
   font-size: 12px;
   text-align: left;
-  ${(props)=> props.containerHeight && `height: ${props.containerHeight};`}
-`
+  ${(props) => props.containerHeight && `height: ${props.containerHeight};`}
+`;
 
 const DropDownBoxContainer = styled.div<{
   disable: boolean;
@@ -35,11 +34,11 @@ const DropDownBoxContainer = styled.div<{
   box-sizing: border-box;
   padding: 0 10px;
   border-radius: 3px;
-  border: 1px solid ${(props) => (props.disable ? "#DFDEDD" : props.themeColor)};
-  background-color: ${(props) => (props.disable ? "#F0F0F0" : "white")};
-  cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
+  border: 1px solid ${(props) => (props.disable ? '#DFDEDD' : props.themeColor)};
+  background-color: ${(props) => (props.disable ? '#F0F0F0' : 'white')};
+  cursor: ${(props) => (props.disable ? 'no-drop' : 'pointer')};
   z-index: ${(props) => props.zIndex - 1};
-`
+`;
 const DropDownBox = styled.div<{
   disable: boolean;
   themeColor: string;
@@ -49,10 +48,10 @@ const DropDownBox = styled.div<{
   height: ${(props) => props.height}px;
   display: flex;
   align-items: center;
-  color: ${(props) => (props.disable ? "#818282" : "#111111")};
-  background-color: ${(props) => (props.disable ? "#F0F0F0" : undefined)};
-  cursor: ${(props) => (props.disable ? "no-drop" : "pointer")};
-`
+  color: ${(props) => (props.disable ? '#818282' : '#111111')};
+  background-color: ${(props) => (props.disable ? '#F0F0F0' : undefined)};
+  cursor: ${(props) => (props.disable ? 'no-drop' : 'pointer')};
+`;
 const DropDownList = styled.div<{
   disable: boolean;
   isShowList: boolean;
@@ -69,8 +68,7 @@ const DropDownList = styled.div<{
   height: ${(props) => props.listLength * props.height}px;
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
-  color: ${(props) =>
-    props.disable ? props.textColor ?? "#818282" : "#111111"};
+  color: ${(props) => (props.disable ? props.textColor ?? '#818282' : '#111111')};
   border-radius: 3px;
   padding: 8px 0;
   max-height: ${(props) => `${props.listMaxHeight ?? 200}px`};
@@ -78,7 +76,7 @@ const DropDownList = styled.div<{
   background: #ffffff;
   margin: 7px 0px;
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
-`
+`;
 const DropDownItem = styled.div<{
   index: number;
   selected: number;
@@ -86,18 +84,16 @@ const DropDownItem = styled.div<{
   hidden?: boolean;
   height: number;
 }>`
-  display: ${(props) => (props.hidden ? "none" : "flex")};
+  display: ${(props) => (props.hidden ? 'none' : 'flex')};
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px;
   height: ${(props) => props.height}px;
-  background-color: ${(props) =>
-    props.selected == props.index ? "#F0F0F0" : "white"};
+  background-color: ${(props) => (props.selected == props.index ? '#F0F0F0' : 'white')};
   &:hover {
-    background-color: ${(props) =>
-    props.selected == props.index ? "#F0F0F0" : props.themeColor};
+    background-color: ${(props) => (props.selected == props.index ? '#F0F0F0' : props.themeColor)};
   }
-`
+`;
 const DropDownItemText = styled.p<{ fontSize?: number }>`
   white-space: nowrap;
   overflow: hidden;
@@ -107,7 +103,7 @@ const DropDownItemText = styled.p<{ fontSize?: number }>`
   margin-left: 6px;
   text-overflow: ellipsis;
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
-`
+`;
 
 export type DropDownType = {
   list: {
@@ -154,10 +150,10 @@ function DropDown({
   listMaxHeight,
   fontSize,
   pngImageCropCircle,
-  containerHeight
+  containerHeight,
 }: DropDownType): JSX.Element {
-  const [isShowList, setIsShowList] = useState<boolean>(false)
-  const selectionListRef = useRef<HTMLDivElement>(null)
+  const [isShowList, setIsShowList] = useState<boolean>(false);
+  const selectionListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     /**
@@ -165,20 +161,20 @@ function DropDown({
      */
     function handleClickOutside(event: any) {
       if (
-        selectionListRef.current &&
-        !selectionListRef.current.contains(event.target)
+        selectionListRef.current
+        && !selectionListRef.current.contains(event.target)
       ) {
-        setIsShowList(false)
+        setIsShowList(false);
       }
     }
 
     // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [selectionListRef])
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectionListRef]);
 
   return (
     <DropDownContainer
@@ -189,8 +185,8 @@ function DropDown({
     >
       <DropDownBoxContainer
         onClick={() => {
-          if(!disable){
-            setIsShowList(!isShowList)
+          if (!disable) {
+            setIsShowList(!isShowList);
           }
         }}
         disable={disable}
@@ -200,8 +196,8 @@ function DropDown({
       >
         <DropDownBox
           onClick={() => {
-            if(!disable){
-              setIsShowList(!isShowList)
+            if (!disable) {
+              setIsShowList(!isShowList);
             }
           }}
           disable={disable}
@@ -210,10 +206,10 @@ function DropDown({
           height={height}
         >
           {selected !== null ? (
-            <React.Fragment>
+            <>
               {list[selected].icon && (
                 <Icon
-                  color={disable ? "#818282" : iconColor!}
+                  color={disable ? '#818282' : iconColor!}
                   icon={list[selected].icon!}
                   width={18}
                   rotate={list[selected].rotate ?? 0}
@@ -228,7 +224,7 @@ function DropDown({
               <DropDownItemText fontSize={fontSize}>
                 {list[selected].selectionName}
               </DropDownItemText>
-            </React.Fragment>
+            </>
           ) : (
             <DropDownItemText fontSize={fontSize}>
               {placeholder}
@@ -236,9 +232,9 @@ function DropDown({
           )}
         </DropDownBox>
         <Icon
-          color={disable ? "#818282" : iconColor!}
+          color={disable ? '#818282' : iconColor!}
           icon="arrow"
-          useCursor={disable ? false : true}
+          useCursor={!disable}
           width={18}
           rotate={!isShowList ? 90 : 270}
         />
@@ -247,7 +243,7 @@ function DropDown({
       <DropDownList
         isShowList={isShowList}
         disable={disable}
-        style={!isShowList ? { display: "none" } : { opacity: "1" }}
+        style={!isShowList ? { display: 'none' } : { opacity: '1' }}
         data-testid="dropdownlist-testid"
         listLength={list.length}
         width={width}
@@ -263,9 +259,9 @@ function DropDown({
               <>
                 <p
                   style={{
-                    fontSize: "14px",
+                    fontSize: '14px',
                     fontWeight: 500,
-                    margin: "21px 14px",
+                    margin: '21px 14px',
                   }}
                 >
                   {item.selectionName}
@@ -279,15 +275,15 @@ function DropDown({
                   selected={selected!}
                   themeColor={themeColor.subColor}
                   onClick={() => {
-                    onItemClick(index)
-                    setIsShowList(false)
+                    onItemClick(index);
+                    setIsShowList(false);
                   }}
                   height={height}
                   hidden={item.hidden}
                 >
                   {item.icon && (
                     <Icon
-                      color={disable ? "#818282" : iconColor!}
+                      color={disable ? '#818282' : iconColor!}
                       icon={item.icon}
                       width={18}
                       rotate={item.rotate ?? 0}
@@ -307,7 +303,7 @@ function DropDown({
         ))}
       </DropDownList>
     </DropDownContainer>
-  )
+  );
 }
 
-export default DropDown
+export default DropDown;

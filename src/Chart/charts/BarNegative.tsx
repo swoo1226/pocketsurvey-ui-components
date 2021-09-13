@@ -1,20 +1,19 @@
-/* eslint-disable semi */
-import React from "react";
-import { EChartsOption } from "echarts";
-import EChartsReact from "echarts-for-react";
+import React from 'react';
+import { EChartsOption } from 'echarts';
+import EChartsReact from 'echarts-for-react';
 import {
   getSizeCSS,
   mergeOption,
   getMaxLabelWidth,
   color,
-} from "../util/index";
+} from '../util/index';
 
 type BarNegativeOptionPropsType = {
   series: number[];
   labels: string[];
   override?: any;
   standard: number;
-  labelOption?: "dynamic" | "fixed";
+  labelOption?: 'dynamic' | 'fixed';
 };
 
 const MAX_LABEL_LENGTH = 14;
@@ -31,22 +30,21 @@ function BarNegative({
   labels,
   override,
   standard,
-  labelOption = "dynamic",
+  labelOption = 'dynamic',
 }: BarNegativePropsType): JSX.Element {
   const sizeValue = 28;
-  const minWidth =
-    sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
+  const minWidth = sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
   const defaultWidth = 300;
   const BarNegativeOption = ({
     series,
     labels,
     override,
     standard,
-    labelOption = "dynamic",
+    labelOption = 'dynamic',
   }: BarNegativeOptionPropsType) => {
     const option: EChartsOption = {};
     option.xAxis = {
-      type: "value",
+      type: 'value',
       show: true,
       axisLabel: {
         show: false,
@@ -54,16 +52,16 @@ function BarNegative({
     };
 
     option.yAxis = {
-      type: "category",
+      type: 'category',
       z: 10,
       data: labels,
       show: true,
       name: `평균 점수 ${standard}`,
-      nameLocation: "start",
+      nameLocation: 'start',
       inverse: true,
       axisLine: {
         lineStyle: {
-          color: "#59C4DB",
+          color: '#59C4DB',
           width: 3,
         },
       },
@@ -78,7 +76,7 @@ function BarNegative({
           return value;
         },
       },
-    } as EChartsOption["yAxis"];
+    } as EChartsOption['yAxis'];
 
     const seriesData: {
       value: number;
@@ -87,7 +85,7 @@ function BarNegative({
         color: string;
       };
       label: {
-        position: "left" | "right";
+        position: 'left' | 'right';
       };
     }[] = [];
     series.map((number, index) => {
@@ -96,10 +94,10 @@ function BarNegative({
         value: diff,
         name: labels[index],
         itemStyle: {
-          color: diff !== 0 ? color.YELLOW : "#59C4DB",
+          color: diff !== 0 ? color.YELLOW : '#59C4DB',
         },
         label: {
-          position: diff >= 0 ? "right" : "left",
+          position: diff >= 0 ? 'right' : 'left',
         },
       });
     });
@@ -108,32 +106,30 @@ function BarNegative({
       {
         data: seriesData,
         barMinWidth: 26,
-        type: "bar",
+        type: 'bar',
         label: {
           show: true,
-          color: "#000",
-          formatter: (v) => ((v.value as number) + standard).toFixed(2) + "점",
+          color: '#000',
+          formatter: (v) => `${((v.value as number) + standard).toFixed(2)}점`,
         },
       },
     ];
     option.tooltip = {
-      trigger: "axis",
+      trigger: 'axis',
       axisPointer: {
-        type: "shadow",
+        type: 'shadow',
       },
       position(pos: any, params: any, el: any, elRect: any, size: any) {
-        if (labelOption === "fixed") {
+        if (labelOption === 'fixed') {
           const obj: any = { top: 10 };
-          obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
           return obj;
         }
       },
-      extraCssText: "text-align: left;",
-      formatter: (v) => {
-        return `${v[0].name}</br>${v[0].marker}</span>${(
-          v[0].value + standard
-        ).toFixed(2)}점`;
-      },
+      extraCssText: 'text-align: left;',
+      formatter: (v) => `${v[0].name}</br>${v[0].marker}</span>${(
+        v[0].value + standard
+      ).toFixed(2)}점`,
     };
 
     option.grid = {
@@ -149,7 +145,7 @@ function BarNegative({
     <EChartsReact
       style={getSizeCSS(
         width,
-        minWidth > defaultWidth ? minWidth : defaultWidth
+        minWidth > defaultWidth ? minWidth : defaultWidth,
       )}
       option={BarNegativeOption({
         series,
@@ -158,7 +154,7 @@ function BarNegative({
         standard,
         labelOption,
       })}
-      opts={{ renderer: "svg" }}
+      opts={{ renderer: 'svg' }}
     />
   );
 }

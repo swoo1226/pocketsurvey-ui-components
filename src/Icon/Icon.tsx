@@ -1,8 +1,8 @@
-import React from "react"
-import * as icons from "./svg"
+import React from 'react';
+import * as icons from './svg';
 
-export type IconType = keyof typeof icons
-export const iconTypes: IconType[] = Object.keys(icons) as any[]
+export type IconType = keyof typeof icons;
+export const iconTypes: IconType[] = Object.keys(icons) as any[];
 
 export type IconProps = {
   /** 사용 할 아이콘 타입 */
@@ -20,7 +20,7 @@ export type IconProps = {
   onMouseLeave?: () => void
   useCursor?: boolean
   hoveredColor?: string
-}
+};
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
  *
@@ -40,8 +40,8 @@ function Icon({
   useCursor,
   hoveredColor,
 }: IconProps): JSX.Element {
-  const [isHover, setIsHover] = React.useState<boolean>(false)
-  const SVGIcon = icons[icon]
+  const [isHover, setIsHover] = React.useState<boolean>(false);
+  const SVGIcon = icons[icon];
 
   return (
     <SVGIcon
@@ -50,24 +50,24 @@ function Icon({
         height: `${width}px`,
         transform: `rotate(${rotate}deg)`,
         fill: isHover && hoveredColor ? hoveredColor : color,
-        cursor: `${useCursor ? "pointer" : "default"}`,
+        cursor: `${useCursor ? 'pointer' : 'default'}`,
       }}
       className={className}
       onClick={onClick}
       onMouseOver={() => {
         if (onMouseOver) {
-          onMouseOver()
+          onMouseOver();
         }
-        setIsHover(true)
+        setIsHover(true);
       }}
       onMouseLeave={() => {
         if (onMouseLeave) {
-          onMouseLeave()
+          onMouseLeave();
         }
-        setIsHover(false)
+        setIsHover(false);
       }}
     />
-  )
+  );
 }
 
-export default Icon
+export default Icon;

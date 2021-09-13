@@ -1,4 +1,4 @@
-import { css } from "styled-components"
+import { css } from 'styled-components';
 
 export const scrollBar = css`
   ::-webkit-scrollbar {
@@ -11,4 +11,4 @@ export const scrollBar = css`
     background-color: rgba(195, 195, 195, 0.75);
     -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
   }
-`
+`;

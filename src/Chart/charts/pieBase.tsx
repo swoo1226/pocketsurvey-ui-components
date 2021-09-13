@@ -1,18 +1,16 @@
-/* eslint-disable semi */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from "react";
-import { EChartsOption } from "echarts";
-import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, getColors } from "../util";
-import { piePercentageFormatter, sumReducer } from "../util/tooltip";
-import { ellipsisPieChartData, zipChartData } from "../util/chartData";
+import React from 'react';
+import { EChartsOption } from 'echarts';
+import EChartsReact from 'echarts-for-react';
+import { getSizeCSS, mergeOption, getColors } from '../util';
+import { piePercentageFormatter, sumReducer } from '../util/tooltip';
+import { ellipsisPieChartData, zipChartData } from '../util/chartData';
 
 type PieBaseOptionPropsType = {
   series: number[];
   labels: string[];
   override?: any;
   showLabel?: boolean;
-  labelOption?: "fixed" | "dynamic";
+  labelOption?: 'fixed' | 'dynamic';
 };
 
 const PieBaseOption = ({
@@ -20,14 +18,14 @@ const PieBaseOption = ({
   labels,
   override,
   showLabel,
-  labelOption = "dynamic",
+  labelOption = 'dynamic',
 }: PieBaseOptionPropsType) => {
   const dataLength = series.length;
   // 슬라이스를 최대 6개 까지 제한하고, 나머지는 그 외 로 처리한다.
   const processedData = ellipsisPieChartData(series, labels);
   const option: EChartsOption = {};
 
-  option.center = ["50%", "50%"];
+  option.center = ['50%', '50%'];
   option.xAxis = {
     show: false,
   };
@@ -35,63 +33,59 @@ const PieBaseOption = ({
     show: false,
   };
   option.tooltip = {
-    trigger: "item",
-    formatter: (params) => {
-      return piePercentageFormatter(params, series.reduce(sumReducer));
-    },
+    trigger: 'item',
+    formatter: (params) => piePercentageFormatter(params, series.reduce(sumReducer)),
     position(pos: any, params: any, el: any, elRect: any, size: any) {
-      if (labelOption === "fixed") {
+      if (labelOption === 'fixed') {
         const obj: any = { top: 10 };
-        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
       }
     },
   };
   option.legend = {
-    orient: "vertical",
-    left: "left",
-    width: "180px",
-    formatter: (name: string) =>
-      name.length > 20 ? `${name.substr(0, 20)}...` : name,
+    orient: 'vertical',
+    left: 'left',
+    width: '180px',
+    formatter: (name: string) => (name.length > 20 ? `${name.substr(0, 20)}...` : name),
   };
 
   // 그 외 가 아닌 데이터 중 가장 큰 데이터의 인덱스를 구한다.
-  const hasOther = processedData.labels.indexOf("그 외");
+  const hasOther = processedData.labels.indexOf('그 외');
 
-  const seriesWithoutOther =
-    hasOther === -1
-      ? processedData.series
-      : processedData.series.filter((_, index) => index !== hasOther);
+  const seriesWithoutOther = hasOther === -1
+    ? processedData.series
+    : processedData.series.filter((_, index) => index !== hasOther);
   const maxSeries = Math.max.apply(null, seriesWithoutOther);
   const maxIndex = seriesWithoutOther.indexOf(maxSeries);
 
   option.series = [
     {
       color: getColors.pie(dataLength, maxIndex),
-      type: "pie",
-      top: "5%",
-      bottom: "5%",
-      height: "90%",
-      radius: "85%",
-      data: zipChartData(processedData.series, processedData.labels).map((item)=>{
-        return {
+      type: 'pie',
+      top: '5%',
+      bottom: '5%',
+      height: '90%',
+      radius: '85%',
+      data: zipChartData(processedData.series, processedData.labels).map(
+        (item) => ({
           value: item.series,
-          name: item.label
-        }
-      }),
+          name: item.label,
+        }),
+      ),
       label: {
         show: showLabel === undefined ? true : showLabel,
-        color: "#0e0c0c",
-        position: "outside",
-        alignTo: "labelLine",
+        color: '#0e0c0c',
+        position: 'outside',
+        alignTo: 'labelLine',
         margin: 20,
-        edgeDistance: "25%",
-        formatter: function (d) {
+        edgeDistance: '25%',
+        formatter(d) {
           return d.value;
         },
       },
       itemStyle: {
-        borderColor: "#fff",
+        borderColor: '#fff',
         borderWidth: 2,
       },
       emphasis: {
@@ -120,7 +114,7 @@ function PieBase({
   width,
   height,
   showLabel,
-  labelOption = "dynamic",
+  labelOption = 'dynamic',
 }: PieBasePropsType) {
   return (
     <EChartsReact
@@ -132,7 +126,7 @@ function PieBase({
         showLabel,
         labelOption,
       })}
-      opts={{ renderer: "svg" }}
+      opts={{ renderer: 'svg' }}
     />
   );
 }
