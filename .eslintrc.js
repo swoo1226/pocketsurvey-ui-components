@@ -22,10 +22,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 0,
     'import/no-cycle': 0,
-    'no-param-reassign': [
-      'error',
-      { props: true, ignorePropertyModificationsFor: ['state'] },
-    ],
+    'no-param-reassign': 0,
     'no-loop-func': 0,
     'react/jsx-props-no-spreading': 0,
     'react/jsx-key': 0,

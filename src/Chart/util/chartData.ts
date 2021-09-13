@@ -11,17 +11,17 @@ type ChartDataReturnType = {
 export const zipChartData = (
   seriesList: number[],
   labelsList: string[],
-): ZippedChartDataType[] => Array.from(Array(Math.min(seriesList.length, labelsList.length)), (_, i) => ({
-  series: seriesList[i],
-  label: labelsList[i],
-}));
+): ZippedChartDataType[] =>
+  Array.from(Array(Math.min(seriesList.length, labelsList.length)), (_, i) => ({
+    series: seriesList[i],
+    label: labelsList[i],
+  }));
 
-const descSortChartData = (
+export const descSortChartData = (
   seriesList: number[],
   labelsList: string[],
-): ZippedChartDataType[] => zipChartData(seriesList, labelsList).sort(
-  (a, b) => b.series - a.series,
-);
+): ZippedChartDataType[] =>
+  zipChartData(seriesList, labelsList).sort((a, b) => b.series - a.series);
 
 const convertZipToChartData = (
   chartData: ZippedChartDataType[],
@@ -101,7 +101,8 @@ export const ellipsisBarChartData = (
   return convertZipToChartData([...chartData, others]);
 };
 
-const isSelectionHasNumber = (labels: string[]): boolean => labels.some((label) => /\d/.test(label));
+const isSelectionHasNumber = (labels: string[]): boolean =>
+  labels.some((label) => /\d/.test(label));
 
 type NormalizedBarChartDataType = ChartDataReturnType & {
   score?: number;
