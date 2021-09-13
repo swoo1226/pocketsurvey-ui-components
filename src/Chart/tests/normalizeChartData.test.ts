@@ -4,7 +4,11 @@ import {
   twoXData,
   length10Data,
 } from './mocks/chartData';
-import { normalizeBarChartData, ellipsisPieChartData } from '../util/chartData';
+import {
+  normalizeBarChartData,
+  ellipsisPieChartData,
+  descSortChartData,
+} from '../util/chartData';
 
 describe('차트 데이터 정제 테스트', () => {
   describe('가로 막대 차트', () => {
@@ -55,9 +59,13 @@ describe('차트 데이터 정제 테스트', () => {
       );
     });
     it('데이터의 개수가 6개 미만일 때는 그 외를 처리하지 않고 정렬 후 리턴한다.', () => {
+      const descSortedData = descSortChartData(twoXData.x, twoXData.y);
+      const series = descSortedData.map((item) => item.series);
+      const labels = descSortedData.map((item) => item.label);
       const normalizeData = ellipsisPieChartData(twoXData.x, twoXData.y);
-      expect(normalizeData.series.sort()).toEqual(twoXData.x.sort());
-      expect(normalizeData.labels.sort()).toEqual(twoXData.y.sort());
+
+      expect(normalizeData.series).toEqual(series);
+      expect(normalizeData.labels).toEqual(labels);
     });
   });
 });
