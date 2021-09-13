@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 import {
   withKnobs,
   number,
   text,
   select,
   boolean,
-} from '@storybook/addon-knobs'
+} from '@storybook/addon-knobs';
 
-import Icon, { iconTypes } from './Icon'
-import { Meta } from '@storybook/react/types-6-0'
+import Icon, { iconTypes, CursorStyleType } from './Icon';
+import { Meta } from '@storybook/react/types-6-0';
 
 export default {
   component: Icon,
   title: 'Core/Icon',
   decorators: [withKnobs],
-} as Meta
+} as Meta;
 
 export function Index() {
-  const theme = select('icon name', iconTypes, 'singleChoice')
-  const width = number('width', 50)
-  const color = text('color', 'black')
-  const rotate = number('rotate', 0)
- 
+  const theme = select('icon name', iconTypes, 'singleChoice');
+  const width = number('width', 50);
+  const color = text('color', 'black');
+  const rotate = number('rotate', 0);
+
   return (
     <Icon
       icon={theme}
@@ -31,15 +31,16 @@ export function Index() {
       onClick={() => alert('Hello!')}
       useCursor={true}
       hoveredColor={'red'}
+      selectCursor="grab"
     />
-  )
+  );
 }
 
 export function mouseover() {
-  const theme = select('icon name', iconTypes, 'singleChoice')
-  const width = number('width', 50)
-  const color = text('color', 'black')
-  const rotate = number('rotate', 0)
+  const theme = select('icon name', iconTypes, 'singleChoice');
+  const width = number('width', 50);
+  const color = text('color', 'black');
+  const rotate = number('rotate', 0);
 
   return (
     <Icon
@@ -52,5 +53,5 @@ export function mouseover() {
       onMouseLeave={() => alert('mousedown!')}
       useCursor={true}
     />
-  )
+  );
 }

@@ -7,12 +7,13 @@ const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
   width: 23px !important;
   height: 21px !important;
   margin-bottom: 0px !important;
-  ${(props) => props.pngImageCropCircle && 'object-fit:cover; border-radius:50%;'}
+  ${(props) =>
+    props.pngImageCropCircle && 'object-fit:cover; border-radius:50%;'}
 `;
 
 const DropDownContainer = styled.div<{
   width: number;
-  containerHeight?: string
+  containerHeight?: string;
 }>`
   width: ${(props) => props.width}px;
   font-size: 12px;
@@ -68,7 +69,8 @@ const DropDownList = styled.div<{
   height: ${(props) => props.listLength * props.height}px;
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
-  color: ${(props) => (props.disable ? props.textColor ?? '#818282' : '#111111')};
+  color: ${(props) =>
+    props.disable ? props.textColor ?? '#818282' : '#111111'};
   border-radius: 3px;
   padding: 8px 0;
   max-height: ${(props) => `${props.listMaxHeight ?? 200}px`};
@@ -89,9 +91,12 @@ const DropDownItem = styled.div<{
   box-sizing: border-box;
   padding: 0 10px;
   height: ${(props) => props.height}px;
-  background-color: ${(props) => (props.selected == props.index ? '#F0F0F0' : 'white')};
+  background-color: ${(props) =>
+    props.selected === props.index ? '#F0F0F0' : 'white'};
+  cursor: pointer;
   &:hover {
-    background-color: ${(props) => (props.selected == props.index ? '#F0F0F0' : props.themeColor)};
+    background-color: ${(props) =>
+      props.selected === props.index ? '#F0F0F0' : props.themeColor};
   }
 `;
 const DropDownItemText = styled.p<{ fontSize?: number }>`
@@ -161,8 +166,8 @@ function DropDown({
      */
     function handleClickOutside(event: any) {
       if (
-        selectionListRef.current
-        && !selectionListRef.current.contains(event.target)
+        selectionListRef.current &&
+        !selectionListRef.current.contains(event.target)
       ) {
         setIsShowList(false);
       }
