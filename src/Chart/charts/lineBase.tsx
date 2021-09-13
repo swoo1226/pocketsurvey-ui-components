@@ -1,7 +1,7 @@
 /* eslint-disable semi */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
-import { EChartsOption } from "echarts"; 
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { getSizeCSS, mergeOption, color } from "../util/index";
 
@@ -19,11 +19,11 @@ const lineBaseOption = ({
   labels,
   hasMarker,
   smooth,
-  labelOption="dynamic",
+  labelOption = "dynamic",
   override,
 }: LineBaseOptionPropsType) => {
   const option: EChartsOption = {};
-  option.color = color.YELLOW
+  option.color = color.YELLOW;
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
@@ -36,7 +36,7 @@ const lineBaseOption = ({
         return obj;
       }
     },
-    extraCssText: "text-align: left;"
+    extraCssText: "text-align: left;",
   };
   option.toolbox = {
     show: true,
@@ -65,7 +65,7 @@ const lineBaseOption = ({
             ],
           }
           : {
-            data: []
+            data: [],
           },
     },
   ];
@@ -88,7 +88,7 @@ function LineBase({
   labels,
   hasMarker,
   smooth,
-  labelOption="dynamic",
+  labelOption = "dynamic",
   override,
 }: LineBasePropsType) {
   return (
@@ -102,6 +102,7 @@ function LineBase({
         labelOption,
         override,
       })}
+      opts={{ renderer: "svg" }}
     />
   );
 }

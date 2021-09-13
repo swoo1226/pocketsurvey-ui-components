@@ -27,7 +27,7 @@ export function BarVerticalSeparated() {
   const series = Array(CHART_DATA_LENGTH)
     .fill(number)
     .map((_) => getRandomNumberArray(CHART_DATA_LENGTH));
-    
+
   return (
     <Chart.BarVerticalSeparated
       xAxisLabel={[
@@ -50,11 +50,35 @@ export function BarHorizontalBase() {
   const mainColor = color("bold color", "#FAC62D");
   const subColor = color("light color", "#fef4ce");
   const [align, setAlign] = useState(null);
+  const len = 20
+    
+  const getRandom = () => Math.ceil(Math.random() * (50 - 0) + 0);
+  const dummy = Array(len)
+    .fill(0)
+    .map((_) => getRandom());
+
+    const koreanDummy = dummy.reduce((acc, cur)=> {
+      const raw = [
+        "훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한",
+        "모든 국민은 인간다운 생활을 할 권리를 가진다. 탄핵소추의",
+        "모든 국민은 법률이 정하는 바에 의하여 국가기관에 문서로",
+        "대통령이 궐위되거나 사고로 인하여 직무를 수행할 수 없을",
+        "법원은 최고법원인 대법원과 각급법원으로 조직된다. 비상계",
+        "대통령의 임기가 만료되는 때에는 임기만료 70일 내지 40일",
+        "헌법재판소 재판관은 정당에 가입하거나 정치에 관여할 수",
+        "군인은 현역을 면한 후가 아니면 국무총리로 임명될 수 없다",
+        "대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여",
+        "국무위원은 국무총리의 제청으로 대통령이 임명한다. 헌법개"
+    ]
+    acc.push(raw[Math.ceil(Math.random() * (9 - 0) + 0)])
+    return acc  
+  }, [])
+
   return (
     <>
-      <Chart.BarHorizontalBase
-        labels={["라벨 1번", "2번 라벨"]}
-        series={[123, 456]}
+      <Chart.BarHorizontalBase 
+        labels={koreanDummy}
+        series={dummy}
       />
       <DropDown
         list={[

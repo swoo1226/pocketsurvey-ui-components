@@ -221,6 +221,7 @@ function BarHorizontalStacked({
           hundredPercent,
           labelOption,
         })}
+        opts={{ renderer: "svg" }}
       />
     </EChartsWrapper>
   );

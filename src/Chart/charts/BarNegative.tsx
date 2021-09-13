@@ -19,7 +19,6 @@ type BarNegativeOptionPropsType = {
 
 const MAX_LABEL_LENGTH = 14;
 
-
 type BarNegativePropsType = {
   width?: number | string;
   height?: number | string;
@@ -32,28 +31,28 @@ function BarNegative({
   labels,
   override,
   standard,
-  labelOption="dynamic",
+  labelOption = "dynamic",
 }: BarNegativePropsType): JSX.Element {
   const sizeValue = 28;
   const minWidth =
-  sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
+    sizeValue * series.length + sizeValue * series.length * 0.2 + 120;
   const defaultWidth = 300;
   const BarNegativeOption = ({
     series,
     labels,
     override,
     standard,
-    labelOption="dynamic",
+    labelOption = "dynamic",
   }: BarNegativeOptionPropsType) => {
     const option: EChartsOption = {};
     option.xAxis = {
       type: "value",
       show: true,
       axisLabel: {
-        show: false
-      }
+        show: false,
+      },
     };
-  
+
     option.yAxis = {
       type: "category",
       z: 10,
@@ -65,8 +64,8 @@ function BarNegative({
       axisLine: {
         lineStyle: {
           color: "#59C4DB",
-          width: 3
-        }
+          width: 3,
+        },
       },
       axisLabel: {
         showMaxLabel: true,
@@ -80,7 +79,7 @@ function BarNegative({
         },
       },
     } as EChartsOption["yAxis"];
-  
+
     const seriesData: {
       value: number;
       name: string;
@@ -88,11 +87,11 @@ function BarNegative({
         color: string;
       };
       label: {
-          position: "left" | "right"
-      }
+        position: "left" | "right";
+      };
     }[] = [];
     series.map((number, index) => {
-      const diff = number - standard
+      const diff = number - standard;
       seriesData.push({
         value: diff,
         name: labels[index],
@@ -104,7 +103,7 @@ function BarNegative({
         },
       });
     });
-  
+
     option.series = [
       {
         data: seriesData,
@@ -113,7 +112,7 @@ function BarNegative({
         label: {
           show: true,
           color: "#000",
-          formatter: (v) => (v.value as number + standard).toFixed(2) + "점"
+          formatter: (v) => ((v.value as number) + standard).toFixed(2) + "점",
         },
       },
     ];
@@ -122,27 +121,25 @@ function BarNegative({
       axisPointer: {
         type: "shadow",
       },
-      position(
-        pos: any,
-        params: any,
-        el: any,
-        elRect: any,
-        size: any,
-      ) {
-        if(labelOption === "fixed") {
+      position(pos: any, params: any, el: any, elRect: any, size: any) {
+        if (labelOption === "fixed") {
           const obj: any = { top: 10 };
           obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
           return obj;
         }
       },
       extraCssText: "text-align: left;",
-      formatter: (v) => {return `${v[0].name}</br>${v[0].marker}</span>${(v[0].value + standard).toFixed(2)}점`;}
+      formatter: (v) => {
+        return `${v[0].name}</br>${v[0].marker}</span>${(
+          v[0].value + standard
+        ).toFixed(2)}점`;
+      },
     };
-  
+
     option.grid = {
       left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`,
     };
-  
+
     return mergeOption({
       option,
       override,
@@ -161,6 +158,7 @@ function BarNegative({
         standard,
         labelOption,
       })}
+      opts={{ renderer: "svg" }}
     />
   );
 }

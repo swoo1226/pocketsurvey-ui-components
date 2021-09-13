@@ -41,10 +41,10 @@ const data = [
   ],
 ];
 
-const bubbleOption = ({data}) => {
+const bubbleOption = ({ data }) => {
   const option: EChartsOption = {};
   // 비교할 키워드 선택이 있는 경우에 getColors 사용
-  // const colors = getColors.bubble(data.length,0)  
+  // const colors = getColors.bubble(data.length,0)
   const colors = data.map(() => "#FAC62D");
   option.center = ["50%", "50%"];
   option.yAxis = {
@@ -64,7 +64,7 @@ const bubbleOption = ({data}) => {
   // itemStyle: {},
   // },
 
-  (option.series = data.map((item, index) => ({
+  option.series = data.map((item, index) => ({
     name: item[0][3],
     type: "scatter",
     data: item,
@@ -87,7 +87,7 @@ const bubbleOption = ({data}) => {
       // shadowOffsetY: 5,
       color: colors[index],
     },
-  })));
+  }));
   option.tooltip = {
     trigger: "axis",
     axisPointer: {
@@ -106,7 +106,12 @@ const bubbleOption = ({data}) => {
       // },
       tooltip: {
         trigger: "item",
-        formatter: (v) => `<div>${v.seriesName}<hr/>${new Date(v.name * 1000).toLocaleDateString("ko")}</br>평균 점수 : ${v.value[1]}점</br>빈도 수 : ${v.value[2].toLocaleString()}건</div>`,
+        formatter: (v) =>
+          `<div>${v.seriesName}<hr/>${new Date(
+            v.name * 1000
+          ).toLocaleDateString("ko")}</br>평균 점수 : ${
+            v.value[1]
+          }점</br>빈도 수 : ${v.value[2].toLocaleString()}건</div>`,
       },
       grid: {
         // left: "8%",
@@ -187,15 +192,15 @@ const bubbleOption = ({data}) => {
       // ],
     }
   );
-  return option
-}
+  return option;
+};
 
 type BubblePropsType = {
   width?: number | string;
   height?: number | string;
   selected?: number[];
-}
-function Bubble({width, height}: BubblePropsType) {
+};
+function Bubble({ width, height }: BubblePropsType) {
   // const targetRef = React.useRef<HTMLDivElement>(null);
   // const [lineWidth, setLineWidth] = React.useState<number | null>(null);
   // const calcSVGPathLineWidth = () => {
@@ -204,7 +209,15 @@ function Bubble({width, height}: BubblePropsType) {
   //   ) as SVGSVGElement;
   //   setLineWidth(svg?.getBBox()?.width);
   // };
-  return <div><EChartsReact style={getSizeCSS(width, height)} option={bubbleOption({data})} /></div>
+  return (
+    <div>
+      <EChartsReact
+        style={getSizeCSS(width, height)}
+        option={bubbleOption({ data })}
+        opts={{ renderer: "svg" }}
+      />
+    </div>
+  );
 }
 
-export default Bubble
+export default Bubble;

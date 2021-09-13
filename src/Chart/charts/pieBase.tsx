@@ -132,6 +132,7 @@ function PieBase({
         showLabel,
         labelOption,
       })}
+      opts={{ renderer: "svg" }}
     />
   );
 }
