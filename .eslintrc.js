@@ -1,31 +1,46 @@
 module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: { project: './tsconfig.json' },
+  plugins: ['@typescript-eslint', 'react-hooks', 'import'],
   env: {
-    browser: true,
-    es2021: true,
+    es6: true,
     node: true,
+    jest: true,
   },
   extends: [
-    'eslint:recommended',
+    'airbnb-typescript',
+    'airbnb/hooks',
     'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-    sourceType: 'module',
-  },
-  plugins: ['react', '@typescript-eslint'],
   rules: {
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'double'],
-    semi: ['error', 'never'],
-    'react/function-component-definition': [
+    'prettier/prettier': 0,
+    'import/no-cycle': 0,
+    'no-param-reassign': [
       'error',
-      { unnamedComponents: 'function-expression' },
+      { props: true, ignorePropertyModificationsFor: ['state'] },
     ],
+    'no-loop-func': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/jsx-key': 0,
+    'react/require-default-props': 0,
+    'react/no-array-index-key': 0,
+    'import/no-unresolved': [2, { commonjs: true, amd: true }],
+    'import/named': 2,
+    'import/namespace': 2,
+    'import/default': 2,
+    'import/export': 2,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };
