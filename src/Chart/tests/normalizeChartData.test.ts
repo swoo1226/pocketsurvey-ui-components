@@ -32,8 +32,9 @@ describe('차트 데이터 정제 테스트', () => {
         length10Data.x,
         length10Data.y,
       );
-      const isSorted = JSON.stringify(normalizeData.series)
-        === JSON.stringify(length10Data.x.sort((a, b) => b - a));
+      const isSorted =
+        JSON.stringify(normalizeData.series) ===
+        JSON.stringify(length10Data.x.sort((a, b) => b - a));
 
       expect(isSorted).toEqual(true);
     });
