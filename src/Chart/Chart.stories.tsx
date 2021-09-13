@@ -16,8 +16,6 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-const getRandomNumber = () => Math.ceil(Math.random() * (50 - 0) + 0);
-
 export function BarVerticalSeparated() {
   const CHART_DATA_LENGTH = 8;
 
@@ -38,25 +36,8 @@ export function BarVerticalSeparated() {
         "제휴 혜택 등 가격",
         "기타:",
       ]}
-      label={["매우 만족", "만족", "불만족", "매우 불만족"]}
-      series={[
-        [28.6, 13.2, 4.1, 2.5, 7.2],
-        [71.4, 86.8, 95.9, 97.5, 92.8],
-        [
-          ,
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-        ],
-        [
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-          Math.ceil(Math.random() * (50 - 0) + 0),
-        ],
-      ]}
+      label={["매우 만족", "만족", "불만족", "매우 불만족", "복숭아", "사탕탕", "냠냠냠", "맛있어"]}
+      series={series}
       hundredPercent={{ tooltip: true, series: true }}
     />
   );
@@ -186,7 +167,7 @@ export function PieBase() {
   const showLabel = boolean("showLabel", true);
 
   const mockData = [
-    ["A", 10],
+    ["가나다라마가나다라마가나다라마가나다라마가", 10],
     ["B", 20],
     ["C", 11],
     ["D", 13],
