@@ -84,6 +84,9 @@ const InputElement = styled.input<{
   ignorePlaceholderColor?: boolean;
 }>`
   all: unset;
+  &::-ms-clear {
+    display: none;
+  }
   border: none;
   ${(props) =>
     props.fullWidthMode
