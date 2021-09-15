@@ -74,7 +74,7 @@
   },
   "scripts": {
     "storybook": "start-storybook -s ./public -p 9001",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o docs",
     "test": "jest",
     "lint": "eslint ./src",
     "build-only": "rollup -c",
