@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from "react"
 import { withKnobs, text, select, color } from "@storybook/addon-knobs"
 import Input from '../Input/Input';
-import DropDown from '../DropDown/DropDown';
 import Font from "./Font"
-import { setConstantValue } from "typescript";
 import styled from 'styled-components';
 export default {
 	title: "Core/Typography", // 스토리북에서 보여질 그룹과 경로를 명시
 	component: Font, // 어떤 컴포넌트를 문서화 할지 명시
 	decorators: [withKnobs], // 애드온 적용
 }
-
 
 const FontFace = styled.div`
 	display: flex;
