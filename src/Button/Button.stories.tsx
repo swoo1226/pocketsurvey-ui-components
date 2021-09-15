@@ -11,39 +11,63 @@ export default {
 } as Meta;
 
 export function Index(): JSX.Element {
-  const theme = select(
-    "theme",
-    ["primary", "secondary", "tertiary"],
-    "primary"
-  );
   const disabled = boolean("disabled", false);
-  const backgroundColor = text("backgroundColor", "#FAC62D");
-  const [isSpinner, setIsSpinner] = useState<boolean>(true);
-  const buttonRef = useRef<HTMLDivElement>(null);
-
 
   return (
     <>
+      <h3>포켓서베이에서 사용하는 버튼 컴포넌트</h3>
+      <p>기본적인 버튼</p>
+      <div style={{ display: 'flex' }} >
+        <Button
+          theme={'primary'}
+          disabled={disabled}
+          onClick={() => alert("BasicButton")}
+        >
+          버튼
+        </Button>
+        <Button
+          theme={'secondary'}
+          disabled={disabled}
+          onClick={() => alert("BasicButton")}
+        >
+          버튼
+        </Button>
+        <Button
+          theme={'tertiary'}
+          disabled={disabled}
+          onClick={() => alert("BasicButton")}
+        >
+          버튼
+        </Button>
+      </div>
+      <p>비활성화 버튼</p>
       <Button
-        theme={theme}
-        disabled={disabled}
-        backgroundColor={backgroundColor}
-        onClick={() => {
-          setIsSpinner(!isSpinner);
-        }}
-        isLoading={isSpinner}
+        theme={'primary'}
+        disabled={true}
+        onClick={() => alert("BasicButton")}
       >
-        벝흔
+        버튼
       </Button>
-      <br />
+      <p>버튼은 텍스트 길이에 맞게 크기가 달라집니다</p>
       <Button
-        theme={theme}
+        theme={'primary'}
         disabled={disabled}
         onClick={() => alert("BasicButton")}
-        backgroundColor={backgroundColor}
       >
-        벝흔
+        로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨로렘입숨
       </Button>
+      <p>로딩 버튼</p>
+      <div style={{ display: 'flex' }} >
+        <Button
+          theme={'primary'}
+          disabled={disabled}
+          onClick={() => alert("BasicButton")}
+          isLoading={true}
+        >
+          버튼
+        </Button>
+      </div>
+      <br />
     </>
   );
 }
