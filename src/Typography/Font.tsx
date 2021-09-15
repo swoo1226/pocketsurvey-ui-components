@@ -22,11 +22,12 @@ export type FontType = {
   fontSize: string
   fontColor: string
   className?: string
+  isInline?: boolean
 }
 
-function Font({ children, fontFace, fontWeight, fontColor, fontSize, className }: FontType): JSX.Element {
+function Font({ children, fontFace, fontWeight, fontColor, fontSize, className, isInline = false }: FontType): JSX.Element {
   return (
-    <FontContainer fontFace={fontFace} fontWeight={fontWeight} fontSize={fontSize} fontColor={fontColor} lineHeight="140%" className={className}>
+    <FontContainer fontFace={fontFace} fontWeight={fontWeight} fontSize={fontSize} fontColor={fontColor} lineHeight="140%" className={className} style={{ display: isInline ? "inline" : "block" }}>
       {children}
     </FontContainer>
   )
