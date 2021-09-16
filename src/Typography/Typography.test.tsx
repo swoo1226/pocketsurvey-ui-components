@@ -1,12 +1,12 @@
-import React from "react"
-import { render, RenderResult } from "@testing-library/react"
+import React from 'react';
+import { render, RenderResult } from '@testing-library/react';
 // import userEvent from "@testing-library/user-event"
-import "@testing-library/jest-dom"
+import '@testing-library/jest-dom';
 
-import Font from "./Font"
+import Font from './Font';
 
-describe("폰트 컴포넌트 테스트", () => {
-  let renderResult: RenderResult
+describe('폰트 컴포넌트 테스트', () => {
+  let renderResult: RenderResult;
 
   beforeEach(() => {
     renderResult = render(
@@ -17,42 +17,42 @@ describe("폰트 컴포넌트 테스트", () => {
         fontWeight="700"
       >
         폰트테스트
-      </Font>
-    )
-  })
+      </Font>,
+    );
+  });
 
-  it("의도한 텍스트가 렌더링 되는가", () => {
-    const { getByText } = renderResult
-    const font = getByText("폰트테스트")
+  it('의도한 텍스트가 렌더링 되는가', () => {
+    const { getByText } = renderResult;
+    const font = getByText('폰트테스트');
 
-    expect(font).toBeTruthy()
-  })
+    expect(font).toBeTruthy();
+  });
 
-  it("fontColor", () => {
-    const { getByText } = renderResult
-    const font = getByText("폰트테스트")
+  it('fontColor', () => {
+    const { getByText } = renderResult;
+    const font = getByText('폰트테스트');
 
-    expect(font).toHaveStyle("color: #40739e")
-  })
+    expect(font).toHaveStyle('color: #40739e');
+  });
 
-  it("fontSize", () => {
-    const { getByText } = renderResult
-    const font = getByText("폰트테스트")
+  it('fontSize', () => {
+    const { getByText } = renderResult;
+    const font = getByText('폰트테스트');
 
-    expect(font).toHaveStyle("font-size: 18px")
-  })
+    expect(font).toHaveStyle('font-size: 18px');
+  });
 
-  it("fontFace", () => {
-    const { getByText } = renderResult
-    const font = getByText("폰트테스트")
+  it('fontFace', () => {
+    const { getByText } = renderResult;
+    const font = getByText('폰트테스트');
 
-    expect(font).toHaveStyle("font-family: Mont")
-  })
+    expect(font).toHaveStyle('font-family: Mont');
+  });
 
-  it("fontWeight", () => {
-    const { getByText } = renderResult
-    const font = getByText("폰트테스트")
+  it('fontWeight', () => {
+    const { getByText } = renderResult;
+    const font = getByText('폰트테스트');
 
-    expect(font).toHaveStyle("font-weight: 700")
-  })
-})
+    expect(font).toHaveStyle('font-weight: 700');
+  });
+});

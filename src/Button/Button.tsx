@@ -1,6 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import loadingSpinner from "../Icon/svg/loadingSpinner.svg"
+import React from 'react';
+import styled from 'styled-components';
+import loadingSpinner from '../Icon/svg/loadingSpinner.svg';
 
 const ButtonContainer = styled.div<{
   backgroundColor: string;
@@ -10,27 +10,24 @@ const ButtonContainer = styled.div<{
 }>`
   width: fit-content;
   padding: 14px 28px;
-  background-color: ${(props) =>
-    props.disabled
-      ? "#dfdedd"
-      : props.isLoading
-        ? "#FEF4CE"
-        : props.backgroundColor};
-  color: ${(props) =>
-    props.disabled
-      ? "#818282"
-      : props.hoverBackgroundColor === "#F0F0F0"
-        ? "#818282"
-        : "#111111"};
+  background-color: ${(props) => (props.disabled
+    ? '#dfdedd'
+    : props.isLoading
+      ? '#FEF4CE'
+      : props.backgroundColor)};
+  color: ${(props) => (props.disabled
+    ? '#818282'
+    : props.hoverBackgroundColor === '#F0F0F0'
+      ? '#818282'
+      : '#111111')};
   border-radius: 3px;
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   &:hover {
-    background-color: ${(props) =>
-    props.disabled
-      ? "#dfdedd"
-      : props.isLoading
-        ? "#FEF4CE"
-        : props.hoverBackgroundColor};
+    background-color: ${(props) => (props.disabled
+    ? '#dfdedd'
+    : props.isLoading
+      ? '#FEF4CE'
+      : props.hoverBackgroundColor)};
   }
   .loadingSpinner {
     position: relative;
@@ -64,10 +61,10 @@ const ButtonContainer = styled.div<{
       }
     }
   }
-`
+`;
 
-type SizeType = "small" | "medium" | "big";
-type ThemeType = "primary" | "secondary" | "tertiary" | "cancel" | "selectAll" | "emptyArr";
+type SizeType = 'small' | 'medium' | 'big';
+type ThemeType = 'primary' | 'secondary' | 'tertiary' | 'cancel';
 
 export type ButtonType = {
   children: React.ReactNode;
@@ -93,54 +90,43 @@ function Button({
   function switchTheme(): {
     innerBackgroundColor: string;
     innerHoverBackgroundColor: string;
-    } {
+  } {
     if (backgroundColor) {
       return {
         innerBackgroundColor: backgroundColor,
         innerHoverBackgroundColor: backgroundColor,
-      }
+      };
     }
     switch (theme) {
-    case "primary":
-      return {
-        innerBackgroundColor: "#FAC62D",
-        innerHoverBackgroundColor: "#F0BD05",
-      }
-    case "secondary":
-      return {
-        innerBackgroundColor: "#E9E1D5",
-        innerHoverBackgroundColor: "#E3D9CA",
-      }
-    case "tertiary":
-      return {
-        innerBackgroundColor: "#F0F0F0",
-        innerHoverBackgroundColor: "#EBEBEB",
-      }
-    case "cancel":
-      return {
-        innerBackgroundColor: "#FFFFFF",
-        innerHoverBackgroundColor: "#F0F0F0",
-      }
-    case "selectAll":
-      return {
-        innerBackgroundColor: "#F0F0F0",
-        innerHoverBackgroundColor: "#DFDEDD",
-      }
-    case "emptyArr":
-      return {
-        innerBackgroundColor: "#818282",
-        innerHoverBackgroundColor: "#818282",
-      }
-
-    default:
-      return {
-        innerBackgroundColor: "#FAC62D",
-        innerHoverBackgroundColor: "#F0BD05",
-      }
+      case 'primary':
+        return {
+          innerBackgroundColor: '#FAC62D',
+          innerHoverBackgroundColor: '#F0BD05',
+        };
+      case 'secondary':
+        return {
+          innerBackgroundColor: '#E9E1D5',
+          innerHoverBackgroundColor: '#E3D9CA',
+        };
+      case 'tertiary':
+        return {
+          innerBackgroundColor: '#F0F0F0',
+          innerHoverBackgroundColor: '#EBEBEB',
+        };
+      case 'cancel':
+        return {
+          innerBackgroundColor: '#FFFFFF',
+          innerHoverBackgroundColor: '#F0F0F0',
+        };
+      default:
+        return {
+          innerBackgroundColor: '#FAC62D',
+          innerHoverBackgroundColor: '#F0BD05',
+        };
     }
   }
 
-  const { innerBackgroundColor, innerHoverBackgroundColor } = switchTheme()
+  const { innerBackgroundColor, innerHoverBackgroundColor } = switchTheme();
 
   return (
     <ButtonContainer
@@ -160,7 +146,7 @@ function Button({
         children
       )}
     </ButtonContainer>
-  )
+  );
 }
 
-export default Button
+export default Button;

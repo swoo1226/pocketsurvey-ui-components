@@ -1,8 +1,8 @@
-import React from "react"
-import styled, {css} from "styled-components"
+import React from 'react';
+import styled, { css } from 'styled-components';
 
-import ProgressBar from "../ProgressBar/ProgressBar"
-import Button from "../Button/Button"
+import ProgressBar from '../ProgressBar/ProgressBar';
+import Button from '../Button/Button';
 
 const scrollBar = css`
   ::-webkit-scrollbar {
@@ -15,7 +15,7 @@ const scrollBar = css`
     background-color: rgba(195, 195, 195, 0.75);
     -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
   }
-`
+`;
 
 const ModalBackground = styled.div`
   width: 100vw;
@@ -28,7 +28,7 @@ const ModalBackground = styled.div`
   justify-content: center;
   z-index: 999999;
   flex-direction: column;
-`
+`;
 
 const ModalBlackCurtain = styled.div`
   cursor: pointer;
@@ -39,7 +39,7 @@ const ModalBlackCurtain = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
-`
+`;
 const ModalContainer = styled.div<{
   hasBorderTop: boolean
   isProgressBar: boolean
@@ -51,35 +51,34 @@ const ModalContainer = styled.div<{
   flex-direction: column;
   border-radius: 3px;
   background-color: white;
-  border-top: ${props =>
-    props.hasBorderTop && !props.isProgressBar
-      ? "7px solid #FAC609"
-      : undefined};
+  border-top: ${(props) => (props.hasBorderTop && !props.isProgressBar
+    ? '7px solid #FAC609'
+    : undefined)};
   position: relative;
   max-height: 90vh;
-`
+`;
 
 const ModalTitleContainer = styled.div`
   width: 100%;
   height: 30px;
-`
+`;
 const ModalTitle = styled.p`
   all: unset;
   font-size: 20px;
-`
+`;
 const ModalContentContainer = styled.div`
   height: 100%;
   max-height: 100%;
   overflow-y: auto;
   ${scrollBar}
-`
+`;
 const ModalBottomContainer = styled.div`
   width: 100%;
   height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-`
+`;
 
 const ModalBottomButtonContainer = styled.div`
   display: flex;
@@ -88,7 +87,7 @@ const ModalBottomButtonContainer = styled.div`
   & div {
     margin: 0 2px;
   }
-`
+`;
 
 type ModalType = {
   children: JSX.Element
@@ -107,13 +106,13 @@ type ModalType = {
   isLoading? : boolean
   cancelDisabled?: boolean
   cancelButtonName?: string
-}
+};
 
 function Modal({
   children,
   title,
   buttonName,
-  cancelButtonName = "취소",
+  cancelButtonName = '취소',
   onClick,
   onCancel,
   hasBorderTop,
@@ -129,7 +128,7 @@ function Modal({
 }: ModalType): JSX.Element {
   return (
     <ModalBackground>
-      <ModalBlackCurtain onClick={() => onCancel()}></ModalBlackCurtain>
+      <ModalBlackCurtain onClick={() => onCancel()} />
       <ModalContainer
         hasBorderTop={hasBorderTop}
         className={className}
@@ -146,15 +145,15 @@ function Modal({
           <ModalBottomButtonContainer>
             {
               useCancelButton && (
-                <Button theme='cancel' disabled={cancelDisabled === undefined ? false : cancelDisabled} onClick={() => onCancel()}>{cancelButtonName}</Button>
+                <Button theme="cancel" disabled={cancelDisabled === undefined ? false : cancelDisabled} onClick={() => onCancel()}>{cancelButtonName}</Button>
               )
             }
-            <Button theme='primary' disabled={disabled} backgroundColor={disabled ? "#DFDEDD": buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
+            <Button theme="primary" disabled={disabled} backgroundColor={disabled ? '#DFDEDD' : buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
           </ModalBottomButtonContainer>
         </ModalBottomContainer>
       </ModalContainer>
     </ModalBackground>
-  )
+  );
 }
 
-export default Modal
+export default Modal;

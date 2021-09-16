@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   withKnobs,
   number,
@@ -28,7 +28,7 @@ export default {
   component: Icon,
   title: 'Core/Icon',
   decorators: [withKnobs],
-} as Meta
+} as Meta;
 
 export function Index() {
   const width = number('width', 50)
@@ -58,10 +58,10 @@ export function Index() {
 }
 
 export function mouseover() {
-  const theme = select('icon name', iconTypes, 'singleChoice')
-  const width = number('width', 50)
-  const color = text('color', 'black')
-  const rotate = number('rotate', 0)
+  const theme = select('icon name', iconTypes, 'singleChoice');
+  const width = number('width', 50);
+  const color = text('color', 'black');
+  const rotate = number('rotate', 0);
 
   return (
     <Icon
@@ -73,7 +73,6 @@ export function mouseover() {
       onMouseOver={() => alert('mouseover!')}
       onMouseLeave={() => alert('mousedown!')}
       useCursor={true}
-
     />
-  )
+  );
 }
