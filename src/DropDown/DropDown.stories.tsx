@@ -138,6 +138,17 @@ function BranchSelector() {
   );
 }
 
+const PSection = (title : string) => 
+<p
+  key={title}
+  style={{
+    fontSize: "14px",
+    fontWeight: 500,
+    margin: "21px 14px",
+  }}
+>
+  {title}
+</p>;
 
 function HrSelector() {
   const [selected, setSelected] = useState(0);
@@ -150,17 +161,7 @@ function HrSelector() {
   const target1 = number("target1", 0)
   const target2 = number("target2", 3)
 
-  const PSection = (title : string) => 
-    <p
-      key={title}
-      style={{
-        fontSize: "14px",
-        fontWeight: 500,
-        margin: "21px 14px",
-      }}
-    >
-      {title}
-    </p>;
+
   
   return (
     <DropDown

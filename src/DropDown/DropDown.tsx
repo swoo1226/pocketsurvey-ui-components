@@ -1,9 +1,7 @@
-import { hslToRgb } from "@material-ui/core"
-import React, { useState, useEffect, useRef } from "react"
-import ReactDOM from 'react-dom'
-import styled from "styled-components"
-import { JsxElement } from "typescript"
-import Icon, { IconType } from "../Icon/Icon"
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+import Icon, { IconType } from '../Icon/Icon';
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
   width: 23px !important;
@@ -122,7 +120,7 @@ export type DropDownType = {
     hidden?: boolean;
     png?: any;
   }[];
-  hrs?: {targetIndex: number, title: string, section: Element}[];
+  hrs?: { targetIndex: number; title: string; section?: JSX.Element }[];
   iconColor?: string;
   selected: number | null;
   disable: boolean;
@@ -144,11 +142,17 @@ export type DropDownType = {
   containerHeight?: string;
 };
 
-const Portal = ({ children, targeting }: { children: any, targeting: string, targetIndex: number }) => {
-  const getTarget = document.querySelector(targeting)
-  return getTarget ? ReactDOM.createPortal(children, getTarget) : null
-}
-
+const Portal = ({
+  children,
+  targeting,
+}: {
+  children: any;
+  targeting: string;
+  targetIndex: number;
+}) => {
+  const getTarget = document.querySelector(targeting);
+  return getTarget ? ReactDOM.createPortal(children, getTarget) : null;
+};
 
 function DropDown({
   list,
@@ -168,7 +172,7 @@ function DropDown({
   pngImageCropCircle,
   containerHeight,
   hrs,
-  id
+  id,
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false);
   const selectionListRef = useRef<HTMLDivElement>(null);
@@ -258,13 +262,11 @@ function DropDown({
         />
       </DropDownBoxContainer>
       {hrs &&
-        hrs.map((hr) => {
-          return Portal({
+        hrs.map((hr) => Portal({
             children: hr.section,
             targeting: `.${id}Hr${hr.targetIndex}`,
-            targetIndex: hr.targetIndex
-          })
-        })}
+            targetIndex: hr.targetIndex,
+          }))}
       <DropDownList
         isShowList={isShowList}
         disable={disable}
@@ -277,11 +279,13 @@ function DropDown({
         listMaxHeight={listMaxHeight}
         textColor={textColor}
         fontSize={fontSize}
-        className={className ? `${className}List` : ""}
+        className={className ? `${className}List` : ''}
       >
         {list.map((item, index) => (
           <>
-            {hrs && hrs.some(hr => hr.targetIndex === index) && <div className={`${id}Hr${index}`}></div>}
+            {hrs && hrs.some((hr) => hr.targetIndex === index) && (
+              <div className={`${id}Hr${index}`} />
+            )}
             <DropDownItem
               key={index}
               index={index}
@@ -296,7 +300,7 @@ function DropDown({
             >
               {item.icon && (
                 <Icon
-                  color={disable ? "#818282" : iconColor!}
+                  color={disable ? '#818282' : iconColor!}
                   icon={item.icon}
                   width={18}
                   rotate={item.rotate ?? 0}

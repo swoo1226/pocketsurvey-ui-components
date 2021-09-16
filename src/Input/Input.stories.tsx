@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   withKnobs,
   number,
   boolean,
   text,
   color,
-} from "@storybook/addon-knobs";
-import Font from "../Typography/Font";
-import Input from "./Input";
-import Font from '../Typography/Font'
-import { Meta } from "@storybook/react/types-6-0";
-import styled from 'styled-components'
+} from '@storybook/addon-knobs';
+import Input from './Input';
+import Font from '../Typography/Font';
+import { Meta } from '@storybook/react/types-6-0';
+import styled from 'styled-components';
 
 export default {
   component: Input,
-  title: "Components/Input",
+  title: 'Components/Input',
   decorators: [withKnobs],
 } as Meta;
 
@@ -25,7 +24,7 @@ const InputContainer = styled.div`
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     transition: 0.2s ease-in-out;
   }
-`
+`;
 
 export function Index() {
   return (
@@ -46,15 +45,15 @@ export function Index() {
           fontColor="black"
         >
           기본적인 Input
-          <Font
-            fontFace="Noto Sans CJK KR"
-            fontWeight="300"
-            fontSize="16px"
-            fontColor="#818282"
-            isInline={true}
-          >
-            (Knob 조작을 할 수 있습니다.)
-          </Font>
+        </Font>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="300"
+          fontSize="16px"
+          fontColor="#818282"
+          isInline={true}
+        >
+          인풋 메세지
         </Font>
         <Default />
       </InputContainer>
@@ -103,51 +102,51 @@ export function Index() {
         <Number />
       </InputContainer>
       <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          URL Input
+        </Font>
+        <URL />
+      </InputContainer>
+    </>
+  );
+}
+
+function Default() {
+  const [value, setValue] = useState<string>('');
+
+  const placeholder = text('placeholder', '텍스트를 입력해주세요.');
+  const errorMessage = text('errorMessage', '에러메시지');
+  const useCancelButton = boolean('useCancelButton', false);
+  const isError = boolean('isError', false);
+  const readOnly = boolean('readOnly', false);
+  const tabIndex = number('tabIndex', 10);
+  const borderColor = color('borderColor', '#FAC609');
+  const textColor = text('textColor', '#DFDEDD');
+  const buttonAlways = boolean('buttonAlways', true);
+
+  return (
+    <div>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="500"
+        fontSize="24px"
+        fontColor="black"
+      >
+        포켓서베이에서 사용하는 기본 인풋 컴포넌트
+      </Font>
       <Font
         fontFace="Noto Sans CJK KR"
         fontWeight="400"
         fontSize="16px"
         fontColor="black"
       >
-        URL Input
-      </Font>
-      <URL />
-      </InputContainer>
-    </>
-  );
-}
-
-function Default () {
-  const [value, setValue] = useState<string>("");
-
-  const placeholder = text("placeholder", "텍스트를 입력해주세요.");
-  const errorMessage = text("errorMessage", "에러메시지");
-  const useCancelButton = boolean("useCancelButton", false);
-  const isError = boolean("isError", false);
-  const readOnly = boolean("readOnly", false);
-  const tabIndex = number("tabIndex", 10);
-  const borderColor = color("borderColor", "#FAC609");
-  const textColor = text("textColor", "#DFDEDD");
-  const buttonAlways = boolean("buttonAlways", true);
-
-  return (
-    <div>
-      <Font
-        fontFace='Noto Sans CJK KR'
-        fontWeight="500"
-        fontSize='24px'
-        fontColor='black'
-      >
-        포켓서베이에서 사용하는 기본 인풋 컴포넌트
-      </Font>
-      <Font
-        fontFace='Noto Sans CJK KR'
-        fontWeight="400"
-        fontSize='16px'
-        fontColor='black'
-      >
         라인형 인풋
-      </Font> 
+      </Font>
       <Input
         mode={'line'}
         placeholder={placeholder}
@@ -161,33 +160,33 @@ function Default () {
         readOnly={readOnly}
         tabIndex={tabIndex}
         onFocus={() => {
-          console.log("onFocus");
+          console.log('onFocus');
         }}
         onClick={() => {
-          console.log("onClick");
+          console.log('onClick');
         }}
         onBlur={() => {
-          console.log("onBlur");
+          console.log('onBlur');
         }}
         onClickCancelButton={() => {
-          setValue('')
+          setValue('');
         }}
         onKeyDown={() => {
-          console.log("onKeyDown");
+          console.log('onKeyDown');
         }}
         borderColor={borderColor}
-        iconButton={"exit"}
+        iconButton={'exit'}
         textColor={textColor}
         buttonAlways={!!value}
       />
       <Font
-        fontFace='Noto Sans CJK KR'
+        fontFace="Noto Sans CJK KR"
         fontWeight="400"
-        fontSize='16px'
-        fontColor='black'
+        fontSize="16px"
+        fontColor="black"
       >
         박스형 인풋
-      </Font> 
+      </Font>
       <Input
         mode={'basic'}
         placeholder={placeholder}
@@ -201,41 +200,41 @@ function Default () {
         readOnly={readOnly}
         tabIndex={tabIndex}
         onFocus={() => {
-          console.log("onFocus");
+          console.log('onFocus');
         }}
         onClick={() => {
-          console.log("onClick");
+          console.log('onClick');
         }}
         onBlur={() => {
-          console.log("onBlur");
+          console.log('onBlur');
         }}
         onClickCancelButton={() => {
-          setValue('')
+          setValue('');
         }}
         onKeyDown={() => {
-          console.log("onKeyDown");
+          console.log('onKeyDown');
         }}
         borderColor={borderColor}
-        iconButton={"exit"}
+        iconButton={'exit'}
         textColor={textColor}
         buttonAlways={!!value}
       />
       <Font
-        fontFace='Noto Sans CJK KR'
+        fontFace="Noto Sans CJK KR"
         fontWeight="400"
-        fontSize='20px'
-        fontColor='black'
+        fontSize="20px"
+        fontColor="black"
       >
         비활성화된 인풋
-      </Font> 
+      </Font>
       <Font
-        fontFace='Noto Sans CJK KR'
+        fontFace="Noto Sans CJK KR"
         fontWeight="400"
-        fontSize='16px'
-        fontColor='black'
+        fontSize="16px"
+        fontColor="black"
       >
         라인형 비활성화 인풋
-      </Font> 
+      </Font>
       <Input
         mode={'line'}
         placeholder={placeholder}
@@ -249,28 +248,28 @@ function Default () {
         readOnly={readOnly}
         tabIndex={tabIndex}
         onFocus={() => {
-          console.log("onFocus");
+          console.log('onFocus');
         }}
         onClick={() => {
-          console.log("onClick");
+          console.log('onClick');
         }}
         onBlur={() => {
-          console.log("onBlur");
+          console.log('onBlur');
         }}
         onKeyDown={() => {
-          console.log("onKeyDown");
+          console.log('onKeyDown');
         }}
         borderColor={borderColor}
         textColor={textColor}
       />
       <Font
-        fontFace='Noto Sans CJK KR'
+        fontFace="Noto Sans CJK KR"
         fontWeight="400"
-        fontSize='16px'
-        fontColor='black'
+        fontSize="16px"
+        fontColor="black"
       >
         박스형 비활성화 인풋
-      </Font> 
+      </Font>
       <Input
         mode={'basic'}
         placeholder={placeholder}
@@ -284,28 +283,28 @@ function Default () {
         readOnly={readOnly}
         tabIndex={tabIndex}
         onFocus={() => {
-          console.log("onFocus");
+          console.log('onFocus');
         }}
         onClick={() => {
-          console.log("onClick");
+          console.log('onClick');
         }}
         onBlur={() => {
-          console.log("onBlur");
+          console.log('onBlur');
         }}
         onKeyDown={() => {
-          console.log("onKeyDown");
+          console.log('onKeyDown');
         }}
         borderColor={borderColor}
         textColor={textColor}
       />
       <Font
-        fontFace='Noto Sans CJK KR'
+        fontFace="Noto Sans CJK KR"
         fontWeight="400"
-        fontSize='20px'
-        fontColor='black'
+        fontSize="20px"
+        fontColor="black"
       >
         인풋 에러 메시지
-      </Font> 
+      </Font>
       <Input
         mode={'basic'}
         placeholder={placeholder}
@@ -319,22 +318,22 @@ function Default () {
         readOnly={readOnly}
         tabIndex={tabIndex}
         onFocus={() => {
-          console.log("onFocus");
+          console.log('onFocus');
         }}
         onClick={() => {
-          console.log("onClick");
+          console.log('onClick');
         }}
         onBlur={() => {
-          console.log("onBlur");
+          console.log('onBlur');
         }}
         onClickCancelButton={() => {
-          setValue('')
+          setValue('');
         }}
         onKeyDown={() => {
-          console.log("onKeyDown");
+          console.log('onKeyDown');
         }}
         borderColor={borderColor}
-        iconButton={"exit"}
+        iconButton={'exit'}
         textColor={textColor}
         buttonAlways={!!value}
       />
@@ -342,9 +341,8 @@ function Default () {
   );
 }
 
-
 function Email() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   const [focusIndex, setFocusIndex] = useState<number>(0);
   return (
     <>
@@ -368,7 +366,7 @@ function Email() {
 }
 
 function Account() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -378,8 +376,9 @@ function Account() {
           setValue(value);
         }}
         dropdownSelectCallback={() => {
-          console.log("드롭다운 선택 완료")
+          console.log('드롭다운 선택 완료');
         }}
+        id="desktop-account"
       />
       <h2>mobile</h2>
       <Input.Account
@@ -388,13 +387,14 @@ function Account() {
           setValue(value);
         }}
         isMobile
+        id="mobile-account"
       />
     </>
   );
 }
 
 function Phone() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -417,7 +417,7 @@ function Phone() {
 }
 
 function Number() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -441,7 +441,7 @@ function Number() {
 }
 
 function URL() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>

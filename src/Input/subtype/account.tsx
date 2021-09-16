@@ -176,6 +176,18 @@ const switchIcon = (iconName: string) => {
   }
 };
 
+const PSection = (title : string) => 
+<p
+  key={title}
+  style={{
+    fontSize: "14px",
+    fontWeight: 500,
+    margin: "21px 14px",
+  }}
+>
+  {title}
+</p>;
+
 const Wrapper = styled.div<{ isMobile?: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -196,10 +208,11 @@ type AccountPropsType = {
   onChange: (value: string) => void;
   isMobile?: boolean;
   dropdownSelectCallback?: () => void;
+  id: string;
 };
 
 function Account({
-  value, onChange, isMobile, dropdownSelectCallback,
+  value, onChange, isMobile, dropdownSelectCallback,id,
 }: AccountPropsType) {
   const [select, setSelect] = useState<string>('');
   const [dropdownSelect, setDropdownSelect] = useState<number | null>(null);
@@ -236,6 +249,7 @@ function Account({
         listMaxHeight={428}
         placeholder="은행/증권사 선택"
         height={45}
+        id={id}
         list={[
           // {
           //   selectionName: "은행",
@@ -258,6 +272,7 @@ function Account({
             }
           }),
         ]}
+        hrs={[{targetIndex: 0, title: '은행', section:PSection("은행")},{targetIndex: filteredBank.length, title: '증권사', section:PSection("증권사")}]}
         disable={false}
         selected={dropdownSelect}
         themeColor={{
