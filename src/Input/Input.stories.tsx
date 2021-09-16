@@ -6,10 +6,11 @@ import {
   text,
   color,
 } from "@storybook/addon-knobs";
-
+import Font from "../Typography/Font";
 import Input from "./Input";
 import Font from '../Typography/Font'
 import { Meta } from "@storybook/react/types-6-0";
+import styled from 'styled-components'
 
 export default {
   component: Input,
@@ -17,7 +18,102 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
+const InputContainer = styled.div`
+  margin-bottom: 10px;
+  padding: 10px;
+`
+
 export function Index() {
+  return (
+    <>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="500"
+        fontSize="24px"
+        fontColor="black"
+      >
+        포켓서베이에서 사용하는 Input 컴포넌트
+      </Font>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          기본적인 Input
+          <Font
+            fontFace="Noto Sans CJK KR"
+            fontWeight="300"
+            fontSize="16px"
+            fontColor="#818282"
+            isInline={true}
+          >
+            (Icon 지원이 되는)
+          </Font>
+        </Font>
+        <Default />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          이메일 Input
+        </Font>
+        <Email />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          계좌번호 Input
+        </Font>
+        <Account />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          전화번호 Input
+        </Font>
+        <Phone />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          숫자 Input
+        </Font>
+        <Number />
+      </InputContainer>
+      <InputContainer>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        URL Input
+      </Font>
+      <URL />
+      </InputContainer>
+    </>
+  );
+}
+
+function Default () {
   const [value, setValue] = useState<string>("");
 
   const placeholder = text("placeholder", "텍스트를 입력해주세요.");
@@ -28,6 +124,7 @@ export function Index() {
   const tabIndex = number("tabIndex", 10);
   const borderColor = color("borderColor", "#FAC609");
   const textColor = text("textColor", "#DFDEDD");
+  const buttonAlways = boolean("buttonAlways", true);
 
   return (
     <div>
@@ -241,7 +338,8 @@ export function Index() {
   );
 }
 
-export function Email() {
+
+function Email() {
   const [value, setValue] = useState<string>("");
   const [focusIndex, setFocusIndex] = useState<number>(0);
   return (
@@ -254,7 +352,7 @@ export function Email() {
       />
       <p>focusIndex: {focusIndex}</p>
       <button onClick={() => setFocusIndex(focusIndex + 1)}>+1</button>
-      <p>mobile</p>
+      <h2>mobile</h2>
       <Input.Email
         value={value}
         onChange={(value: string) => setValue(value)}
@@ -265,7 +363,7 @@ export function Email() {
   );
 }
 
-export function Account() {
+function Account() {
   const [value, setValue] = useState<string>("");
   return (
     <>
@@ -279,7 +377,7 @@ export function Account() {
           console.log("드롭다운 선택 완료")
         }}
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Account
         value={value}
         onChange={(value: string) => {
@@ -291,7 +389,7 @@ export function Account() {
   );
 }
 
-export function Phone() {
+function Phone() {
   const [value, setValue] = useState<string>("");
   return (
     <>
@@ -302,7 +400,7 @@ export function Phone() {
           setValue(value);
         }}
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Phone
         value={value}
         onChange={(value: string) => {
@@ -314,7 +412,7 @@ export function Phone() {
   );
 }
 
-export function Number() {
+function Number() {
   const [value, setValue] = useState<string>("");
   return (
     <>
@@ -326,7 +424,7 @@ export function Number() {
         }}
       />
 
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Number
         value={value}
         onChange={(value: string) => {
@@ -338,7 +436,7 @@ export function Number() {
   );
 }
 
-export function URL() {
+function URL() {
   const [value, setValue] = useState<string>("");
   return (
     <>
@@ -349,7 +447,7 @@ export function URL() {
           setValue(value);
         }}
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Url
         value={value}
         onChange={(value: string) => {
