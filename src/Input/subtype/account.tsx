@@ -235,20 +235,20 @@ function Account({ value, onChange, isMobile, dropdownSelectCallback }: AccountP
         placeholder={"은행/증권사 선택"}
         height={45}
         list={[
-          {
-            selectionName: "은행",
-            isHr: true,
-          },
+          // {
+          //   selectionName: "은행",
+          //   isHr: true,
+          // },
           ...filteredBank.map((item) => {
             return {
               selectionName: item.name,
               png: switchIcon(item.icon),
             }
           }),
-          {
-            selectionName: "증권사",
-            isHr: true,
-          },
+          // {
+          //   selectionName: "증권사",
+          //   isHr: true,
+          // },
           ...filteredStock.map((item) => {
             return {
               selectionName: item.name,
