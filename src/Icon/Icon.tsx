@@ -1,26 +1,40 @@
-import React from 'react';
-import * as icons from './svg';
+import React from "react"
+import * as icons from "./svg"
 
 export type IconType = keyof typeof icons;
-export const iconTypes: IconType[] = Object.keys(icons) as any[];
+export const iconTypes: IconType[] = Object.keys(icons) as any[]
 
 export type IconProps = {
   /** 사용 할 아이콘 타입 */
-  icon: IconType
+  icon: IconType;
   /** 아이콘 색상 */
   // color?: string;
   /** 아이콘 크기 */
   // size?: string | number;
-  width: number
-  className?: string
-  rotate?: number
-  color: string
-  onClick?: () => void
-  onMouseOver?: () => void
-  onMouseLeave?: () => void
-  useCursor?: boolean
-  hoveredColor?: string
+  width: number;
+  className?: string;
+  rotate?: number;
+  color: string;
+  onClick?: () => void;
+  onMouseOver?: () => void;
+  onMouseLeave?: () => void;
+  useCursor?: boolean;
+  hoveredColor?: string;
+  selectCursor?: CursorStyleType;
 };
+
+export type CursorStyleType =
+  | "default"
+  | "pointer"
+  | "text"
+  | "move"
+  | "no-drop"
+  | "grab"
+  | "grabbing"
+  | "col-resize"
+  | "row-resize"
+  | "zoom-in"
+  | "zoom-out";
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
  *
@@ -39,9 +53,23 @@ function Icon({
   onMouseLeave,
   useCursor,
   hoveredColor,
+  selectCursor,
 }: IconProps): JSX.Element {
-  const [isHover, setIsHover] = React.useState<boolean>(false);
-  const SVGIcon = icons[icon];
+  const [isHover, setIsHover] = React.useState<boolean>(false)
+  const SVGIcon = icons[icon]
+
+  const switchingCursorPointer = (
+    useCursor?: boolean,
+    cursor?: CursorStyleType
+  ) => {
+    if (useCursor) {
+      if (cursor) {
+        return cursor
+      }
+      return "pointer"
+    }
+    return "default"
+  }
 
   return (
     <SVGIcon
@@ -50,24 +78,24 @@ function Icon({
         height: `${width}px`,
         transform: `rotate(${rotate}deg)`,
         fill: isHover && hoveredColor ? hoveredColor : color,
-        cursor: `${useCursor ? 'pointer' : 'default'}`,
+        cursor: `${switchingCursorPointer(useCursor, selectCursor)}`,
       }}
       className={className}
       onClick={onClick}
       onMouseOver={() => {
         if (onMouseOver) {
-          onMouseOver();
+          onMouseOver()
         }
-        setIsHover(true);
+        setIsHover(true)
       }}
       onMouseLeave={() => {
         if (onMouseLeave) {
-          onMouseLeave();
+          onMouseLeave()
         }
-        setIsHover(false);
+        setIsHover(false)
       }}
     />
-  );
+  )
 }
 
-export default Icon;
+export default Icon

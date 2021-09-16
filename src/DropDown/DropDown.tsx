@@ -91,6 +91,7 @@ const DropDownItem = styled.div<{
   box-sizing: border-box;
   padding: 0 10px;
   height: ${(props) => props.height}px;
+  cursor: pointer;
   background-color: ${(props) =>
     props.selected === props.index ? '#F0F0F0' : 'white'};
   cursor: pointer;
