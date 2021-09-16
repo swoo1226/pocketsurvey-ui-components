@@ -19,8 +19,12 @@ export default {
 } as Meta;
 
 const InputContainer = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding: 10px;
+  &:hover {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.2s ease-in-out;
+  }
 `
 
 export function Index() {
