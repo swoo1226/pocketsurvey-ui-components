@@ -53,7 +53,7 @@ export function Index() {
             fontColor="#818282"
             isInline={true}
           >
-            (Icon 지원이 되는)
+            (Knob 조작을 할 수 있습니다.)
           </Font>
         </Font>
         <Default />
