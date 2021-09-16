@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import { withKnobs, text, select, color } from "@storybook/addon-knobs"
-import Input from '../Input/Input';
+import Textarea from '../Textarea/Textarea';
 import Font from "./Font"
 import styled from 'styled-components';
 export default {
@@ -9,19 +9,14 @@ export default {
 	decorators: [withKnobs], // 애드온 적용
 }
 
-const FontFace = styled.div`
-	display: flex;
-	.dropDown {
-		margin-left: 14px;
-    margin-top: 10px;
+const Container = styled.div`
+	font-size: 15px;
+	textarea {
+		font-size: 15px;
 	}
 `;
-const FontWeight = styled.div`
-	display: flex;
-	.dropDown {
-		margin-left: 14px;
-    margin-top: 10px;
-	}`;
+
+
 export function Index() {
 	// knobs 만들기
 	const fontFace = select(
@@ -40,27 +35,24 @@ export function Index() {
 	const subColor = color("light color", "#fef4ce");
 
 	return (
-		<>
-		<Input 
-			mode={"basic"}
-			placeholder="입력해주세요"
+		<Container>
+			<Textarea
+			type={"basic"}
+			onChange = {(value:string) => setValue(value)}
 			value={InputValue}
-			onChange={(value:string) => setValue(value)}
-			width={300}
-			disabled={false}
 			borderColor={"#FAC609"}
-			errorMessage={""}
-			isError={false}
+			size="big"
+			cols={120}
 			/>
-		<Font
-			fontFace={FontFace}
-			fontWeight={fontWeight}
-			fontSize={fontSize}
-			fontColor={fontColor}
-		>
-			{InputValue}
-		</Font>
-		</>
+			<Font
+				fontFace={fontFace}
+				fontWeight={fontWeight}
+				fontSize={fontSize}
+				fontColor={fontColor}
+			>
+				{InputValue}
+			</Font>
+		</Container>
 	)
 }
 
