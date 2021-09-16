@@ -1,6 +1,8 @@
+import { hslToRgb } from "@material-ui/core"
 import React, { useState, useEffect, useRef } from "react"
+import ReactDOM from 'react-dom'
 import styled from "styled-components"
-
+import { JsxElement } from "typescript"
 import Icon, { IconType } from "../Icon/Icon"
 
 const PNG = styled.img<{ pngImageCropCircle?: boolean }>`
@@ -119,6 +121,7 @@ export type DropDownType = {
     hidden?: boolean;
     png?: any;
   }[];
+  hrs?: {targetIndex: number, title: string, section: Element}[];
   iconColor?: string;
   selected: number | null;
   disable: boolean;
@@ -129,6 +132,7 @@ export type DropDownType = {
   textColor?: string;
   onItemClick: (index: number) => void;
   className?: string;
+  id?: string;
   placeholder?: string;
   height?: number;
   width?: number;
@@ -138,6 +142,12 @@ export type DropDownType = {
   pngImageCropCircle?: boolean;
   containerHeight?: string;
 };
+
+const Portal = ({ children, targeting }: { children: any, targeting: string, targetIndex: number }) => {
+  const getTarget = document.querySelector(targeting)
+  return getTarget ? ReactDOM.createPortal(children, getTarget) : null
+}
+
 
 function DropDown({
   list,
@@ -155,7 +165,9 @@ function DropDown({
   listMaxHeight,
   fontSize,
   pngImageCropCircle,
-  containerHeight
+  containerHeight,
+  hrs,
+  id
 }: DropDownType): JSX.Element {
   const [isShowList, setIsShowList] = useState<boolean>(false)
   const selectionListRef = useRef<HTMLDivElement>(null)
@@ -190,8 +202,8 @@ function DropDown({
     >
       <DropDownBoxContainer
         onClick={() => {
-          if(!disable){
-            setIsShowList(!isShowList)
+          if (!disable) {
+            setIsShowList(!isShowList);
           }
         }}
         disable={disable}
@@ -201,8 +213,8 @@ function DropDown({
       >
         <DropDownBox
           onClick={() => {
-            if(!disable){
-              setIsShowList(!isShowList)
+            if (!disable) {
+              setIsShowList(!isShowList);
             }
           }}
           disable={disable}
@@ -244,7 +256,14 @@ function DropDown({
           rotate={!isShowList ? 90 : 270}
         />
       </DropDownBoxContainer>
-
+      {hrs &&
+        hrs.map((hr) => {
+          return Portal({
+            children: hr.section,
+            targeting: `.${id}Hr${hr.targetIndex}`,
+            targetIndex: hr.targetIndex
+          })
+        })}
       <DropDownList
         isShowList={isShowList}
         disable={disable}
@@ -257,58 +276,41 @@ function DropDown({
         listMaxHeight={listMaxHeight}
         textColor={textColor}
         fontSize={fontSize}
+        className={className ? `${className}List` : ""}
       >
         {list.map((item, index) => (
           <>
-            {item.isHr ? (
-              <>
-                <p
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    margin: "21px 14px",
-                  }}
-                >
-                  {item.selectionName}
-                </p>
-              </>
-            ) : (
-              <>
-                <DropDownItem
-                  key={index}
-                  index={index}
-                  selected={selected!}
-                  themeColor={themeColor.subColor}
-                  onClick={() => {
-                    onItemClick(index)
-                    setIsShowList(false)
-                  }}
-                  height={height}
-                  hidden={item.hidden}
-                >
-                  {item.icon && (
-                    <Icon
-                      color={disable ? "#818282" : iconColor!}
-                      icon={item.icon}
-                      width={18}
-                      rotate={item.rotate ?? 0}
-                    />
-                  )}
-                  {item.png && (
-                    <PNG
-                      src={item.png}
-                      pngImageCropCircle={pngImageCropCircle}
-                    />
-                  )}
-                  <DropDownItemText>{item.selectionName}</DropDownItemText>
-                </DropDownItem>
-              </>
-            )}
+            <div className={`${id}Hr${index}`}></div>
+            <DropDownItem
+              key={index}
+              index={index}
+              selected={selected!}
+              themeColor={themeColor.subColor}
+              onClick={() => {
+                onItemClick(index);
+                setIsShowList(false);
+              }}
+              height={height}
+              hidden={item.hidden}
+            >
+              {item.icon && (
+                <Icon
+                  color={disable ? "#818282" : iconColor!}
+                  icon={item.icon}
+                  width={18}
+                  rotate={item.rotate ?? 0}
+                />
+              )}
+              {item.png && (
+                <PNG src={item.png} pngImageCropCircle={pngImageCropCircle} />
+              )}
+              <DropDownItemText>{item.selectionName}</DropDownItemText>
+            </DropDownItem>
           </>
         ))}
       </DropDownList>
     </DropDownContainer>
-  )
+  );
 }
 
 export default DropDown

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withKnobs, boolean, select, color } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select, color, number } from "@storybook/addon-knobs";
 import styled from "styled-components";
 import DropDown from "./DropDown";
 import Font from "../Typography/Font";
@@ -83,6 +83,26 @@ export function Index() {
       <DropDownContainer>
         <BranchSelector />
       </DropDownContainer>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        구간을 나눌 수 있는 형태의 드롭다운
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="300"
+          fontSize="16px"
+          fontColor="#818282"
+          isInline={true}
+        >
+          (target 숫자에 따라 구간 시작점이 변경됩니다.)
+        </Font>
+      </Font>
+      <DropDownContainer>
+        <HrSelector />
+      </DropDownContainer>
     </>
   );
 }
@@ -109,6 +129,76 @@ function BranchSelector() {
         { selectionName: "Q7. 일이삼오육칠팔구십" },
         { selectionName: "종료메시지로" },
       ]}
+      selected={selected}
+      disable={disabled}
+      themeColor={{ mainColor, subColor }}
+      iconColor="#FAC62D"
+      onItemClick={(index: number) => setSelected(index)}
+    />
+  );
+}
+
+
+function HrSelector() {
+  const [selected, setSelected] = useState(0);
+
+  const disabled = boolean("disabled", false);
+
+  const mainColor = color("bold color", "#59C4DB");
+  const subColor = color("light color", "#DEF3F8");
+
+  const target1 = number("target1", 0)
+  const target2 = number("target2", 3)
+  return (
+    <DropDown
+      placeholder={"선택해주세요"}
+      list={[
+        { selectionName: "다음 문항" },
+        { selectionName: "Q1. 일이삼오육칠팔구십" },
+        { selectionName: "Q2. 일이삼오육칠팔구십" },
+        { selectionName: "Q3. 일이삼오육칠팔구십" },
+        { selectionName: "Q4. 일이삼오육칠팔구십" },
+        { selectionName: "Q5. 일이삼오육칠팔구십" },
+        { selectionName: "Q6. 일이삼오육칠팔구십" },
+        { selectionName: "Q7. 일이삼오육칠팔구십" },
+        { selectionName: "종료메시지로" },
+      ]}
+      hrs={[
+        {
+          targetIndex: target1,
+          title: "첫번째 구간 시작",
+          section: 
+            <p
+              key="첫번째 구간 시작"
+              style={{
+                fontSize: "14px",
+                fontWeight: 500,
+                margin: "21px 14px",
+              }}
+            >
+              첫번째 구간 시작
+            </p>
+          ,
+        },
+        {
+          targetIndex: target2,
+          title: "두번째 구간 시작",
+          section: (
+            <p
+              key="두번째 구간 시작"
+              style={{
+                fontSize: "14px",
+                fontWeight: 500,
+                margin: "21px 14px",
+                color: "#818282",
+              }}
+            >
+              두번째 구간 시작
+            </p>
+          ),
+        },
+      ]}
+      id="hrDropDown"
       selected={selected}
       disable={disabled}
       themeColor={{ mainColor, subColor }}
