@@ -281,7 +281,7 @@ function DropDown({
       >
         {list.map((item, index) => (
           <>
-            <div className={`${id}Hr${index}`}></div>
+            {hrs && hrs.some(hr => hr.targetIndex === index) && <div className={`${id}Hr${index}`}></div>}
             <DropDownItem
               key={index}
               index={index}

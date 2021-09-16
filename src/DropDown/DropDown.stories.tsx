@@ -149,6 +149,19 @@ function HrSelector() {
 
   const target1 = number("target1", 0)
   const target2 = number("target2", 3)
+
+  const PSection = (title : string) => 
+    <p
+      key={title}
+      style={{
+        fontSize: "14px",
+        fontWeight: 500,
+        margin: "21px 14px",
+      }}
+    >
+      {title}
+    </p>;
+  
   return (
     <DropDown
       placeholder={"선택해주세요"}
@@ -167,35 +180,13 @@ function HrSelector() {
         {
           targetIndex: target1,
           title: "첫번째 구간 시작",
-          section: 
-            <p
-              key="첫번째 구간 시작"
-              style={{
-                fontSize: "14px",
-                fontWeight: 500,
-                margin: "21px 14px",
-              }}
-            >
-              첫번째 구간 시작
-            </p>
+          section: PSection("첫번째 구간 시작")
           ,
         },
         {
           targetIndex: target2,
           title: "두번째 구간 시작",
-          section: (
-            <p
-              key="두번째 구간 시작"
-              style={{
-                fontSize: "14px",
-                fontWeight: 500,
-                margin: "21px 14px",
-                color: "#818282",
-              }}
-            >
-              두번째 구간 시작
-            </p>
-          ),
+          section: PSection("두번째 구간 시작")
         },
       ]}
       id="hrDropDown"
