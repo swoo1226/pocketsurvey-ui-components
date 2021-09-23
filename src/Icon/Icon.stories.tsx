@@ -32,14 +32,13 @@ const Container = styled.div`
     margin-left: 20px;
     margin-bottom: 20px;
   }
-  background-color: #0c101c;
-  color: #fbfaf7;
+  color: #000000;
 `;
 const IconBox = styled.div`
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  background-color: #242833;
+  background-color:#FBFAF7;
   padding: 50px;
   cursor: pointer;
 `;
@@ -77,7 +76,7 @@ export function Index() {
               <Icon
                 icon={item}
                 width={20}
-                color={"white"}
+                color={"black"}
                 rotate={rotate}
                 useCursor={true}
                 hoveredColor={"red"}
