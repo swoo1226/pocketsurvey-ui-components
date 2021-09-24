@@ -57,7 +57,7 @@ export function Index() {
     <Container>
       <div className="title-wrapper">
         <h1>Icon</h1>
-        <span>포켓서베이에서 사용하고 있는 아이콘들입니다. </span>
+        <span>포켓서베이에서 사용하고 있는 아이콘들입니다. <br></br> 클릭하면 아이콘 텍스트가 복사됩니다. </span>
       </div>
       <Grid className="grid">
         {allIcons.map((item: any, index: number) => (
