@@ -73,7 +73,7 @@
     "styled-components": "^5.2.1"
   },
   "scripts": {
-    "storybook": "start-storybook -s ./public -p 9001",
+    "storybook": "start-storybook -s ./public -p 9001 -s ./.storybook/images",
     "build-storybook": "build-storybook",
     "test": "jest",
     "lint": "eslint ./src",
