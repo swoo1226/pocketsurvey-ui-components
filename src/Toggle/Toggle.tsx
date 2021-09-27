@@ -78,4 +78,4 @@ function Toggle({
   )
 }
 
-export default Toggle
+export default Toggle;

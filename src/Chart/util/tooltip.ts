@@ -44,7 +44,7 @@ export const stackedFormatter = (
     if (tooltipValue !== undefined) {
       value = `${tooltipValue || '-'}`;
       const _percent = typeof param.data === 'number' ? param.data : param.data?.value;
-      percent = _percent ? `(${_percent}%)` : '(0%)';
+      percent = _percent ? `(${_percent.toFixed(1)}%)` : '(0%)';
     } else {
       value = typeof param.data === 'number'
         ? `${param.data}`
