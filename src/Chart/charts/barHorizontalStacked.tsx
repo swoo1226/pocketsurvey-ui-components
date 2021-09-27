@@ -42,6 +42,7 @@ const barHorizontalStackedOption = ({
 
   option.xAxis = {
     type: 'value',
+    max: 100,
   };
 
   option.yAxis = {
@@ -141,7 +142,8 @@ const barHorizontalStackedOption = ({
   }
 
   option.grid = {
-    left: `${getMaxLabelWidth(yAxisLabel, MAX_LABEL_LENGTH)}px`,
+    // left: `${getMaxLabelWidth(yAxisLabel, MAX_LABEL_LENGTH)}px`,
+    left: 160,
   };
 
   return mergeOption({

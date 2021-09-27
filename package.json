@@ -1,6 +1,6 @@
 {
   "name": "@earlysloth/pocketsurvey-ui-components",
-  "version": "0.7.2",
+  "version": "0.7.21",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",
   "author": "earlysloth <survey@earlysloth.com>",
@@ -89,13 +89,6 @@
     "build-only": "rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "rm -rf dist ; tsc --emitDeclarationOnly ; rollup -c",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json}": [
-      "prettier --write"
-    ],
-    "src/**/*.{ts,tsx}": "eslint --cache --fix"
+    "prepare": "husky install"
   }
 }
