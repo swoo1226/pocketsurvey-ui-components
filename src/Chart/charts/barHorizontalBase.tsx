@@ -188,7 +188,7 @@ function BarHorizontalBase({
     wrapperHeight = defaultHeight
   }
 
-  console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
+  // console.log("debug",height ?? wrapperHeight, minHeight > defaultHeight ? minHeight : undefined)
  
   return (
     <EChartsWrapper
