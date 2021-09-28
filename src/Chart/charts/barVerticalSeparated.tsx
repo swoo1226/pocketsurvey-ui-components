@@ -5,6 +5,7 @@ import React from 'react';
 import EChartsReact from 'echarts-for-react';
 import { useResizeDetector } from 'react-resize-detector/build/withPolyfill';
 import styled from 'styled-components';
+import { truncate } from 'lodash';
 import {
   getSizeCSS,
   mergeOption,
@@ -172,12 +173,16 @@ const barVerticalSeparatedOption = ({
   option.legend = {
     orient: 'vertical',
     left: 'left',
-    width: '10%',
+    width: 200,
+    textStyle: {
+      width: 150,
+      overflow: 'truncate',
+    },
     type: 'scroll',
   };
 
   option.grid = {
-    left: '15%',
+    left: 250,
     right: '100px',
   };
 
