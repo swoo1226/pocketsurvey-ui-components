@@ -17,7 +17,7 @@ export default {
 } as Meta;
 
 export function BarVerticalSeparated() {
-  const CHART_DATA_LENGTH = 8;
+  const CHART_DATA_LENGTH = 16;
 
   const getRandomNumberArray = (length: number) =>
     Array(length)
@@ -40,11 +40,19 @@ export function BarVerticalSeparated() {
         '매우 만족',
         '만족',
         '불만족',
-        '매우 불만족',
+        '매우 불만족매우 불만족매우 불만족매우 불만족매우 불만족매우 불만족',
         '복숭아',
         '사탕탕',
         '냠냠냠',
         '맛있어',
+        '복숭아1',
+        '사탕탕1',
+        '냠냠냠1',
+        '맛있어1',
+        '복숭아2',
+        '사탕탕3',
+        '냠냠냠4',
+        '맛있어5',
       ]}
       series={series}
       hundredPercent={{ tooltip: true, series: true }}
