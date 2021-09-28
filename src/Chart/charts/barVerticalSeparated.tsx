@@ -170,9 +170,10 @@ const barVerticalSeparatedOption = ({
   };
 
   option.legend = {
-    orient: 'horizontal',
+    orient: 'vertical',
     left: 'left',
     width: '10%',
+    type: 'scroll',
   };
 
   option.grid = {
