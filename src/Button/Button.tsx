@@ -1,6 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import loadingSpinner from '../Icon/svg/loadingSpinner.svg';
+
+const isIE = /* @cc_on!@ */ false || !!document.documentMode;
+
+const fitContent = isIE
+  ? css`
+      display: table;
+    `
+  : css`
+      width: fit-content;
+    `;
 
 const ButtonContainer = styled.div<{
   backgroundColor: string;
@@ -8,7 +18,8 @@ const ButtonContainer = styled.div<{
   disabled: boolean;
   isLoading?: boolean;
 }>`
-  width: fit-content;
+  ${fitContent}
+
   padding: 14px 28px;
   background-color: ${(props) =>
     props.disabled
