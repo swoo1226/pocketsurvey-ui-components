@@ -100,6 +100,8 @@ const barVerticalStackedOption = ({
 
   option.legend = {
     orient: 'horizontal',
+    type: 'scroll',
+    width: 700,
     x: 'center',
     y: 'bottom',
   };
