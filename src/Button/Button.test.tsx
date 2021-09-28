@@ -10,10 +10,14 @@ describe('버튼 컴포넌트 테스트', () => {
 
   beforeEach(() => {
     renderResult = render(
-      <Button theme="primary" size="small" disabled={false} onClick={() => alert('BasicButton')}>
+      <Button
+        mode="primary"
+        size="small"
+        disabled={false}
+        onClick={() => alert('BasicButton')}
+      >
         버튼
       </Button>,
-
     );
   });
 
