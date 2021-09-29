@@ -109,7 +109,7 @@ function ImgVideo({
   imgSrc,
 }: ImgVideoType): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false)
-  const [uploadedFile, setUploadedFile] = useState<string>("")
+  const [uploadedFile, setUploadedFile] = useState<string | null>("")
   const fileAcceptance = "image/png, image/jpeg, image/jpg"
   console.log(qrCode)
   const uploadValidation = (file: File) => {
@@ -156,6 +156,7 @@ function ImgVideo({
         </div>
       ) : imgSrc ? (
         <>
+          {/* @ts-ignore */}
           <img src={uploadedFile} style={{ width: "300px" }} alt="imageNull" />
           <Button theme="primary" onClick={onClick} disabled={false}> 삭제 </Button>
         </>
