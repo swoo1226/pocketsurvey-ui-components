@@ -5,10 +5,10 @@ import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
 import { isValidFile } from "../../util/isValidFile"
 import Button from "../../Button/Button"
 const UploadWrapper = styled.div<{
-  imgSrc?: string | null;
+  mediaSrc?: string | null;
   isDragActive: boolean;
 }>`
-  border: ${(p) => (p.imgSrc ? "" : "2px dashed #DFDEDD")};
+  border: ${(p) => (p.mediaSrc ? "" : "2px dashed #DFDEDD")};
   border: ${(p) => (p.isDragActive ? "2px dashed #FAC62D" : "")};
   border-radius: 5px;
   width: 655px;
@@ -100,22 +100,24 @@ const Sentence = styled.div`
 export type ImgVideoType = {
   onClick: () => void;
   qrCode: [string, string] | null;
-  imgSrc: string | null;
+  mediaSrc: string | null;
+  type: "video" | "image";
 };
 
 function ImgVideo({
   onClick,
   qrCode,
-  imgSrc,
+  mediaSrc,
+  type,
 }: ImgVideoType): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false)
   const [uploadedFile, setUploadedFile] = useState<string | null>("")
-  const fileAcceptance = "image/png, image/jpeg, image/jpg"
-  console.log(qrCode)
+  const fileAcceptance =
+    type === "image" ? "image/png, image/jpeg, image/jpg" : ".mp4"
+
   const uploadValidation = (file: File) => {
     const fileName = file.name
     if (isValidFile(fileName, fileAcceptance)) {
-      console.log("valid File")
       setLoading(true)
     } else {
       setLoading(false)
@@ -128,13 +130,10 @@ function ImgVideo({
   }
 
   useEffect(() => {
-    console.log("Chage")
-    setUploadedFile(imgSrc)
-    console.log(typeof(imgSrc))
-  }, [imgSrc])
+    setUploadedFile(mediaSrc)
+  }, [mediaSrc])
 
   const onDrop = useCallback((acceptedFiles) => {
-    const fileName = acceptedFiles[0].name
     uploadValidation(acceptedFiles[0])
   }, [])
 
@@ -146,7 +145,7 @@ function ImgVideo({
   return (
     <UploadWrapper
       {...getRootProps()}
-      imgSrc={imgSrc}
+      mediaSrc={mediaSrc}
       isDragActive={isDragActive}
     >
       {isLoading ? (
@@ -154,11 +153,23 @@ function ImgVideo({
           <img alt="loading" src={loadingSpinner} />
           <span> 파일을 업로드중입니다...</span>
         </div>
-      ) : imgSrc ? (
+      ) : mediaSrc ? (
         <>
-          {/* @ts-ignore */}
-          <img src={uploadedFile} style={{ width: "300px" }} alt="imageNull" />
-          <Button theme="primary" onClick={onClick} disabled={false}> 삭제 </Button>
+          {type === "image" ? (
+            // @ts-ignore
+            <img
+              src={uploadedFile}
+              style={{ width: "300px" }}
+              alt="imageNull"
+            />
+          ) : (
+            // @ts-ignore
+            <video src={uploadedFile} controls />
+          )}
+          <Button theme="primary" onClick={onClick} disabled={false}>
+            {" "}
+            삭제{" "}
+          </Button>
         </>
       ) : (
         <UploadText>
