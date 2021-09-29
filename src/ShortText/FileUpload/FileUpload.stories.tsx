@@ -5,7 +5,7 @@ import { boolean, withKnobs } from "@storybook/addon-knobs";
 
 export default {
   component: FileUpload,
-  title: "Components/FileUpload",
+  title: "Components/ShortText/FileUpload",
 } as Meta;
 
 export function Index() {

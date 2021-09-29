@@ -5,7 +5,7 @@ import chunsicpng from "./chunsicpng.png"
 
 export default {
     component: ImgVideo,
-    title: "Components/ImgVideoUpload",
+    title: "Components/ShortText/ImgUpload",
 } as Meta;
 
 export function Index() {
