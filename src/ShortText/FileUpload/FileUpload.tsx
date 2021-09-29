@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { useDropzone } from "react-dropzone"
 import Icon from "../../Icon/Icon"
 import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
+import {isValidFile} from "../../util/isValidFile"
 
 const Container = styled.div``
 const UploadWrapper = styled.div<{ answeredText: string | null }>`
@@ -146,9 +147,6 @@ function FileUpload({
   answeredText,
   onCancelClick,
 }: FileUploadTypes): JSX.Element {
-  
-
-
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [uploadedFile, setUploadedFile] = useState<string>("")
 
@@ -171,7 +169,7 @@ function FileUpload({
   const uploadValidation = (file: File) => {
     const fileName = file.name
     console.log("fileName", fileName)
-    if (isValidFile(fileName)) {
+    if (isValidFile(fileName, fileAcceptance)) {
       setIsLoading(true)
     } else {
       setIsLoading(false)
@@ -181,15 +179,6 @@ function FileUpload({
           .replace(/image\//gi, "")}`
       )
     }
-  }
-  const isValidFile = (fileName: string) => {
-    const accept = fileAcceptance.replace(/\./gi, "").split(",")
-    const extension = fileName.substring(
-      fileName.lastIndexOf(".") + 1,
-      fileName.length
-    )
-    if (accept.includes(extension)) return true
-    return false
   }
 
   return (
