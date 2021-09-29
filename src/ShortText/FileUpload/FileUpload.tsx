@@ -138,23 +138,18 @@ const UploadResult = styled.div`
 `
 
 export type FileUploadTypes = {
-  qrCode: [string, string][] | [];
   answeredText: string ;
   onCancelClick?: () => void;
 };
 
 function FileUpload({
-  qrCode,
   answeredText,
   onCancelClick,
 }: FileUploadTypes): JSX.Element {
-  
-  useEffect(() => {
-    console.log("answeredText", answeredText)
-  }, [answeredText])
-
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [uploadedFile, setUploadedFile] = useState<string>("")
+  const fileAcceptance =
+    ".pdf,.doc,.docx,.hwp,.xls,.xlsx,.ppt,.pptx,.zip,.alz,.rar,.7z"
 
   useEffect(() => {
     if(answeredText) {
@@ -169,12 +164,9 @@ function FileUpload({
     onDrop,
     noClick: true,
   })
-  const fileAcceptance =
-    ".pdf,.doc,.docx,.hwp,.xls,.xlsx,.ppt,.pptx,.zip,.alz,.rar,.7z"
 
   const uploadValidation = (file: File) => {
     const fileName = file.name
-    console.log("fileName", fileName)
     if (isValidFile(fileName)) {
       setIsLoading(true)
     } else {
