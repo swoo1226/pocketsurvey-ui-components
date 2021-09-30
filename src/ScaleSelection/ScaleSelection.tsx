@@ -1,9 +1,9 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 const ScaleSelectionWrapper = styled.div<{ width: string }>`
   width: ${(props) => props.width};
-`
+`;
 
 const NumberSlection = styled.div`
   padding: 0px;
@@ -12,7 +12,7 @@ const NumberSlection = styled.div`
   height: 35px;
   place-content: space-around;
   border-radius: 3px;
-`
+`;
 
 const NumberSlectionItem = styled.div<{
   isFirst: boolean;
@@ -32,37 +32,33 @@ const NumberSlectionItem = styled.div<{
   align-items: center;
   justify-content: center;
   color: #2B2E33;
-  background: ${(props) =>
-    props.selected ? props.backgroundColor ?? "#FAC62D" : ""};
+  background: ${(props) => (props.selected ? props.backgroundColor ?? '#FAC62D' : '')};
 
-  ${(props) => props.isFirst && "border-radius: 3px 0px 0px 3px;"}
-  ${(props) => props.isLast && "border-radius: 0px 3px 3px 0px;"}
+  ${(props) => props.isFirst && 'border-radius: 3px 0px 0px 3px;'}
+  ${(props) => props.isLast && 'border-radius: 0px 3px 3px 0px;'}
 
   border: 1px solid #DFDEDD;
-  border-right: ${(props) => (props.isLast ? "1px solid #DFDEDD" : "none")};
-  ${(props) =>
-    props.isBeforeSelected
-      ? `border-left-color: ${props.backgroundColor ?? "#FAC62D"};`
-      : ""}
-  ${(props) =>
-    props.selected
-      ? `border-color: ${props.backgroundColor ?? "#FAC62D"};`
-      : ""}
+  border-right: ${(props) => (props.isLast ? '1px solid #DFDEDD' : 'none')};
+  ${(props) => (props.isBeforeSelected
+    ? `border-left-color: ${props.backgroundColor ?? '#FAC62D'};`
+    : '')}
+  ${(props) => (props.selected
+    ? `border-color: ${props.backgroundColor ?? '#FAC62D'};`
+    : '')}
   &:hover {
-    background: ${(props) =>
-    props.selected ? `${props.backgroundColor ?? "#FAC62D"};` : "#F0F0F0"};
+    background: ${(props) => (props.selected ? `${props.backgroundColor ?? '#FAC62D'};` : '#F0F0F0')};
   }
 
   ${(props) => props.fontFamily && `font-family: ${props.fontFamily};`}
   ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
   ${(props) => props.fontColor && `color: #${props.fontColor};`}
-`
+`;
 
-const LabelContainer = styled.div<{showLabel: boolean}>`
+const LabelContainer = styled.div<{ showLabel: boolean }>`
   display: flex;
   justify-content: space-between;
-  ${(props)=>props.showLabel === false && "display:none;"}
-`
+  ${(props) => props.showLabel === false && 'display:none;'}
+`;
 
 const Label = styled.label<{ right?: boolean; fontSize?: string }>`
   display: inline-block;
@@ -73,9 +69,9 @@ const Label = styled.label<{ right?: boolean; fontSize?: string }>`
   margin-top: 7px;
   width: 40%;
   word-break: keep-all;
-  ${(props) => props.right && "text-align: right;"}
+  ${(props) => props.right && 'text-align: right;'}
   ${(props) => props.fontSize && `font-size: ${props.fontSize};`}
-`
+`;
 
 type ScaleSelectionPropsType = {
   width: string;
@@ -92,15 +88,15 @@ type ScaleSelectionPropsType = {
 };
 
 const labelFontSize = (fontSize: string | undefined) => {
-  //fontSize => 숫자px 형식
-  if (fontSize === undefined) return undefined
-  return `${parseInt(fontSize.replace("px", ""), 10) - 2}px`
-}
+  // fontSize => 숫자px 형식
+  if (fontSize === undefined) return undefined;
+  return `${parseInt(fontSize.replace('px', ''), 10) - 2}px`;
+};
 
 function ScaleSelection({
   width,
   leftLabel,
-  rightLabel, 
+  rightLabel,
   selected,
   onItemClick,
   backgroundColor,
@@ -108,47 +104,43 @@ function ScaleSelection({
   fontSize,
   fontColor,
   selection,
-  showLabel
+  showLabel,
 }: ScaleSelectionPropsType): JSX.Element {
-  const selectionLength = selection.length
+  const selectionLength = selection.length;
   return (
     <ScaleSelectionWrapper width={width}>
       <NumberSlection>
         {selection.map(
-          (item, index) => {
-            return (
-              <NumberSlectionItem
-                data-testid={`item-${index}`}
-                onClick={() =>
-                  index === selected ? onItemClick(null) : onItemClick(index)
-                }
-                key={index}
-                isFirst={index === 0}
-                isLast={index === selectionLength - 1}
-                isBeforeSelected={
+          (item, index) => (
+            <NumberSlectionItem
+              data-testid={`item-${index}`}
+              onClick={() => (index === selected ? onItemClick(null) : onItemClick(index))}
+              key={index}
+              isFirst={index === 0}
+              isLast={index === selectionLength - 1}
+              isBeforeSelected={
                   selected !== null ? index === selected + 1 : false
                 }
-                selected={index === selected}
-                backgroundColor={backgroundColor}
-                fontFamily={fontFamily}
-                fontSize={fontSize}
-                fontColor={fontColor}
-              >
-                {item}
-              </NumberSlectionItem>
-            )
-          }
+              selected={index === selected}
+              backgroundColor={backgroundColor}
+              fontFamily={fontFamily}
+              fontSize={fontSize}
+              fontColor={fontColor}
+            >
+              {item}
+            </NumberSlectionItem>
+          ),
         )}
       </NumberSlection>
 
       <LabelContainer showLabel={showLabel}>
         <Label fontSize={labelFontSize(fontSize)}>{leftLabel}</Label>
-        <Label fontSize={labelFontSize(fontSize)} right={true}>
+        <Label fontSize={labelFontSize(fontSize)} right>
           {rightLabel}
         </Label>
-      </LabelContainer> 
+      </LabelContainer>
     </ScaleSelectionWrapper>
-  )
+  );
 }
 
-export default ScaleSelection
+export default ScaleSelection;

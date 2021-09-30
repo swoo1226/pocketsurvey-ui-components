@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 const FontContainer = styled.p<{
   fontFace: string
@@ -13,7 +13,7 @@ const FontContainer = styled.p<{
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   line-height: ${(props) => props.lineHeight};
-`
+`;
 
 export type FontType = {
   children: React.ReactNode
@@ -30,7 +30,7 @@ function Font({ children, fontFace, fontWeight, fontColor, fontSize, className, 
     <FontContainer fontFace={fontFace} fontWeight={fontWeight} fontSize={fontSize} fontColor={fontColor} lineHeight="140%" className={className} style={{ display: isInline ? "inline" : "block" }}>
       {children}
     </FontContainer>
-  )
+  );
 }
 
-export default Font
+export default Font;

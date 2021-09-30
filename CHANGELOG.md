@@ -1,3 +1,30 @@
+# 0.7.23 (2021.09.28)
+
+- 차트 가독성
+  - barVerticalStacked legend 가로 스크롤
+
+# 0.7.22 (2021.09.28)
+
+- 차트 가독성
+  - barHorizontalSeperated legend 세로 스크롤
+
+# 0.7.21 (2021.09.27)
+
+- 차트 가독성
+  - barHorizontalStacked max값 지정
+  - tooltop (소수점 첫째자리)%
+
+# 0.7.2 (2021.09.16)
+
+- 충돌 수정한 것 수정
+
+# 0.7.1 (2021.09.16)
+
+- 차트 가독성 (바 차트, 가로 막대차트, 분리형 차트)
+- 차트 '그 외' 처리
+- 차트 폰트 변경 (spoca han sans neo)
+- 허스키 적용
+
 # 0.6.98 (2021.09.10)
 
 - dropdown에서 dropdown list hover시 cursor pointer

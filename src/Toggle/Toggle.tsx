@@ -5,13 +5,13 @@ const ToggleContainer = styled.div<{
   backgroundColor: string;
   hoveredBackgroundColor: string;
   isToggleOn: boolean;
-  disable?:boolean;
+  disable?: boolean;
 }>`
-  background-color: ${(props) => props.disable?
-    "#F0F0F0": props.backgroundColor};
+  background-color: ${(props) => props.disable ?
+    "#F0F0F0" : props.backgroundColor};
   width: 50px;
   height: 30px;
-  cursor: ${(props)=>props.disable?"not-allowed":"pointer"};
+  cursor: ${(props) => props.disable ? "not-allowed" : "pointer"};
   transition: 0.1s;
   border-radius: 50rem;
   position: relative;
@@ -22,14 +22,14 @@ const ToggleContainer = styled.div<{
       : ""};
   }
 `
-const ToggleButton = styled.div<{ 
-  isToggleOn: boolean 
-  disable?:boolean
-  }>`
+const ToggleButton = styled.div<{
+  isToggleOn: boolean
+  disable?: boolean
+}>`
   width: 24px;
   height: 24px;
   transition: 0.2s;
-  background-color: ${(props)=>(props.disable ? "#DFDEDD": "#fff")}; 
+  background-color: ${(props) => (props.disable ? "#DFDEDD" : "#fff")}; 
   border-radius: 50%;
   margin: auto;
   position: absolute;
@@ -45,7 +45,7 @@ type ToggleType = {
   isToggleOn: boolean;
   setIsToggleOn: (isToggleOn: boolean) => void;
   className?: string;
-  disable?:boolean;
+  disable?: boolean;
 };
 
 function Toggle({
@@ -62,7 +62,7 @@ function Toggle({
       hoveredBackgroundColor={hoveredBackgroundColor}
       isToggleOn={isToggleOn}
       onClick={() => {
-        if(!disable){
+        if (!disable) {
           setIsToggleOn(!isToggleOn)
         }
       }}
@@ -70,12 +70,12 @@ function Toggle({
       className={className}
       disable={disable}
     >
-      <ToggleButton 
+      <ToggleButton
         isToggleOn={isToggleOn}
-        disable={disable} 
+        disable={disable}
       />
     </ToggleContainer>
   )
 }
 
-export default Toggle
+export default Toggle;

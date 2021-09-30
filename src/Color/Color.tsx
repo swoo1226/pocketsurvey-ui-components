@@ -74,7 +74,7 @@ export function Color({ colors }: ColorType): JSX.Element {
           </ColorInfoBox>
           <ColorInfoBox>
             <ColorInfoKey>USE:</ColorInfoKey>
-            <ColorInfoValue>{item.use.join(",")}</ColorInfoValue>
+            <ColorInfoValue>{item.use.join(',')}</ColorInfoValue>
             {/* <div style={{ display: "block", marginLeft: "15px" }}>
               {item.use.map((item, index) => (
                 <li key={index}>{item}</li>
