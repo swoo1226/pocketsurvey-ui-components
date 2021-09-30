@@ -84,7 +84,7 @@ export const piePercentageFormatter = (
   const percentValue = params.data.value
     ? (params.data.value / seriesSum) * 100
     : 0;
-  const percent = params.data.value ? `${percentValue.toFixed(2)}%` : '0%';
+  const percent = params.data.value ? `${percentValue.toFixed(1)}%` : '0.0%';
 
   return `
   <div style="text-align: left;">

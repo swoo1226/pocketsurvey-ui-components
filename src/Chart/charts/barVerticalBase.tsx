@@ -41,7 +41,7 @@ const barVerticalBaseOption = ({
 
   series.map((number, index) => {
     seriesData.push({
-      value: (number === 0 ? null : parseFloat(number.toFixed(2))) as number,
+      value: (number === 0 ? null : parseFloat(number.toFixed(1))) as number,
       itemStyle: {
         color: color.YELLOW,
         borderRadius: [4, 4, 0, 0],
