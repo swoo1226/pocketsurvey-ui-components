@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const ColorContainer = styled.div`
   width: 100%;
@@ -18,6 +18,7 @@ const ColorBox = styled.div<{ color: string }>`
   height: 40px;
   background-color: ${(props) => props.color};
   margin: 20px 0;
+  cursor: pointer;
 `;
 const ColorInfoBox = styled.div`
   display: flex;
@@ -33,16 +34,16 @@ const ColorInfoValue = styled.p`
 `;
 
 type ColorsType = {
-  colorName: string
+  colorName: string;
   colorCode: {
-    hex: string
-    rgba: string
-  }
-  use: string[]
+    hex: string;
+    rgba: string;
+  };
+  use: string[];
 }[];
 
 type ColorType = {
-  colors: ColorsType
+  colors: ColorsType;
 };
 
 export function Color({ colors }: ColorType): JSX.Element {
@@ -51,7 +52,18 @@ export function Color({ colors }: ColorType): JSX.Element {
       {colors.map((item, index) => (
         <ColorItem key={index}>
           <ColorName>{item.colorName}</ColorName>
-          <ColorBox color={item.colorCode.hex} />
+          <ColorBox
+            color={item.colorCode.hex}
+            onClick={() => {
+              const textArea = document.createElement("textarea")
+              document.body.appendChild(textArea)
+              textArea.value = item.colorCode.hex
+              textArea.select()
+              document.execCommand("copy")
+              document.body.removeChild(textArea)
+              alert("copied")
+            }}
+          />
           <ColorInfoBox>
             <ColorInfoKey>HEX:</ColorInfoKey>
             <ColorInfoValue>{item.colorCode.hex}</ColorInfoValue>
