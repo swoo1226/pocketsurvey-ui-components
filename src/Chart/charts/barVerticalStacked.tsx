@@ -145,7 +145,7 @@ const barVerticalStackedOption = ({
       option.series.push({
         color: getColors.barStacked(series.length),
         //  color: getColors.pie(series.length, maxIndex),
-        data: line[i].series as number[],
+        data: line[i].series.map(item => item ? parseFloat(item.toFixed(1)) : null) as number[],
         name: line[i].name,
         type: 'line',
         symbolSize: nps === true ? 3 : 0,
