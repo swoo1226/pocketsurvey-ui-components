@@ -14,12 +14,12 @@ export function Index() {
       <h1>FileUpload</h1>
       <div>
         <p>파일업로드 대기 상태</p>
-        <FileUpload answeredText={""}  />
+        <FileUpload answeredText={""} onUpload={() => alert("File uploading.....!") } />
       </div>
       <div>
         <br></br>
         <p>파일 업로드 된 상태</p>
-        <FileUpload answeredText={"Example.pdf"}  />
+        <FileUpload answeredText={"Example.pdf"}  onCancelClick={() => alert("Cancel Cliked")} onUpload={()=>console.log("!")}/>
       </div>
     </>
   );

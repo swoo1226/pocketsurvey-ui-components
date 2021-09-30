@@ -102,6 +102,7 @@ export type ImgVideoType = {
   qrCode: [string, string] | null;
   mediaSrc: string | null;
   type: "video" | "image";
+  onUpload: () => void;
 };
 
 function ImgVideo({
@@ -109,6 +110,7 @@ function ImgVideo({
   qrCode,
   mediaSrc,
   type,
+  onUpload,
 }: ImgVideoType): JSX.Element {
   const [isLoading, setLoading] = useState<boolean>(false)
   const [uploadedFile, setUploadedFile] = useState<string | null>("")
@@ -119,6 +121,7 @@ function ImgVideo({
     const fileName = file.name
     if (isValidFile(fileName, fileAcceptance)) {
       setLoading(true)
+      onUpload()
     } else {
       setLoading(false)
       window.alert(

@@ -5,7 +5,6 @@ import Icon from "../../Icon/Icon"
 import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
 import {isValidFile} from "../../util/isValidFile"
 
-const Container = styled.div``
 const UploadWrapper = styled.div<{ answeredText: string | null }>`
   border: ${(props) => (props.answeredText ? "" : "2px dashed #dfdedd")};
   border-radius: 5px;
@@ -75,10 +74,6 @@ const UploadWrapper = styled.div<{ answeredText: string | null }>`
   }
 `
 
-const BeforeUpload = styled.div``
-
-const QRBox = styled.div``
-
 const UploadText = styled.div`
   margin-top: 7px;
   text-align: center;
@@ -141,11 +136,13 @@ const UploadResult = styled.div`
 export type FileUploadTypes = {
   answeredText: string;
   onCancelClick?: () => void;
+  onUpload: () => void;
 };
 
 function FileUpload({
   answeredText,
   onCancelClick,
+  onUpload,
 }: FileUploadTypes): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [uploadedFile, setUploadedFile] = useState<string>("")
@@ -156,6 +153,7 @@ function FileUpload({
     }
   }, [answeredText])
   const onDrop = useCallback((acceptedFiles) => {
+    onUpload()
     uploadValidation(acceptedFiles[0])
   }, [])
 
@@ -225,6 +223,7 @@ function FileUpload({
                 accept={fileAcceptance}
                 style={{ display: "none" }}
                 onChange={(e) => {
+                  onUpload()
                   uploadValidation(e.target.files![0])
                 }}
               />
