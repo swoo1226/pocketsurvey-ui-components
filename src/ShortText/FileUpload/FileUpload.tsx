@@ -5,7 +5,6 @@ import Icon from "../../Icon/Icon"
 import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
 import {isValidFile} from "../../util/isValidFile"
 
-const Container = styled.div``
 const UploadWrapper = styled.div<{ answeredText: string | null }>`
   border: ${(props) => (props.answeredText ? "" : "2px dashed #dfdedd")};
   border-radius: 5px;
