@@ -1,16 +1,16 @@
 /* eslint-disable semi */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from "react";
-import { EChartsOption } from "echarts"; 
-import EChartsReact from "echarts-for-react";
-import { getSizeCSS, mergeOption, color } from "../util/index";
+import React from 'react';
+import { EChartsOption } from 'echarts';
+import EChartsReact from 'echarts-for-react';
+import { getSizeCSS, mergeOption, color } from '../util/index';
 
 type LineBaseOptionPropsType = {
   series: number[];
   labels: string[];
   hasMarker?: boolean;
   smooth?: boolean;
-  labelOption?: "dynamic" | "fixed";
+  labelOption?: 'dynamic' | 'fixed';
   override?: any;
 };
 
@@ -19,53 +19,53 @@ const lineBaseOption = ({
   labels,
   hasMarker,
   smooth,
-  labelOption="dynamic",
+  labelOption = 'dynamic',
   override,
 }: LineBaseOptionPropsType) => {
   const option: EChartsOption = {};
-  option.color = color.YELLOW
+  option.color = color.YELLOW;
   option.tooltip = {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "cross",
+      type: 'cross',
     },
     position: (pos: any, params: any, el: any, elRect: any, size: any) => {
-      if (labelOption === "fixed") {
+      if (labelOption === 'fixed') {
         const obj: any = { top: 10 };
-        obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
         return obj;
       }
     },
-    extraCssText: "text-align: left;"
+    extraCssText: 'text-align: left;',
   };
   option.toolbox = {
     show: true,
   };
   option.xAxis = {
-    type: "category",
+    type: 'category',
     data: labels,
     axisLabel: {
       interval: 0,
     },
   };
   option.yAxis = {
-    type: "value",
+    type: 'value',
   };
   option.series = [
     {
-      type: "line",
-      smooth: smooth === true ? true : false,
+      type: 'line',
+      smooth: smooth === true,
       data: series,
       markPoint:
         hasMarker === true
           ? {
             data: [
-              { type: "max", name: "" },
-              { type: "min", name: "" },
+              { type: 'max', name: '' },
+              { type: 'min', name: '' },
             ],
           }
           : {
-            data: []
+            data: [],
           },
     },
   ];
@@ -88,7 +88,7 @@ function LineBase({
   labels,
   hasMarker,
   smooth,
-  labelOption="dynamic",
+  labelOption = 'dynamic',
   override,
 }: LineBasePropsType) {
   return (
@@ -102,6 +102,7 @@ function LineBase({
         labelOption,
         override,
       })}
+      opts={{ renderer: 'svg' }}
     />
   );
 }

@@ -65,12 +65,10 @@ function Icon({
     if (useCursor) {
       if (cursor) {
         return cursor
-      } else {
-        return "pointer"
       }
-    } else {
-      return "default"
+      return "pointer"
     }
+    return "default"
   }
 
   return (
@@ -100,4 +98,4 @@ function Icon({
   )
 }
 
-export default Icon
+export default Icon;

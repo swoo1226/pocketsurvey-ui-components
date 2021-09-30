@@ -1,12 +1,12 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 type CheckBoxItemPropsType = {
-    className?: string;
-    checked: boolean;
-    onClick: (checked: boolean) => void;
-    backgroundColor: string;
-}
+  className?: string;
+  checked: boolean;
+  onClick: (checked: boolean) => void;
+  backgroundColor: string;
+};
 
 const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
   fill: none;
@@ -14,42 +14,41 @@ const CheckBoxImage = styled.svg<{ disabled?: boolean }>`
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.5px;
-`
+`;
 
 const CheckBox = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
   border-radius: 3px;
-`
+`;
 
 const CheckBoxSelectionItem = styled.div<{
-    checked: boolean;
-    backgroundColor?: string;
+  checked: boolean;
+  backgroundColor?: string;
 }>`
   width: 21px;
   height: 21px;
   border-radius: 3px;
   box-sizing: border-box;
   padding: 2px;
-  border: ${(props) =>
-    props.checked
-      ? ""
-      : "1px solid #DFDEDD"};
-  background-color: ${(props) =>
-    props.checked
-      ? props.backgroundColor ?? "white"
-      : "#FFFFFF"};
-  border: 1px solid ${(props) =>
-    props.checked
-      ? props.backgroundColor ?? "white"
-      : "#DFDEDD"}
+  border: ${(props) => (props.checked
+    ? ''
+    : '1px solid #DFDEDD')};
+  background-color: ${(props) => (props.checked
+    ? props.backgroundColor ?? 'white'
+    : '#FFFFFF')};
+  border: 1px solid ${(props) => (props.checked
+    ? props.backgroundColor ?? 'white'
+    : '#DFDEDD')}
   ${CheckBoxImage} {
-    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
   }
-`
+`;
 
-function CheckBoxItem({ className, checked, onClick, backgroundColor }: CheckBoxItemPropsType) {
+function CheckBoxItem({
+  className, checked, onClick, backgroundColor,
+}: CheckBoxItemPropsType) {
   return (
     <CheckBox
       className={className}
@@ -64,7 +63,7 @@ function CheckBoxItem({ className, checked, onClick, backgroundColor }: CheckBox
         </CheckBoxImage>
       </CheckBoxSelectionItem>
     </CheckBox>
-  )
+  );
 }
 
-export default CheckBoxItem
+export default CheckBoxItem;

@@ -1,10 +1,10 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 const CheckRankingContainer = styled.div`
   margin-top: 28px;
-`
-const CheckRankingList = styled.div``
+`;
+const CheckRankingList = styled.div``;
 const CheckRankingItem = styled.div<{
   isFocusBackgroundFunc: boolean;
   checked: boolean;
@@ -14,22 +14,20 @@ const CheckRankingItem = styled.div<{
   align-items: center;
   margin-bottom: 7px;
   padding: 10px 7px;
-  ${(props) =>
-    !props.disableHoverBackground &&
-    `
+  ${(props) => !props.disableHoverBackground
+    && `
   &:hover {
     background-color: #f0f0f0;
   }
   `}
-  ${(props) =>
-    props.isFocusBackgroundFunc && props.checked
-      ? "background-color: #F0F0F0;"
-      : ""}
+  ${(props) => (props.isFocusBackgroundFunc && props.checked
+    ? 'background-color: #F0F0F0;'
+    : '')}
   border-radius: 3px;
-`
+`;
 const CheckRankingSelectionLabel = styled.label`
   margin-left: 14px;
-`
+`;
 const CheckRankingSelectionItem = styled.div<{
   checked: boolean;
   backgroundColor?: string;
@@ -45,19 +43,17 @@ const CheckRankingSelectionItem = styled.div<{
   justify-content: center;
 
   padding-top: 3px;
-  background-color: ${(props) =>
-    props.checked ? props.backgroundColor ?? "#f2ab28" : "#FFFFFF"};
-  border: ${(props) => (props.checked ? "" : "1px solid #DFDEDD")};
+  background-color: ${(props) => (props.checked ? props.backgroundColor ?? '#f2ab28' : '#FFFFFF')};
+  border: ${(props) => (props.checked ? '' : '1px solid #DFDEDD')};
 
   &:hover {
-    ${(props) =>
-    props.checked
-      ? ""
-      : `border: 1px solid ${props.backgroundColor ?? "#f2ab28"};`};
+    ${(props) => (props.checked
+    ? ''
+    : `border: 1px solid ${props.backgroundColor ?? '#f2ab28'};`)};
   }
 
   color: #ffffff;
-`
+`;
 
 export type CheckRankingType = {
   selections: {
@@ -83,34 +79,32 @@ function CheckRanking({
   return (
     <CheckRankingContainer className={className}>
       <CheckRankingList>
-        {selections.map((item, index) => {
-          return (
-            <CheckRankingItem
-              key={index}
-              onClick={() => onItemClick(index)}
-              data-testid="CheckRanking-item"
-              isFocusBackgroundFunc={isFocusBackgroundFunc}
+        {selections.map((item, index) => (
+          <CheckRankingItem
+            key={index}
+            onClick={() => onItemClick(index)}
+            data-testid="CheckRanking-item"
+            isFocusBackgroundFunc={isFocusBackgroundFunc}
+            checked={selected.includes(index)}
+            disableHoverBackground={disableHoverBackground}
+          >
+            <CheckRankingSelectionItem
+              data-testid={`CheckRanking-${index}`}
               checked={selected.includes(index)}
-              disableHoverBackground={disableHoverBackground}
+              backgroundColor={backgroundColor}
             >
-              <CheckRankingSelectionItem
-                data-testid={`CheckRanking-${index}`}
-                checked={selected.includes(index)}
-                backgroundColor={backgroundColor}
-              >
-                {selected.indexOf(index) !== -1
-                  ? selected.indexOf(index) + 1
-                  : null}
-              </CheckRankingSelectionItem>
-              <CheckRankingSelectionLabel>
-                {item.label}
-              </CheckRankingSelectionLabel>
-            </CheckRankingItem>
-          )
-        })}
+              {selected.indexOf(index) !== -1
+                ? selected.indexOf(index) + 1
+                : null}
+            </CheckRankingSelectionItem>
+            <CheckRankingSelectionLabel>
+              {item.label}
+            </CheckRankingSelectionLabel>
+          </CheckRankingItem>
+        ))}
       </CheckRankingList>
     </CheckRankingContainer>
-  )
+  );
 }
 
-export default CheckRanking
+export default CheckRanking;
