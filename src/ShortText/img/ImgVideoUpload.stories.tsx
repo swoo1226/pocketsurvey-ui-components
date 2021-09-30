@@ -1,12 +1,12 @@
 import React, { useState} from 'react';
-import ImgVideo from "./ImgUpload";
+import ImgVideo from "./ImgVideoUpload";
 import { Meta } from "@storybook/react/types-6-0";
 import chunsicpng from "./chunsicpng.png"
 import sampleVideo from "./sampleVideo.mp4"
 
 export default {
     component: ImgVideo,
-    title: "Components/ShortText/ImgUpload",
+    title: "Components/ShortText/ImgVideoUpload",
 } as Meta;
 
 export function Index() {
