@@ -14,6 +14,7 @@ import {
   color,
 } from '../util/index';
 import { scrollBar } from '../style';
+import { getLineWidth } from './barVerticalSeparated';
 
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -264,10 +265,8 @@ function BarVerticalStacked({
 
   const minWidth = sizeValue * xAxisLabel.length + 200;
   const calcSVGPathLineWidth = () => {
-    const svg = targetRef.current?.querySelector(
-      'svg > g:last-child > path',
-    ) as SVGSVGElement;
-    setLineWidth(svg?.getBBox()?.width);
+    const svgLineWidth = getLineWidth(targetRef);
+    setLineWidth(svgLineWidth);
     const clientWidth = targetRef.current?.clientWidth;
     if (clientWidth) {
       setMinify(minWidth > clientWidth);

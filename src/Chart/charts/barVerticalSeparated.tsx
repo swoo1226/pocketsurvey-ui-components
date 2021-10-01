@@ -5,7 +5,7 @@ import React from 'react';
 import EChartsReact from 'echarts-for-react';
 import { useResizeDetector } from 'react-resize-detector/build/withPolyfill';
 import styled from 'styled-components';
-import { truncate } from 'lodash';
+import { debounce, truncate } from 'lodash';
 import {
   getSizeCSS,
   mergeOption,
@@ -232,6 +232,17 @@ const EchartsWrapper = styled.div<{
     : '')}
 `;
 
+export const getLineWidth = (ref: React.RefObject<HTMLDivElement>) => {
+  while (true) {
+    const svg = ref.current?.querySelector(
+      'svg > g:last-child > path',
+    ) as SVGSVGElement;
+    if (svg.getBBox()) {
+      return svg.getBBox().width;
+    }
+  }
+}
+
 function BarVerticalSeparated({
   width,
   height,
@@ -249,23 +260,28 @@ function BarVerticalSeparated({
   const sizeValue = series.length * 30;
   const minWidth = sizeValue * xAxisLabel.length + 200;
 
+
   const calcSVGPathLineWidth = () => {
-    const svg = targetRef.current?.querySelector(
-      'svg > g:last-child > path',
-    ) as SVGSVGElement;
-    setLineWidth(svg?.getBBox()?.width);
+    const svgLineWidth = getLineWidth(targetRef);
+    setLineWidth(svgLineWidth);
     const clientWidth = targetRef.current?.clientWidth;
     if (clientWidth) {
       setMinify(minWidth > clientWidth);
     }
   };
 
+  const delayed = React.useCallback(
+    debounce(() => calcSVGPathLineWidth(), 500),
+    [],
+  );
+
   const resizeObject = useResizeDetector({ targetRef });
   React.useEffect(() => {
     calcSVGPathLineWidth();
   }, []);
+
   React.useEffect(() => {
-    calcSVGPathLineWidth();
+    delayed()
   }, [resizeObject.width]);
 
   return (
