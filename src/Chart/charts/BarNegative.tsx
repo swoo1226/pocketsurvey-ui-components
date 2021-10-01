@@ -56,7 +56,7 @@ function BarNegative({
       z: 10,
       data: labels,
       show: true,
-      name: `평균 점수 ${standard}`,
+      name: `평균 점수 ${standard.toFixed(1)}점`,
       nameLocation: 'start',
       inverse: true,
       axisLine: {
@@ -110,7 +110,7 @@ function BarNegative({
         label: {
           show: true,
           color: '#000',
-          formatter: (v) => `${((v.value as number) + standard).toFixed(2)}점`,
+          formatter: (v) => `${((v.value as number) + standard).toFixed(1)}점`,
         },
       },
     ];
@@ -129,7 +129,7 @@ function BarNegative({
       extraCssText: 'text-align: left;',
       formatter: (v) => `${v[0].name}</br>${v[0].marker}</span>${(
         v[0].value + standard
-      ).toFixed(2)}점`,
+      ).toFixed(1)}점`,
     };
 
     option.grid = {

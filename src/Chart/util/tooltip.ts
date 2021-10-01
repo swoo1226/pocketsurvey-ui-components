@@ -10,6 +10,9 @@ const getSeries = (series: (number | null)[][], n: number, m: number) => {
   }
 };
 
+export const addComma = (x: number | string | null): string | null =>
+  x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : null;
+
 export const stackedFormatter = (
   params: {
     dataIndex: number;
@@ -58,7 +61,7 @@ export const stackedFormatter = (
       ${param.marker}
       <span>${param.seriesName}</span>
     </div>
-    <span style="font-weight:700;">${value} ${showPercent ? percent : ''}</span>
+    <span style="font-weight:700;">${addComma(value)} ${showPercent ? percent : ''}</span>
     </div>`);
   });
   return `
@@ -84,11 +87,11 @@ export const piePercentageFormatter = (
   const percentValue = params.data.value
     ? (params.data.value / seriesSum) * 100
     : 0;
-  const percent = params.data.value ? `${percentValue.toFixed(2)}%` : '0%';
+  const percent = params.data.value ? `${percentValue.toFixed(1)}%` : '0.0%';
 
   return `
   <div style="text-align: left;">
-  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${params.data.value} (${percent})</p>
+  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${addComma(params.data.value)} (${percent})</p>
     </div>
     `;
 };

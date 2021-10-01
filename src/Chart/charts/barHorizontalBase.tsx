@@ -33,10 +33,10 @@ const barHorizontalBaseOption = ({
     show: true,
   };
   const seriesCombinedLabels = labels
-    .map((label, index) => [label, series[index]])
-    .sort((a, b) => b[1] - a[1]);
-  const alignedSeries = seriesCombinedLabels.map((item) => item[1]);
-  const alignedLabels = seriesCombinedLabels.map((item) => item[0]);
+    .map((label, index) => ({label, series: series[index]}))
+    .sort((a, b) => b.series - a.series);
+  const alignedSeries = seriesCombinedLabels.map((item) => item.series);
+  const alignedLabels = seriesCombinedLabels.map((item) => item.label);
 
   option.yAxis = {
     type: 'category',
@@ -75,7 +75,7 @@ const barHorizontalBaseOption = ({
     : series;
   standardSeries.map((number, index) => {
     seriesData.push({
-      value: (number === 0 ? null : number) as number,
+      value: (number === 0 ? null : parseFloat(number.toFixed(1))) as number,
       itemStyle: {
         color: color.YELLOW,
         borderRadius: [0, 4, 4, 0],
