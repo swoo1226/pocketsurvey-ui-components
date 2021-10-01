@@ -41,8 +41,8 @@ const ModalBlackCurtain = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
 `;
 const ModalContainer = styled.div<{
-  hasBorderTop: boolean
-  isProgressBar: boolean
+  hasBorderTop: boolean;
+  isProgressBar: boolean;
 }>`
   width: 460px;
   padding: 28px;
@@ -51,9 +51,10 @@ const ModalContainer = styled.div<{
   flex-direction: column;
   border-radius: 3px;
   background-color: white;
-  border-top: ${(props) => (props.hasBorderTop && !props.isProgressBar
-    ? '7px solid #FAC609'
-    : undefined)};
+  border-top: ${(props) =>
+    props.hasBorderTop && !props.isProgressBar
+      ? '7px solid #FAC609'
+      : undefined};
   position: relative;
   max-height: 90vh;
 `;
@@ -90,22 +91,22 @@ const ModalBottomButtonContainer = styled.div`
 `;
 
 type ModalType = {
-  children: JSX.Element
-  title: string
-  buttonName: string
-  onClick: () => void
-  onCancel: () => void
-  hasBorderTop: boolean
-  className?: string
-  isProgressBar?: boolean
-  percent?: number
-  barColor?: string
-  buttonColor?: string
-  useCancelButton? : boolean
-  disabled? : boolean
-  isLoading? : boolean
-  cancelDisabled?: boolean
-  cancelButtonName?: string
+  children: JSX.Element;
+  title: string;
+  buttonName: string;
+  onClick: () => void;
+  onCancel: () => void;
+  hasBorderTop: boolean;
+  className?: string;
+  isProgressBar?: boolean;
+  percent?: number;
+  barColor?: string;
+  buttonColor?: string;
+  useCancelButton?: boolean;
+  disabled?: boolean;
+  isLoading?: boolean;
+  cancelDisabled?: boolean;
+  cancelButtonName?: string;
 };
 
 function Modal({
@@ -143,12 +144,24 @@ function Modal({
         <ModalContentContainer>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
-            {
-              useCancelButton && (
-                <Button theme="cancel" disabled={cancelDisabled === undefined ? false : cancelDisabled} onClick={() => onCancel()}>{cancelButtonName}</Button>
-              )
-            }
-            <Button theme="primary" disabled={disabled} backgroundColor={disabled ? '#DFDEDD' : buttonColor} onClick={() => onClick()} isLoading={isLoading}>{buttonName}</Button>
+            {useCancelButton && (
+              <Button
+                mode="cancel"
+                disabled={cancelDisabled === undefined ? false : cancelDisabled}
+                onClick={() => onCancel()}
+              >
+                {cancelButtonName}
+              </Button>
+            )}
+            <Button
+              mode="primary"
+              disabled={disabled}
+              backgroundColor={disabled ? '#DFDEDD' : buttonColor}
+              onClick={() => onClick()}
+              isLoading={isLoading}
+            >
+              {buttonName}
+            </Button>
           </ModalBottomButtonContainer>
         </ModalBottomContainer>
       </ModalContainer>

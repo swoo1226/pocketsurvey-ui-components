@@ -1,6 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import loadingSpinner from '../Icon/svg/loadingSpinner.svg';
+
+const isIE = /* @cc_on!@ */ false || !!document.documentMode;
+
+const fitContent = isIE
+  ? css`
+      display: table;
+    `
+  : css`
+      width: fit-content;
+    `;
 
 const ButtonContainer = styled.div<{
   backgroundColor: string;
@@ -8,26 +18,30 @@ const ButtonContainer = styled.div<{
   disabled: boolean;
   isLoading?: boolean;
 }>`
-  width: fit-content;
+  ${fitContent}
+
   padding: 14px 28px;
-  background-color: ${(props) => (props.disabled
-    ? '#dfdedd'
-    : props.isLoading
+  background-color: ${(props) =>
+    props.disabled
+      ? '#dfdedd'
+      : props.isLoading
       ? '#FEF4CE'
-      : props.backgroundColor)};
-  color: ${(props) => (props.disabled
-    ? '#818282'
-    : props.hoverBackgroundColor === '#F0F0F0'
+      : props.backgroundColor};
+  color: ${(props) =>
+    props.disabled
       ? '#818282'
-      : '#111111')};
+      : props.hoverBackgroundColor === '#F0F0F0'
+      ? '#818282'
+      : '#111111'};
   border-radius: 3px;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   &:hover {
-    background-color: ${(props) => (props.disabled
-    ? '#dfdedd'
-    : props.isLoading
-      ? '#FEF4CE'
-      : props.hoverBackgroundColor)};
+    background-color: ${(props) =>
+      props.disabled
+        ? '#dfdedd'
+        : props.isLoading
+        ? '#FEF4CE'
+        : props.hoverBackgroundColor};
   }
   .loadingSpinner {
     position: relative;
@@ -64,30 +78,38 @@ const ButtonContainer = styled.div<{
 `;
 
 type SizeType = 'small' | 'medium' | 'big';
-type ThemeType = 'primary' | 'secondary' | 'tertiary' | 'cancel' | "selectAll" | "emptyArr";
+type ModeType =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'cancel'
+  | 'selectAll'
+  | 'emptyArr';
 
 export type ButtonType = {
   children: React.ReactNode;
   onClick: () => void;
-  theme: ThemeType;
+  mode: ModeType;
   disabled: boolean;
   className?: string;
   backgroundColor?: string;
   isLoading?: boolean;
-  buttonRef?: React.RefObject<HTMLDivElement> | React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
+  buttonRef?:
+    | React.RefObject<HTMLDivElement>
+    | React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 };
 
 function Button({
   children,
   onClick,
-  theme,
+  mode,
   disabled,
   className,
   backgroundColor,
   isLoading,
   buttonRef,
 }: ButtonType): JSX.Element {
-  function switchTheme(): {
+  function switchMode(): {
     innerBackgroundColor: string;
     innerHoverBackgroundColor: string;
   } {
@@ -97,7 +119,7 @@ function Button({
         innerHoverBackgroundColor: backgroundColor,
       };
     }
-    switch (theme) {
+    switch (mode) {
       case 'primary':
         return {
           innerBackgroundColor: '#FAC62D',
@@ -118,16 +140,16 @@ function Button({
           innerBackgroundColor: '#FFFFFF',
           innerHoverBackgroundColor: '#F0F0F0',
         };
-      case "selectAll":
+      case 'selectAll':
         return {
-          innerBackgroundColor: "#F0F0F0",
-          innerHoverBackgroundColor: "#DFDEDD",
-        }
-      case "emptyArr":
+          innerBackgroundColor: '#F0F0F0',
+          innerHoverBackgroundColor: '#DFDEDD',
+        };
+      case 'emptyArr':
         return {
-          innerBackgroundColor: "#818282",
-          innerHoverBackgroundColor: "#818282",
-        }
+          innerBackgroundColor: '#818282',
+          innerHoverBackgroundColor: '#818282',
+        };
       default:
         return {
           innerBackgroundColor: '#FAC62D',
@@ -136,7 +158,7 @@ function Button({
     }
   }
 
-  const { innerBackgroundColor, innerHoverBackgroundColor } = switchTheme();
+  const { innerBackgroundColor, innerHoverBackgroundColor } = switchMode();
 
   return (
     <ButtonContainer
