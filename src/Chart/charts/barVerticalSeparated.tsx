@@ -5,7 +5,6 @@ import React from 'react';
 import EChartsReact from 'echarts-for-react';
 import { useResizeDetector } from 'react-resize-detector/build/withPolyfill';
 import styled from 'styled-components';
-import { debounce, truncate } from 'lodash';
 import {
   getSizeCSS,
   mergeOption,
@@ -267,11 +266,6 @@ function BarVerticalSeparated({
     }
   };
 
-  const delayed = React.useCallback(
-    debounce(() => calcSVGPathLineWidth(), 500),
-    [],
-  );
-
   const resizeObject = useResizeDetector({ targetRef });
 
   React.useEffect(() => {
@@ -279,7 +273,7 @@ function BarVerticalSeparated({
   }, []);
 
   React.useEffect(() => {
-    delayed();
+    calcSVGPathLineWidth()
   }, [resizeObject.width]);
 
   return (
