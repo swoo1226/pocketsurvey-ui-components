@@ -144,6 +144,7 @@ const barVerticalSeparatedOption = ({
     colors,
   ) as EChartsOption['series'];
 
+  const toFixedSeries = series.map((series) => series.map((item) => parseFloat(item.toFixed(1))))
   option.tooltip = {
     trigger: 'axis',
     axisPointer: {
@@ -151,7 +152,7 @@ const barVerticalSeparatedOption = ({
     },
     formatter: (params: any) => stackedFormatter(
       params,
-      series,
+      toFixedSeries,
       'vertical-separated',
       hundredPercent?.tooltip ?? false,
     ),
