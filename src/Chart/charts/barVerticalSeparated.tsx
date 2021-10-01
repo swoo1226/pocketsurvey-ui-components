@@ -15,6 +15,7 @@ import {
 import { stackedFormatter } from '../util/tooltip';
 import { scrollBar } from '../style';
 import { ellipsisPieChartData, zipChartData } from '../util/chartData';
+import getLineWidth from '../util/getLineWidth';
 
 type BarVerticalSeparatedOptionPropsType = {
   series: number[][];
@@ -75,7 +76,9 @@ const compressedSeries = (series: number[][], label: string[]) => {
   }
   // console.log("compressSeriesArr", compressSeriesArr)
 
-  const arr2D = Array(series.length + 1).fill(0).map((x) => Array(series[0].length).fill(0));
+  const arr2D = Array(series.length + 1)
+    .fill(0)
+    .map((x) => Array(series[0].length).fill(0));
   for (let i = 0; i < compressSeriesArr.length; i += 1) {
     for (let j = 0; j < compressSeriesArr[i].length; j += 1) {
       arr2D[j][i] = compressSeriesArr[i][j];
@@ -84,7 +87,12 @@ const compressedSeries = (series: number[][], label: string[]) => {
   return arr2D;
 };
 
-const getSeries = (isHundredPercent: boolean, series: number[][], label: string[], colors: string[]) => {
+const getSeries = (
+  isHundredPercent: boolean,
+  series: number[][],
+  label: string[],
+  colors: string[],
+) => {
   series = isHundredPercent ? seriesToPercentArray(series) : series;
   const seriesData: {
     data: number[];
@@ -127,7 +135,9 @@ const barVerticalSeparatedOption = ({
   const colors = getColors.barStacked(series.length);
   const percentSeries = seriesToPercentArray(series);
 
-  const rawData = series.map((_, colIndex) => series.map((row) => row[colIndex]));
+  const rawData = series.map((_, colIndex) =>
+    series.map((row) => row[colIndex]),
+  );
   const dataLength = rawData[0].length;
 
   if (dataLength > 6) {
@@ -144,25 +154,22 @@ const barVerticalSeparatedOption = ({
     colors,
   ) as EChartsOption['series'];
 
-  const toFixedSeries = series.map((series) => series.map((item) => parseFloat(item.toFixed(1))))
+  const toFixedSeries = series.map((series) =>
+    series.map((item) => parseFloat(item.toFixed(1))),
+  );
   option.tooltip = {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
     },
-    formatter: (params: any) => stackedFormatter(
-      params,
-      toFixedSeries,
-      'vertical-separated',
-      hundredPercent?.tooltip ?? false,
-    ),
-    position(
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
+    formatter: (params: any) =>
+      stackedFormatter(
+        params,
+        toFixedSeries,
+        'vertical-separated',
+        hundredPercent?.tooltip ?? false,
+      ),
+    position(pos: any, params: any, el: any, elRect: any, size: any) {
       if (labelOption === 'fixed') {
         const obj: any = { top: 10 };
         obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
@@ -220,28 +227,19 @@ const EchartsWrapper = styled.div<{
 }>`
   ${scrollBar}
   ${(props) => props.minify && 'overflow-x: scroll;'}
-  ${(props) => (props.width
-    ? typeof props.width === 'number'
-      ? `width: ${props.width}px;`
-      : `width: ${props.width};`
-    : '')}
-  ${(props) => (props.height
-    ? typeof props.height === 'number'
-      ? `height: ${props.height}px;`
-      : `height: ${props.height};`
-    : '')}
+  ${(props) =>
+    props.width
+      ? typeof props.width === 'number'
+        ? `width: ${props.width}px;`
+        : `width: ${props.width};`
+      : ''}
+  ${(props) =>
+    props.height
+      ? typeof props.height === 'number'
+        ? `height: ${props.height}px;`
+        : `height: ${props.height};`
+      : ''}
 `;
-
-export const getLineWidth = (ref: React.RefObject<HTMLDivElement>) => {
-  while (true) {
-    const svg = ref.current?.querySelector(
-      'svg > g:last-child > path',
-    ) as SVGSVGElement;
-    if (svg.getBBox()) {
-      return svg.getBBox().width;
-    }
-  }
-}
 
 function BarVerticalSeparated({
   width,
@@ -260,9 +258,8 @@ function BarVerticalSeparated({
   const sizeValue = series.length * 30;
   const minWidth = sizeValue * xAxisLabel.length + 200;
 
-
-  const calcSVGPathLineWidth = () => {
-    const svgLineWidth = getLineWidth(targetRef);
+  const calcSVGPathLineWidth = async () => {
+    const svgLineWidth = await getLineWidth(targetRef);
     setLineWidth(svgLineWidth);
     const clientWidth = targetRef.current?.clientWidth;
     if (clientWidth) {
@@ -276,12 +273,13 @@ function BarVerticalSeparated({
   );
 
   const resizeObject = useResizeDetector({ targetRef });
+
   React.useEffect(() => {
     calcSVGPathLineWidth();
   }, []);
 
   React.useEffect(() => {
-    delayed()
+    delayed();
   }, [resizeObject.width]);
 
   return (

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { getPreset, BarVerticalBasePresetType } from '../util/preset';
 import { getSizeCSS, mergeOption, color } from '../util/index';
 import { scrollBar } from '../style';
-import { getLineWidth } from './barVerticalSeparated';
+import getLineWidth from '../util/getLineWidth';
 
 type BarVerticalBaseOptionPropsType = {
   series: number[];
@@ -139,8 +139,8 @@ function BarVerticalBase({
   const sizeValue = 70;
   const minWidth = sizeValue * series.length + 200;
 
-  const calcSVGPathLineWidth = () => {
-    const svgLineWidth = getLineWidth(targetRef);
+  const calcSVGPathLineWidth = async () => {
+    const svgLineWidth = await getLineWidth(targetRef);
     setLineWidth(svgLineWidth);
     const clientWidth = targetRef.current?.clientWidth;
     if (clientWidth) {
