@@ -91,7 +91,7 @@ export const piePercentageFormatter = (
 
   return `
   <div style="text-align: left;">
-  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${addComma(params.data.value)} (${percent})</p>
+  ${params.marker} ${params.data.name} <p style="font-weight: 700; display: inline; margin-left: 10px;"> ${params.data.value ? addComma(params.data.value) : 0} (${percent})</p>
     </div>
     `;
 };
