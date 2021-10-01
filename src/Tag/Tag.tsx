@@ -1,11 +1,11 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
-type ThemeType = "pastellYellow" | "pastellBlue" | "defaultGray";
+type ModeType = 'pastellYellow' | 'pastellBlue' | 'defaultGray';
 
 export type TagType = {
   children: React.ReactNode;
-  theme: ThemeType;
+  mode: ModeType;
   disabled: boolean;
   onClick?: () => void;
   className?: string;
@@ -31,16 +31,16 @@ const TagContainer = styled.div<{
   padding: 7px 14px;
   display: inline-block;
   color: #2b2e33;
-  font-family: "Noto Sans CJK KR Regular";
+  font-family: 'Noto Sans CJK KR Regular';
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.hoverColor};
   }
-`
+`;
 function Tag({
   children,
   onClick,
-  theme,
+  mode,
   className,
   backgroundColor,
   hoverColor,
@@ -49,58 +49,58 @@ function Tag({
 }: TagType): JSX.Element {
   function switchBackgroundColor(): {
     innerBackgroundColor: string;
-    } {
+  } {
     if (backgroundColor) {
       return {
         innerBackgroundColor: backgroundColor,
-      }
+      };
     }
-    switch (theme) {
-    case "pastellYellow":
-      return {
-        innerBackgroundColor: "#fef4ce",
-      }
-    case "pastellBlue":
-      return {
-        innerBackgroundColor: "#def3f8",
-      }
-    case "defaultGray":
-      return {
-        innerBackgroundColor: "#e9e1d5",
-      }
-    default:
-      return {
-        innerBackgroundColor: "#e9e1d5",
-      }
+    switch (mode) {
+      case 'pastellYellow':
+        return {
+          innerBackgroundColor: '#fef4ce',
+        };
+      case 'pastellBlue':
+        return {
+          innerBackgroundColor: '#def3f8',
+        };
+      case 'defaultGray':
+        return {
+          innerBackgroundColor: '#e9e1d5',
+        };
+      default:
+        return {
+          innerBackgroundColor: '#e9e1d5',
+        };
     }
   }
 
   function setHoverColor(): {
     innerHoverColor: string;
-    } {
+  } {
     if (hoverColor) {
       return {
         innerHoverColor: hoverColor,
-      }
+      };
     }
     return {
       innerHoverColor: innerBackgroundColor,
-    }
+    };
   }
 
-  const { innerBackgroundColor } = switchBackgroundColor()
-  const { innerHoverColor } = setHoverColor()
+  const { innerBackgroundColor } = switchBackgroundColor();
+  const { innerHoverColor } = setHoverColor();
   return (
     <TagContainer
       onClick={disabled ? undefined : onClick}
       backgroundColor={innerBackgroundColor}
       hoverColor={innerHoverColor}
       className={className}
-      fontSize={fontSize ? fontSize : 12}
+      fontSize={fontSize ?? 12}
     >
       {children}
     </TagContainer>
-  )
+  );
 }
 
-export default Tag
+export default Tag;
