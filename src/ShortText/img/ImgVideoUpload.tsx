@@ -169,7 +169,7 @@ function ImgVideo({
             // @ts-ignore
             <video src={uploadedFile} controls />
           )}
-          <Button theme="primary" onClick={onClick} disabled={false}>
+          <Button mode="primary" onClick={onClick} disabled={false}>
             {" "}
             삭제{" "}
           </Button>
