@@ -14,6 +14,7 @@ import {
   color,
 } from '../util/index';
 import { scrollBar } from '../style';
+import getLineWidth from '../util/getLineWidth';
 
 type BarVerticalStackedOptionPropsType = {
   series: (number | null)[][];
@@ -72,9 +73,10 @@ const barVerticalStackedOption = ({
 
   const percentSeries = seriesToPercentArray(series);
 
-  const colors = nps === true
-    ? [color.NPS.RED, color.NPS.YELLOW, color.NPS.GREEN]
-    : getColors.barStacked(series.length);
+  const colors =
+    nps === true
+      ? [color.NPS.RED, color.NPS.YELLOW, color.NPS.GREEN]
+      : getColors.barStacked(series.length);
 
   option.series = (hundredPercent?.series === true
     ? percentSeries
@@ -125,10 +127,10 @@ const barVerticalStackedOption = ({
   for (let i = option.series.length - 1; i >= 0; i -= 1) {
     (option.series[i].data as DataType).forEach((item, index) => {
       if (
-        option.series !== undefined
-        && border[index] === false
-        && item.value !== null
-        && item.value !== 0
+        option.series !== undefined &&
+        border[index] === false &&
+        item.value !== null &&
+        item.value !== 0
       ) {
         (option.series as SeriesType)[i].data[index].itemStyle = {
           ...(option.series as SeriesType)[i].data[index].itemStyle,
@@ -145,7 +147,9 @@ const barVerticalStackedOption = ({
       option.series.push({
         color: getColors.barStacked(series.length),
         //  color: getColors.pie(series.length, maxIndex),
-        data: line[i].series.map(item => item ? parseFloat(item.toFixed(1)) : null) as number[],
+        data: line[i].series.map((item) =>
+          item ? parseFloat(item.toFixed(1)) : null,
+        ) as number[],
         name: line[i].name,
         type: 'line',
         symbolSize: nps === true ? 3 : 0,
@@ -173,12 +177,13 @@ const barVerticalStackedOption = ({
     axisPointer: {
       type: 'shadow',
     },
-    formatter: (params: any) => stackedFormatter(
-      params,
-      series,
-      'vertical',
-      hundredPercent?.tooltip ?? false,
-    ),
+    formatter: (params: any) =>
+      stackedFormatter(
+        params,
+        series,
+        'vertical',
+        hundredPercent?.tooltip ?? false,
+      ),
     position(pos: any, params: any, el: any, elRect: any, size: any) {
       if (labelOption === 'fixed') {
         const obj: any = { top: 10 };
@@ -214,16 +219,18 @@ const EchartsWrapper = styled.div<{
 }>`
   ${scrollBar}
   ${(props) => props.minify && 'overflow-x: scroll;'}
-  ${(props) => (props.width
-    ? typeof props.width === 'number'
-      ? `width: ${props.width}px;`
-      : `width: ${props.width};`
-    : '')}
-  ${(props) => (props.height
-    ? typeof props.height === 'number'
-      ? `height: ${props.height}px;`
-      : `height: ${props.height};`
-    : '')}
+  ${(props) =>
+    props.width
+      ? typeof props.width === 'number'
+        ? `width: ${props.width}px;`
+        : `width: ${props.width};`
+      : ''}
+  ${(props) =>
+    props.height
+      ? typeof props.height === 'number'
+        ? `height: ${props.height}px;`
+        : `height: ${props.height};`
+      : ''}
   ${(props) => props.isOverflow && 'overflow-y: scroll;'}
 `;
 
@@ -263,11 +270,9 @@ function BarVerticalStacked({
   const sizeValue = 70;
 
   const minWidth = sizeValue * xAxisLabel.length + 200;
-  const calcSVGPathLineWidth = () => {
-    const svg = targetRef.current?.querySelector(
-      'svg > g:last-child > path',
-    ) as SVGSVGElement;
-    setLineWidth(svg?.getBBox()?.width);
+  const calcSVGPathLineWidth = async () => {
+    const svgLineWidth = await getLineWidth(targetRef);
+    setLineWidth(svgLineWidth);
     const clientWidth = targetRef.current?.clientWidth;
     if (clientWidth) {
       setMinify(minWidth > clientWidth);
