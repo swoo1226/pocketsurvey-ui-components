@@ -70,6 +70,17 @@ export function Index() {
         onUpload={() => alert('upload!')}
         loading={false}
       />
+       <h2>영상 업로드 로딩</h2>
+      <ImgVideo
+        qrCode={null}
+        mediaSrc={null}
+        type="video"
+        onClick={() => {
+          setVideoSrc(null);
+        }}
+        onUpload={() => alert('upload!')}
+        loading={true}
+      />
     </>
   );
 }

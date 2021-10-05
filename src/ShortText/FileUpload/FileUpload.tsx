@@ -147,7 +147,6 @@ function FileUpload({
   loading,
 }: FileUploadTypes): JSX.Element {
   const [uploadedFile, setUploadedFile] = useState<string>('');
-  const [isValid, setIsValid] = useState<boolean>(false);
 
   const isUploading = () => {
     if (loading && !uploadedFile) return true;
@@ -184,20 +183,19 @@ function FileUpload({
     const fileName = file.name;
     if (file.size <= 52428800) {
       if (isValidFile(fileName, fileAcceptance)) {
-        setIsValid(true);
+        onUpload({isValid:true, file});
       } else {
-        setIsValid(false);
         window.alert(
           `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
             .replace(/\./g, '')
             .replace(/image\//gi, '')}`,
         );
+        onUpload({isValid:false, file});
       }
     }else {
       alert("파일 크기를 초과합니다")
+      onUpload({isValid:false, file});
     }
-    onUpload({isValid, file});
-
   };
 
   return (
