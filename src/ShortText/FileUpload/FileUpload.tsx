@@ -136,7 +136,7 @@ const UploadResult = styled.div`
 export type FileUploadTypes = {
   answeredText: string;
   onCancelClick?: () => void;
-  onUpload: () => void;
+  onUpload: (file:File) => void;
 };
 
 function FileUpload({
@@ -166,7 +166,7 @@ function FileUpload({
   }, [answeredText]);
 
   const onDrop = useCallback((acceptedFiles) => {
-    onUpload();
+    onUpload(acceptedFiles[0]);
     uploadValidation(acceptedFiles[0]);
   }, []);
 
@@ -179,7 +179,6 @@ function FileUpload({
 
   const uploadValidation = (file: File) => {
     const fileName = file.name;
-    console.log('fileName', fileName);
     if (file.size <= 52428800) {
       if (isValidFile(fileName, fileAcceptance)) {
         setIsLoading(true);
@@ -191,6 +190,8 @@ function FileUpload({
             .replace(/image\//gi, '')}`,
         );
       }
+    }else {
+      alert("파일 크기를 초과합니다")
     }
   };
 
@@ -240,7 +241,7 @@ function FileUpload({
                 accept={fileAcceptance}
                 style={{ display: 'none' }}
                 onChange={(e) => {
-                  onUpload();
+                  onUpload(e.target.files![0]);
                   uploadValidation(e.target.files![0]);
                 }}
               />

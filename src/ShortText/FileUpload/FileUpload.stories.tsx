@@ -14,7 +14,7 @@ export function Index() {
       <h1>FileUpload</h1>
       <div>
         <p>파일업로드 대기 상태</p>
-        <FileUpload answeredText={""} onUpload={() => alert("File uploading.....!") } />
+        <FileUpload answeredText={""} onUpload={(e:File) => console.log("file: ", e) } />
       </div>
       <div>
         <br></br>
