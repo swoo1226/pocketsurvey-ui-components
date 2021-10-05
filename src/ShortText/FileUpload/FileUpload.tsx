@@ -134,7 +134,7 @@ const UploadResult = styled.div`
 `;
 
 export type FileUploadTypes = {
-  answeredText: string;
+  answeredText: string | null;
   onCancelClick?: () => void;
   onUpload: ({isValid, file}: {isValid:boolean, file:File}) => void;
   loading:boolean;
@@ -146,7 +146,7 @@ function FileUpload({
   onUpload,
   loading,
 }: FileUploadTypes): JSX.Element {
-  const [uploadedFile, setUploadedFile] = useState<string>('');
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
   const isUploading = () => {
     if (loading && !uploadedFile) return true;
