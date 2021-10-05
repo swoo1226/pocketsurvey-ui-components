@@ -102,7 +102,8 @@ export type ImgVideoType = {
   qrCode: [string, string] | null;
   mediaSrc: string | null;
   type: "video" | "image";
-  onUpload: () => void;
+  onUpload: ({isValid, file}:{isValid:boolean, file:File}) => void;
+  loading: boolean;
 };
 
 function ImgVideo({
@@ -111,9 +112,9 @@ function ImgVideo({
   mediaSrc,
   type,
   onUpload,
+  loading,
 }: ImgVideoType): JSX.Element {
-  const [isLoading, setLoading] = useState<boolean>(false)
-  const [uploadedFile, setUploadedFile] = useState<string | null>("")
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null)
   const fileAcceptance =
     type === "image" ? "image/png, image/jpeg, image/jpg" : ".mp4"
 
@@ -121,20 +122,19 @@ function ImgVideo({
     const fileName = file.name
     if(file.size <= 10000000) {
       if (isValidFile(fileName, fileAcceptance)) {
-        setLoading(true)
-        onUpload()
+        onUpload({isValid:true, file});
       } else {
-        setLoading(false)
         window.alert(
           `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
             .replace(/\./g, "")
             .replace(/image\//gi, "")}`
-        )
+        );
+        onUpload({isValid:false, file});
       }
     } else {
       alert("파일 크기를 초과합니다")
+      onUpload({isValid:false, file});
     }
-   
   }
 
   useEffect(() => {
@@ -150,19 +150,42 @@ function ImgVideo({
     noClick: true,
   })
 
+  const isLoading = () => {
+    if(loading) return true;
+    return false;
+  }
+  
+  const isqrWaiting = () => {
+    if(!loading && !qrCode) return true;
+    return false;
+  }
+
+  const isWaiting = () => {
+    if(!mediaSrc && !loading) return true;
+    return false;
+  }
+
+  const isUploaded = () => {
+    if(mediaSrc && !loading) return true;
+    return false;
+  }
   return (
     <UploadWrapper
       {...getRootProps()}
       mediaSrc={mediaSrc}
       isDragActive={isDragActive}
     >
-      {isLoading ? (
-        <div className="loadingSpinner">
+      {
+        isLoading() && (
+          <div className="loadingSpinner">
           <img alt="loading" src={loadingSpinner} />
           <span> 파일을 업로드중입니다...</span>
         </div>
-      ) : mediaSrc ? (
-        <>
+        )
+      }
+      {
+        isUploaded() && (
+          <>
           {type === "image" ? (
             // @ts-ignore
             <img
@@ -179,52 +202,58 @@ function ImgVideo({
             삭제{" "}
           </Button>
         </>
-      ) : (
-        <UploadText>
+        )
+      }
+      {
+        isWaiting() && (
+          <UploadText>
           <QRDiv>
             <QRBox>
-              {!qrCode ? (
-                <div className="noQR">
-                  {" "}
-                  QR 코드가 <br />
-                  준비중입니다
-                </div>
-              ) : (
-                <img
-                  src={`data:image/png;base64, ${qrCode}`}
-                  style={{ width: "100%" }}
-                  alt="QR Null"
-                />
-              )}
+              {
+                isqrWaiting() ? (
+                    <div className="noQR">
+                    {" "}
+                    QR 코드가 <br />
+                    준비중입니다
+                  </div>
+                ) : (
+                  <img
+                    src={`data:image/png;base64, ${qrCode}`}
+                    style={{ width: "100%" }}
+                    alt="QR Null"
+                  />
+                )
+              }
             </QRBox>
           </QRDiv>
           <Sentence>
-            <StressLetter>QR 코드를 스캔</StressLetter>
-            하고 휴대폰에서 바로 올리기
-            <br />
-          </Sentence>
-          <Sentence>
-            또는
-            <StressLetter> 여기에 파일을 끌어서 놓기 </StressLetter>
-            또는
-            <FileUploadLabel>
-              <span> 브라우저에서 </span>
-              <input
-                {...getInputProps()}
-                className="fileBtn"
-                type="file"
-                accept={fileAcceptance}
-                style={{ display: "none" }}
-                onChange={(e) => {
-                  uploadValidation(e.target.files![0])
-                }}
-              />
-            </FileUploadLabel>
-            <span>올리기</span>
-          </Sentence>
-          <div className="limit">최대 10MB 가능</div>
-        </UploadText>
-      )}
+              <StressLetter>QR 코드를 스캔</StressLetter>
+              하고 휴대폰에서 바로 올리기
+              <br />
+            </Sentence>
+            <Sentence>
+              또는
+              <StressLetter> 여기에 파일을 끌어서 놓기 </StressLetter>
+              또는
+              <FileUploadLabel>
+                <span> 브라우저에서 </span>
+                <input
+                  {...getInputProps()}
+                  className="fileBtn"
+                  type="file"
+                  accept={fileAcceptance}
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    uploadValidation(e.target.files![0])
+                  }}
+                />
+              </FileUploadLabel>
+              <span>올리기</span>
+            </Sentence>
+            <div className="limit">최대 10MB 가능</div>
+          </UploadText>
+        )
+      }
     </UploadWrapper>
   )
 }
