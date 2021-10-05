@@ -136,37 +136,40 @@ const UploadResult = styled.div`
 export type FileUploadTypes = {
   answeredText: string;
   onCancelClick?: () => void;
-  onUpload: (file:File) => void;
+  onUpload: ({isValid, file}: {isValid:boolean, file:File}) => void;
+  loading:boolean;
 };
 
 function FileUpload({
   answeredText,
   onCancelClick,
   onUpload,
+  loading,
 }: FileUploadTypes): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [uploadedFile, setUploadedFile] = useState<string>('');
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   const isUploading = () => {
-    if (isLoading && !uploadedFile) return true;
+    if (loading && !uploadedFile) return true;
     return false;
   };
   const isUploaded = () => {
-    if (uploadedFile && !isLoading) return true;
+    if (uploadedFile && !loading) return true;
     return false;
   };
   const isWaiting = () => {
-    if (!uploadedFile && !isLoading) return true;
+    if (!uploadedFile && !loading) return true;
     return false;
   };
+
   useEffect(() => {
     if (answeredText) {
       setUploadedFile(answeredText);
     }
   }, [answeredText]);
 
+
   const onDrop = useCallback((acceptedFiles) => {
-    onUpload(acceptedFiles[0]);
     uploadValidation(acceptedFiles[0]);
   }, []);
 
@@ -181,9 +184,9 @@ function FileUpload({
     const fileName = file.name;
     if (file.size <= 52428800) {
       if (isValidFile(fileName, fileAcceptance)) {
-        setIsLoading(true);
+        setIsValid(true);
       } else {
-        setIsLoading(false);
+        setIsValid(false);
         window.alert(
           `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
             .replace(/\./g, '')
@@ -193,6 +196,8 @@ function FileUpload({
     }else {
       alert("파일 크기를 초과합니다")
     }
+    onUpload({isValid, file});
+
   };
 
   return (
@@ -202,13 +207,13 @@ function FileUpload({
         answeredText={uploadedFile}
         isDragActive={isDragActive}
       >
-        {isUploading() && (
-          <div className="loadingSpinner">
-            <img alt="loading" src={loadingSpinner} />
-            <span> 파일을 업로드중입니다...</span>
-          </div>
-        )}
-        {isUploaded() && (
+      {isUploading() && (
+        <div className="loadingSpinner">
+          <img alt="loading" src={loadingSpinner} />
+          <span> 파일을 업로드중입니다...</span>
+        </div>
+      )}
+      {isUploaded() && (
           <UploadResult>
             <div className="file-row">
               <div className="filename">{uploadedFile}</div>
@@ -218,7 +223,7 @@ function FileUpload({
                 className="deleteFile"
                 color="#818282"
                 onClick={() => {
-                  onCancelClick;
+                  onCancelClick();
                   setUploadedFile('');
                 }}
                 useCursor
@@ -241,7 +246,6 @@ function FileUpload({
                 accept={fileAcceptance}
                 style={{ display: 'none' }}
                 onChange={(e) => {
-                  onUpload(e.target.files![0]);
                   uploadValidation(e.target.files![0]);
                 }}
               />
