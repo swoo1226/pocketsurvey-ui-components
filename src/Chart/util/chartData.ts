@@ -3,7 +3,7 @@ type ZippedChartDataType = {
   label: string;
 };
 
-type ChartDataReturnType = {
+export type ChartDataReturnType = {
   series: number[];
   labels: string[];
 };
