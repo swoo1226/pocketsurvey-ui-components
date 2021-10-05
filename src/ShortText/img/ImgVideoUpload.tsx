@@ -102,7 +102,8 @@ export type ImgVideoType = {
   qrCode: [string, string] | null;
   mediaSrc: string | null;
   type: "video" | "image";
-  onUpload: () => void;
+  onUpload: ({isValid, file}:{isValid:boolean, file:File}) => void;
+  loading: boolean;
 };
 
 function ImgVideo({
@@ -111,9 +112,10 @@ function ImgVideo({
   mediaSrc,
   type,
   onUpload,
+  loading,
 }: ImgVideoType): JSX.Element {
-  const [isLoading, setLoading] = useState<boolean>(false)
-  const [uploadedFile, setUploadedFile] = useState<string | null>("")
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null)
   const fileAcceptance =
     type === "image" ? "image/png, image/jpeg, image/jpg" : ".mp4"
 
@@ -121,10 +123,9 @@ function ImgVideo({
     const fileName = file.name
     if(file.size <= 10000000) {
       if (isValidFile(fileName, fileAcceptance)) {
-        setLoading(true)
-        onUpload()
+        setIsValid(true)
       } else {
-        setLoading(false)
+        setIsValid(false)
         window.alert(
           `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
             .replace(/\./g, "")
@@ -134,7 +135,7 @@ function ImgVideo({
     } else {
       alert("파일 크기를 초과합니다")
     }
-   
+   onUpload({isValid, file})
   }
 
   useEffect(() => {
@@ -156,7 +157,7 @@ function ImgVideo({
       mediaSrc={mediaSrc}
       isDragActive={isDragActive}
     >
-      {isLoading ? (
+      {loading ? (
         <div className="loadingSpinner">
           <img alt="loading" src={loadingSpinner} />
           <span> 파일을 업로드중입니다...</span>

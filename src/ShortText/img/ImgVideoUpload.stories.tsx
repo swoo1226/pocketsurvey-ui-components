@@ -23,7 +23,8 @@ export function Index() {
         onClick={() => {
           setImgSrc(null);
         }}
-        onUpload={() => alert('upload!')}
+        onUpload={({isValid,file}) => console.log(isValid, file)}
+        loading={false}
       />
       <h2>이미지 업로드 완료 후</h2>
       <ImgVideo
@@ -33,7 +34,19 @@ export function Index() {
         onClick={() => {
           setImgSrc(null);
         }}
-        onUpload={() => alert('upload!')}
+        onUpload={({isValid,file}) => console.log(isValid, file)}
+        loading={false}
+      />
+      <h2>이미지 업로드 로딩</h2>
+      <ImgVideo
+        qrCode={null}
+        type="image"
+        mediaSrc={imagSrc}
+        onClick={() => {
+          setImgSrc(null);
+        }}
+        onUpload={({isValid,file}) => console.log(isValid, file)}
+        loading={true}
       />
       <h2>영상 업로드</h2>
       <ImgVideo
@@ -43,7 +56,8 @@ export function Index() {
         onClick={() => {
           setVideoSrc(null);
         }}
-        onUpload={() => alert('upload!')}
+        onUpload={({isValid,file}) => console.log(isValid, file)}
+        loading={false}
       />
       <h2>영상 업로드 후</h2>
       <ImgVideo
@@ -54,6 +68,7 @@ export function Index() {
           setVideoSrc(null);
         }}
         onUpload={() => alert('upload!')}
+        loading={false}
       />
     </>
   );
