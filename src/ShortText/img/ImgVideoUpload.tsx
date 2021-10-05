@@ -119,17 +119,22 @@ function ImgVideo({
 
   const uploadValidation = (file: File) => {
     const fileName = file.name
-    if (isValidFile(fileName, fileAcceptance)) {
-      setLoading(true)
-      onUpload()
+    if(file.size <= 10000000) {
+      if (isValidFile(fileName, fileAcceptance)) {
+        setLoading(true)
+        onUpload()
+      } else {
+        setLoading(false)
+        window.alert(
+          `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
+            .replace(/\./g, "")
+            .replace(/image\//gi, "")}`
+        )
+      }
     } else {
-      setLoading(false)
-      window.alert(
-        `다음 확장자만 업로드가 가능합니다.\n${fileAcceptance
-          .replace(/\./g, "")
-          .replace(/image\//gi, "")}`
-      )
+      alert("파일 크기를 초과합니다")
     }
+   
   }
 
   useEffect(() => {
