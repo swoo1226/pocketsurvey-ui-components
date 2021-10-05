@@ -7,7 +7,11 @@ import {
   getMaxLabelWidth,
   color,
 } from '../util/index';
-import { ellipsisBarChartData, zipChartData } from '../util/chartData';
+import {
+  ellipsisBarChartData,
+  zipChartData,
+  ChartDataReturnType,
+} from '../util/chartData';
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -33,7 +37,7 @@ const barHorizontalBaseOption = ({
     show: true,
   };
   const seriesCombinedLabels = labels
-    .map((label, index) => ({label, series: series[index]}))
+    .map((label, index) => ({ label, series: series[index] }))
     .sort((a, b) => b.series - a.series);
   const alignedSeries = seriesCombinedLabels.map((item) => item.series);
   const alignedLabels = seriesCombinedLabels.map((item) => item.label);
@@ -125,10 +129,9 @@ const barHorizontalBaseOption = ({
 
 type BarHorizontalBasePropsType = {
   width?: number | string;
-  height?: number | string;
   align?: 'descend' | 'ascend';
   labelOption?: 'fixed' | 'dynamic';
-  defaultHeight?: number;
+  notHasEtc?: boolean;
 } & BarHorizontalBaseOptionPropsType;
 
 function BarHorizontalBase({
@@ -138,14 +141,16 @@ function BarHorizontalBase({
   override,
   align,
   labelOption = 'dynamic',
+  notHasEtc,
 }: BarHorizontalBasePropsType): JSX.Element {
   const getHeight = (dataLength: number) => {
     const padding = 120;
-    const barWidth = 40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
+    const barWidth =
+      40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
     return barWidth * dataLength + padding;
   };
 
-  const chartData = ellipsisBarChartData(series, labels);
+  const chartData = getChartData(series, labels, notHasEtc);
   return (
     <EChartsReact
       style={getSizeCSS(width, getHeight(chartData.series.length))}
@@ -160,5 +165,21 @@ function BarHorizontalBase({
     />
   );
 }
+
+const getChartData = (
+  series: number[],
+  labels: string[],
+  notHasEtc?: boolean,
+): ChartDataReturnType => {
+  // 그 외를 계산하지 않는 경우, 데이터를 그대로 리턴
+  if (notHasEtc === true) {
+    return {
+      series,
+      labels,
+    };
+  }
+  // 데이터를 내림차순 정렬 후 그 외 계산
+  return ellipsisBarChartData(series, labels);
+};
 
 export default BarHorizontalBase;
