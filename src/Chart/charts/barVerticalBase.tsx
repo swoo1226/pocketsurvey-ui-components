@@ -8,6 +8,7 @@ import { getPreset, BarVerticalBasePresetType } from '../util/preset';
 import { getSizeCSS, mergeOption, color } from '../util/index';
 import { scrollBar } from '../style';
 import getLineWidth from '../util/getLineWidth';
+import { parseFloatSafe } from '../util/safeParse';
 
 type BarVerticalBaseOptionPropsType = {
   series: number[];
@@ -40,9 +41,9 @@ const barVerticalBaseOption = ({
     };
   }[] = [];
 
-  series.map((number, index) => {
+  series.map((num, index) => {
     seriesData.push({
-      value: (number === 0 ? null : parseFloat(number.toFixed(1))) as number,
+      value: parseFloatSafe(num) as number,
       itemStyle: {
         color: color.YELLOW,
         borderRadius: [4, 4, 0, 0],
