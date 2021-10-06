@@ -129,6 +129,7 @@ type BarHorizontalBasePropsType = {
   align?: 'descend' | 'ascend';
   labelOption?: 'fixed' | 'dynamic';
   defaultHeight?: number;
+  notHasEtc?: boolean;
 } & BarHorizontalBaseOptionPropsType;
 
 function BarHorizontalBase({
@@ -138,14 +139,22 @@ function BarHorizontalBase({
   override,
   align,
   labelOption = 'dynamic',
+  notHasEtc,
 }: BarHorizontalBasePropsType): JSX.Element {
   const getHeight = (dataLength: number) => {
     const padding = 120;
-    const barWidth = 40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
+    const barWidth =
+      40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
     return barWidth * dataLength + padding;
   };
 
-  const chartData = ellipsisBarChartData(series, labels);
+  const chartData = notHasEtc
+    ? {
+        series,
+        labels,
+      }
+    : ellipsisBarChartData(series, labels);
+
   return (
     <EChartsReact
       style={getSizeCSS(width, getHeight(chartData.series.length))}

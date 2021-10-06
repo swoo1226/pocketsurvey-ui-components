@@ -85,7 +85,7 @@ export function BarHorizontalBase() {
 
   return (
     <>
-      <Chart.BarHorizontalBase labels={koreanDummy} series={dummy} />
+      <Chart.BarHorizontalBase labels={koreanDummy} series={dummy} notHasEtc />
       <DropDown
         list={[
           { selectionName: '정렬 없음' },
