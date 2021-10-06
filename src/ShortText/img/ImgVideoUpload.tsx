@@ -120,7 +120,7 @@ const Sentence = styled.div`
 `
 export type ImgVideoType = {
   onClick: () => void;
-  qrCode: [string, string] | null;
+  qrCode: string | null;
   mediaSrc: string | null;
   type: "video" | "image";
   onUpload: ({isValid, file}:{isValid:boolean, file:File}) => void;
