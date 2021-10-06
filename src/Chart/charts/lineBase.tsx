@@ -51,6 +51,31 @@ const lineBaseOption = ({
   option.yAxis = {
     type: 'value',
   };
+
+  interface IlineChartMaker {
+    name:string;
+    xAxis: number;
+    yAxis: number;
+    value: number;
+  }
+  const filterMinMaxMarkPoint = (series: number[]) => {
+    const min = Math.min(...series);
+    const max = Math.max(...series);
+
+    return series.reduce((acc:IlineChartMaker[],cur,idx)=>{
+      if ([min, max].includes(cur)) {
+        const marker: IlineChartMaker = {
+          name: '',
+          xAxis: idx,
+          yAxis: cur,
+          value: cur,
+        };
+        acc.push(marker);
+      }
+      return acc;
+    },[])
+  };
+
   option.series = [
     {
       type: 'line',
@@ -59,14 +84,11 @@ const lineBaseOption = ({
       markPoint:
         hasMarker === true
           ? {
-            data: [
-              { type: 'max', name: '' },
-              { type: 'min', name: '' },
-            ],
-          }
+              data: filterMinMaxMarkPoint(series),
+            }
           : {
-            data: [],
-          },
+              data: [],
+            },
     },
   ];
 
