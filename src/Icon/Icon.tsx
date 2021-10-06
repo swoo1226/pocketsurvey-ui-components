@@ -1,8 +1,8 @@
-import React from "react"
-import * as icons from "./svg"
+import React from 'react';
+import * as icons from './svg';
 
 export type IconType = keyof typeof icons;
-export const iconTypes: IconType[] = Object.keys(icons) as any[]
+export const iconTypes: IconType[] = Object.keys(icons) as any[];
 
 export type IconProps = {
   /** 사용 할 아이콘 타입 */
@@ -24,17 +24,17 @@ export type IconProps = {
 };
 
 export type CursorStyleType =
-  | "default"
-  | "pointer"
-  | "text"
-  | "move"
-  | "no-drop"
-  | "grab"
-  | "grabbing"
-  | "col-resize"
-  | "row-resize"
-  | "zoom-in"
-  | "zoom-out";
+  | 'default'
+  | 'pointer'
+  | 'text'
+  | 'move'
+  | 'no-drop'
+  | 'grab'
+  | 'grabbing'
+  | 'col-resize'
+  | 'row-resize'
+  | 'zoom-in'
+  | 'zoom-out';
 
 /** 아이콘을 보여주고 싶을 땐 `Icon` 컴포넌트를 사용하세요.
  *
@@ -55,21 +55,21 @@ function Icon({
   hoveredColor,
   selectCursor,
 }: IconProps): JSX.Element {
-  const [isHover, setIsHover] = React.useState<boolean>(false)
-  const SVGIcon = icons[icon]
+  const [isHover, setIsHover] = React.useState<boolean>(false);
+  const SVGIcon = icons[icon];
 
   const switchingCursorPointer = (
     useCursor?: boolean,
-    cursor?: CursorStyleType
+    cursor?: CursorStyleType,
   ) => {
     if (useCursor) {
       if (cursor) {
-        return cursor
+        return cursor;
       }
-      return "pointer"
+      return 'pointer';
     }
-    return "default"
-  }
+    return 'default';
+  };
 
   return (
     <SVGIcon
@@ -84,18 +84,18 @@ function Icon({
       onClick={onClick}
       onMouseOver={() => {
         if (onMouseOver) {
-          onMouseOver()
+          onMouseOver();
         }
-        setIsHover(true)
+        setIsHover(true);
       }}
       onMouseLeave={() => {
         if (onMouseLeave) {
-          onMouseLeave()
+          onMouseLeave();
         }
-        setIsHover(false)
+        setIsHover(false);
       }}
     />
-  )
+  );
 }
 
-export default Icon
+export default Icon;
