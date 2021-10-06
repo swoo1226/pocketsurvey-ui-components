@@ -4,12 +4,10 @@ import { useDropzone } from "react-dropzone"
 import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
 import { isValidFile } from "../../util/isValidFile"
 import Button from "../../Button/Button"
-const UploadWrapper = styled.div<{
-  mediaSrc?: string | null;
-  isDragActive: boolean;
-}>`
-  border: ${(p) => (p.mediaSrc ? "" : "2px dashed #DFDEDD")};
-  border: ${(p) => (p.isDragActive ? "2px dashed #FAC62D" : "")};
+
+const UploadWrapper = styled.div<{ mediaSrc: string | null;isDragActive: boolean; }>`
+  border: ${(props) => (props.mediaSrc ? '' : '2px dashed #dfdedd')};
+  border: ${(props) => (props.isDragActive ? "2px dashed #FAC62D" : "")};
   border-radius: 5px;
   width: 655px;
   padding-bottom: 28px;
@@ -24,7 +22,7 @@ const UploadWrapper = styled.div<{
     span {
       font-size: 14px;
       color: #818282;
-      font-family: "Noto Sans CJK KR Regular";
+      font-family: 'Noto Sans CJK KR Regular';
       margin-top: 20px;
     }
     img {
@@ -52,7 +50,30 @@ const UploadWrapper = styled.div<{
       }
     }
   }
-`
+
+  .deleteBtn {
+    margin-top: 20px;
+  }
+
+  .file-icon {
+    width: 126px;
+    height: 126px;
+    margin-top: 28px;
+    background-color: #818282;
+  }
+  .file-size-text {
+    margin-top: 7px;
+    font-size: 10px;
+  }
+  @media only screen and (max-width: 743px) {
+    width: 100%;
+    border: 0px;
+
+    .loadingSpinner {
+      padding-bottom: 20px;
+    }
+  }
+`;
 
 const FileUploadLabel = styled.label`
   text-decoration: underline;
@@ -255,7 +276,7 @@ function ImgVideo({
         )
       }
     </UploadWrapper>
-  )
+  );
 }
 
 export default ImgVideo
