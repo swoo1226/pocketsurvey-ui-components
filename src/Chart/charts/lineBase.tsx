@@ -41,11 +41,24 @@ const lineBaseOption = ({
   option.toolbox = {
     show: true,
   };
+
+  const getEllipsisText = (n: number) => (value) =>
+    value.length > n + 1 ? `${value.substring(0, n)}...` : value;
+
+  const calculateXAxixformatter = (labels: string[]) => {
+    const labelLength = labels.length;
+    if (labelLength <= 4) return getEllipsisText(8);
+    if (labelLength <= 8) return getEllipsisText(6);
+    if (labelLength <= 12) return getEllipsisText(4);
+    return getEllipsisText(2);
+  };
+
   option.xAxis = {
     type: 'category',
     data: labels,
     axisLabel: {
       interval: 0,
+      formatter: calculateXAxixformatter(labels),
     },
   };
   option.yAxis = {
@@ -53,7 +66,7 @@ const lineBaseOption = ({
   };
 
   interface IlineChartMaker {
-    name:string;
+    name: string;
     xAxis: number;
     yAxis: number;
     value: number;
@@ -62,7 +75,7 @@ const lineBaseOption = ({
     const min = Math.min(...series);
     const max = Math.max(...series);
 
-    return series.reduce((acc:IlineChartMaker[],cur,idx)=>{
+    return series.reduce((acc: IlineChartMaker[], cur, idx) => {
       if ([min, max].includes(cur)) {
         const marker: IlineChartMaker = {
           name: '',
@@ -73,7 +86,7 @@ const lineBaseOption = ({
         acc.push(marker);
       }
       return acc;
-    },[])
+    }, []);
   };
 
   option.series = [
