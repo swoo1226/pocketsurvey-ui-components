@@ -1,6 +1,12 @@
-type ZippedChartDataType = {
+export type ZippedChartDataType = {
   series: number;
   label: string;
+};
+
+type ChartDataInputType = {
+  seriesList: number[];
+  labelsList: string[];
+  hasScore?: boolean;
 };
 
 export type ChartDataReturnType = {
@@ -23,7 +29,7 @@ export const descSortChartData = (
 ): ZippedChartDataType[] =>
   zipChartData(seriesList, labelsList).sort((a, b) => b.series - a.series);
 
-const convertZipToChartData = (
+export const convertZipToChartData = (
   chartData: ZippedChartDataType[],
 ): ChartDataReturnType => ({
   series: chartData.map((item) => item.series),
@@ -75,12 +81,6 @@ export const ellipsisBarChartData = (
   labelsList: string[],
 ): ChartDataReturnType => {
   const MAX_BAR_LENGTH = 14;
-  if (seriesList.length <= MAX_BAR_LENGTH) {
-    return {
-      series: seriesList,
-      labels: labelsList,
-    };
-  }
 
   const chartData: ZippedChartDataType[] = descSortChartData(
     seriesList,
@@ -104,53 +104,47 @@ export const ellipsisBarChartData = (
 const isSelectionHasNumber = (labels: string[]): boolean =>
   labels.some((label) => /\d/.test(label));
 
-type NormalizedBarChartDataType = ChartDataReturnType & {
-  score?: number;
-};
-
-export const normalizeBarChartData = (
-  seriesList: number[],
-  labelsList: string[],
-  score?: number,
-): NormalizedBarChartDataType => {
+export const getHorizontalBaseSortingRule = ({
+  labelsList,
+  hasScore,
+}: Omit<ChartDataInputType, 'seriesList'>): 'none' | 'desc' | 'descHasEtc' => {
   const MAX_BAR_LENGTH = 14;
   const selectionLength = labelsList.length;
   const selectionHasNumber = isSelectionHasNumber(labelsList);
-  const hasScore = !!score;
 
-  if (selectionLength > MAX_BAR_LENGTH) {
-    return {
-      // 내림차순 정렬, '그 외' 처리하기
-      ...ellipsisBarChartData(seriesList, labelsList),
-      score,
-    };
+  // 선택지에 숫자가 있거나 (10대, 20대, ...), 점수가 있거나, 선택지의 개수가 2개 이하일 때는 정렬을 하지 않는다.
+  if (selectionHasNumber || hasScore || selectionLength <= 2) return 'none';
+
+  // 14개 이상일 때는 내림차순 정렬 및 "그 외" 처리
+  if (selectionLength > MAX_BAR_LENGTH) return 'descHasEtc';
+
+  // 내림차순 정렬
+  return 'desc';
+};
+
+export const normalizeHorizontalBaseChartData = ({
+  seriesList,
+  labelsList,
+  hasScore,
+}: ChartDataInputType): ChartDataReturnType => {
+  const sortCondition = getHorizontalBaseSortingRule({
+    labelsList,
+    hasScore,
+  });
+
+  if (sortCondition === 'descHasEtc')
+    return ellipsisBarChartData(seriesList, labelsList);
+
+  if (sortCondition === 'desc') {
+    const seriesDescSortedChartData = zipChartData(seriesList, labelsList).sort(
+      (a, b) => b.series - a.series,
+    );
+    return convertZipToChartData(seriesDescSortedChartData);
   }
-  if (selectionHasNumber) {
-    return {
-      // 원래 순서 반영
-      series: seriesList,
-      labels: labelsList,
-      score,
-    };
-  }
-  if (hasScore || selectionLength <= 2) {
-    // 선택지 순서대로 정렬 (asc)
-    const selectionSortedChartData = zipChartData(
-      seriesList,
-      labelsList,
-    ).sort((a, b) => (a.label < b.label ? -1 : 1));
-    return {
-      ...convertZipToChartData(selectionSortedChartData),
-      score,
-    };
-  }
-  // 응답 수 기준으로 내림차순 정렬
-  const seriesDescSortedChartData = zipChartData(seriesList, labelsList).sort(
-    (a, b) => b.series - a.series,
-  );
+
   return {
-    ...convertZipToChartData(seriesDescSortedChartData),
-    score,
+    series: seriesList,
+    labels: labelsList,
   };
 };
 

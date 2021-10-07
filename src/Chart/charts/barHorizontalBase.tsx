@@ -8,10 +8,13 @@ import {
   color,
 } from '../util/index';
 import {
-  ellipsisBarChartData,
-  zipChartData,
   ChartDataReturnType,
+  convertZipToChartData,
+  normalizeHorizontalBaseChartData,
+  zipChartData,
+  ZippedChartDataType,
 } from '../util/chartData';
+import { parseFloatSafe } from '../util/safeParse';
 
 type BarHorizontalBaseOptionPropsType = {
   series: number[];
@@ -23,6 +26,33 @@ type BarHorizontalBaseOptionPropsType = {
 
 const MAX_LABEL_LENGTH = 20;
 
+const getAlignData = (
+  series: number[],
+  labels: string[],
+  align: 'descend' | 'ascend' | undefined,
+): {
+  series: number[];
+  labels: string[];
+} => {
+  const zippedChartData = zipChartData(series, labels);
+
+  if (!align)
+    return {
+      series,
+      labels,
+    };
+
+  const sortFunction: (
+    a: ZippedChartDataType,
+    b: ZippedChartDataType,
+  ) => number =
+    align === 'ascend'
+      ? (a, b) => a.series - b.series
+      : (a, b) => b.series - a.series;
+
+  return convertZipToChartData(zippedChartData.sort(sortFunction));
+};
+
 const barHorizontalBaseOption = ({
   series,
   labels,
@@ -30,26 +60,19 @@ const barHorizontalBaseOption = ({
   align,
   labelOption = 'dynamic',
 }: BarHorizontalBaseOptionPropsType) => {
+  const alignedData = getAlignData(series, labels, align);
+
   const option: EChartsOption = {};
 
   option.xAxis = {
     type: 'value',
     show: true,
   };
-  const seriesCombinedLabels = labels
-    .map((label, index) => ({ label, series: series[index] }))
-    .sort((a, b) => b.series - a.series);
-  const alignedSeries = seriesCombinedLabels.map((item) => item.series);
-  const alignedLabels = seriesCombinedLabels.map((item) => item.label);
 
   option.yAxis = {
     type: 'category',
     z: 100,
-    data: align
-      ? align === 'descend'
-        ? alignedLabels
-        : alignedLabels.reverse()
-      : labels,
+    data: alignedData.labels,
     show: true,
     inverse: true,
     axisLabel: {
@@ -65,27 +88,13 @@ const barHorizontalBaseOption = ({
     },
   } as EChartsOption['yAxis'];
 
-  const seriesData: {
-    value: number;
+  const seriesData = alignedData.series.map((value) => ({
+    value: parseFloatSafe(value) as number,
     itemStyle: {
-      color: string;
-      borderRadius: number[];
-    };
-  }[] = [];
-  const standardSeries = align
-    ? align === 'descend'
-      ? alignedSeries
-      : alignedSeries.reverse()
-    : series;
-  standardSeries.map((number, index) => {
-    seriesData.push({
-      value: (number === 0 ? null : parseFloat(number.toFixed(1))) as number,
-      itemStyle: {
-        color: color.YELLOW,
-        borderRadius: [0, 4, 4, 0],
-      },
-    });
-  });
+      color: color.YELLOW,
+      borderRadius: [0, 4, 4, 0],
+    },
+  }));
 
   option.series = [
     {
@@ -117,7 +126,6 @@ const barHorizontalBaseOption = ({
   };
 
   option.grid = {
-    // left: `${getMaxLabelWidth(labels, MAX_LABEL_LENGTH)}px`,
     left: 220,
   };
 
@@ -132,6 +140,7 @@ type BarHorizontalBasePropsType = {
   align?: 'descend' | 'ascend';
   labelOption?: 'fixed' | 'dynamic';
   notHasEtc?: boolean;
+  hasScore?: boolean;
 } & BarHorizontalBaseOptionPropsType;
 
 function BarHorizontalBase({
@@ -142,6 +151,7 @@ function BarHorizontalBase({
   align,
   labelOption = 'dynamic',
   notHasEtc,
+  hasScore,
 }: BarHorizontalBasePropsType): JSX.Element {
   const getHeight = (dataLength: number) => {
     const padding = 120;
@@ -150,7 +160,7 @@ function BarHorizontalBase({
     return barWidth * dataLength + padding;
   };
 
-  const chartData = getChartData(series, labels, notHasEtc);
+  const chartData = getChartData({ series, labels, notHasEtc, hasScore });
   return (
     <EChartsReact
       style={getSizeCSS(width, getHeight(chartData.series.length))}
@@ -166,11 +176,17 @@ function BarHorizontalBase({
   );
 }
 
-const getChartData = (
-  series: number[],
-  labels: string[],
-  notHasEtc?: boolean,
-): ChartDataReturnType => {
+const getChartData = ({
+  series,
+  labels,
+  notHasEtc,
+  hasScore,
+}: {
+  series: number[];
+  labels: string[];
+  notHasEtc?: boolean;
+  hasScore?: boolean;
+}): ChartDataReturnType => {
   // 그 외를 계산하지 않는 경우, 데이터를 그대로 리턴
   if (notHasEtc === true) {
     return {
@@ -179,7 +195,11 @@ const getChartData = (
     };
   }
   // 데이터를 내림차순 정렬 후 그 외 계산
-  return ellipsisBarChartData(series, labels);
+  return normalizeHorizontalBaseChartData({
+    seriesList: series,
+    labelsList: labels,
+    hasScore,
+  });
 };
 
 export default BarHorizontalBase;
