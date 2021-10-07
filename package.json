@@ -96,6 +96,6 @@
     "build-only": "rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "rm -rf dist ; tsc --emitDeclarationOnly ; rollup -c",
-    "prepare": "husky install",
+    "prepare": "husky install"
   }
 }
