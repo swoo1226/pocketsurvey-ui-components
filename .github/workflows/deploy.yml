@@ -10,9 +10,9 @@ jobs:
   update:
   runs-on: ubuntu-latest
   steps: 
-    - uses: actions/checkout@master
-    - name: Set up Node.js
-    uses: actions/setup-node@master
+    - uses: actions/checkout@action-test
+    - name: Set up Node
+    uses: actions/setup-node@action-test
     with:
       node=version: 12.x
     - name: Cache node_modules
@@ -34,6 +34,6 @@ jobs:
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
           PERSONAL_TOKEN: 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
-          PUBLISH_BRANCH: master
+          PUBLISH_BRANCH: action-test
           PUBLISH_DIR: ./public
           SCRIPT_MODE: true
