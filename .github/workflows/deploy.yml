@@ -16,8 +16,6 @@ jobs:
       - name: Install and Build
         run: |
           yarn
-          rm -rf dist
-          yarn build:types
           yarn build
         continue-on-error: true
       - name: Deploy
