@@ -11,7 +11,7 @@ jobs:
   runs-on: ubuntu-latest
   steps: 
     - uses: actions/checkout@action-test
-    - name: Set up Node
+    - name: Setup
     uses: actions/setup-node@action-test
     with:
       node=version: 12.x
