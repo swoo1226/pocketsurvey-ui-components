@@ -24,7 +24,7 @@
       "~/*": ["src/*"],
       "@turn/styled": ["src/styled"]
     },
-    "declaration": false,
+    "declaration": true,
     "declarationDir": "dist/types",
   },
   "include": ["./"],
