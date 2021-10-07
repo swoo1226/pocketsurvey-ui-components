@@ -1,0 +1,20 @@
+declare type ModalType = {
+    children: JSX.Element;
+    title: string;
+    buttonName: string;
+    onClick: () => void;
+    onCancel: () => void;
+    hasBorderTop: boolean;
+    className?: string;
+    isProgressBar?: boolean;
+    percent?: number;
+    barColor?: string;
+    buttonColor?: string;
+    useCancelButton?: boolean;
+    disabled?: boolean;
+    isLoading?: boolean;
+    cancelDisabled?: boolean;
+    cancelButtonName?: string;
+};
+declare function Modal({ children, title, buttonName, cancelButtonName, onClick, onCancel, hasBorderTop, className, percent, barColor, isProgressBar, buttonColor, useCancelButton, disabled, isLoading, cancelDisabled, }: ModalType): JSX.Element;
+export default Modal;
