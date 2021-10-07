@@ -5,16 +5,21 @@ import {
   length10Data,
 } from './mocks/chartData';
 import {
-  normalizeBarChartData,
+  normalizeHorizontalBaseChartData,
   ellipsisPieChartData,
   descSortChartData,
+  zipChartData,
+  convertZipToChartData,
 } from '../util/chartData';
 
 describe('차트 데이터 정제 테스트', () => {
   describe('가로 막대 차트', () => {
     it('15개 이상의 데이터가 있으면 15개 에서 자르고, 그 외... 으로 계산한다.', () => {
       const chartData = alphabetData;
-      const normalizeData = normalizeBarChartData(chartData.x, chartData.y);
+      const normalizeData = normalizeHorizontalBaseChartData({
+        seriesList: chartData.x,
+        labelsList: chartData.y,
+      });
       expect(normalizeData.series.length).toEqual(15);
       expect(normalizeData.labels[normalizeData.labels.length - 1]).toEqual(
         '그 외',
@@ -22,26 +27,41 @@ describe('차트 데이터 정제 테스트', () => {
     });
 
     it('선택지에 숫자가 있다면 원래 순서를 반영한다.', () => {
-      const normalizeData = normalizeBarChartData(
-        hasNumberData.x,
-        hasNumberData.y,
-      );
+      const normalizeData = normalizeHorizontalBaseChartData({
+        seriesList: hasNumberData.x,
+        labelsList: hasNumberData.y,
+      });
       expect(normalizeData.labels).toEqual(hasNumberData.y);
     });
 
-    it('점수가 있고, 선택지의 개수가 2개 이하일 때는 내림차순으로 정렬', () => {
-      const normalizeData = normalizeBarChartData(twoXData.x, twoXData.y, 1);
-      expect(normalizeData.series[0] > normalizeData.series[1]);
+    it('점수가 있으면 그대로 리턴한다.', () => {
+      const normalizeData = normalizeHorizontalBaseChartData({
+        seriesList: twoXData.x,
+        labelsList: twoXData.y,
+        hasScore: true,
+      });
+      const originalData = {
+        series: twoXData.x,
+        labels: twoXData.y,
+      };
+      expect(JSON.stringify(normalizeData) === JSON.stringify(originalData));
     });
 
-    it('점수가 없고, 숫자가 있는 선택지도 없으면 내림차순으로 정렬', () => {
-      const normalizeData = normalizeBarChartData(
-        length10Data.x,
-        length10Data.y,
+    it('점수가 없고, 숫자가 있는 선택지도 없으면 내림차순 정렬', () => {
+      const normalizeData = normalizeHorizontalBaseChartData({
+        seriesList: length10Data.x,
+        labelsList: length10Data.y,
+        hasScore: false,
+      });
+
+      const descSortedData = convertZipToChartData(
+        zipChartData(length10Data.x, length10Data.y).sort(
+          (a, b) => b.series - a.series,
+        ),
       );
+
       const isSorted =
-        JSON.stringify(normalizeData.series) ===
-        JSON.stringify(length10Data.x.sort((a, b) => b - a));
+        JSON.stringify(descSortedData) === JSON.stringify(normalizeData);
 
       expect(isSorted).toEqual(true);
     });
@@ -58,6 +78,7 @@ describe('차트 데이터 정제 테스트', () => {
         '그 외',
       );
     });
+
     it('데이터의 개수가 6개 미만일 때는 그 외를 처리하지 않고 정렬 후 리턴한다.', () => {
       const descSortedData = descSortChartData(twoXData.x, twoXData.y);
       const series = descSortedData.map((item) => item.series);
