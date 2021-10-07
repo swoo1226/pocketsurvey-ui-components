@@ -24,9 +24,8 @@
       "~/*": ["src/*"],
       "@turn/styled": ["src/styled"]
     },
-    "declaration": true,
+    "declaration": false,
     "declarationDir": "dist/types",
-    "isolatedModules": true,
   },
   "include": ["./"],
   "exclude": ["**/*.stories.tsx", "node_modules"]
