@@ -4,7 +4,7 @@ name: Storybook Deploy
 on:
   push:
     branches:
-      - master
+      - action-test
 # 실행될 명령어로 순차적으로 실행됩니다.
 jobs:
   update:
