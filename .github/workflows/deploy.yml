@@ -15,7 +15,6 @@ jobs:
 
       - name: Install and Build
         run: |
-          yarn add
           rm -rf dist
           yarn build:types
           yarn build
