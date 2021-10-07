@@ -10,30 +10,17 @@ jobs:
   update:
   runs-on: ubuntu-latest
   steps: 
-    - uses: actions/checkout@action-test
-    - name: Setup
-    uses: actions/setup-node@action-test
-    with:
-      node=version: 12.x
-    - name: Cache node_modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{runner.OS}}-build-${{hashFiles('**/yarn.lock')}}
-        restore-keys: |
-            ${{ runner.OS }}-build-${{ runner.OS }}-
-    - name: Install dependencies
-      run: install --prod --pure-lockfile
+    - name: Checkout
+      uses: actions/checkout@action-test
 
-    - name: Build
-      run: yarn build run
-      env:
-        NODE_ENV: production
-
+    - name: Install and Build
+      run: |
+        yarn add
+        rm -rf dist
+        yarn build:types
+        yarn build
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.5.0
-      env:
-          PERSONAL_TOKEN: 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
-          PUBLISH_BRANCH: action-test
-          PUBLISH_DIR: ./public
-          SCRIPT_MODE: true
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with: 
+        branch: gh-pages
+        folder: dist
