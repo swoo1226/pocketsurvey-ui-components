@@ -7,7 +7,7 @@ on:
       - action-test
 # 실행될 명령어로 순차적으로 실행됩니다.
 jobs:
-  update:
+  build-and-deploy:
   runs-on: ubuntu-latest
   steps: 
     - name: Checkout
