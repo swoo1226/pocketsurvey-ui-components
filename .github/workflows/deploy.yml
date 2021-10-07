@@ -1,0 +1,39 @@
+# 액션의 이름 
+name: Storybook Deploy 
+# 해당 액션이 실행될 이벤트 정의 : master에 push될때 실행됩니다. 
+on:
+  push:
+    branches:
+      - master
+# 실행될 명령어로 순차적으로 실행됩니다.
+jobs:
+  update:
+  runs-on: ubuntu-latest
+  steps: 
+    - uses: actions/checkout@master
+    - name: Set up Node.js
+    uses: actions/setup-node@master
+    with:
+      node=version: 12.x
+    - name: Cache node_modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{runner.OS}}-build-${{hashFiles('**/yarn.lock')}}
+        restore-keys: |
+            ${{ runner.OS }}-build-${{ runner.OS }}-
+    - name: Install dependencies
+      run: install --prod --pure-lockfile
+
+    - name: Build
+      run: yarn build run
+      env:
+        NODE_ENV: production
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+          PERSONAL_TOKEN: ${{secrets.GH_PAT}}
+          PUBLISH_BRANCH: master
+          PUBLISH_DIR: ./public
+          SCRIPT_MODE: true
