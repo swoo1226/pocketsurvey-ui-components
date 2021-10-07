@@ -86,7 +86,7 @@
   },
   "scripts": {
     "storybook": "start-storybook -s ./public -p 9001 -s ./.storybook/images",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o docs",
     "test": "jest",
     "lint": "eslint ./src --fix",
     "build-only": "rollup -c",
