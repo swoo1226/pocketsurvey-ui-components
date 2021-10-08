@@ -217,8 +217,9 @@ export function PieBase() {
       />
       <Chart.PieBase
         labels={['매우 만족함', '만족함', '보통', '불만족함', '매우 불만족함']}
-        series={[109, 650, 626, 3619, 3483].reverse()}
+        series={[109, 650, 626, 3619, 3483]}
         showLabel={showLabel}
+        hasScore={true}
       />
     </>
   );

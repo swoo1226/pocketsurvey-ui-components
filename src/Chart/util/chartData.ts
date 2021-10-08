@@ -39,7 +39,15 @@ export const convertZipToChartData = (
 export const ellipsisPieChartData = (
   seriesList: number[],
   labelsList: string[],
+  hasScore?: boolean,
 ): ChartDataReturnType => {
+  if (isSelectionHasNumber(labelsList) || hasScore) {
+    return {
+      series: seriesList,
+      labels: labelsList,
+    }
+  }
+  
   const MAX_SLICE = 6;
   const dataLength = seriesList.length;
   const chartData = descSortChartData(seriesList, labelsList);

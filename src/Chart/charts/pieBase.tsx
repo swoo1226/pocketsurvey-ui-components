@@ -11,6 +11,7 @@ type PieBaseOptionPropsType = {
   override?: any;
   showLabel?: boolean;
   labelOption?: 'fixed' | 'dynamic';
+  hasScore?:boolean;
 };
 
 const PieBaseOption = ({
@@ -19,10 +20,11 @@ const PieBaseOption = ({
   override,
   showLabel,
   labelOption = 'dynamic',
+  hasScore,
 }: PieBaseOptionPropsType) => {
   const dataLength = series.length;
   // 슬라이스를 최대 6개 까지 제한하고, 나머지는 그 외 로 처리한다.
-  const processedData = ellipsisPieChartData(series, labels);
+  const processedData = ellipsisPieChartData(series, labels, hasScore);
   const option: EChartsOption = {};
 
   option.center = ['50%', '50%'];
@@ -115,6 +117,7 @@ function PieBase({
   height,
   showLabel,
   labelOption = 'dynamic',
+  hasScore,
 }: PieBasePropsType) {
   return (
     <EChartsReact
@@ -125,6 +128,7 @@ function PieBase({
         override,
         showLabel,
         labelOption,
+        hasScore,
       })}
       opts={{ renderer: 'svg' }}
     />
