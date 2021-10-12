@@ -137,7 +137,7 @@ function ImgVideo({
 }: ImgVideoType): JSX.Element {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
   const fileAcceptance =
-    type === "image" ? "image/png, image/jpeg, image/jpg" : ".mp4"
+    type === "image" ? "image/png,image/PNG, image/jpeg,image/JPEG, image/jpg,image/JPG" : ".mp4, .MP4"
 
   const uploadValidation = (file: File) => {
     const fileName = file.name
