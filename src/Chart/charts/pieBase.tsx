@@ -51,6 +51,7 @@ const PieBaseOption = ({
     },
   };
   option.legend = {
+    type: 'scroll',
     orient: 'vertical',
     left: 'left',
     width: '180px',
