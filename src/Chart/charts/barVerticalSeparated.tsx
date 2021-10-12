@@ -38,7 +38,10 @@ const compressedSeries = (series: number[][], label: string[]) => {
 
   for (let i = 0; i < series.length; i += 1) {
     const compressSeries = Array.from({ length: label.length + 1 }).fill(0);
-    const ellipsisChartData: any = ellipsisPieChartData(series[i], label);
+    const ellipsisChartData: any = ellipsisPieChartData({
+      seriesList: series[i],
+      labelsList: label,
+    });
     for (let j = 0; j < ellipsisChartData.labels.length; j += 1) {
       const labelIndex = labelIndexMap.get(ellipsisChartData.labels[j]);
       if (labelIndex !== undefined) {
@@ -273,7 +276,7 @@ function BarVerticalSeparated({
   }, []);
 
   React.useEffect(() => {
-    calcSVGPathLineWidth()
+    calcSVGPathLineWidth();
   }, [resizeObject.width]);
 
   return (

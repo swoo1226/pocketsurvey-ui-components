@@ -120,6 +120,7 @@ export function BarHorizontalBase() {
         ]}
         series={[74, 24, 5, 1, 23, 5, 2]}
         align={align}
+        hasScore={true}
       />
     </>
   );
