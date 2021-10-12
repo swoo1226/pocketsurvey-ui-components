@@ -6,3 +6,15 @@ export const isValidFile = (fileName: string) => {
   if (extension.test(fileName)) return true;
   return false;
 };
+
+export const isValidImgVideo = (fileName: string, type = 'image' || 'video') => {
+  if (type === 'image') {
+     const regex = new RegExp('(.png|.jpg|.jpeg)', 'i');
+    if (regex.test(fileName)) return true;
+    return false;
+  } 
+    const extension = new RegExp('.mp4', 'i');
+    if (extension.test(fileName)) return true;
+    return false;
+  
+};
