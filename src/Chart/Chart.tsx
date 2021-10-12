@@ -11,7 +11,7 @@ import {
   Bubble,
   BarNegative,
 } from './charts';
-import { getHorizontalBaseSortingRule } from './util/chartData';
+import { getSortRule } from './util/chartData';
 
 function Chart() {
   return <></>;
@@ -29,7 +29,7 @@ Chart.BarNegative = BarNegative;
 
 Chart.util = {
   getColors,
-  getHorizontalBaseSortingRule,
+  getSortRule,
 };
 
 export default Chart;
