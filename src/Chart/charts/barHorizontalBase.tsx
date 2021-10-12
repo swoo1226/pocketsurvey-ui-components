@@ -143,6 +143,14 @@ type BarHorizontalBasePropsType = {
   hasScore?: boolean;
 } & BarHorizontalBaseOptionPropsType;
 
+const getBarWidth = (dataLength: number) => {
+  // '그 외'를 처리하지 않는 차트에서 데이터 개수가 많은 경우 40으로 고정한다.
+  if (dataLength >= 16) return 40;
+
+  // 1 ~ 5개 40 / 6 ~ 10개 38 / 11 ~ 15개 40
+  return 40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
+};
+
 function BarHorizontalBase({
   width,
   series,
@@ -155,8 +163,7 @@ function BarHorizontalBase({
 }: BarHorizontalBasePropsType): JSX.Element {
   const getHeight = (dataLength: number) => {
     const padding = 120;
-    const barWidth =
-      40 - (Math.floor(dataLength / 5) - (dataLength % 5 === 0 ? 1 : 0)) * 2;
+    const barWidth = getBarWidth(dataLength);
     return barWidth * dataLength + padding;
   };
 
