@@ -1,77 +1,348 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   withKnobs,
   number,
   boolean,
   text,
-  select,
   color,
-} from "@storybook/addon-knobs";
-
-import Input from "./Input";
-import { Meta } from "@storybook/react/types-6-0";
-import { singleChoice } from "../Icon/svg";
+} from '@storybook/addon-knobs';
+import Input from './Input';
+import Font from '../Typography/Font';
+import { Meta } from '@storybook/react/types-6-0';
+import styled from 'styled-components';
 
 export default {
   component: Input,
-  title: "Components/Input",
+  title: 'Components/Input',
   decorators: [withKnobs],
 } as Meta;
 
-export function Index() {
-  const [value, setValue] = useState<string>("");
+const InputContainer = styled.div`
+  margin-bottom: 20px;
+  padding: 10px;
+  &:hover {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.2s ease-in-out;
+  }
+`;
 
-  const width = number("width", 300);
-  const placeholder = text("placeholder", "텍스트를 입력해주세요.");
-  const errorMessage = text("errorMessage", "에러메시지");
-  const disabled = boolean("disabled", false);
-  const useCancelButton = boolean("useCancelButton", false);
-  const isError = boolean("isError", false);
-  const mode = select("mode", ["line", "basic"], "line");
-  const readOnly = boolean("readOnly", false);
-  const tabIndex = number("tabIndex", 10);
-  const borderColor = color("borderColor", "#FAC609");
-  const iconButton = text("link", "singleChoice");
-  const textColor = text("textColor", "#DFDEDD");
-  const buttonAlways = boolean("buttonAlways", true);
+export function Index() {
   return (
-    <Input
-      mode={mode}
-      placeholder={placeholder}
-      value={value}
-      onChange={(value: string) => setValue(value)}
-      width={width}
-      isError={isError}
-      errorMessage={errorMessage}
-      disabled={disabled}
-      useCancelButton={useCancelButton}
-      readOnly={readOnly}
-      tabIndex={tabIndex}
-      onFocus={() => {
-        console.log("onFocus");
-      }}
-      onClick={() => {
-        console.log("onClick");
-      }}
-      onBlur={() => {
-        console.log("onBlur");
-      }}
-      onClickCancelButton={() => {
-        console.log("onClickCancelButton");
-      }}
-      onKeyDown={() => {
-        console.log("onKeyDown");
-      }}
-      borderColor={borderColor}
-      iconButton={"link"}
-      textColor={textColor}
-      buttonAlways={buttonAlways}
-    />
+    <>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="500"
+        fontSize="24px"
+        fontColor="black"
+      >
+        포켓서베이에서 사용하는 Input 컴포넌트
+      </Font>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          기본적인 Input
+        </Font>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="300"
+          fontSize="16px"
+          fontColor="#818282"
+          isInline={true}
+        >
+          인풋 메세지
+        </Font>
+        <Default />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          이메일 Input
+        </Font>
+        <Email />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          계좌번호 Input
+        </Font>
+        <Account />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          전화번호 Input
+        </Font>
+        <Phone />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          숫자 Input
+        </Font>
+        <Number />
+      </InputContainer>
+      <InputContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          URL Input
+        </Font>
+        <URL />
+      </InputContainer>
+    </>
   );
 }
 
-export function Email() {
-  const [value, setValue] = useState<string>("");
+function Default() {
+  const [value, setValue] = useState<string>('');
+
+  const placeholder = text('placeholder', '텍스트를 입력해주세요.');
+  const errorMessage = text('errorMessage', '에러메시지');
+  const useCancelButton = boolean('useCancelButton', false);
+  const isError = boolean('isError', false);
+  const readOnly = boolean('readOnly', false);
+  const tabIndex = number('tabIndex', 10);
+  const borderColor = color('borderColor', '#FAC609');
+  const textColor = text('textColor', '#DFDEDD');
+  const buttonAlways = boolean('buttonAlways', true);
+
+  return (
+    <div>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="500"
+        fontSize="24px"
+        fontColor="black"
+      >
+        포켓서베이에서 사용하는 기본 인풋 컴포넌트
+      </Font>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        라인형 인풋
+      </Font>
+      <Input
+        mode={'line'}
+        placeholder={placeholder}
+        value={value}
+        onChange={(value: string) => setValue(value)}
+        width={500}
+        isError={isError}
+        errorMessage={errorMessage}
+        disabled={false}
+        useCancelButton={useCancelButton}
+        readOnly={readOnly}
+        tabIndex={tabIndex}
+        onFocus={() => {
+          console.log('onFocus');
+        }}
+        onClick={() => {
+          console.log('onClick');
+        }}
+        onBlur={() => {
+          console.log('onBlur');
+        }}
+        onClickCancelButton={() => {
+          setValue('');
+        }}
+        onKeyDown={() => {
+          console.log('onKeyDown');
+        }}
+        borderColor={borderColor}
+        iconButton={'exit'}
+        textColor={textColor}
+        buttonAlways={!!value}
+      />
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        박스형 인풋
+      </Font>
+      <Input
+        mode={'basic'}
+        placeholder={placeholder}
+        value={value}
+        onChange={(value: string) => setValue(value)}
+        width={200}
+        isError={isError}
+        errorMessage={errorMessage}
+        disabled={false}
+        useCancelButton={useCancelButton}
+        readOnly={readOnly}
+        tabIndex={tabIndex}
+        onFocus={() => {
+          console.log('onFocus');
+        }}
+        onClick={() => {
+          console.log('onClick');
+        }}
+        onBlur={() => {
+          console.log('onBlur');
+        }}
+        onClickCancelButton={() => {
+          setValue('');
+        }}
+        onKeyDown={() => {
+          console.log('onKeyDown');
+        }}
+        borderColor={borderColor}
+        iconButton={'exit'}
+        textColor={textColor}
+        buttonAlways={!!value}
+      />
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="20px"
+        fontColor="black"
+      >
+        비활성화된 인풋
+      </Font>
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        라인형 비활성화 인풋
+      </Font>
+      <Input
+        mode={'line'}
+        placeholder={placeholder}
+        value={''}
+        onChange={() => {}}
+        width={200}
+        isError={isError}
+        errorMessage={errorMessage}
+        disabled={true}
+        useCancelButton={false}
+        readOnly={readOnly}
+        tabIndex={tabIndex}
+        onFocus={() => {
+          console.log('onFocus');
+        }}
+        onClick={() => {
+          console.log('onClick');
+        }}
+        onBlur={() => {
+          console.log('onBlur');
+        }}
+        onKeyDown={() => {
+          console.log('onKeyDown');
+        }}
+        borderColor={borderColor}
+        textColor={textColor}
+      />
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="16px"
+        fontColor="black"
+      >
+        박스형 비활성화 인풋
+      </Font>
+      <Input
+        mode={'basic'}
+        placeholder={placeholder}
+        value={''}
+        onChange={() => {}}
+        width={200}
+        isError={isError}
+        errorMessage={errorMessage}
+        disabled={true}
+        useCancelButton={false}
+        readOnly={readOnly}
+        tabIndex={tabIndex}
+        onFocus={() => {
+          console.log('onFocus');
+        }}
+        onClick={() => {
+          console.log('onClick');
+        }}
+        onBlur={() => {
+          console.log('onBlur');
+        }}
+        onKeyDown={() => {
+          console.log('onKeyDown');
+        }}
+        borderColor={borderColor}
+        textColor={textColor}
+      />
+      <Font
+        fontFace="Noto Sans CJK KR"
+        fontWeight="400"
+        fontSize="20px"
+        fontColor="black"
+      >
+        인풋 에러 메시지
+      </Font>
+      <Input
+        mode={'basic'}
+        placeholder={placeholder}
+        value={value}
+        onChange={(value: string) => setValue(value)}
+        width={200}
+        isError={true}
+        errorMessage={errorMessage}
+        disabled={false}
+        useCancelButton={useCancelButton}
+        readOnly={readOnly}
+        tabIndex={tabIndex}
+        onFocus={() => {
+          console.log('onFocus');
+        }}
+        onClick={() => {
+          console.log('onClick');
+        }}
+        onBlur={() => {
+          console.log('onBlur');
+        }}
+        onClickCancelButton={() => {
+          setValue('');
+        }}
+        onKeyDown={() => {
+          console.log('onKeyDown');
+        }}
+        borderColor={borderColor}
+        iconButton={'exit'}
+        textColor={textColor}
+        buttonAlways={!!value}
+      />
+    </div>
+  );
+}
+
+function Email() {
+  const [value, setValue] = useState<string>('');
   const [focusIndex, setFocusIndex] = useState<number>(0);
   return (
     <>
@@ -83,7 +354,7 @@ export function Email() {
       />
       <p>focusIndex: {focusIndex}</p>
       <button onClick={() => setFocusIndex(focusIndex + 1)}>+1</button>
-      <p>mobile</p>
+      <h2>mobile</h2>
       <Input.Email
         value={value}
         onChange={(value: string) => setValue(value)}
@@ -94,8 +365,8 @@ export function Email() {
   );
 }
 
-export function Account() {
-  const [value, setValue] = useState<string>("");
+function Account() {
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -104,24 +375,26 @@ export function Account() {
         onChange={(value: string) => {
           setValue(value);
         }}
-        dropdownSelectCallback={()=> {
-          console.log("드롭다운 선택 완료")
+        dropdownSelectCallback={() => {
+          console.log('드롭다운 선택 완료');
         }}
+        id="desktop-account"
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Account
         value={value}
         onChange={(value: string) => {
           setValue(value);
         }}
         isMobile
+        id="mobile-account"
       />
     </>
   );
 }
 
-export function Phone() {
-  const [value, setValue] = useState<string>("");
+function Phone() {
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -131,7 +404,7 @@ export function Phone() {
           setValue(value);
         }}
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Phone
         value={value}
         onChange={(value: string) => {
@@ -143,8 +416,8 @@ export function Phone() {
   );
 }
 
-export function Number() {
-  const [value, setValue] = useState<string>("");
+function Number() {
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -155,7 +428,7 @@ export function Number() {
         }}
       />
 
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Number
         value={value}
         onChange={(value: string) => {
@@ -167,8 +440,8 @@ export function Number() {
   );
 }
 
-export function URL() {
-  const [value, setValue] = useState<string>("");
+function URL() {
+  const [value, setValue] = useState<string>('');
   return (
     <>
       <p>value: {value}</p>
@@ -178,7 +451,7 @@ export function URL() {
           setValue(value);
         }}
       />
-      <h1>mobile</h1>
+      <h2>mobile</h2>
       <Input.Url
         value={value}
         onChange={(value: string) => {

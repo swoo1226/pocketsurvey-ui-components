@@ -182,7 +182,7 @@ function FileUpload({
   const uploadValidation = (file: File) => {
     const fileName = file.name;
     if (file.size <= 52428800) {
-      if (isValidFile(fileName, fileAcceptance)) {
+      if (isValidFile(fileName)) {
         onUpload({isValid:true, file});
       } else {
         window.alert(

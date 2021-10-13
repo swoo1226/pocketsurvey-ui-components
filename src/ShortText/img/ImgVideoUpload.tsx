@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 import { useDropzone } from "react-dropzone"
 import loadingSpinner from "../../Icon/svg/loadingSpinner.svg"
-import { isValidFile } from "../../util/isValidFile"
+import { isValidImgVideo } from "../../util/isValidFile"
 import Button from "../../Button/Button"
 
 const UploadWrapper = styled.div<{ mediaSrc: string | null;isDragActive: boolean; }>`
@@ -137,12 +137,12 @@ function ImgVideo({
 }: ImgVideoType): JSX.Element {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
   const fileAcceptance =
-    type === "image" ? "image/png, image/jpeg, image/jpg" : ".mp4"
+    type === "image" ? "image/png, image/PNG, image/jpeg,image/JPEG, image/jpg,image/JPG" : ".mp4, .MP4"
 
   const uploadValidation = (file: File) => {
     const fileName = file.name
     if(file.size <= 10000000) {
-      if (isValidFile(fileName, fileAcceptance)) {
+      if (isValidImgVideo(fileName, type)) {
         onUpload({isValid:true, file});
       } else {
         window.alert(
