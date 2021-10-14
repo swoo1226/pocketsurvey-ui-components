@@ -126,7 +126,7 @@ function Default() {
   const readOnly = boolean('readOnly', false);
   const tabIndex = number('tabIndex', 10);
   const borderColor = color('borderColor', '#FAC609');
-  const textColor = text('textColor', '#DFDEDD');
+  const textColor = text('textColor', '#000000');
   const buttonAlways = boolean('buttonAlways', true);
 
   return (

@@ -25,6 +25,7 @@ const InputBox = styled.div<{
   mode: 'line' | 'basic';
   borderColor: string;
   fullWidthMode?: boolean;
+  isError: boolean;
 }>`
   ${(props) => `${
     props.mode == 'line'
@@ -58,7 +59,7 @@ const InputBox = styled.div<{
       : `border: 1px solid ${
         props.disabled ? '#dfdedd' : props.borderColor
       }`
-    : '')}
+      : '')}
   }
   display: flex;
   align-items: center;
@@ -70,6 +71,10 @@ const InputBox = styled.div<{
       ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
       : props.disabled && 'background-color: #F0F0F0;'
   }`}
+  input {
+    color: #000000;
+  }
+  border: ${(props) => props.isError ? '1px solid #FAC609' : `1px solid #dfdedd;`}
 `;
 const InputElement = styled.input<{
   width: number;
@@ -78,6 +83,7 @@ const InputElement = styled.input<{
   fullWidthMode?: boolean;
   mode: 'line' | 'basic';
   ignorePlaceholderColor?: boolean;
+  value: string;
 }>`
   all: unset;
   border: none;
@@ -96,6 +102,9 @@ const InputElement = styled.input<{
   }
   `}
   ${(props) => props.mode === 'basic' && 'line-height: 10; height: 20px;'}
+  &:focus-within {
+    color: ${(props) => props.textColor ? props.textColor : '#000000'};
+  }
 `;
 const SubText = styled.p`
   margin-top: 4px;
@@ -181,6 +190,7 @@ function Input({
         mode={mode}
         borderColor={borderColor}
         fullWidthMode={fullWidthMode}
+        isError={isError}
       >
         <InputElement
           mode={mode}
