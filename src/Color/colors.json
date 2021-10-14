@@ -1,13 +1,5 @@
 [
   {
-    "colorName": "Yellow",
-    "colorCode": {
-      "hex": "#FAC62D",
-      "rgba": "( 250, 198, 45 )"
-    },
-    "use": ["버튼", "중간 점수"]
-  },
-  {
     "colorName": "Light-Yellow",
     "colorCode": {
       "hex": "#FEF4CE",
@@ -15,6 +7,15 @@
     },
     "use": ["table head", "dashboard nav hover"]
   },
+  {
+    "colorName": "Yellow",
+    "colorCode": {
+      "hex": "#FAC62D",
+      "rgba": "( 250, 198, 45 )"
+    },
+    "use": ["버튼", "중간 점수"]
+  },
+
   {
     "colorName": "Bold-Yellow",
     "colorCode": {
@@ -24,6 +25,14 @@
     "use": ["설문번호", "dashboard nav text hover"]
   },
   {
+    "colorName": "Light-Blue",
+    "colorCode": {
+      "hex": "#DEF3F8",
+      "rgba": "(222, 243, 248)"
+    },
+    "use": ["분기설정", "개인별 리포트"]
+  },
+  {
     "colorName": "Blue",
     "colorCode": {
       "hex": "#59C4DB",
@@ -31,11 +40,20 @@
     },
     "use": ["분기설정", "개인별 리포트"]
   },
+
   {
     "colorName": "Bold-Blue",
     "colorCode": {
       "hex": "#57ADF2",
       "rgba": "(87, 173, 242)"
+    },
+    "use": ["Background"]
+  },
+  {
+    "colorName": "Light-Beige",
+    "colorCode": {
+      "hex": "#FBFAF7",
+      "rgba": "(251, 249, 247)"
     },
     "use": ["Background"]
   },
@@ -48,14 +66,6 @@
     "use": ["border", "버튼"]
   },
   {
-    "colorName": "Light-Beige",
-    "colorCode": {
-      "hex": "#FBFAF7",
-      "rgba": "(251, 249, 247)"
-    },
-    "use": ["Background"]
-  },
-  {
     "colorName": "Bold-Beige",
     "colorCode": {
       "hex": "#D2CBC0",
@@ -64,21 +74,22 @@
     "use": ["Shadow"]
   },
   {
-    "colorName": "Red",
-    "colorCode": {
-      "hex": "#FF5724",
-      "rgba": "(255, 87, 36)"
-    },
-    "use": ["warning 텍스트", "낮은 점수"]
-  },
-  {
     "colorName": "Green",
     "colorCode": {
-      "hex": "#59BF51",
-      "rgba": "(89, 191, 81)"
+      "hex": "#70D473",
+      "rgba": "(112, 212, 115)"
     },
     "use": ["높은 점수"]
   },
+  {
+    "colorName": "Red",
+    "colorCode": {
+      "hex": "#F37165",
+      "rgba": "(243, 113, 101)"
+    },
+    "use": ["warning 텍스트", "낮은 점수"]
+  },
+
   {
     "colorName": "gray-01",
     "colorCode": {
@@ -98,16 +109,32 @@
   {
     "colorName": "gray-03",
     "colorCode": {
-      "hex": "#818282",
-      "rgba": "(129, 130, 130)"
+      "hex": "#C9C8C7",
+      "rgba": "(201, 200, 199)"
     },
     "use": ["화면 오른쪽 상단 버튼 hover 전"]
   },
   {
     "colorName": "gray-04",
     "colorCode": {
-      "hex": "#2b2e33",
+      "hex": "#818282",
+      "rgba": "(129, 130, 130)"
+    },
+    "use": ["default 텍스트"]
+  },
+  {
+    "colorName": "gray-05",
+    "colorCode": {
+      "hex": "#2B2E33",
       "rgba": "(43, 46, 51)"
+    },
+    "use": ["default 텍스트"]
+  },
+  {
+    "colorName": "White",
+    "colorCode": {
+      "hex": "#FFFFFF",
+      "rgba": "(255, 255, 255)"
     },
     "use": ["default 텍스트"]
   }
