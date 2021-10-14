@@ -13,7 +13,7 @@ import * as All from "./svg/index";
 const allIcons = Object.keys(All);
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   row-gap: 40px;
   margin-left: 20px;
   column-gap: 20px;
