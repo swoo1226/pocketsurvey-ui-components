@@ -207,7 +207,9 @@ export function Index(): JSX.Element {
       <BasicButtonContainer style={{ display: 'flex' }}>
         <Button
           className="margins"
-          mode={'primary'}
+          mode="Yellow"
+          size="small"
+          shape="round"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
           backgroundColor="#59C4DB"
@@ -216,7 +218,9 @@ export function Index(): JSX.Element {
         </Button>
         <Button
           className="margins"
-          mode={'primary'}
+          mode="Yellow"
+          size="small"
+          shape="round"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
           backgroundColor="#FF5724"
@@ -225,7 +229,9 @@ export function Index(): JSX.Element {
         </Button>
         <Button
           className="margins"
-          mode={'primary'}
+          mode="Yellow"
+          size="small"
+          shape="round"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
           backgroundColor="#59BF51"
