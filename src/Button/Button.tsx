@@ -1,8 +1,30 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { colors, Size } from '@material-ui/core';
 import loadingSpinner from '../Icon/svg/loadingSpinner.svg';
+import theme from '../globalStyle';
 
+type Colors = keyof typeof theme.colors;
 const isIE = /* @cc_on!@ */ false || !!document.documentMode;
+
+type SizeType = 'medium' | 'small';
+type ShapeType = 'square' | 'round';
+type ModeType = 'Yellow' | 'Beige' | 'White' | 'Gray' | 'isLoading';
+
+const getTextColor = (color: ModeType) => {
+  switch (color) {
+    case 'Yellow' || 'Beige':
+      return '#2B2E33';
+    case 'White':
+      return '#818282';
+    case 'Gray':
+      return '#818282';
+    case 'isLoading':
+      return '#FAC62D';
+    default:
+      return '#2B2E33';
+  }
+};
 
 const fitContent = isIE
   ? css`
@@ -13,32 +35,33 @@ const fitContent = isIE
     `;
 
 const ButtonContainer = styled.div<{
+  mode: ModeType;
   backgroundColor: string;
   hoverBackgroundColor: string;
   disabled: boolean;
   isLoading?: boolean;
+  shape: ShapeType;
+  size: SizeType;
 }>`
   ${fitContent}
-
-  padding: 14px 28px;
+  padding: ${(props) => 
+    props.size === 'medium' ? '14px 28px 14px 28px' : '7px 14px 7px 14px'
+  };
   background-color: ${(props) =>
     props.disabled
-      ? '#dfdedd'
+      ? theme.colors.Gray02
       : props.isLoading
       ? '#FEF4CE'
       : props.backgroundColor};
-  color: ${(props) =>
-    props.disabled
-      ? '#818282'
-      : props.hoverBackgroundColor === '#F0F0F0'
-      ? '#818282'
-      : '#111111'};
-  border-radius: 3px;
+  color: ${(props) => getTextColor(props.mode)};
+  border-radius: ${(props) => 
+    props.shape === 'square' ? '3px' : '20px' 
+  };
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   &:hover {
     background-color: ${(props) =>
       props.disabled
-        ? '#dfdedd'
+        ? '#DFDEDD'
         : props.isLoading
         ? '#FEF4CE'
         : props.hoverBackgroundColor};
@@ -49,8 +72,6 @@ const ButtonContainer = styled.div<{
     align-items: center;
     justify-content: center;
     height: 100%;
-    /* margin: 0; */
-    /* padding: 0; */
     img {
       width: calc(1.7 * 14px);
       height: calc(1.2 * 14px);
@@ -77,19 +98,12 @@ const ButtonContainer = styled.div<{
   }
 `;
 
-type SizeType = 'small' | 'medium' | 'big';
-type ModeType =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'cancel'
-  | 'selectAll'
-  | 'emptyArr';
-
 export type ButtonType = {
   children: React.ReactNode;
   onClick: () => void;
   mode: ModeType;
+  size: SizeType;
+  shape: ShapeType;
   disabled: boolean;
   className?: string;
   backgroundColor?: string;
@@ -103,6 +117,8 @@ function Button({
   children,
   onClick,
   mode,
+  shape,
+  size,
   disabled,
   className,
   backgroundColor,
@@ -120,40 +136,35 @@ function Button({
       };
     }
     switch (mode) {
-      case 'primary':
+      case 'Yellow':
         return {
-          innerBackgroundColor: '#FAC62D',
+          innerBackgroundColor: theme.colors.Yellow,
           innerHoverBackgroundColor: '#F0BD05',
         };
-      case 'secondary':
+      case 'Beige':
         return {
-          innerBackgroundColor: '#E9E1D5',
+          innerBackgroundColor: theme.colors.Beige,
           innerHoverBackgroundColor: '#E3D9CA',
         };
-      case 'tertiary':
+      case 'White':
         return {
-          innerBackgroundColor: '#F0F0F0',
+          innerBackgroundColor: theme.colors.White,
           innerHoverBackgroundColor: '#EBEBEB',
         };
-      case 'cancel':
+      case 'Gray':
         return {
-          innerBackgroundColor: '#FFFFFF',
-          innerHoverBackgroundColor: '#F0F0F0',
+          innerBackgroundColor: theme.colors.Gray02,
+          innerHoverBackgroundColor: theme.colors.Gray02,
         };
-      case 'selectAll':
+      case 'isLoading':
         return {
-          innerBackgroundColor: '#F0F0F0',
-          innerHoverBackgroundColor: '#DFDEDD',
-        };
-      case 'emptyArr':
-        return {
-          innerBackgroundColor: '#818282',
-          innerHoverBackgroundColor: '#818282',
+          innerBackgroundColor: theme.colors.LightYellow,
+          innerHoverBackgroundColor: theme.colors.LightYellow,
         };
       default:
         return {
-          innerBackgroundColor: '#FAC62D',
-          innerHoverBackgroundColor: '#F0BD05',
+          innerBackgroundColor: theme.colors.Yellow,
+          innerHoverBackgroundColor: theme.colors.Yellow,
         };
     }
   }
@@ -162,6 +173,9 @@ function Button({
 
   return (
     <ButtonContainer
+      mode={mode}
+      shape={shape}
+      size={size}
       onClick={disabled ? undefined : onClick}
       backgroundColor={innerBackgroundColor}
       hoverBackgroundColor={innerHoverBackgroundColor}

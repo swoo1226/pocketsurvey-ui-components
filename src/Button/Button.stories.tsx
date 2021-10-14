@@ -13,8 +13,9 @@ export default {
 } as Meta;
 
 const BasicButtonContainer = styled.div`
-  .margins {
+  div {
     margin-right: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -37,7 +38,7 @@ export function Index(): JSX.Element {
         fontSize="16px"
         fontColor="black"
       >
-        기본적인 버튼
+        Square , Medium 버튼
         <Font
           fontFace="Noto Sans CJK KR"
           fontWeight="300"
@@ -49,71 +50,96 @@ export function Index(): JSX.Element {
         </Font>
       </Font>
 
-      <BasicButtonContainer style={{ display: 'flex' }}>
+      <BasicButtonContainer style={{ display: 'block' }}>
         <Button
           className="margins"
-          mode={'primary'}
+          mode="Yellow"
+          shape="square"
+          size="medium"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
         >
-          버튼
+          Yellow
         </Button>
         <Button
           className="margins"
-          mode={'secondary'}
+          mode="Beige"
+          shape="square"
+          size="medium"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
         >
-          버튼
+          Beige
+        </Button>
+        <Button
+          shape="square"
+          className="margins"
+          mode="Gray"
+          size="medium"
+          disabled={true}
+          onClick={() => alert('BasicButton')}
+        >
+          Gray(Disabled)
         </Button>
         <Button
           className="margins"
-          mode={'tertiary'}
+          shape="square"
+          mode="White"
+          size="medium"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
         >
-          버튼
+          White
         </Button>
         <Button
           className="margins"
-          mode={'cancel'}
+          shape="square"
+          mode="White"
+          size="medium"
           disabled={disabled}
+          isLoading={true}
           onClick={() => alert('BasicButton')}
         >
-          버튼
-        </Button>
-        <Button
-          className="margins"
-          mode={'selectAll'}
-          disabled={disabled}
-          onClick={() => alert('BasicButton')}
-        >
-          버튼
-        </Button>
-        <Button
-          className="margins"
-          mode={'emptyArr'}
-          disabled={disabled}
-          onClick={() => alert('BasicButton')}
-        >
-          버튼
+          White
         </Button>
       </BasicButtonContainer>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        비활성화 버튼
-      </Font>
-      <Button
-        mode={'primary'}
-        disabled={true}
-        onClick={() => alert('BasicButton')}
-      >
-        버튼
-      </Button>
+      <BasicButtonContainer>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          Small, Round 버튼
+        </Font>
+        <Button
+          shape="round"
+          mode="Yellow"
+          size="small"
+          disabled={disabled}
+          onClick={() => alert('BasicButton')}
+        >
+          Yellow
+        </Button>
+        <Button
+          shape="round"
+          mode="Beige"
+          size="small"
+          disabled={disabled}
+          onClick={() => alert('BasicButton')}
+        >
+          Beige
+        </Button>
+        <Button
+          shape="round"
+          mode="Beige"
+          size="small"
+          disabled={true}
+          onClick={() => alert('BasicButton')}
+        >
+          Gray
+        </Button>
+      </BasicButtonContainer>
       <Font
         fontFace="Noto Sans CJK KR"
         fontWeight="400"
@@ -123,7 +149,9 @@ export function Index(): JSX.Element {
         버튼은 텍스트 길이에 맞게 크기가 달라집니다
       </Font>
       <Button
-        mode={'primary'}
+        mode="Yellow"
+        size="small"
+        shape="round"
         disabled={disabled}
         onClick={() => alert('BasicButton')}
       >
@@ -137,10 +165,30 @@ export function Index(): JSX.Element {
       >
         로딩 버튼
       </Font>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'block' }}>
         <Button
-          mode={'primary'}
+          mode="Yellow"
+          size="small"
+          shape="round"
           disabled={disabled}
+          onClick={() => alert('BasicButton')}
+          isLoading={true}
+        >
+          버튼
+        </Button>
+        <Font
+          fontFace="Noto Sans CJK KR"
+          fontWeight="400"
+          fontSize="16px"
+          fontColor="black"
+        >
+          비활성화된 버튼
+        </Font>
+        <Button
+          mode="Yellow"
+          size="small"
+          shape="round"
+          disabled={true}
           onClick={() => alert('BasicButton')}
           isLoading={true}
         >
