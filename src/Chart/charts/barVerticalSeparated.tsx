@@ -157,7 +157,7 @@ const barVerticalSeparatedOption = ({
   ) as EChartsOption['series'];
 
   const toFixedSeries = series.map((series) =>
-    series.map((item) => parseFloat(item.toFixed(1))),
+    series.map((item) => (item ? parseFloat(item.toFixed(1)) : null)),
   );
   option.tooltip = {
     trigger: 'axis',
