@@ -35,7 +35,7 @@ const DropDownBoxContainer = styled.div<{
   box-sizing: border-box;
   padding: 0 10px;
   border-radius: 3px;
-  border: 1px solid ${(props) => (props.disable ? '#DFDEDD' : props.themeColor)};
+  border: 1px solid ${(props) => (props.disable ? '#F0F0F0' : props.themeColor)};
   background-color: ${(props) => (props.disable ? '#F0F0F0' : 'white')};
   cursor: ${(props) => (props.disable ? 'no-drop' : 'pointer')};
   z-index: ${(props) => props.zIndex - 1};
