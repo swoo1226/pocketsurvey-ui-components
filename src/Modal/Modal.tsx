@@ -144,9 +144,11 @@ function Modal({
         <ModalContentContainer>{children}</ModalContentContainer>
         <ModalBottomContainer>
           <ModalBottomButtonContainer>
-            {useCancelButton && (
+          {useCancelButton && (
               <Button
-                mode="cancel"
+                size="medium"
+                shape="square"
+                mode="White"
                 disabled={cancelDisabled === undefined ? false : cancelDisabled}
                 onClick={() => onCancel()}
               >
@@ -154,7 +156,9 @@ function Modal({
               </Button>
             )}
             <Button
-              mode="primary"
+              size="medium"
+              shape="square"
+              mode="Yellow"
               disabled={disabled}
               backgroundColor={disabled ? '#DFDEDD' : buttonColor}
               onClick={() => onClick()}
@@ -162,6 +166,7 @@ function Modal({
             >
               {buttonName}
             </Button>
+
           </ModalBottomButtonContainer>
         </ModalBottomContainer>
       </ModalContainer>
