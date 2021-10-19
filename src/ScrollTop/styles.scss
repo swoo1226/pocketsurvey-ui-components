@@ -1,0 +1,24 @@
+#scrolltop-button {
+  position: fixed;
+  bottom: 7.5vh;
+  right: 15rem;
+  width: calc(3.2rem + 20px);
+  height: calc(3.2rem + 20px);
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0 !important;
+  .scrolltop-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media print {
+  #scrolltop-button {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
