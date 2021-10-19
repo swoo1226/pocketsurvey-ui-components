@@ -17,3 +17,4 @@ export { default as CheckBoxItem } from "./CheckBoxItem/CheckBoxItem"
 export { default as Tag } from "./Tag/Tag"
 export { default as FileUpload } from "./ShortText/FileUpload/FileUpload"
 export { default as ImgVideo } from "./ShortText/img/ImgVideoUpload"
+export { default as IEWarning } from './IEWarning/IEWarning'
