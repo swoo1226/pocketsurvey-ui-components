@@ -20,3 +20,5 @@ export { default as ImgVideo } from "./ShortText/img/ImgVideoUpload"
 export { default as IEWarning } from './IEWarning/IEWarning'
 export { default as ScrollTop } from './ScrollTop/ScrollTop'
 export { default as ScrollDown } from './ScrollDown/ScrollDown'
+export { default as CustomTooltip } from './CustomTooltip/CustomTooltip'
+export { default as TooltippedIcon } from './TooltippedIcon/TooltippedIcon'
