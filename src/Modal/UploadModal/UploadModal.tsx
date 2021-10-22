@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../Button/Button';
+import Button, { ModeType } from '../../Button/Button';
 import FileInput from '../../Input/FileInput';
 
 type UploadModalType = {
@@ -10,7 +10,9 @@ type UploadModalType = {
   children: JSX.Element;
   extension: string;
   discript: string;
-  onUploadFile: (file:File) => void;
+  onUploadFile: (file: File) => void;
+  labelName: string;
+  btnColor?: ModeType;
 };
 const ModalWrapper = styled.div`
   width: 100vw;
@@ -50,6 +52,8 @@ function UploadModal({
   extension,
   discript,
   onUploadFile,
+  labelName,
+  btnColor,
 }: UploadModalType): JSX.Element {
   return (
     <ModalWrapper>
@@ -70,6 +74,8 @@ function UploadModal({
           <FileInput
             extension={extension}
             onUpload={(file: File) => onUploadFile(file)}
+            labelName={labelName}
+            color={btnColor}
           />
         </ButtonWrapper>
       </ModalInner>

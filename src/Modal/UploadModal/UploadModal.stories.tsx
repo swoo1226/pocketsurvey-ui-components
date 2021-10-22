@@ -19,6 +19,8 @@ export function Index() {
         discript={'(10MB 이하의 파일들만 업로드가 가능합니다)'}
         onUploadFile={(file: File) => alert(file.name)}
         onCancel={() => console.log('취소')}
+        labelName="업로드"
+        btnColor="Yellow"
       >
         <div>TEST</div>
       </UploadModal>

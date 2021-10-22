@@ -23,6 +23,7 @@ export function Index(): JSX.Element {
       <FileInput
         extension={extension}
         onUpload={(file: File) => setFileName(file.name)}
+        labelName="업로드"
       ></FileInput>
       <FileName>{fileName}</FileName>
     </>
