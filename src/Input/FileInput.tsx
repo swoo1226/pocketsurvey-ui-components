@@ -9,14 +9,17 @@ const LabelButton = styled.label`
   color: #2b2e33;
   border-radius: 3px;
   cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: #f0bd05;
+  }
 `;
 type FileInputType = {
   extension: string;
-  disabled: boolean;
   onUpload: (file: File) => void;
 };
 
-const FileInput = ({ extension, disabled, onUpload }: FileInputType) => (
+const FileInput = ({ extension, onUpload }: FileInputType) => (
   <FileInputWrapper>
     <LabelButton htmlFor="input-file">
       업로드

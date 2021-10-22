@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export default {
   component: FileInput,
-  title: 'Components/FileInput',
+  title: 'Components/Input/FileUploadInput',
   decorators: [withKnobs],
 } as Meta;
 
@@ -22,7 +22,6 @@ export function Index(): JSX.Element {
       <h2>파일 업로드 버튼 </h2>
       <FileInput
         extension={extension}
-        disabled={false}
         onUpload={(file: File) => setFileName(file.name)}
       ></FileInput>
       <FileName>{fileName}</FileName>
