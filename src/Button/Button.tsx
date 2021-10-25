@@ -7,7 +7,7 @@ const isIE = /* @cc_on!@ */ false || !!document.documentMode;
 
 type SizeType = 'medium' | 'small';
 type ShapeType = 'square' | 'round';
-type ModeType = 'Yellow' | 'Beige' | 'White' | 'Gray' | 'isLoading';
+export type ModeType = 'Yellow' | 'Beige' | 'White' | 'Gray' | 'isLoading';
 
 const getTextColor = (color: ModeType) => {
   switch (color) {
@@ -42,9 +42,8 @@ const ButtonContainer = styled.div<{
   size: SizeType;
 }>`
   ${fitContent}
-  padding: ${(props) => 
-    props.size === 'medium' ? '14px 28px 14px 28px' : '7px 14px 7px 14px'
-  };
+  padding: ${(props) =>
+    props.size === 'medium' ? '14px 28px 14px 28px' : '7px 14px 7px 14px'};
   background-color: ${(props) =>
     props.disabled
       ? theme.colors.Gray02
@@ -52,9 +51,7 @@ const ButtonContainer = styled.div<{
       ? '#FEF4CE'
       : props.backgroundColor};
   color: ${(props) => getTextColor(props.mode)};
-  border-radius: ${(props) => 
-    props.shape === 'square' ? '3px' : '20px' 
-  };
+  border-radius: ${(props) => (props.shape === 'square' ? '3px' : '20px')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   &:hover {
     background-color: ${(props) =>
@@ -111,6 +108,41 @@ export type ButtonType = {
     | React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 };
 
+export function getBackgroundColor(mode: string) {
+  switch (mode) {
+    case 'Yellow':
+      return {
+        innerBackgroundColor: theme.colors.Yellow,
+        innerHoverBackgroundColor: '#F0BD05',
+      };
+    case 'Beige':
+      return {
+        innerBackgroundColor: theme.colors.Beige,
+        innerHoverBackgroundColor: '#E3D9CA',
+      };
+    case 'White':
+      return {
+        innerBackgroundColor: theme.colors.White,
+        innerHoverBackgroundColor: '#EBEBEB',
+      };
+    case 'Gray':
+      return {
+        innerBackgroundColor: theme.colors.Gray02,
+        innerHoverBackgroundColor: theme.colors.Gray02,
+      };
+    case 'isLoading':
+      return {
+        innerBackgroundColor: theme.colors.LightYellow,
+        innerHoverBackgroundColor: theme.colors.LightYellow,
+      };
+    default:
+      return {
+        innerBackgroundColor: theme.colors.Yellow,
+        innerHoverBackgroundColor: theme.colors.Yellow,
+      };
+  }
+}
+
 function Button({
   children,
   onClick,
@@ -133,38 +165,7 @@ function Button({
         innerHoverBackgroundColor: backgroundColor,
       };
     }
-    switch (mode) {
-      case 'Yellow':
-        return {
-          innerBackgroundColor: theme.colors.Yellow,
-          innerHoverBackgroundColor: '#F0BD05',
-        };
-      case 'Beige':
-        return {
-          innerBackgroundColor: theme.colors.Beige,
-          innerHoverBackgroundColor: '#E3D9CA',
-        };
-      case 'White':
-        return {
-          innerBackgroundColor: theme.colors.White,
-          innerHoverBackgroundColor: '#EBEBEB',
-        };
-      case 'Gray':
-        return {
-          innerBackgroundColor: theme.colors.Gray02,
-          innerHoverBackgroundColor: theme.colors.Gray02,
-        };
-      case 'isLoading':
-        return {
-          innerBackgroundColor: theme.colors.LightYellow,
-          innerHoverBackgroundColor: theme.colors.LightYellow,
-        };
-      default:
-        return {
-          innerBackgroundColor: theme.colors.Yellow,
-          innerHoverBackgroundColor: theme.colors.Yellow,
-        };
-    }
+    return getBackgroundColor(mode);
   }
 
   const { innerBackgroundColor, innerHoverBackgroundColor } = switchMode();

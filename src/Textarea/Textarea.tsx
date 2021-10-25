@@ -5,9 +5,9 @@ type typeProps = 'basic' | 'line';
 type sizeProps = 'big' | 'medium' | 'small';
 
 const TextareaContainer = styled.textarea<{
-  borderStyle: FlattenSimpleInterpolation
-  fontStyle: FlattenSimpleInterpolation
-  borderColor: string
+  borderStyle: FlattenSimpleInterpolation;
+  fontStyle: FlattenSimpleInterpolation;
+  borderColor: string;
 }>`
   resize: none;
   ${(props) => props.borderStyle}
@@ -58,25 +58,41 @@ const BorderSwitch = (type: typeProps) => {
 };
 
 type TextareaPropsType = {
-  type: typeProps
-  size?: sizeProps
-  onChange: (value: string) => void
-  className?: string
-  value: string
-  tabIndex?: number
-  readOnly?: boolean
-  placeholder?: string
-  onFocus?: () => void
-  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
-  onKeyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
-  onBlur?: () => void
-  rows?: number
-  cols?: number
-  borderColor: string
+  type: typeProps;
+  size?: sizeProps;
+  onChange: (value: string) => void;
+  className?: string;
+  value: string;
+  tabIndex?: number;
+  readOnly?: boolean;
+  placeholder?: string;
+  onFocus?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onKeyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onBlur?: () => void;
+  rows?: number;
+  cols?: number;
+  borderColor: string;
+  onClick?: (e: React.MouseEvent<HTMLTextAreaElement, MouseEvent>) => void;
 };
 
 function Textarea({
-  type, size, onChange, className, value, tabIndex, readOnly = false, placeholder, onFocus, onKeyDown, onKeyUp, onBlur, rows, cols, borderColor,
+  type,
+  size,
+  onChange,
+  className,
+  value,
+  tabIndex,
+  readOnly = false,
+  placeholder,
+  onFocus,
+  onKeyDown,
+  onKeyUp,
+  onBlur,
+  rows,
+  cols,
+  borderColor,
+  onClick,
 }: TextareaPropsType): JSX.Element {
   const fontStyle: FlattenSimpleInterpolation = FontSwitch(type, size);
   const borderStyle: FlattenSimpleInterpolation = BorderSwitch(type);
@@ -92,12 +108,17 @@ function Textarea({
       readOnly={readOnly}
       placeholder={placeholder}
       onFocus={onFocus}
-      onKeyDown={(e) => { onKeyDown ? onKeyDown(e) : undefined; }}
+      onKeyDown={(e) => {
+        if (onKeyDown) onKeyDown(e);
+      }}
       onKeyUp={onKeyUp}
       onBlur={onBlur}
       rows={rows}
       cols={cols}
       borderColor={borderColor}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+      }}
     >
       {value}
     </TextareaContainer>

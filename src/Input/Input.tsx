@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { isPropertyAssignment } from 'typescript';
 import Icon, { IconType } from '../Icon/Icon';
 import Email from './subtype/email';
 import Account from './subtype/account';
@@ -27,54 +28,61 @@ const InputBox = styled.div<{
   fullWidthMode?: boolean;
   isError: boolean;
 }>`
-  ${(props) => `${
-    props.mode == 'line'
-      ? `
+  ${(props) =>
+    `${
+      props.mode == 'line'
+        ? `
                 border-bottom: 1px solid #dfdedd;
                 padding: 7px;
     ${props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
             `
-      : `
+        : `
                 border: 1px solid #dfdedd; 
                 padding: 11px 14px;
             `
-  }`}
+    }`}
   &:hover {
-    ${(props) => (!props.disabled
-    ? props.mode == 'line'
-      ? `border-bottom: 1px solid ${
-        props.disabled ? '#dfdedd' : props.borderColor
-      }`
-      : `border: 1px solid ${
-        props.disabled ? '#dfdedd' : props.borderColor
-      }`
-    : '')}
+    ${(props) =>
+      !props.disabled
+        ? props.mode == 'line'
+          ? `border-bottom: 1px solid ${
+              props.disabled ? '#dfdedd' : props.borderColor
+            }`
+          : `border: 1px solid ${
+              props.disabled ? '#dfdedd' : props.borderColor
+            }`
+        : ''}
   }
   &:focus-within {
-    ${(props) => (!props.disabled
-    ? props.mode == 'line'
-      ? `border-bottom: 1px solid ${
-        props.disabled ? '#dfdedd' : props.borderColor
-      }`
-      : `border: 1px solid ${
-        props.disabled ? '#dfdedd' : props.borderColor
-      }`
-      : '')}
+    ${(props) =>
+      !props.disabled
+        ? props.mode == 'line'
+          ? `border-bottom: 1px solid ${
+              props.disabled ? '#dfdedd' : props.borderColor
+            }`
+          : `border: 1px solid ${
+              props.disabled ? '#dfdedd' : props.borderColor
+            }`
+        : ''}
   }
   display: flex;
   align-items: center;
   width: ${(props) => (props.fullWidthMode ? '100%' : `${props.width}px`)};
   border-radius: ${(props) => (props.mode == 'line' ? '0px' : '3px')};
   justify-content: space-between;
-  ${(props) => `${
-    props.mode == 'line'
-      ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
-      : props.disabled && 'background-color: #F0F0F0;'
-  }`}
+  ${(props) =>
+    `${
+      props.mode == 'line'
+        ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
+        : props.disabled && 'background-color: #F0F0F0;'
+    }`}
   input {
     color: #000000;
   }
-  border: ${(props) => props.isError ? '1px solid #FAC609' : `1px solid #dfdedd;`}
+  border: ${(props) =>
+    props.isError && props.mode === 'basic' ? '1px solid #FAC609' : ''};
+  border-bottom: ${(props) =>
+    props.isError && props.mode === 'line' ? '1px solid #FAC609' : ''};
 `;
 const InputElement = styled.input<{
   width: number;
@@ -87,23 +95,25 @@ const InputElement = styled.input<{
 }>`
   all: unset;
   border: none;
-  ${(props) => (props.fullWidthMode
-    ? 'width: 100%;'
-    : `width: ${props.width}px;
-  `)}
+  ${(props) =>
+    props.fullWidthMode
+      ? 'width: 100%;'
+      : `width: ${props.width}px;
+  `}
   color: ${(props) => props.textColor};
   ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
   cursor: auto;
-  ${(props) => (props.ignorePlaceholderColor === undefined
-      || props.ignorePlaceholderColor === false)
-    && `
+  ${(props) =>
+    (props.ignorePlaceholderColor === undefined ||
+      props.ignorePlaceholderColor === false) &&
+    `
   &::placeholder {
     color: #dfdedd;
   }
   `}
   ${(props) => props.mode === 'basic' && 'line-height: 10; height: 20px;'}
   &:focus-within {
-    color: ${(props) => props.textColor ? props.textColor : '#000000'};
+    color: ${(props) => (props.textColor ? props.textColor : '#000000')};
   }
 `;
 const SubText = styled.p`
@@ -131,7 +141,7 @@ export type InputType = {
   onBlur?: () => void;
   iconButton?: IconType;
   onClickCancelButton?: (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
   className?: string;
   borderColor: string;
