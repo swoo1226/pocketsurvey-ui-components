@@ -22,6 +22,7 @@ const MediaSwitcher = ({
 }: IMediaSwitcherProps): JSX.Element => {
   if (loading) return <Loader />;
   if (mediaSrc) return <MediaPreview type={type} src={mediaSrc} />;
+  // 여기서 모바일인지 아닌지 props를 받아서 처리
   return (
     <MediaUploaderMain
       qrCode={qrCode}

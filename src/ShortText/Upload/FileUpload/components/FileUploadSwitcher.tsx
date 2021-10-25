@@ -27,6 +27,7 @@ const FileUploadSwitcher = ({
         deleteUploadedFile={deleteUploadedFile}
       />
     );
+  // 여기서 모바일인지 아닌지 props를 받아서 처리
   return <FileUploadMain getInputProps={getInputProps} onUpload={onUpload} />;
 };
 
