@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import UploadWrapper from './components/UploadWrapper';
-import { uploadFile } from './util';
-import ImageVideoContent from './components/ImageVideoContent';
+import UploadWrapper from '../components/UploadWrapper';
+import { uploadFile } from '../util';
+import MediaSwitcher from './components/MediaSwitcher';
+import { OnUploadType } from '../types';
 
 export type ImgVideoType = {
   qrCode: string | null;
   mediaSrc: string | null;
   type: 'video' | 'image';
-  onUpload: ({ isValid, file }: { isValid: boolean; file: File }) => void;
+  onUpload: OnUploadType;
   loading: boolean;
 };
 
@@ -32,10 +33,10 @@ function ImgVideo({
   return (
     <UploadWrapper
       {...getRootProps()}
-      mediaSrc={mediaSrc}
+      src={mediaSrc}
       isDragActive={isDragActive}
     >
-      <ImageVideoContent
+      <MediaSwitcher
         qrCode={qrCode}
         mediaSrc={mediaSrc}
         type={type}
