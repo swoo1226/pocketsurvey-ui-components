@@ -1,17 +1,17 @@
 import React from 'react';
 import { DropzoneInputProps } from 'react-dropzone';
 import { ImgVideoType } from '../ImgVideoUpload';
-import { UploadFileType } from '../util';
-import Loader from './Loader';
-import Preview from './Preview';
-import UploaderMain from './UploaderMain';
+import { UploadFileType } from '../../util';
+import MediaPreview from './MediaPreview';
+import MediaUploaderMain from './MediaUploaderMain';
+import Loader from '../../components/Loader';
 
-interface IImageVideoContentProps extends ImgVideoType {
+interface IMediaSwitcherProps extends ImgVideoType {
   getInputProps: <T extends DropzoneInputProps>(props?: T | undefined) => T;
   uploadFile: UploadFileType;
 }
 
-const ImageVideoContent = ({
+const MediaSwitcher = ({
   qrCode,
   mediaSrc,
   type,
@@ -19,11 +19,11 @@ const ImageVideoContent = ({
   loading,
   getInputProps,
   uploadFile,
-}: IImageVideoContentProps): JSX.Element => {
+}: IMediaSwitcherProps): JSX.Element => {
   if (loading) return <Loader />;
-  if (mediaSrc) return <Preview type={type} src={mediaSrc} />;
+  if (mediaSrc) return <MediaPreview type={type} src={mediaSrc} />;
   return (
-    <UploaderMain
+    <MediaUploaderMain
       qrCode={qrCode}
       getInputProps={getInputProps}
       type={type}
@@ -33,4 +33,4 @@ const ImageVideoContent = ({
   );
 };
 
-export default ImageVideoContent;
+export default MediaSwitcher;

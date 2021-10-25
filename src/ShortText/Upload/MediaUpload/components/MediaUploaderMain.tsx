@@ -3,10 +3,10 @@ import React from 'react';
 import { DropzoneInputProps } from 'react-dropzone';
 import styled from 'styled-components';
 import { ImgVideoType } from '../ImgVideoUpload';
-import { getFileAcceptance, UploadFileType } from '../util';
+import { getFileAcceptance, UploadFileType } from '../../util';
 import QRCode from './QRCode';
 
-interface IUploaderMainProps {
+interface IMediaUploaderMainProps {
   qrCode: ImgVideoType['qrCode'];
   getInputProps: <T extends DropzoneInputProps>(props?: T | undefined) => T;
   type: 'image' | 'video';
@@ -14,13 +14,13 @@ interface IUploaderMainProps {
   onUpload: ImgVideoType['onUpload'];
 }
 
-const UploaderMain = ({
+const MediaUploaderMain = ({
   qrCode,
   getInputProps,
   type,
   uploadFile,
   onUpload,
-}: IUploaderMainProps): JSX.Element => {
+}: IMediaUploaderMainProps): JSX.Element => {
   const fileAcceptance = getFileAcceptance(type);
   return (
     <UploadText>
@@ -62,7 +62,7 @@ const UploaderMain = ({
   );
 };
 
-export default UploaderMain;
+export default MediaUploaderMain;
 
 const StressLetter = styled.span`
   font-family: 'Noto Sans CJK KR Medium';

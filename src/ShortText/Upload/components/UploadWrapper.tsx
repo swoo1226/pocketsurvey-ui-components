@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ImgVideoType } from '../ImgVideoUpload';
+import { ImgVideoType } from '../MediaUpload/ImgVideoUpload';
 
 interface IUploadWrapperProps {
-  mediaSrc: ImgVideoType['mediaSrc'];
+  src: string | null;
   isDragActive: boolean;
   children: React.ReactNode;
 }
 const UploadWrapper = ({
-  mediaSrc,
+  src,
   isDragActive,
   children,
 }: IUploadWrapperProps): JSX.Element => (
-  <UploadWrapperContainer mediaSrc={mediaSrc} isDragActive={isDragActive}>
+  <UploadWrapperContainer src={src} isDragActive={isDragActive}>
     {children}
   </UploadWrapperContainer>
 );
@@ -20,10 +20,10 @@ const UploadWrapper = ({
 export default UploadWrapper;
 
 const UploadWrapperContainer = styled.div<{
-  mediaSrc: string | null;
+  src: string | null;
   isDragActive: boolean;
 }>`
-  border: ${(props) => (props.mediaSrc ? '' : '2px dashed #dfdedd')};
+  border: ${(props) => (props.src ? '' : '2px dashed #dfdedd')};
   border: ${(props) => (props.isDragActive ? '2px dashed #FAC62D' : '')};
   border-radius: 5px;
   width: 655px;

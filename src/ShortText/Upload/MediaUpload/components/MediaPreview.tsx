@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface IPreviewProps {
+interface IMediaPreviewProps {
   type: 'image' | 'video';
   src: string;
 }
 
-const Preview = ({ type, src }: IPreviewProps): JSX.Element => {
-  if (type === 'image') return <PreviewImg src={src} alt="preview image" />;
+const MediaPreview = ({ type, src }: IMediaPreviewProps): JSX.Element => {
+  if (type === 'image')
+    return <MediaPreviewImg src={src} alt="MediaPreview image" />;
   if (type === 'video')
     return (
       <video controls>
@@ -19,8 +20,8 @@ const Preview = ({ type, src }: IPreviewProps): JSX.Element => {
   return <></>;
 };
 
-export default Preview;
+export default MediaPreview;
 
-const PreviewImg = styled.img`
+const MediaPreviewImg = styled.img`
   width: 300px;
 `;
