@@ -25,7 +25,7 @@ const ModalWrapper = styled.div`
   justify-content: center;
   z-index: 999999;
   flex-direction: column;
-  background-color: gray;
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 const ModalInner = styled.div`
   padding: 28px;
