@@ -7,14 +7,19 @@ export const isValidFile = (fileName: string) => {
   return false;
 };
 
-export const isValidImgVideo = (fileName: string, type = 'image' || 'video') => {
+export const isValidURL = (
+  fileName: string,
+  type: 'image' | 'video',
+): boolean => {
   if (type === 'image') {
-     const regex = new RegExp('(.png|.jpg|.jpeg)', 'i');
+    const regex = new RegExp('(.png|.jpg|.jpeg)', 'i');
     if (regex.test(fileName)) return true;
-    return false;
-  } 
+  }
+
+  if (type === 'video') {
     const extension = new RegExp('.mp4', 'i');
     if (extension.test(fileName)) return true;
-    return false;
-  
+  }
+
+  return false;
 };
