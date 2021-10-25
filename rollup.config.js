@@ -7,6 +7,7 @@ import svgr from "@svgr/rollup";
 import url from "rollup-plugin-url";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import image from "rollup-plugin-img";
+import json from "@rollup/plugin-json";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"]; // 어떤 확장자를 처리 할 지 정함
 
@@ -33,6 +34,7 @@ export default {
       output: "dist/images", // default the root
       extensions: /\.(png)$/, // support png|jpg|jpeg|gif|svg, and it's alse the default value
     }),
+    json(),
   ],
   output: [
     {
