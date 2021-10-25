@@ -24,3 +24,5 @@ export { default as CustomTooltip } from './CustomTooltip/CustomTooltip';
 export { default as TooltippedIcon } from './TooltippedIcon/TooltippedIcon';
 export { default as FileInput } from './Input/FileInput';
 export { default as UploadModal } from './Modal/UploadModal/UploadModal';
+export { default as Loading } from './Loading/Loading';
+export { default as WholeLoading } from './WholeLoading/WholeLoading';
