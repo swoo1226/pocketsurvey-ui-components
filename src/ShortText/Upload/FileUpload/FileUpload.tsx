@@ -10,6 +10,7 @@ interface IFileUploadProps {
   onCancelClick?: () => void;
   onUpload: OnUploadType;
   loading: boolean;
+  isMobile?: boolean;
 }
 
 const FileUpload = ({
@@ -17,6 +18,7 @@ const FileUpload = ({
   onCancelClick,
   onUpload,
   loading,
+  isMobile,
 }: IFileUploadProps): JSX.Element => {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
@@ -40,11 +42,14 @@ const FileUpload = ({
     noClick: true,
   });
 
+  const isMobileUploading = !loading && !uploadedFile && !!isMobile;
+
   return (
     <UploadWrapper
       {...getRootProps()}
       src={answeredText}
       isDragActive={isDragActive}
+      isMobileUploading={isMobileUploading}
     >
       <FileUploadSwitcher
         uploadedFile={uploadedFile}
@@ -52,6 +57,7 @@ const FileUpload = ({
         deleteUploadedFile={deleteUploadedFile}
         getInputProps={getInputProps}
         onUpload={onUpload}
+        isMobile={isMobile}
       />
     </UploadWrapper>
   );

@@ -39,14 +39,14 @@ const FileRow = styled.div`
   height: 34px;
   display: flex;
   justify-content: space-between;
-  padding: 0px 14px;
+  align-items: center;
+  padding: 0px 20px;
   color: #2b2e33;
   font-family: 'Noto Sans CJK KR Regular';
   font-size: 14px;
-  line-height: 23.8px;
+  line-height: 24px;
   border-radius: 3px;
+  background-color: rgb(240, 240, 240);
 `;
 
-const FileName = styled.div`
-  margin-top: 6px;
-`;
+const FileName = styled.div``;

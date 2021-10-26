@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
-import { DropzoneInputProps } from 'react-dropzone';
 import styled from 'styled-components';
-import { ImgVideoType } from '../ImgVideoUpload';
-import { getFileAcceptance, UploadFileType } from '../../util';
+import { GetInputPropsType, OnUploadType } from '../../types';
+import { getFileAcceptance, uploadFile } from '../../util';
 import QRCode from './QRCode';
 
 interface IMediaUploaderMainProps {
-  qrCode: ImgVideoType['qrCode'];
-  getInputProps: <T extends DropzoneInputProps>(props?: T | undefined) => T;
+  qrCode: string | null;
+  getInputProps: GetInputPropsType;
   type: 'image' | 'video';
-  uploadFile: UploadFileType;
-  onUpload: ImgVideoType['onUpload'];
+  onUpload: OnUploadType;
 }
 
 const MediaUploaderMain = ({
   qrCode,
   getInputProps,
   type,
-  uploadFile,
   onUpload,
 }: IMediaUploaderMainProps): JSX.Element => {
   const fileAcceptance = getFileAcceptance(type);
