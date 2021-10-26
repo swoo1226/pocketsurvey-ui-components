@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import ImgVideo from './ImgVideoUpload';
+import MediaUpload from './MediaUpload';
 import { Meta } from '@storybook/react/types-6-0';
 import chunsicpng from './samples/chunsicpng.png';
 import sampleVideo from './samples/sampleVideo.mp4';
 
 export default {
-  component: ImgVideo,
-  title: 'Components/ShortText/ImgVideoUpload',
+  component: MediaUpload,
+  title: 'Components/ShortText/MediaUpload',
 } as Meta;
 
 export function Index() {
@@ -15,8 +15,17 @@ export function Index() {
 
   return (
     <>
-      <h2> 이미지 업로드 대기 상태</h2>
-      <ImgVideo
+      <h2>이미지 업로드 모바일</h2>
+      <MediaUpload
+        qrCode={null}
+        mediaSrc={null}
+        type="image"
+        onUpload={({ isValid, file }) => console.log(isValid, file)}
+        loading={false}
+        isMobile
+      />
+      <h2>이미지 업로드</h2>
+      <MediaUpload
         qrCode={null}
         type="image"
         mediaSrc={null}
@@ -24,7 +33,7 @@ export function Index() {
         loading={false}
       />
       <h2>이미지 업로드 완료 후</h2>
-      <ImgVideo
+      <MediaUpload
         qrCode={null}
         type="image"
         mediaSrc={imagSrc}
@@ -32,15 +41,24 @@ export function Index() {
         loading={false}
       />
       <h2>이미지 업로드 로딩</h2>
-      <ImgVideo
+      <MediaUpload
         qrCode={null}
         type="image"
         mediaSrc={imagSrc}
         onUpload={({ isValid, file }) => console.log(isValid, file)}
         loading={true}
       />
+      <h2>영상 업로드 모바일</h2>
+      <MediaUpload
+        qrCode={null}
+        mediaSrc={null}
+        type="video"
+        onUpload={({ isValid, file }) => console.log(isValid, file)}
+        loading={false}
+        isMobile
+      />
       <h2>영상 업로드</h2>
-      <ImgVideo
+      <MediaUpload
         qrCode={null}
         mediaSrc={null}
         type="video"
@@ -48,7 +66,7 @@ export function Index() {
         loading={false}
       />
       <h2>영상 업로드 후</h2>
-      <ImgVideo
+      <MediaUpload
         qrCode={null}
         mediaSrc={videoSrc}
         type="video"
@@ -56,7 +74,7 @@ export function Index() {
         loading={false}
       />
       <h2>영상 업로드 로딩</h2>
-      <ImgVideo
+      <MediaUpload
         qrCode={null}
         mediaSrc={null}
         type="video"

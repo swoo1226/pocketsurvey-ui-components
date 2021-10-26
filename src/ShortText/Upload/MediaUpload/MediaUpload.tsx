@@ -6,21 +6,23 @@ import { uploadFile } from '../util';
 import MediaSwitcher from './components/MediaSwitcher';
 import { OnUploadType } from '../types';
 
-export type ImgVideoType = {
+export interface IMediaUploadProps {
   qrCode: string | null;
   mediaSrc: string | null;
   type: 'video' | 'image';
   onUpload: OnUploadType;
   loading: boolean;
-};
+  isMobile?: boolean;
+}
 
-function ImgVideo({
+const MediaUpload = ({
   qrCode,
   mediaSrc,
   type,
   onUpload,
   loading,
-}: ImgVideoType): JSX.Element {
+  isMobile,
+}: IMediaUploadProps): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     uploadFile(acceptedFiles[0], type, onUpload);
   }, []);
@@ -30,11 +32,14 @@ function ImgVideo({
     noClick: true,
   });
 
+  const isMobileUploading = !loading && !mediaSrc && !!isMobile;
+
   return (
     <UploadWrapper
       {...getRootProps()}
       src={mediaSrc}
       isDragActive={isDragActive}
+      isMobileUploading={isMobileUploading}
     >
       <MediaSwitcher
         qrCode={qrCode}
@@ -43,10 +48,10 @@ function ImgVideo({
         onUpload={onUpload}
         loading={loading}
         getInputProps={getInputProps}
-        uploadFile={uploadFile}
+        isMobile={isMobile}
       />
     </UploadWrapper>
   );
-}
+};
 
-export default ImgVideo;
+export default MediaUpload;

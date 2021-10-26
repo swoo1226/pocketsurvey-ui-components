@@ -23,7 +23,7 @@ const getFileSizeLimit = (type: UploadType) => {
   return 52428800; // file
 };
 
-const uploadValidation = (file: File, type: UploadType) => {
+const uploadValidation = (file: File, type: UploadType): boolean => {
   const fileAcceptance = getFileAcceptance(type);
   const fileName = file.name;
 
@@ -69,7 +69,7 @@ export const isValidFileORURL = (
 
   if (type === 'file') {
     const extension = new RegExp(
-      `(${getFileAcceptance('file').replace(',', '|')})$`,
+      `(${getFileAcceptance('file').replace(/,/g, '|')})$`,
       'i',
     );
     if (extension.test(fileName)) return true;

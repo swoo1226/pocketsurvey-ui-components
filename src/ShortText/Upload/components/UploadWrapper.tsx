@@ -1,21 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ImgVideoType } from '../MediaUpload/ImgVideoUpload';
 
 interface IUploadWrapperProps {
   src: string | null;
   isDragActive: boolean;
+  isMobileUploading: boolean;
   children: React.ReactNode;
 }
 const UploadWrapper = ({
   src,
   isDragActive,
   children,
-}: IUploadWrapperProps): JSX.Element => (
-  <UploadWrapperContainer src={src} isDragActive={isDragActive}>
-    {children}
-  </UploadWrapperContainer>
-);
+  isMobileUploading,
+}: IUploadWrapperProps): JSX.Element => {
+  // 모바일 업로드 상태에서는 div로 감싸지 않는다.
+  if (isMobileUploading) {
+    return <>{children}</>;
+  }
+
+  return (
+    <UploadWrapperContainer src={src} isDragActive={isDragActive}>
+      {children}
+    </UploadWrapperContainer>
+  );
+};
 
 export default UploadWrapper;
 

@@ -3,6 +3,7 @@ import Loader from '../../components/Loader';
 import FileUploadMain from './FileUploadMain';
 import FileResult from './FileResult';
 import { GetInputPropsType, OnUploadType } from '../../types';
+import MobileUploaderMain from '../../components/MobileUploaderMain';
 
 interface IFileUploadSwitcherProps {
   uploadedFile: string | null;
@@ -10,6 +11,7 @@ interface IFileUploadSwitcherProps {
   deleteUploadedFile: () => void;
   getInputProps: GetInputPropsType;
   onUpload: OnUploadType;
+  isMobile?: boolean;
 }
 
 const FileUploadSwitcher = ({
@@ -18,6 +20,7 @@ const FileUploadSwitcher = ({
   deleteUploadedFile,
   getInputProps,
   onUpload,
+  isMobile,
 }: IFileUploadSwitcherProps): JSX.Element => {
   if (loading) return <Loader />;
   if (uploadedFile)
@@ -27,7 +30,11 @@ const FileUploadSwitcher = ({
         deleteUploadedFile={deleteUploadedFile}
       />
     );
-  // 여기서 모바일인지 아닌지 props를 받아서 처리
+
+  if (isMobile) {
+    return <MobileUploaderMain type="file" onUpload={onUpload} />;
+  }
+
   return <FileUploadMain getInputProps={getInputProps} onUpload={onUpload} />;
 };
 

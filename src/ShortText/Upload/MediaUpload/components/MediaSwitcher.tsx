@@ -1,14 +1,13 @@
 import React from 'react';
-import { DropzoneInputProps } from 'react-dropzone';
-import { ImgVideoType } from '../ImgVideoUpload';
-import { UploadFileType } from '../../util';
 import MediaPreview from './MediaPreview';
 import MediaUploaderMain from './MediaUploaderMain';
 import Loader from '../../components/Loader';
+import { IMediaUploadProps } from '../MediaUpload';
+import MobileUploaderMain from '../../components/MobileUploaderMain';
+import { GetInputPropsType } from '../../types';
 
-interface IMediaSwitcherProps extends ImgVideoType {
-  getInputProps: <T extends DropzoneInputProps>(props?: T | undefined) => T;
-  uploadFile: UploadFileType;
+interface IMediaSwitcherProps extends IMediaUploadProps {
+  getInputProps: GetInputPropsType;
 }
 
 const MediaSwitcher = ({
@@ -18,17 +17,19 @@ const MediaSwitcher = ({
   onUpload,
   loading,
   getInputProps,
-  uploadFile,
+  isMobile,
 }: IMediaSwitcherProps): JSX.Element => {
   if (loading) return <Loader />;
   if (mediaSrc) return <MediaPreview type={type} src={mediaSrc} />;
-  // 여기서 모바일인지 아닌지 props를 받아서 처리
+
+  if (isMobile) {
+    return <MobileUploaderMain type={type} onUpload={onUpload} />;
+  }
   return (
     <MediaUploaderMain
       qrCode={qrCode}
       getInputProps={getInputProps}
       type={type}
-      uploadFile={uploadFile}
       onUpload={onUpload}
     />
   );
