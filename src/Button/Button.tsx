@@ -99,7 +99,7 @@ export type ButtonType = {
   mode: ModeType;
   size: SizeType;
   shape: ShapeType;
-  disabled: boolean;
+  disabled?: boolean;
   className?: string;
   backgroundColor?: string;
   isLoading?: boolean;
@@ -178,7 +178,7 @@ function Button({
       onClick={disabled ? undefined : onClick}
       backgroundColor={innerBackgroundColor}
       hoverBackgroundColor={innerHoverBackgroundColor}
-      disabled={disabled}
+      disabled={disabled || false}
       className={className}
       isLoading={isLoading}
       ref={buttonRef}

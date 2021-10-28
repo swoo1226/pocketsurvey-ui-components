@@ -56,7 +56,6 @@ export function Index(): JSX.Element {
           mode="Yellow"
           shape="square"
           size="medium"
-          disabled={disabled}
           onClick={() => alert('BasicButton')}
         >
           Yellow
