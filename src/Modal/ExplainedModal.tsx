@@ -53,6 +53,7 @@ const DiscriptContainer = styled.div`
     line-height: 32px;
   }
   .callOut {
+    border-radius: 4px;
     font-weight: 400;
     line-height: 24px;
     padding: 21px;
