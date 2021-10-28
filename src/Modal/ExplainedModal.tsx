@@ -59,6 +59,7 @@ const DiscriptContainer = styled.div`
     padding: 21px;
     background-color: #f0f0f0;
     margin-top: 14px;
+    word-break: keep-all; 
   }
   .discription {
     margin-top: 7px;
