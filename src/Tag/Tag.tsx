@@ -18,6 +18,7 @@ const TagContainer = styled.div<{
   backgroundColor: string;
   hoverColor: string;
   fontSize: number;
+  disabled:boolean;
 }>`
   background-color: ${(props) => props.backgroundColor};
   height: 100%;
@@ -32,7 +33,7 @@ const TagContainer = styled.div<{
   display: inline-block;
   color: #2b2e33;
   font-family: 'Noto Sans CJK KR Regular';
-  cursor: pointer;
+  cursor: ${(props) => props.disabled ? "default" : "pointer"};
   &:hover {
     background-color: ${(props) => props.hoverColor};
   }
@@ -96,6 +97,7 @@ function Tag({
       backgroundColor={innerBackgroundColor}
       hoverColor={innerHoverColor}
       className={className}
+      disabled={disabled}
       fontSize={fontSize ?? 12}
     >
       {children}
