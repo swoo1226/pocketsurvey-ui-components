@@ -3,6 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Icon from '../../Icon/Icon';
 import Input from '../Input';
+import hypenAutoComplete from './util/hypenAutoComplete';
+import removeHypen from './util/removeHypen';
 
 type PhonePropsType = {
   value: string;
@@ -11,79 +13,45 @@ type PhonePropsType = {
 };
 
 function Phone({ value, onChange, isMobile }: PhonePropsType) {
+  const MAX_LENGTH = 13;
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [correctMessage, setCorrectMessage] = useState<string>('');
   const [firstTyping, setFirstTyping] = useState<boolean>(false);
   const [innerValue, setInnerValue] = useState<string>('');
   const [isHover, setIsHover] = useState<boolean>(false);
 
-  const validation = {
+  const validationRegex = {
     exceptPhoneNumber: /^([0-9]|-)+$/g,
-    exceptNumber: /[^0-9]/g,
     isPhoneNum: /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/,
     isGeneralNum: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]))-(\d{3,4})-(\d{4})$/,
   };
 
-  const {
-    exceptPhoneNumber,
-    exceptNumber,
-    isPhoneNum,
-    isGeneralNum,
-  } = validation;
+  const { exceptPhoneNumber, isPhoneNum, isGeneralNum } = validationRegex;
 
   useEffect(() => {
     // 컴포넌트 외부에서 value 값을 읽을 때는 -을 제외한 숫자만 있어야함
+    if (firstTyping) onChange(removeHypen(innerValue));
+
     const numberCheck =
       isPhoneNum.test(innerValue) || isGeneralNum.test(innerValue);
-    if (firstTyping) onChange(innerValue.replace(/[^0-9]/g, ''));
-    if (numberCheck) setCorrectMessage('유효한 번호예요.');
-    if (!numberCheck) setCorrectMessage('');
-  }, [innerValue, firstTyping, isGeneralNum, onChange, isPhoneNum]);
-
-  const hypenAutoComplete = useCallback((phoneNum: string) => {
-    if (phoneNum.length <= 3) return phoneNum;
-    const startIndex = phoneNum.substr(0, 2) === '02' ? 2 : 3;
-    // 02 (서울)만 2자리고 나머지 010, 070, 다른 지역번호는 3자리
-    const length = phoneNum.length - startIndex;
-
-    if (length <= 4) {
-      return `${phoneNum.substr(0, startIndex)}-${phoneNum.substr(startIndex)}`;
-    }
-    if (length === 7) {
-      return `${phoneNum.substr(0, startIndex)}-${phoneNum.substr(
-        startIndex,
-        3,
-      )}-${phoneNum.substr(startIndex + 3)}`;
-    }
-    if (length <= 8) {
-      return `${phoneNum.substr(0, startIndex)}-${phoneNum.substr(
-        startIndex,
-        4,
-      )}-${phoneNum.substr(startIndex + 4)}`;
-    }
-    return phoneNum;
-  }, []);
+    const message = numberCheck ? '유효한 번호예요.' : '';
+    setCorrectMessage(message);
+  }, [innerValue, isGeneralNum, onChange, isPhoneNum]);
 
   const onPhoneChange = useCallback(
     (inputInnerValue: string) => {
-      if (inputInnerValue.length <= 13) {
-        if (!firstTyping) setFirstTyping(true);
-        if (exceptPhoneNumber.test(inputInnerValue)) {
-          const phoneNumberOnly = inputInnerValue.replace(exceptNumber, '');
-          if (phoneNumberOnly.length <= 3) {
-            setInnerValue(phoneNumberOnly);
-          } else {
-            setInnerValue(hypenAutoComplete(phoneNumberOnly));
-          }
-          setErrorMessage('');
-        } else if (inputInnerValue.length === 0) {
-          setInnerValue('');
-        } else {
-          setErrorMessage('숫자만 입력 가능합니다.');
-        }
+      if (!firstTyping) setFirstTyping(true);
+      if (inputInnerValue.length > MAX_LENGTH) return;
+      if (exceptPhoneNumber.test(inputInnerValue) === false) {
+        if (inputInnerValue.length === 0) setInnerValue('');
+        else setErrorMessage('숫자만 입력 가능합니다.');
+        return;
       }
+
+      setInnerValue(hypenAutoComplete(removeHypen(inputInnerValue)));
+      setErrorMessage('');
     },
-    [exceptNumber, exceptPhoneNumber, firstTyping, hypenAutoComplete],
+    [exceptPhoneNumber, hypenAutoComplete],
   );
 
   const onResetButtonClick = () => {
