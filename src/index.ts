@@ -16,7 +16,7 @@ export { default as Chart } from './Chart/Chart';
 export { default as CheckBoxItem } from './CheckBoxItem/CheckBoxItem';
 export { default as Tag } from './Tag/Tag';
 export { default as FileUpload } from './ShortText/Upload/FileUpload/FileUpload';
-export { default as ImgVideo } from './ShortText/Upload/MediaUpload/MediaUpload';
+export { default as MediaUpload } from './ShortText/Upload/MediaUpload/MediaUpload';
 export { default as IEWarning } from './IEWarning/IEWarning';
 export { default as ScrollTop } from './ScrollTop/ScrollTop';
 export { default as ScrollDown } from './ScrollDown/ScrollDown';
