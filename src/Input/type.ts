@@ -1,4 +1,4 @@
-import { IconType } from "../Icon/Icon";
+import { IconType } from '../Icon/Icon';
 
 export type InputModeType =
   | 'text'
@@ -10,7 +10,7 @@ export type InputModeType =
   | 'decimal'
   | 'search';
 
-  export interface IInputBox {
+export interface IInputBox {
   width: number;
   disabled: boolean;
   mode: 'line' | 'basic';
@@ -61,5 +61,5 @@ export type InputType = {
   inputMode?: InputModeType;
   ignorePlaceholderColor?: boolean;
   abcReportInput?: boolean;
+  correctMessage?: string;
 };
-
