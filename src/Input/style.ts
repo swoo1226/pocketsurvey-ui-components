@@ -98,12 +98,18 @@ const SubText = styled.p`
   font-size: 11px;
 `;
 
+const CorrectMessage = styled.p`
+  margin-top: 4px;
+  color: #70d473;
+  font-size: 11px;
+`;
 
 const inputStyles = {
-    InputContainer,
-    InputBox,
-    InputElement,
-    SubText
-}
+  InputContainer,
+  InputBox,
+  InputElement,
+  SubText,
+  CorrectMessage,
+};
 
-export default inputStyles
+export default inputStyles;
