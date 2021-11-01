@@ -36,7 +36,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
       isPhoneNum.test(innerValue) || isGeneralNum.test(innerValue);
     const message = numberCheck ? '유효한 번호예요.' : '';
     setCorrectMessage(message);
-  }, [innerValue, isGeneralNum, onChange, isPhoneNum]);
+  }, [innerValue, isGeneralNum, onChange, isPhoneNum, firstTyping]);
 
   const onPhoneChange = useCallback(
     (inputInnerValue: string) => {
@@ -51,7 +51,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
       setInnerValue(hypenAutoComplete(removeHypen(inputInnerValue)));
       setErrorMessage('');
     },
-    [exceptPhoneNumber, hypenAutoComplete],
+    [exceptPhoneNumber, firstTyping],
   );
 
   const onResetButtonClick = () => {
