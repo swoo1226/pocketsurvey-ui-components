@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Icon from '../../Icon/Icon';
 import Input from '../Input';
+import getMaximumPhoneLength from './util/getMaximumPhoneLength';
 import hypenAutoComplete from './util/hypenAutoComplete';
 import removeHypen from './util/removeHypen';
 
@@ -13,7 +14,6 @@ type PhonePropsType = {
 };
 
 function Phone({ value, onChange, isMobile }: PhonePropsType) {
-  const MAX_LENGTH = 13;
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [correctMessage, setCorrectMessage] = useState<string>('');
   const [firstTyping, setFirstTyping] = useState<boolean>(false);
@@ -41,7 +41,8 @@ function Phone({ value, onChange, isMobile }: PhonePropsType) {
   const onPhoneChange = useCallback(
     (inputInnerValue: string) => {
       if (!firstTyping) setFirstTyping(true);
-      if (inputInnerValue.length > MAX_LENGTH) return;
+      if (inputInnerValue.length > getMaximumPhoneLength(inputInnerValue))
+        return;
       if (exceptPhoneNumber.test(inputInnerValue) === false) {
         if (inputInnerValue.length === 0) setInnerValue('');
         else setErrorMessage('숫자만 입력 가능합니다.');
