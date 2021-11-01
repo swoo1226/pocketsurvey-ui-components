@@ -38,8 +38,9 @@ function Input({
   inputMode,
   ignorePlaceholderColor,
   abcReportInput = false,
+  correctMessage
 }: InputType): JSX.Element {
-  const { InputContainer, InputBox, InputElement, SubText } = inputStyles;
+  const { InputContainer, InputBox, InputElement, SubText,CorrectMessage } = inputStyles;
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
       return true;
@@ -47,9 +48,12 @@ function Input({
     return false;
   };
 
-  const OnInputClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    if (onClick) {
+  const OnInputClick = (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    if (!onClick) return 
+    if(e){
       onClick(e);
+    } else{
+      onClick()
     }
   };
 
@@ -103,6 +107,7 @@ function Input({
         )}
       </InputBox>
       {isError && <SubText>{errorMessage}</SubText>}
+      {correctMessage && <CorrectMessage>{correctMessage}</CorrectMessage>}
     </InputContainer>
   );
 }
