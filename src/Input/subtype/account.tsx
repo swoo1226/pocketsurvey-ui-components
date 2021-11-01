@@ -60,6 +60,7 @@ import Iconshinhan from './account/assets/shinhan.png';
 import Iconsj from './account/assets/sj.png';
 import Iconwoori from './account/assets/woori.png';
 import Input from '../Input';
+import Icon from '../../Icon/Icon';
 
 const switchIcon = (iconName: string) => {
   switch (iconName) {
@@ -176,27 +177,18 @@ const switchIcon = (iconName: string) => {
   }
 };
 
-const PSection = (title : string) => 
-<p
-  key={title}
-  style={{
-    fontSize: "14px",
-    fontWeight: 500,
-    margin: "21px 14px",
-  }}
->
-  {title}
-</p>;
-
-const Wrapper = styled.div<{ isMobile?: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  ${(props) => (props.isMobile ? 'flex-direction: column;' : 'width: 445px;')}
-`;
-
-const CustomDropDown = styled(DropDown)<{ isMobile?: boolean }>`
-  ${(props) => props.isMobile && 'margin-bottom: 10px;'}
-`;
+const PSection = (title: string) => (
+  <p
+    key={title}
+    style={{
+      fontSize: '14px',
+      fontWeight: 500,
+      margin: '21px 14px',
+    }}
+  >
+    {title}
+  </p>
+);
 
 export type ListType = {
   name: string;
@@ -212,7 +204,11 @@ type AccountPropsType = {
 };
 
 function Account({
-  value, onChange, isMobile, dropdownSelectCallback,id,
+  value,
+  onChange,
+  isMobile,
+  dropdownSelectCallback,
+  id,
 }: AccountPropsType) {
   const [select, setSelect] = useState<string>('');
   const [dropdownSelect, setDropdownSelect] = useState<number | null>(null);
@@ -221,7 +217,7 @@ function Account({
   const [filteredBank, setFilteredBank] = useState<ListType>([]);
   const [filteredStock, setFilteredStock] = useState<ListType>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
+  const [isHover, setIsHover] = useState<boolean>(false);
   useEffect(() => {
     setFilteredBank(
       bankFilter.length === 0
@@ -241,6 +237,71 @@ function Account({
     }
   }, [select, accountNumber]);
 
+  const dropdownOption = {
+    list: [
+      // {
+      //   selectionName: "은행",
+      //   isHr: true,
+      // },
+      ...filteredBank.map((item) => ({
+        selectionName: item.name,
+        png: switchIcon(item.icon),
+      })),
+      // {
+      //   selectionName: "증권사",
+      //   isHr: true,
+      // },
+      ...filteredStock.map((item) => ({
+        selectionName: item.name,
+        png: switchIcon(item.icon),
+      })),
+    ],
+    hrs: [
+      { targetIndex: 0, title: '은행', section: PSection('은행') },
+      {
+        targetIndex: filteredBank.length,
+        title: '증권사',
+        section: PSection('증권사'),
+      },
+    ],
+    themeColor: {
+      mainColor: dropdownSelect !== null ? '#FAC62D' : '#DFDEDD',
+      subColor: '#fef4ce',
+    },
+
+    onItemClick(index: number) {
+      setDropdownSelect(index);
+      const list = [
+        ...filteredBank.map((item) => ({
+          selectionName: item.name,
+          png: switchIcon(item.icon),
+        })),
+        ...filteredStock.map((item) => ({
+          selectionName: item.name,
+          png: switchIcon(item.icon),
+        })),
+      ];
+      setSelect(list[index].selectionName);
+      if (dropdownSelectCallback) dropdownSelectCallback();
+    },
+  };
+
+  const { list, hrs, themeColor, onItemClick } = dropdownOption;
+
+  const onInputChange = (innerValue: string) => {
+    if (/^[0-9-]*$/.test(innerValue)) {
+      setAccountNumber(innerValue);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('숫자와 하이픈(-)만 입력 가능합니다.');
+    }
+  }
+
+
+  const onResetButtonClick = () => {
+    setAccountNumber('');
+  };
+
   return (
     <Wrapper isMobile={isMobile}>
       <CustomDropDown
@@ -250,50 +311,12 @@ function Account({
         placeholder="은행/증권사 선택"
         height={45}
         id={id}
-        list={[
-          // {
-          //   selectionName: "은행",
-          //   isHr: true,
-          // },
-          ...filteredBank.map((item) => {
-            return {
-              selectionName: item.name,
-              png: switchIcon(item.icon),
-            }
-          }),
-          // {
-          //   selectionName: "증권사",
-          //   isHr: true,
-          // },
-          ...filteredStock.map((item) => {
-            return {
-              selectionName: item.name,
-              png: switchIcon(item.icon),
-            }
-          }),
-        ]}
-        hrs={[{targetIndex: 0, title: '은행', section:PSection("은행")},{targetIndex: filteredBank.length, title: '증권사', section:PSection("증권사")}]}
+        list={list}
+        hrs={hrs}
         disable={false}
         selected={dropdownSelect}
-        themeColor={{
-          mainColor: dropdownSelect !== null ? '#FAC62D' : '#DFDEDD',
-          subColor: '#fef4ce',
-        }}
-        onItemClick={(index: number) => {
-          setDropdownSelect(index);
-          const list = [
-            ...filteredBank.map((item) => ({
-              selectionName: item.name,
-              png: switchIcon(item.icon),
-            })),
-            ...filteredStock.map((item) => ({
-              selectionName: item.name,
-              png: switchIcon(item.icon),
-            })),
-          ];
-          setSelect(list[index].selectionName);
-          if (dropdownSelectCallback) dropdownSelectCallback();
-        }}
+        themeColor={themeColor}
+        onItemClick={onItemClick}
         iconColor="#FAC62D"
         fontSize={14}
         pngImageCropCircle
@@ -311,18 +334,39 @@ function Account({
         disabled={select === ''}
         value={accountNumber}
         fontSize={14}
-        onChange={(innerValue: string) => {
-          if (/^[0-9-]*$/.test(innerValue)) {
-            setAccountNumber(innerValue);
-            setErrorMessage('');
-          } else {
-            setErrorMessage('숫자와 하이픈(-)만 입력 가능합니다.');
-          }
-        }}
+        onChange={onInputChange}
         ignorePlaceholderColor
       />
+      {accountNumber.length > 0 ? (
+        <ResetButton
+          icon={isHover ? 'titleInputXHover' : 'titleInputX'}
+          onMouseOver={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          width={18}
+          color="black"
+          onClick={onResetButtonClick}
+          isMobile={isMobile}
+        />
+      ) : null}
     </Wrapper>
   );
 }
+
+const Wrapper = styled.div<{ isMobile?: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  ${(props) => (props.isMobile ? 'flex-direction: column;' : 'width: 445px;')}
+  position:relative;
+`;
+
+const CustomDropDown = styled(DropDown)<{ isMobile?: boolean }>`
+  ${(props) => props.isMobile && 'margin-bottom: 10px;'}
+`;
+
+const ResetButton = styled(Icon)<{ isMobile?: boolean }>`
+  position: absolute;
+  ${(props) =>
+    props.isMobile ? 'top: 68px; right: -20px;' : 'top: 12px; right: 10px;'}
+`;
 
 export default Account;

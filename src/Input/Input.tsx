@@ -1,159 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import { isPropertyAssignment } from 'typescript';
-import Icon, { IconType } from '../Icon/Icon';
+import Icon from '../Icon/Icon';
 import Email from './subtype/email';
 import Account from './subtype/account';
 import Phone from './subtype/phone';
 import Number from './subtype/number';
 import URL from './subtype/url';
-
-type inputModeType =
-  | 'text'
-  | 'none'
-  | 'tel'
-  | 'url'
-  | 'email'
-  | 'numeric'
-  | 'decimal'
-  | 'search';
-
-const InputContainer = styled.div``;
-const InputBox = styled.div<{
-  width: number;
-  disabled: boolean;
-  mode: 'line' | 'basic';
-  borderColor: string;
-  fullWidthMode?: boolean;
-  isError: boolean;
-}>`
-  ${(props) =>
-    `${
-      props.mode == 'line'
-        ? `
-                border-bottom: 1px solid #dfdedd;
-                padding: 7px;
-    ${props.fullWidthMode ? `${300 * 0.05}` : `${props.width * 0.05}`}px;
-            `
-        : `
-                border: 1px solid #dfdedd; 
-                padding: 11px 14px;
-            `
-    }`}
-  &:hover {
-    ${(props) =>
-      !props.disabled
-        ? props.mode == 'line'
-          ? `border-bottom: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-          : `border: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-        : ''}
-  }
-  &:focus-within {
-    ${(props) =>
-      !props.disabled
-        ? props.mode == 'line'
-          ? `border-bottom: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-          : `border: 1px solid ${
-              props.disabled ? '#dfdedd' : props.borderColor
-            }`
-        : ''}
-  }
-  display: flex;
-  align-items: center;
-  width: ${(props) => (props.fullWidthMode ? '100%' : `${props.width}px`)};
-  border-radius: ${(props) => (props.mode == 'line' ? '0px' : '3px')};
-  justify-content: space-between;
-  ${(props) =>
-    `${
-      props.mode == 'line'
-        ? props.disabled && 'border-bottom: 1px dashed #dfdedd;'
-        : props.disabled && 'background-color: #F0F0F0;'
-    }`}
-  input {
-    color: #000000;
-  }
-  border: ${(props) =>
-    props.isError && props.mode === 'basic' ? '1px solid #FAC609' : ''};
-  border-bottom: ${(props) =>
-    props.isError && props.mode === 'line' ? '1px solid #FAC609' : ''};
-`;
-const InputElement = styled.input<{
-  width: number;
-  textColor?: string;
-  fontSize?: number;
-  fullWidthMode?: boolean;
-  mode: 'line' | 'basic';
-  ignorePlaceholderColor?: boolean;
-  value: string;
-}>`
-  all: unset;
-  border: none;
-  ${(props) =>
-    props.fullWidthMode
-      ? 'width: 100%;'
-      : `width: ${props.width}px;
-  `}
-  color: ${(props) => props.textColor};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px;`}
-  cursor: auto;
-  ${(props) =>
-    (props.ignorePlaceholderColor === undefined ||
-      props.ignorePlaceholderColor === false) &&
-    `
-  &::placeholder {
-    color: #dfdedd;
-  }
-  `}
-  ${(props) => props.mode === 'basic' && 'line-height: 10; height: 20px;'}
-  &:focus-within {
-    color: ${(props) => (props.textColor ? props.textColor : '#000000')};
-  }
-`;
-const SubText = styled.p`
-  margin-top: 4px;
-  color: #ff5724;
-  font-size: 11px;
-`;
-
-export type InputType = {
-  mode: 'line' | 'basic';
-  placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
-  width: number;
-  fullWidthMode?: boolean;
-  isError: boolean;
-  errorMessage: string;
-  disabled?: boolean;
-  useCancelButton?: boolean;
-  tabIndex?: number;
-  readOnly?: boolean;
-  onFocus?: () => void;
-  onClick?: (e?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onBlur?: () => void;
-  iconButton?: IconType;
-  onClickCancelButton?: (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
-  className?: string;
-  borderColor: string;
-  autoFocus?: boolean;
-  textColor?: string;
-  buttonAlways?: boolean;
-  type?: string;
-  pattern?: string;
-  fontSize?: number;
-  inputMode?: inputModeType;
-  ignorePlaceholderColor?: boolean;
-};
+import { InputType } from './type';
+import inputStyles from './style';
 
 function Input({
   mode,
@@ -184,12 +37,26 @@ function Input({
   fullWidthMode = false,
   inputMode,
   ignorePlaceholderColor,
+  abcReportInput = false,
 }: InputType): JSX.Element {
+  const { InputContainer, InputBox, InputElement, SubText } = inputStyles;
   const showButton = () => {
     if ((value && useCancelButton) || buttonAlways) {
       return true;
     }
     return false;
+  };
+
+  const OnInputClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
+  const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (onKeyDown) {
+      onKeyDown(e);
+    }
   };
   return (
     <InputContainer data-testid="inputcontainer" className={className}>
@@ -201,6 +68,7 @@ function Input({
         borderColor={borderColor}
         fullWidthMode={fullWidthMode}
         isError={isError}
+        abcReportInput={abcReportInput}
       >
         <InputElement
           mode={mode}
@@ -211,10 +79,8 @@ function Input({
           tabIndex={tabIndex}
           onChange={(e) => onChange(e.target.value)}
           onFocus={onFocus}
-          onClick={(e) => (onClick && e ? onClick(e) : undefined)}
-          onKeyDown={(e) => {
-            onKeyDown ? onKeyDown(e) : undefined;
-          }}
+          onClick={OnInputClick}
+          onKeyDown={onInputKeyDown}
           onBlur={onBlur}
           placeholder={placeholder}
           width={width * 0.9}
