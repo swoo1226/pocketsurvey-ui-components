@@ -75,7 +75,7 @@ const Wrapper = styled.div`
 
 const ResetButton = styled(Icon)<{ isMobile?: boolean }>`
   position: absolute;
-  ${(props) => props.isMobile ? 'top: 12px; right: -20px;':'top: 12px; left: 650px;'} 
+  ${(props) => props.isMobile ? 'top: 12px; right: 10px;':'top: 12px; left: 617px;'} 
 `;
 
 export default URL;

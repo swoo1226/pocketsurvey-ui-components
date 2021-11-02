@@ -199,7 +199,7 @@ const Wrapper = styled.div`
 const ResetButton = styled(Icon)<{ isMobile?: boolean }>`
   position: absolute;
   ${(props) =>
-    props.isMobile ? 'top: 12px; right: -20px;' : 'top: 12px; left: 330px'}
+    props.isMobile ? 'top: 12px; right: 10px;' : 'top: 12px; left: 300px'}
 `;
 
 const AutocompleteWrapper = styled.div`

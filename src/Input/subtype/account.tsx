@@ -366,7 +366,7 @@ const CustomDropDown = styled(DropDown)<{ isMobile?: boolean }>`
 const ResetButton = styled(Icon)<{ isMobile?: boolean }>`
   position: absolute;
   ${(props) =>
-    props.isMobile ? 'top: 68px; right: -20px;' : 'top: 12px; right: 10px;'}
+    props.isMobile ? 'top: 68px; right: 10px;' : 'top: 12px; right: 10px;'}
 `;
 
 export default Account;

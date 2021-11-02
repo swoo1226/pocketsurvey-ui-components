@@ -37,6 +37,7 @@ export function Index() {
       >
         포켓서베이에서 사용하는 Input 컴포넌트
       </Font>
+      <p>x 버튼이 밀리는 현상은 웹설문에서는 정상적으로 보입니다.</p>
       <InputContainer>
         <Font
           fontFace="Noto Sans CJK KR"
@@ -111,6 +112,7 @@ export function Index() {
           URL Input
         </Font>
         <URL />
+        
       </InputContainer>
     </>
   );

@@ -9,7 +9,7 @@ type NumberPropsType = {
   isMobile?: boolean;
 };
 
-function Number({ value, onChange, isMobile }: NumberPropsType) {
+function Number({ value, onChange, isMobile }: NumberPropsType): JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isHover, setIsHover] = useState<boolean>(false);
 
@@ -107,7 +107,7 @@ const ResetButton = styled(Icon)<{
 }>`
   position: absolute;
   top: 12px;
-  ${(props) => (props.isMobile ? 'right: -20px;' : 'left: 330px;')}
+  ${(props) => (props.isMobile ? 'right: 10px;' : 'left: 300px;')}
 `;
 
 export default Number;
