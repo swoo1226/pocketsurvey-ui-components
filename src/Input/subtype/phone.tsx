@@ -13,7 +13,7 @@ type PhonePropsType = {
   isMobile?: boolean;
 };
 
-function Phone({ value, onChange, isMobile }: PhonePropsType) {
+function Phone({ value, onChange, isMobile }: PhonePropsType): JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [correctMessage, setCorrectMessage] = useState<string>('');
   const [firstTyping, setFirstTyping] = useState<boolean>(false);
