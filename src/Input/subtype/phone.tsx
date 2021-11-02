@@ -36,7 +36,7 @@ function Phone({ value, onChange, isMobile }: PhonePropsType): JSX.Element {
       isPhoneNum.test(innerValue) || isGeneralNum.test(innerValue);
     const message = numberCheck ? '유효한 번호예요.' : '';
     setCorrectMessage(message);
-  }, [innerValue, isGeneralNum, onChange, isPhoneNum, firstTyping]);
+  }, [firstTyping,innerValue]);
 
   const onPhoneChange = useCallback(
     (inputInnerValue: string) => {

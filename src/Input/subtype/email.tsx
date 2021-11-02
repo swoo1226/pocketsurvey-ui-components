@@ -1,23 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../Input';
-
-const AutocompleteWrapper = styled.div`
-  width: 329px;
-`;
-
-const AutocompleteUl = styled.ul<{ selected: boolean }>`
-  height: 35px;
-  padding-left: 15px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  width: 330px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 14px;
-  ${(props) => props.selected && 'background-color: #dfdedd;'}
-`;
+import Icon from '../../Icon/Icon';
 
 const EMAIL_LIST = [
   '@daum.net',
@@ -44,9 +28,10 @@ function Email({
   width,
   isMobile,
   focusingIndex,
-}: EmailPropsType) {
+}: EmailPropsType): JSX.Element {
   const [selected, setSelected] = useState<number | null>(null);
   const [autocomplete, setAutocomplete] = useState<string[]>(EMAIL_LIST);
+  const [isHover, setIsHover] = useState<boolean>(false);
 
   useEffect(() => {
     setAutocomplete([]);
@@ -76,9 +61,10 @@ function Email({
       setSelected(null);
       return;
     }
-    const lastIndex = autocomplete.length - 1 >= MAX_VIEW_LIMIT - 1
-      ? MAX_VIEW_LIMIT - 1
-      : autocomplete.length - 1;
+    const lastIndex =
+      autocomplete.length - 1 >= MAX_VIEW_LIMIT - 1
+        ? MAX_VIEW_LIMIT - 1
+        : autocomplete.length - 1;
 
     if (key === 'ArrowUp') {
       if (selected === null || selected === 0) {
@@ -101,9 +87,31 @@ function Email({
     }
   };
 
+  const onResetButtonClick = () => {
+    onChange('');
+  };
+
+  const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      upDownAutoComplete(event.key);
+    }
+    if (event.key === 'Enter' || event.keyCode === 32) {
+      if (
+        autocomplete.length > 0 &&
+        selected !== null &&
+        autocomplete.length > selected
+      ) {
+        const afterAtSign = value.substring(value.lastIndexOf('@'));
+        onChange(`${value}${autocomplete[selected].replace(afterAtSign, '')}`);
+        setSelected(null);
+        setAutocomplete([]);
+      }
+    }
+  };
+
   if (isMobile) {
     return (
-      <div>
+      <Wrapper>
         <Input
           fontSize={14}
           fullWidthMode
@@ -115,15 +123,26 @@ function Email({
           type="email"
           placeholder="email@pocketsurvey.co.kr"
           value={value}
-          onChange={(innerValue: string) => onChange(innerValue)}
+          onChange={onChange}
           ignorePlaceholderColor
         />
-      </div>
+        {value.length > 0 ? (
+          <ResetButton
+            icon={isHover ? 'titleInputXHover' : 'titleInputX'}
+            onMouseOver={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            width={18}
+            color="black"
+            onClick={onResetButtonClick}
+            isMobile={isMobile}
+          />
+        ) : null}
+      </Wrapper>
     );
   }
 
   return (
-    <div>
+    <Wrapper>
       <Input
         fontSize={14}
         mode="basic"
@@ -134,28 +153,21 @@ function Email({
         type="email"
         placeholder="email@pocketsurvey.co.kr"
         value={value}
-        onChange={(innerValue: string) => onChange(innerValue)}
-        onKeyDown={(event) => {
-          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-            upDownAutoComplete(event.key);
-          }
-          if (event.key === 'Enter' || event.keyCode == 32) {
-            if (
-              autocomplete.length > 0
-              && selected !== null
-              && autocomplete.length > selected
-            ) {
-              const afterAtSign = value.substring(value.lastIndexOf('@'));
-              onChange(
-                `${value}${autocomplete[selected].replace(afterAtSign, '')}`,
-              );
-              setSelected(null);
-              setAutocomplete([]);
-            }
-          }
-        }}
+        onChange={onChange}
+        onKeyDown={onInputKeyDown}
         ignorePlaceholderColor
       />
+       {value.length > 0 ? (
+          <ResetButton
+            icon={isHover ? 'titleInputXHover' : 'titleInputX'}
+            onMouseOver={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            width={18}
+            color="black"
+            onClick={onResetButtonClick}
+            isMobile={isMobile}
+          />
+        ) : null}
       {!isMobile && autocomplete.length > 0 && (
         <AutocompleteWrapper onMouseLeave={() => setSelected(null)}>
           {autocomplete.map((email: string, index: number) => {
@@ -166,7 +178,9 @@ function Email({
                 selected={selected === index}
                 onMouseEnter={() => setSelected(index)}
                 key={index}
-                onClick={() => onChange(`${value}${email.replace(afterAtSign, '')}`)}
+                onClick={() =>
+                  onChange(`${value}${email.replace(afterAtSign, '')}`)
+                }
               >
                 <b>{value}</b>
                 {email.replace(afterAtSign, '')}
@@ -175,8 +189,34 @@ function Email({
           })}
         </AutocompleteWrapper>
       )}
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  position: relative;
+`;
+const ResetButton = styled(Icon)<{ isMobile?: boolean }>`
+  position: absolute;
+  ${(props) =>
+    props.isMobile ? 'top: 12px; right: -20px;' : 'top: 12px; left: 330px'}
+`;
+
+const AutocompleteWrapper = styled.div`
+  width: 329px;
+`;
+
+const AutocompleteUl = styled.ul<{ selected: boolean }>`
+  height: 35px;
+  padding-left: 15px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 330px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  ${(props) => props.selected && 'background-color: #dfdedd;'}
+`;
 
 export default Email;
