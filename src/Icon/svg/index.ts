@@ -110,3 +110,5 @@ export { ReactComponent as duplicate } from './duplicate.svg';
 export { ReactComponent as blockDuplicate } from './blockDuplicate.svg';
 export { ReactComponent as delete } from './delete.svg';
 export { ReactComponent as abcReport } from './abcReport.svg';
+export {ReactComponent as titleInputX} from './titleInputX.svg'
+export {ReactComponent as titleInputXHover} from './titleInputXHover.svg'
