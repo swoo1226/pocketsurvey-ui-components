@@ -112,3 +112,6 @@ export { ReactComponent as delete } from './delete.svg';
 export { ReactComponent as abcReport } from './abcReport.svg';
 export {ReactComponent as titleInputX} from './titleInputX.svg'
 export {ReactComponent as titleInputXHover} from './titleInputXHover.svg'
+export { ReactComponent as paginationDoubleLeft} from './pagination_doubleleft.svg'
+export { ReactComponent as paginationDoubleRight} from './pagination_doubleright.svg'
+
