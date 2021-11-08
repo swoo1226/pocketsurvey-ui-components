@@ -1,8 +1,96 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import { boolean } from '@storybook/addon-knobs';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Button from '../Button/Button';
+
+type ModalType = {
+  children: JSX.Element;
+  title: string;
+  buttonName: string;
+  onClick: () => void;
+  onCancel: () => void;
+  hasBorderTop: boolean;
+  className?: string;
+  isProgressBar?: boolean;
+  percent?: number;
+  barColor?: string;
+  buttonColor?: string;
+  useCancelButton?: boolean;
+  disabled?: boolean;
+  isLoading?: boolean;
+  cancelDisabled?: boolean;
+  cancelButtonName?: string;
+  hideScrollBar?: boolean;
+};
+
+function Modal({
+  children,
+  title,
+  buttonName,
+  cancelButtonName = '취소',
+  onClick,
+  onCancel,
+  hasBorderTop,
+  className,
+  percent,
+  barColor,
+  isProgressBar,
+  buttonColor,
+  useCancelButton = true,
+  disabled = false,
+  isLoading,
+  cancelDisabled,
+  hideScrollBar = false,
+}: ModalType): JSX.Element {
+  return (
+    <ModalBackground>
+      <ModalBlackCurtain onClick={() => onCancel()} />
+      <ModalContainer
+        hasBorderTop={hasBorderTop}
+        className={className}
+        isProgressBar={isProgressBar!}
+      >
+        {isProgressBar && (
+          <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />
+        )}
+        <ModalTitleContainer>
+          <ModalTitle>{title}</ModalTitle>
+        </ModalTitleContainer>
+        <ModalContentContainer hideScrollBar={hideScrollBar}>
+          {children}
+        </ModalContentContainer>
+        <ModalBottomContainer>
+          <ModalBottomButtonContainer>
+            {useCancelButton && (
+              <Button
+                size="medium"
+                shape="square"
+                mode="White"
+                disabled={cancelDisabled === undefined ? false : cancelDisabled}
+                onClick={() => onCancel()}
+              >
+                {cancelButtonName}
+              </Button>
+            )}
+            <Button
+              size="medium"
+              shape="square"
+              mode="Yellow"
+              disabled={disabled}
+              backgroundColor={disabled ? '#DFDEDD' : buttonColor}
+              onClick={() => onClick()}
+              isLoading={isLoading}
+            >
+              {buttonName}
+            </Button>
+          </ModalBottomButtonContainer>
+        </ModalBottomContainer>
+      </ModalContainer>
+    </ModalBackground>
+  );
+}
 
 const scrollBar = css`
   ::-webkit-scrollbar {
@@ -14,6 +102,12 @@ const scrollBar = css`
     border-radius: 4px;
     background-color: rgba(195, 195, 195, 0.75);
     -webkit-box-shadow: 0 0 1px rgba(195, 195, 195, 0.75);
+  }
+`;
+
+const scrollBarNone = css`
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
   }
 `;
 
@@ -67,11 +161,17 @@ const ModalTitle = styled.p`
   all: unset;
   font-size: 20px;
 `;
-const ModalContentContainer = styled.div`
+const ModalContentContainer = styled.div<{
+  hideScrollBar: boolean;
+}>`
   height: 100%;
   max-height: 100%;
   overflow-y: auto;
-  ${scrollBar}
+  ${(props) =>
+    props.hideScrollBar
+      ? '-ms-overflow-style: none; scrollbar-width: none;'
+      : ''}
+  ${(props) => (props.hideScrollBar ? scrollBarNone : scrollBar)}
 `;
 const ModalBottomContainer = styled.div`
   width: 100%;
@@ -89,89 +189,5 @@ const ModalBottomButtonContainer = styled.div`
     margin: 0 2px;
   }
 `;
-
-type ModalType = {
-  children: JSX.Element;
-  title: string;
-  buttonName: string;
-  onClick: () => void;
-  onCancel: () => void;
-  hasBorderTop: boolean;
-  className?: string;
-  isProgressBar?: boolean;
-  percent?: number;
-  barColor?: string;
-  buttonColor?: string;
-  useCancelButton?: boolean;
-  disabled?: boolean;
-  isLoading?: boolean;
-  cancelDisabled?: boolean;
-  cancelButtonName?: string;
-};
-
-function Modal({
-  children,
-  title,
-  buttonName,
-  cancelButtonName = '취소',
-  onClick,
-  onCancel,
-  hasBorderTop,
-  className,
-  percent,
-  barColor,
-  isProgressBar,
-  buttonColor,
-  useCancelButton = true,
-  disabled = false,
-  isLoading,
-  cancelDisabled,
-}: ModalType): JSX.Element {
-  return (
-    <ModalBackground>
-      <ModalBlackCurtain onClick={() => onCancel()} />
-      <ModalContainer
-        hasBorderTop={hasBorderTop}
-        className={className}
-        isProgressBar={isProgressBar!}
-      >
-        {isProgressBar && (
-          <ProgressBar percent={percent!} barColor={barColor!} thickness={7} />
-        )}
-        <ModalTitleContainer>
-          <ModalTitle>{title}</ModalTitle>
-        </ModalTitleContainer>
-        <ModalContentContainer>{children}</ModalContentContainer>
-        <ModalBottomContainer>
-          <ModalBottomButtonContainer>
-          {useCancelButton && (
-              <Button
-                size="medium"
-                shape="square"
-                mode="White"
-                disabled={cancelDisabled === undefined ? false : cancelDisabled}
-                onClick={() => onCancel()}
-              >
-                {cancelButtonName}
-              </Button>
-            )}
-            <Button
-              size="medium"
-              shape="square"
-              mode="Yellow"
-              disabled={disabled}
-              backgroundColor={disabled ? '#DFDEDD' : buttonColor}
-              onClick={() => onClick()}
-              isLoading={isLoading}
-            >
-              {buttonName}
-            </Button>
-
-          </ModalBottomButtonContainer>
-        </ModalBottomContainer>
-      </ModalContainer>
-    </ModalBackground>
-  );
-}
 
 export default Modal;
