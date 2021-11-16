@@ -13,6 +13,7 @@ type ExplainedModalPropsType = {
   tagColor: string;
   tagText: string;
   buttonText: string[];
+  onCancel: () => void;
 };
 
 function ExplainedModal({
@@ -25,50 +26,54 @@ function ExplainedModal({
   tagColor,
   tagText,
   buttonText,
+  onCancel,
 }: ExplainedModalPropsType) {
   return (
-    <ModalContainer>
-      <ImageContainer>
-        <div className="ImageContainer">
-          <img src={img} alt="containerImage" />
-        </div>
-      </ImageContainer>
-      <DiscriptContainer>
-        <div className="DiscriptContainer">
-          <Tag
-            className="tag"
-            mode="pastellBlue"
-            backgroundColor={tagColor}
-            disabled
-          >
-            {tagText}
-          </Tag>
-          <Title>{title}</Title>
-          <Description>{discript}</Description>
-          {callOutText && <CallOut>{callOutText}</CallOut>}
-          <BtnContainer>
-            <Button
-              className="leftButton"
-              mode="White"
-              size="medium"
-              shape="square"
-              onClick={() => onLeftClick()}
+    <ModalBackground>
+      <ModalBlackCurtain onClick={() => onCancel()} />
+      <ModalContainer>
+        <ImageContainer>
+          <div className="ImageContainer">
+            <img src={img} alt="containerImage" />
+          </div>
+        </ImageContainer>
+        <DiscriptContainer>
+          <div className="DiscriptContainer">
+            <Tag
+              className="tag"
+              mode="pastellBlue"
+              backgroundColor={tagColor}
+              disabled
             >
-              {buttonText[0]}
-            </Button>
-            <Button
-              className="rightButton"
-              mode="Yellow"
-              size="medium"
-              shape="square"
-              onClick={() => onRightClick()}
-            >
-              {buttonText[1]}
-            </Button>
-          </BtnContainer>
-        </div>
-      </DiscriptContainer>
-    </ModalContainer>
+              {tagText}
+            </Tag>
+            <Title>{title}</Title>
+            <Description>{discript}</Description>
+            {callOutText && <CallOut>{callOutText}</CallOut>}
+            <BtnContainer>
+              <Button
+                className="leftButton"
+                mode="White"
+                size="medium"
+                shape="square"
+                onClick={() => onLeftClick()}
+              >
+                {buttonText[0]}
+              </Button>
+              <Button
+                className="rightButton"
+                mode="Yellow"
+                size="medium"
+                shape="square"
+                onClick={() => onRightClick()}
+              >
+                {buttonText[1]}
+              </Button>
+            </BtnContainer>
+          </div>
+        </DiscriptContainer>
+      </ModalContainer>
+    </ModalBackground>
   );
 }
 
@@ -133,6 +138,30 @@ const Description = styled.div`
   margin-top: 7px;
   font-weight: 400;
   line-height: 24px;
+`;
+
+const ModalBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  flex-direction: column;
+`;
+
+const ModalBlackCurtain = styled.div`
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -10000;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
 `;
 
 export default ExplainedModal;
