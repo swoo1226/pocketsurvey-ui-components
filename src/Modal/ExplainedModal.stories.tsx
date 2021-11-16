@@ -27,23 +27,23 @@ export function Index() {
         title="설명 제목"
         img={chunsic}
         discript={discript}
-        isCallOut={true}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
         callOutText={callOutText}
         tagColor={'#fac62d'}
         tagText="사용Tip"
+        buttonText={['더 알아볼래요', '네!이해했어요']}
       ></ExplainedModal>
       <ExplainedModal
         title="설명 제목2"
         img={chunsic}
         discript={discript}
-        isCallOut={false}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
         callOutText={callOutText}
         tagText="이용 Tip"
         tagColor={'#59C4DB'}
+        buttonText={['취소', '확인']}
       ></ExplainedModal>
     </Wrapper>
   );
