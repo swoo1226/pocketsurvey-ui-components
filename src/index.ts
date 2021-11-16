@@ -26,3 +26,4 @@ export { default as FileInput } from './Input/FileInput';
 export { default as UploadModal } from './Modal/UploadModal/UploadModal';
 export { default as Loading } from './Loading/Loading';
 export { default as WholeLoading } from './WholeLoading/WholeLoading';
+export { default as ExplainedModal } from './Modal/ExplainedModal';
