@@ -6,25 +6,25 @@ import Button from '../Button/Button';
 type ExplainedModalPropsType = {
   img: string;
   discript: string;
-  isCallOut: boolean;
   onLeftClick: () => void;
   onRightClick: () => void;
   callOutText?: string;
   title: string;
   tagColor: string;
-  tagText:string;
+  tagText: string;
+  buttonText: string[];
 };
 
 function ExplainedModal({
   img,
   discript,
-  isCallOut,
   onLeftClick,
   onRightClick,
   callOutText,
   title,
   tagColor,
   tagText,
+  buttonText,
 }: ExplainedModalPropsType) {
   return (
     <ModalContainer>
@@ -45,7 +45,7 @@ function ExplainedModal({
           </Tag>
           <Title>{title}</Title>
           <Description>{discript}</Description>
-          {isCallOut && <CallOut>{callOutText}</CallOut>}
+          {callOutText && <CallOut>{callOutText}</CallOut>}
           <BtnContainer>
             <Button
               className="leftButton"
@@ -54,7 +54,7 @@ function ExplainedModal({
               shape="square"
               onClick={() => onLeftClick()}
             >
-              더 알아볼래요!
+              {buttonText[0]}
             </Button>
             <Button
               className="rightButton"
@@ -63,7 +63,7 @@ function ExplainedModal({
               shape="square"
               onClick={() => onRightClick()}
             >
-              네! 이해했어요!
+              {buttonText[1]}
             </Button>
           </BtnContainer>
         </div>
