@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ExplainedModal from './ExplainedModal';
 import chunsic from './chunsicpng.png';
-
+import vcardModal from './vcardModal.svg';
 export default {
   title: 'Components/Modal/ExplainedModal',
   component: ExplainedModal,
@@ -33,10 +33,11 @@ export function Index() {
         tagColor={'#fac62d'}
         tagText="사용Tip"
         buttonText={['더 알아볼래요', '네!이해했어요']}
+        onCancel={() => console.log("cancel!")}
       ></ExplainedModal>
-      <ExplainedModal
+      {/* <ExplainedModal
         title="설명 제목2"
-        img={chunsic}
+        img={vcardModal}
         discript={discript}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
@@ -44,7 +45,8 @@ export function Index() {
         tagText="이용 Tip"
         tagColor={'#59C4DB'}
         buttonText={['취소', '확인']}
-      ></ExplainedModal>
+        onCancel={() => console.log("cancel!")}
+      ></ExplainedModal> */}
     </Wrapper>
   );
 }
