@@ -30,7 +30,7 @@ export function Index() {
         discript={discript}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
-        callOutText={`a\nb\nc`}
+        callOutText={`설명텍스트\n설명텍스트\n설명텍스트`}
         tagColor={'#fac62d'}
         tagText="사용Tip"
         buttonText={['더 알아볼래요', '네!이해했어요']}
