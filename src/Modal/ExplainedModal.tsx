@@ -124,6 +124,7 @@ const CallOut = styled.div`
   padding: 21px;
   background-color: #f0f0f0;
   margin-top: 14px;
+  white-space: pre-wrap;
   word-break: keep-all;
 `;
 

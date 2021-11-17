@@ -11,7 +11,7 @@
     "/dist"
   ],
   "devDependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.12.11",
     "@babel/preset-env": "^7.13.0",
     "@babel/preset-react": "^7.12.13",
     "@storybook/addon-a11y": "^6.1.17",

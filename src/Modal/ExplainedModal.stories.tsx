@@ -9,7 +9,8 @@ export default {
 };
 
 const callOutText =
-  '추가적인 설명 텍스가 여기에 들어갑니다. 추가적인 설명 텍스트가 여기에 들어갑니다. word-break: keep-all; 로 지정해주세요.';
+  `추가적인 설명 텍스가 여기에 들어갑니다.
+  추가적인 설명 텍스트가 여기에 들어갑니다. word-break: keep-all; 로 지정해주세요.`;
 
 const discript =
   '설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기 설명 텍스트 여기';
@@ -29,7 +30,7 @@ export function Index() {
         discript={discript}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
-        callOutText={callOutText}
+        callOutText={`설명텍스트\n설명텍스트\n설명텍스트`}
         tagColor={'#fac62d'}
         tagText="사용Tip"
         buttonText={['더 알아볼래요', '네!이해했어요']}
