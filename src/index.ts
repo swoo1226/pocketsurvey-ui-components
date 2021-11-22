@@ -27,3 +27,4 @@ export { default as UploadModal } from './Modal/UploadModal/UploadModal';
 export { default as Loading } from './Loading/Loading';
 export { default as WholeLoading } from './WholeLoading/WholeLoading';
 export { default as ExplainedModal } from './Modal/ExplainedModal';
+export {default as Label} from './Label/Label'
