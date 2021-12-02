@@ -9,6 +9,7 @@ interface ILabelProps {
   backgroundColor: string;
   fontColor: string;
   value: string;
+  heigth?: number;
 }
 
 const Label = ({
@@ -16,11 +17,13 @@ const Label = ({
   backgroundColor,
   fontColor,
   value,
+  heigth = 18,
 }: ILabelProps): JSX.Element => (
   <LabelValue
     size={size}
     backgroundColor={backgroundColor}
     fontColor={fontColor}
+    heigth={heigth}
   >
     {value}
   </LabelValue>
@@ -32,10 +35,12 @@ const LabelValue = styled.span<{
   size: LabelType;
   backgroundColor: string;
   fontColor: string;
+  heigth: number;
 }>`
   padding: 2px 10px;
   font-size: ${(props) => (props.size === 'medium' ? `14px` : `12px`)};
   background-color: ${(props) => props.backgroundColor};
   color: ${(props) => props.fontColor};
   border-radius: 20px;
+  height: ${(props) => `${props.heigth}px`};
 `;
