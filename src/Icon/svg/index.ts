@@ -1,3 +1,4 @@
+import { ReactComponent } from "../../@types/assets/index.d";
 /* eslint-disable semi */
 export { ReactComponent as chartLine } from './100Chartline.svg';
 export { ReactComponent as arrow } from './arrow.svg';
@@ -115,3 +116,4 @@ export { ReactComponent as titleInputXHover } from './titleInputXHover.svg';
 export { ReactComponent as paginationDoubleLeft } from './pagination_doubleleft.svg';
 export { ReactComponent as paginationDoubleRight } from './pagination_doubleright.svg';
 export { ReactComponent as unlink } from './unlink.svg';
+export { ReactComponent as bullet } from './bullet.svg';
