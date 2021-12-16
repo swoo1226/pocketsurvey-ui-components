@@ -45,21 +45,23 @@ const FileUpload = ({
   const isMobileUploading = !loading && !uploadedFile && !!isMobile;
 
   return (
-    <UploadWrapper
-      {...getRootProps()}
-      src={answeredText}
-      isDragActive={isDragActive}
-      isMobileUploading={isMobileUploading}
-    >
-      <FileUploadSwitcher
-        uploadedFile={uploadedFile}
-        loading={loading}
-        deleteUploadedFile={deleteUploadedFile}
-        getInputProps={getInputProps}
-        onUpload={onUpload}
-        isMobile={isMobile}
-      />
-    </UploadWrapper>
+    <>
+      <UploadWrapper
+        getRootProps={getRootProps}
+        src={answeredText}
+        isDragActive={isDragActive}
+        isMobileUploading={isMobileUploading}
+      >
+        <FileUploadSwitcher
+          uploadedFile={uploadedFile}
+          loading={loading}
+          deleteUploadedFile={deleteUploadedFile}
+          getInputProps={getInputProps}
+          onUpload={onUpload}
+          isMobile={isMobile}
+        />
+      </UploadWrapper>
+    </>
   );
 };
 
