@@ -36,7 +36,7 @@ const MediaUpload = ({
 
   return (
     <UploadWrapper
-      {...getRootProps()}
+      getRootProps={getRootProps}
       src={mediaSrc}
       isDragActive={isDragActive}
       isMobileUploading={isMobileUploading}
