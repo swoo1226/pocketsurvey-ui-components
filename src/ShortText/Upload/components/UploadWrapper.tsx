@@ -1,13 +1,16 @@
 import React from 'react';
+import { DropzoneRootProps } from 'react-dropzone';
 import styled from 'styled-components';
 
 interface IUploadWrapperProps {
+  getRootProps: <T extends DropzoneRootProps>(props?: T | undefined) => T;
   src: string | null;
   isDragActive: boolean;
   isMobileUploading: boolean;
   children: React.ReactNode;
 }
 const UploadWrapper = ({
+  getRootProps,
   src,
   isDragActive,
   children,
@@ -19,7 +22,11 @@ const UploadWrapper = ({
   }
 
   return (
-    <UploadWrapperContainer src={src} isDragActive={isDragActive}>
+    <UploadWrapperContainer
+      {...getRootProps()}
+      src={src}
+      isDragActive={isDragActive}
+    >
       {children}
     </UploadWrapperContainer>
   );
