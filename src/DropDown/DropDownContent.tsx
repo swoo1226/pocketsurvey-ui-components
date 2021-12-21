@@ -11,9 +11,6 @@ import {
   PNG,
 } from './styles';
 
-const getError = () =>
-  parseInt(((undefined as unknown) as string[])[100], 10) * 2;
-
 export type DropDownType = {
   list: {
     selectionName: string;
@@ -127,7 +124,6 @@ const DropDownContent = ({
         >
           {selected !== null ? (
             <>
-              {/* <p>{getError()}</p> */}
               {list[selected].icon && (
                 <Icon
                   color={disable ? '#818282' : iconColor!}

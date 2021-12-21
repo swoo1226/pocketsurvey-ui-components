@@ -1,7 +1,6 @@
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import DropDownContent, { DropDownType } from './DropDownContent';
-import { DropDownContainer } from './styles';
 
 const DropDown = (props: DropDownType) => (
   <ErrorBoundary FallbackComponent={ErrorFallback}>
