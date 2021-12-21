@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: { project: './tsconfig.json' },
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'only-warn'],
   env: {
     es6: true,
     node: true,
@@ -31,10 +31,10 @@ module.exports = {
     'react/no-array-index-key': 0,
     'no-inner-declarations': 0,
     'no-alert': 0,
-    'no-use-before-define': ['error', { functions: false, variables: false }],
-    '@typescript-eslint/no-use-before-define': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/click-events-have-key-events': 0,
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
   settings: {
     'import/resolver': {
