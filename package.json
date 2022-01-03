@@ -1,6 +1,6 @@
 {
   "name": "@earlysloth/pocketsurvey-ui-components",
-  "version": "0.12.18",
+  "version": "0.12.19",
   "homepage": "https://earlysloth-devteam.github.io/pocketsurvey-ui-components",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",

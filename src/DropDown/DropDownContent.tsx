@@ -126,7 +126,7 @@ const DropDownContent = ({
             <>
               {list[selected].icon && (
                 <Icon
-                  color={disable ? '#818282' : iconColor!}
+                  color={disable ? '#C9C8C7' : iconColor!}
                   icon={list[selected].icon!}
                   width={18}
                   rotate={list[selected].rotate ?? 0}
@@ -149,7 +149,7 @@ const DropDownContent = ({
           )}
         </DropDownBox>
         <Icon
-          color={disable ? '#818282' : iconColor!}
+          color={disable ? '#C9C8C7' : iconColor!}
           icon="arrow"
           useCursor={!disable}
           width={18}

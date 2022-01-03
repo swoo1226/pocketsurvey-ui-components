@@ -76,7 +76,7 @@ export function Index() {
             { selectionName: '순위 설정', icon: 'singleChoice' },
           ]}
           selected={selected}
-          disable={disabled}
+          disable
           themeColor={{ mainColor, subColor }}
           onItemClick={(index: number) => setSelected(index)}
           iconColor="#FAC62D"

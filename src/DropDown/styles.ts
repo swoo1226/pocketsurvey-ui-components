@@ -32,7 +32,7 @@ export const DropDownBoxContainer = styled.div<{
   box-sizing: border-box;
   padding: 0 10px;
   border-radius: 3px;
-  border: 1px solid ${(props) => (props.disable ? '#F0F0F0' : props.themeColor)};
+  border: 1px solid ${(props) => (props.disable ? '#C9C8C7' : props.themeColor)};
   background-color: ${(props) => (props.disable ? '#F0F0F0' : 'white')};
   cursor: ${(props) => (props.disable ? 'no-drop' : 'pointer')};
   z-index: ${(props) => props.zIndex - 1};
@@ -44,10 +44,10 @@ export const DropDownBox = styled.div<{
   height: number;
 }>`
   width: 80%;
-  height: ${(props) => props.height}px;
+  height: ${(props) => props.height-4}px;
   display: flex;
   align-items: center;
-  color: ${(props) => (props.disable ? '#818282' : '#111111')};
+  color: ${(props) => (props.disable ? '#C9C8C7' : '#111111')};
   background-color: ${(props) => (props.disable ? '#F0F0F0' : undefined)};
   cursor: ${(props) => (props.disable ? 'no-drop' : 'pointer')};
 `;
@@ -69,7 +69,7 @@ export const DropDownList = styled.div<{
   position: absolute;
   box-shadow: 0px 3px 6px #d2cbc0;
   color: ${(props) =>
-    props.disable ? props.textColor ?? '#818282' : '#111111'};
+    props.disable ? props.textColor ?? '#C9C8C7' : '#111111'};
   border-radius: 3px;
   padding: 8px 0;
   max-height: ${(props) => `${props.listMaxHeight ?? 200}px`};
