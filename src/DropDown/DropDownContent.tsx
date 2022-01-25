@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Icon, { IconType } from '../Icon/Icon';
 import {
   DropDownBox,
@@ -179,12 +180,12 @@ const DropDownContent = ({
         className={className ? `${className}List` : ''}
       >
         {list.map((item, index) => (
-          <React.Fragment key={item.selectionName}>
+          <>
             {hrs && hrs.some((hr) => hr.targetIndex === index) && (
               <div className={`${id}Hr${index}`} />
             )}
             <DropDownItem
-              key={item.selectionName}
+              key={uuidv4()}
               index={index}
               selected={selected!}
               themeColor={themeColor.subColor}
@@ -208,7 +209,7 @@ const DropDownContent = ({
               )}
               <DropDownItemText>{item.selectionName}</DropDownItemText>
             </DropDownItem>
-          </React.Fragment>
+          </>
         ))}
       </DropDownList>
     </DropDownContainer>
