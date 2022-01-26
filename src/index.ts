@@ -27,4 +27,8 @@ export { default as UploadModal } from './Modal/UploadModal/UploadModal';
 export { default as Loading } from './Loading/Loading';
 export { default as WholeLoading } from './WholeLoading/WholeLoading';
 export { default as ExplainedModal } from './Modal/ExplainedModal';
-export {default as Label} from './Label/Label'
+export { default as Label } from './Label/Label';
+
+export { default as Button2 } from './Button2/Button2';
+export { default as Input2 } from './Input2/input2';
+export { default as Dropdown2 } from './Dropdown2/Dropdown2';

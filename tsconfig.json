@@ -19,11 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "baseUrl": "./",
-    "paths": {
-      "~/*": ["src/*"],
-      "@turn/styled": ["src/styled"]
-    },
     "declaration": true,
     "declarationDir": "dist/types"
   },
