@@ -1,9 +1,13 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Combine3, ForwardRefSubComponent } from '../@types/utils';
+import { Combine3 } from '../@types/utils';
 import getStyle from '../style/getStyle';
 import InputClear from './reset';
 
+type InputType = React.ForwardRefExoticComponent<
+  IInputProps & React.RefAttributes<HTMLInputElement>
+> &
+  ISubComponent;
 interface IInputProps
   extends Combine3<
     IContextProps,
@@ -47,7 +51,7 @@ const isChildrenClearButton = (children?: React.ReactNode) => {
   return ((children as unknown) as any)?.type?.displayName === 'InputClear';
 };
 
-const Input2 = forwardRef(
+const Input = forwardRef(
   (
     {
       children,
@@ -94,7 +98,7 @@ const Input2 = forwardRef(
       </InputContext.Provider>
     );
   },
-) as ForwardRefSubComponent<IInputProps, ISubComponent>;
+) as InputType;
 
 const HStack = styled.div`
   display: flex;
@@ -113,10 +117,10 @@ interface ISubComponent {
   Message: typeof Message;
 }
 
-export default Input2;
-Input2.Clear = InputClear;
-Input2.Container = HStack;
-Input2.Message = Message;
+Input.Clear = InputClear;
+Input.Container = HStack;
+Input.Message = Message;
+export default Input;
 
 const InputWrapper = styled.div<{
   width: string;
