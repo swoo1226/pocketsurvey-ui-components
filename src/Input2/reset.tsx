@@ -48,6 +48,9 @@ const InputClear = forwardRef(
 
 export default InputClear;
 
+InputClear.displayName = 'InputClear';
+// 자식 요소가 clear 버튼인지 판별하기 위해서 사용
+
 const ResetWrapper = styled.div`
   width: 18px;
   height: 18px;

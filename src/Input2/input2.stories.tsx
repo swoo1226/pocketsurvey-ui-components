@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Icon from '../Icon/Icon';
 import Input2 from './input2';
 
 export default {
@@ -50,6 +51,7 @@ export const InputPreview = () => {
             onMouseLeave: () => console.log('div onMouseLeave'),
           }}
         >
+          {/* <Icon icon="search" width={18} /> */}
           <Input2.Clear icon="circle" />
         </Input2>
         <Input2.Message mode={'error'}>에러 예시</Input2.Message>

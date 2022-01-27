@@ -42,6 +42,11 @@ export const InputContext = React.createContext<Required<IContextProps> | null>(
   null,
 );
 
+const isChildrenClearButton = (children?: React.ReactNode) => {
+  if (!children) return false;
+  return ((children as unknown) as any)?.type?.displayName === 'InputClear';
+};
+
 const Input2 = forwardRef(
   (
     {
@@ -59,7 +64,11 @@ const Input2 = forwardRef(
     ref: React.Ref<HTMLInputElement>,
   ) => {
     const widthValue = getStyle.getSize(width);
-    const showChildren = useMemo(() => !!value && value.length > 0, [value]);
+    const showChildren = useMemo(() => {
+      const isClearButton = isChildrenClearButton(children);
+      if (isClearButton) return !!value && value.length > 0; // 인풋 초기화 버튼은 입력값이 있을 때만 보여진다.
+      return true; // 아닌경우 그냥 보여준다.
+    }, [value, children]);
 
     return (
       <InputContext.Provider
