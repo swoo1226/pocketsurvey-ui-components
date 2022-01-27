@@ -81,7 +81,11 @@ const DropdownSelectionGroup = ({
   if (!cxt) return <></>;
 
   return (
-    <S.DropdownSelectionGroup ref={cxt.groupDom} height={height}>
+    <S.DropdownSelectionGroup
+      ref={cxt.groupDom}
+      height={height}
+      width={cxt.width}
+    >
       {children}
     </S.DropdownSelectionGroup>
   );

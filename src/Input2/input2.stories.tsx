@@ -39,6 +39,7 @@ export const InputPreview = () => {
       </h1>
       <Input2.Container>
         <Input2
+          width={283}
           ref={dom}
           color={'green'}
           placeholder="안녕하세요"

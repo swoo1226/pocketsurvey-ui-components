@@ -19,7 +19,7 @@ export const DropdownPreview = () => {
   const [value, setValue] = useState<string>('가');
   return (
     <>
-      <Dropdown width={200} value={value}>
+      <Dropdown width={100} value={value}>
         <Dropdown.Group height={100}>
           {selectionList.map((selection) => (
             <Dropdown.Selection

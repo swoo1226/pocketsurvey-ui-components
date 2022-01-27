@@ -34,8 +34,11 @@ export const DisabledDropdownBox = styled(DropdownBox)`
   cursor: not-allowed;
 `;
 
-export const DropdownSelectionGroup = styled.div<{ height?: number | string }>`
-  width: 200px;
+export const DropdownSelectionGroup = styled.div<{
+  height?: number | string;
+  width: string;
+}>`
+  width: ${(props) => props.width};
   z-index: 20;
   position: absolute;
   box-shadow: rgb(210 203 192) 0px 3px 6px;
