@@ -47,25 +47,27 @@ const Dropdown2 = ({
     <DropdownContext.Provider
       value={{ setShowList, width: widthValue, groupDom }}
     >
-      <S.DropdownWrapper
-        {...props}
-        ref={wrapperDom}
-        onClick={(event) => {
-          setShowList((value) => !value);
-          if (props.onClick) props.onClick(event);
-        }}
-      >
-        <S.DropdownBox width={widthValue} height={heightValue}>
-          <div>{!!value ? value : placeholder}</div>
-          <Icon
-            icon="arrow"
-            width={18}
-            rotate={!showList ? 90 : 270}
-            color={'#FAC62D'}
-          />
-        </S.DropdownBox>
-      </S.DropdownWrapper>
-      {showList && <>{children}</>}
+      <div>
+        <S.DropdownWrapper
+          {...props}
+          ref={wrapperDom}
+          onClick={(event) => {
+            setShowList((value) => !value);
+            if (props.onClick) props.onClick(event);
+          }}
+        >
+          <S.DropdownBox width={widthValue} height={heightValue}>
+            <div>{!!value ? value : placeholder}</div>
+            <Icon
+              icon="arrow"
+              width={18}
+              rotate={!showList ? 90 : 270}
+              color={'#FAC62D'}
+            />
+          </S.DropdownBox>
+        </S.DropdownWrapper>
+        {showList && <>{children}</>}
+      </div>
     </DropdownContext.Provider>
   );
 };
