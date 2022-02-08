@@ -11,65 +11,75 @@ const DropdownContext = React.createContext<{
   groupDom: React.RefObject<HTMLDivElement>;
 } | null>(null);
 
-const Dropdown2 = ({
-  preset = 'primary-main',
-  isDisabled = false,
-  placeholder,
-  height,
-  children,
-  width,
-  value,
-  ...props
-}: IDropdownProps) => {
-  const [showList, setShowList] = useState<boolean>(false);
-  const widthValue = getStyle.getSize(width ?? 'auto');
-  const heightValue = getStyle.getSize(height ?? '');
-  const wrapperDom = useRef<HTMLDivElement>(null);
-  const groupDom = useRef<HTMLDivElement>(null);
+const Dropdown2 = React.forwardRef(
+  (
+    {
+      preset = 'primary-main',
+      isDisabled = false,
+      placeholder,
+      height,
+      children,
+      width,
+      value,
+      ...props
+    }: IDropdownProps,
+    ref: React.Ref<HTMLDivElement>,
+  ) => {
+    const [showList, setShowList] = useState<boolean>(false);
+    const widthValue = getStyle.getSize(width ?? 'auto');
+    const heightValue = getStyle.getSize(height ?? '');
+    const wrapperDom = useRef<HTMLDivElement>(null);
+    const groupDom = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(wrapperDom, (event: MouseEvent) => {
-    if (showList) {
-      if (groupDom.current && event.target instanceof Node) {
-        if (groupDom.current.contains(event.target)) return;
+    //@ts-ignore
+    React.useImperativeHandle(ref, () => ({
+      setRawShowList: (v: boolean) => setShowList(v),
+    }));
+
+    useOnClickOutside(wrapperDom, (event: MouseEvent) => {
+      if (showList) {
+        if (groupDom.current && event.target instanceof Node) {
+          if (groupDom.current.contains(event.target)) return;
+        }
+        setShowList(false);
       }
-      setShowList(false);
-    }
-  });
+    });
 
-  return (
-    <DropdownContext.Provider
-      value={{ setShowList, width: widthValue, groupDom }}
-    >
-      <div>
-        <S.DropdownWrapper
-          {...props}
-          ref={wrapperDom}
-          onClick={(event) => {
-            setShowList((value) => !value);
-            if (props.onClick) props.onClick(event);
-          }}
-        >
-          <S.DropdownBox
-            width={widthValue}
-            height={heightValue}
-            isDisabled={isDisabled}
-            isFocused={showList}
-            preset={preset}
+    return (
+      <DropdownContext.Provider
+        value={{ setShowList, width: widthValue, groupDom }}
+      >
+        <div>
+          <S.DropdownWrapper
+            {...props}
+            ref={wrapperDom}
+            onClick={(event) => {
+              setShowList((value) => !value);
+              if (props.onClick) props.onClick(event);
+            }}
           >
-            <div>{!!value ? value : placeholder}</div>
-            <Icon
-              icon="arrow"
-              width={18}
-              rotate={!showList ? 90 : 270}
-              color={preset === 'primary-yellow' ? '#FAC62D' : ''}
-            />
-          </S.DropdownBox>
-        </S.DropdownWrapper>
-        {showList && <>{children}</>}
-      </div>
-    </DropdownContext.Provider>
-  );
-};
+            <S.DropdownBox
+              width={widthValue}
+              height={heightValue}
+              isDisabled={isDisabled}
+              isFocused={showList}
+              preset={preset}
+            >
+              <div>{!!value ? value : placeholder}</div>
+              <Icon
+                icon="arrow"
+                width={18}
+                rotate={!showList ? 90 : 270}
+                color={preset === 'primary-yellow' ? '#FAC62D' : ''}
+              />
+            </S.DropdownBox>
+          </S.DropdownWrapper>
+          {showList && <>{children}</>}
+        </div>
+      </DropdownContext.Provider>
+    );
+  },
+) as ForwardRefSubComponent<IDropdownProps, ISubComponent>;
 
 const DropdownSelectionGroup = ({
   children,
@@ -126,3 +136,16 @@ export default Dropdown2;
 
 Dropdown2.Selection = DropdownSelection;
 Dropdown2.Group = DropdownSelectionGroup;
+
+type ForwardRefSubComponent<T, U> = Combine<
+  React.ForwardRefExoticComponent<
+    Combine<T, React.RefAttributes<HTMLDivElement>>
+  >,
+  U
+>;
+
+type Combine<T, K> = T & Omit<K, keyof T>;
+
+export type ImperativeType = {
+  setRawShowList: (v: boolean) => any;
+};
