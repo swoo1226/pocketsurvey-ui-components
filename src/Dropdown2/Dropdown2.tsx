@@ -37,6 +37,7 @@ const Dropdown2 = React.forwardRef(
     }));
 
     useOnClickOutside(wrapperDom, (event: MouseEvent) => {
+      if (groupDom.current === null) return;
       if (showList) {
         if (groupDom.current && event.target instanceof Node) {
           if (groupDom.current.contains(event.target)) return;
