@@ -144,12 +144,12 @@ const getDropdownBoxCSS = (
     return css`
       color: #f2ab28;
       background: #ffffff;
-      border: 1px solid #fac62d;
+      border: 1px solid #f2ab28;
 
       &:hover {
         color: #f2ab28;
         background: #fffcf0;
-        border: 1px solid #fac62d;
+        border: 1px solid #f2ab28;
       }
     `;
   }
