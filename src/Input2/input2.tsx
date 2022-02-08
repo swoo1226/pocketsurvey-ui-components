@@ -4,6 +4,7 @@ import { Combine3, ForwardRefSubComponent } from '../@types/utils';
 import getStyle from '../style/getStyle';
 import InputClear from './reset';
 
+export type InputSizeType = 'medium' | 'small';
 interface IInputProps
   extends Combine3<
     IContextProps,
@@ -20,6 +21,8 @@ interface IOverrideStyle {
   color?: React.CSSProperties['color'];
   placeholderColor?: React.CSSProperties['color'];
   isDisabled?: boolean;
+  isError?: boolean;
+  size?: InputSizeType;
 }
 
 export interface ChangeInputEventLike {
@@ -36,6 +39,7 @@ interface IContextProps {
     event: React.ChangeEvent<HTMLInputElement> | ChangeInputEventLike,
   ) => any;
   isDisabled?: boolean;
+  size?: InputSizeType;
 }
 
 export const InputContext = React.createContext<Required<IContextProps> | null>(
@@ -59,6 +63,8 @@ const Input2 = forwardRef(
       wrapperProps,
       fontSize,
       isDisabled = false,
+      isError = false,
+      size = 'medium',
       ...props
     }: IInputProps,
     ref: React.Ref<HTMLInputElement>,
@@ -72,12 +78,21 @@ const Input2 = forwardRef(
 
     return (
       <InputContext.Provider
-        value={{ value, width: widthValue, borderColor, onChange, isDisabled }}
+        value={{
+          value,
+          width: widthValue,
+          borderColor,
+          onChange,
+          isDisabled,
+          size,
+        }}
       >
         <InputWrapper
           width={widthValue}
           height={height}
           isDisabled={isDisabled}
+          isError={isError}
+          size={size}
           {...wrapperProps}
         >
           <InputCore
@@ -104,7 +119,7 @@ const HStack = styled.div`
 const Message = styled.p<{ mode: 'correct' | 'error' }>`
   color: ${(props) => (props.mode === 'correct' ? '#70d473' : '#ff5724')};
   font-size: 11px;
-  margin: 8px 0 0 0;
+  margin: 4px 0 0 0;
 `;
 
 interface ISubComponent {
@@ -122,6 +137,8 @@ const InputWrapper = styled.div<{
   width: string;
   height?: number | string;
   isDisabled?: boolean;
+  isError?: boolean;
+  size?: InputSizeType;
 }>`
   background-color: #ffffff;
   border: 1px solid #dfdedd;
@@ -145,6 +162,23 @@ const InputWrapper = styled.div<{
     props.height &&
     css`
       height: ${getStyle.getSize(props.height)};
+    `}
+  
+  ${(props) =>
+    props.isError &&
+    css`
+      border-color: #ff5724;
+      &:hover,
+      &:focus-within {
+        border-color: #ff5724;
+      }
+    `}
+
+  ${(props) =>
+    props.size === 'small' &&
+    css`
+      height: 32px;
+      padding: 9.5px 13px;
     `}
 `;
 

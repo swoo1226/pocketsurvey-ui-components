@@ -1,7 +1,7 @@
 import React, { forwardRef, useContext, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Icon from '../Icon/Icon';
-import { InputContext } from './input2';
+import { InputContext, InputSizeType } from './input2';
 
 interface IInputClearProps extends React.ComponentPropsWithoutRef<'div'> {
   icon?: 'exit' | 'circle';
@@ -17,7 +17,7 @@ const InputClear = forwardRef(
     const [hover, setHover] = useState<boolean>(false);
     const cxt = useContext(InputContext);
     if (cxt === null) return <></>;
-    const { onChange } = cxt;
+    const { onChange, size } = cxt;
 
     return (
       <ResetWrapper
@@ -39,8 +39,9 @@ const InputClear = forwardRef(
           });
           if (props.onChange) props.onChange(event);
         }}
+        size={size}
       >
-        <Icon icon="titleInputX" width={18} />
+        <Icon icon="titleInputX" width={cxt.size === 'small' ? 14 : 16} />
       </ResetWrapper>
     );
   },
@@ -51,8 +52,16 @@ export default InputClear;
 InputClear.displayName = 'InputClear';
 // 자식 요소가 clear 버튼인지 판별하기 위해서 사용
 
-const ResetWrapper = styled.div`
-  width: 18px;
-  height: 18px;
+const ResetWrapper = styled.div<{ size: InputSizeType }>`
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
+
+  ${props =>
+    props.size === 'small' &&
+    css`
+      width: 14px;
+      height: 14px;
+    `}
 `;
