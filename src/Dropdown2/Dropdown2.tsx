@@ -12,7 +12,8 @@ const DropdownContext = React.createContext<{
 } | null>(null);
 
 const Dropdown2 = ({
-  isDisabled,
+  preset = 'primary-main',
+  isDisabled = false,
   placeholder,
   height,
   children,
@@ -35,14 +36,6 @@ const Dropdown2 = ({
     }
   });
 
-  if (isDisabled) {
-    return (
-      <S.DisabledDropdownBox width={widthValue} height={heightValue}>
-        {!!value ? value : placeholder}
-      </S.DisabledDropdownBox>
-    );
-  }
-
   return (
     <DropdownContext.Provider
       value={{ setShowList, width: widthValue, groupDom }}
@@ -56,13 +49,19 @@ const Dropdown2 = ({
             if (props.onClick) props.onClick(event);
           }}
         >
-          <S.DropdownBox width={widthValue} height={heightValue}>
+          <S.DropdownBox
+            width={widthValue}
+            height={heightValue}
+            isDisabled={isDisabled}
+            isFocused={showList}
+            preset={preset}
+          >
             <div>{!!value ? value : placeholder}</div>
             <Icon
               icon="arrow"
               width={18}
               rotate={!showList ? 90 : 270}
-              color={'#FAC62D'}
+              color={preset === 'primary-yellow' ? '#FAC62D' : ''}
             />
           </S.DropdownBox>
         </S.DropdownWrapper>

@@ -1,9 +1,13 @@
 import styled, { css } from 'styled-components';
 import getStyle from '../style/getStyle';
+import { PresetType } from './types';
 
 export const DropdownBox = styled.div<{
   width: string;
   height: string;
+  isFocused: boolean;
+  isDisabled: boolean;
+  preset: PresetType;
 }>`
   box-sizing: border-box;
   width: 100%;
@@ -12,13 +16,12 @@ export const DropdownBox = styled.div<{
   justify-content: space-between;
   padding: 13px;
   border-radius: 3px;
-  border: 1px solid rgb(250, 198, 45);
-  background-color: #ffffff;
   font-size: 14px;
   font-family: 'Spoqa Han Sans Neo Regular';
   cursor: pointer;
   z-index: 19;
   align-items: center;
+
   ${(props) => css`
     width: ${props.width};
   `}
@@ -26,12 +29,8 @@ export const DropdownBox = styled.div<{
     css`
       height: ${props.height};
     `}
-`;
-
-export const DisabledDropdownBox = styled(DropdownBox)`
-  border: 1px solid rgb(201, 200, 199);
-  background-color: rgb(240, 240, 240);
-  cursor: not-allowed;
+  ${(props) =>
+    getDropdownBoxCSS(props.preset, props.isDisabled, props.isFocused)}
 `;
 
 export const DropdownSelectionGroup = styled.div<{
@@ -96,3 +95,62 @@ export const DropdownSelectionWrapper = styled.div<{
 `;
 
 export const DropdownWrapper = styled.div``;
+
+const getDropdownBoxCSS = (
+  preset: PresetType,
+  isDisabled: boolean,
+  isFocused: boolean,
+) => {
+  if (preset === 'primary-main') {
+    if (isDisabled)
+      return css`
+        color: #dfdedd;
+        background: rgba(251, 250, 248, 0.4);
+        border: 1px solid rgba(223, 222, 221, 0.4);
+      `;
+
+    if (isFocused)
+      return css`
+        color: #2b2e33;
+        background: #fef4ce;
+        border: 1px solid #f2ab28;
+      `;
+    return css`
+      color: #2b2e33;
+      background: #ffffff;
+      border: 1px solid #dfdedd;
+
+      &:hover {
+        background: #fbfaf8;
+        border: 1px solid #c9c8c7;
+      }
+    `;
+  }
+
+  if (preset === 'primary-yellow') {
+    if (isDisabled)
+      return css`
+        color: #dfdedd;
+        background: #ffffff;
+        border: 1px solid #dfdedd;
+      `;
+
+    if (isFocused)
+      return css`
+        color: #f2ab28;
+        background: #fef4ce;
+        border: 1px solid #fac62d;
+      `;
+    return css`
+      color: #f2ab28;
+      background: #ffffff;
+      border: 1px solid #fac62d;
+
+      &:hover {
+        color: #f2ab28;
+        background: #fffcf0;
+        border: 1px solid #fac62d;
+      }
+    `;
+  }
+};
