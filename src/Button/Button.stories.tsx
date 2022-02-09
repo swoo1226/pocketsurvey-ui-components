@@ -222,7 +222,7 @@ export function Index(): JSX.Element {
           shape="round"
           disabled={disabled}
           onClick={() => alert('BasicButton')}
-          backgroundColor="#FF5724"
+          backgroundColor="#F37165"
         >
           버튼
         </Button>

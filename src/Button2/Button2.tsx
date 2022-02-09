@@ -132,7 +132,7 @@ const getButtonSizeCSS = (size: ButtonSizeType) => {
   if (size === 'small')
     return css`
       padding: 16px 10px;
-      font-size: 12px;
+      font-size: 14px;
       height: 32px;
     `;
 

@@ -94,7 +94,7 @@ const InputElement = styled.input<IInputElement>`
 `;
 const SubText = styled.p`
   margin-top: 4px;
-  color: #ff5724;
+  color: #F37165;
   font-size: 11px;
 `;
 

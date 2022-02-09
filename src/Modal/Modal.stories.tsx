@@ -176,7 +176,7 @@ export function ImageUploadFail() {
         onCancel={() => alert('닫기')}
       >
         <>
-          <p style={{ color: '#ff5724' }}>업로드를 실패한 파일입니다.</p>
+          <p style={{ color: '#F37165' }}>업로드를 실패한 파일입니다.</p>
           <div
             className="imageUploadFailList"
             style={{

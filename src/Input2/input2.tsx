@@ -121,7 +121,7 @@ const HStack = styled.div`
 `;
 
 const Message = styled.p<{ mode: 'correct' | 'error' }>`
-  color: ${(props) => (props.mode === 'correct' ? '#70d473' : '#ff5724')};
+  color: ${(props) => (props.mode === 'correct' ? '#70d473' : '#F37165')};
   font-size: 11px;
   margin: 4px 0 0 0;
 `;
@@ -171,10 +171,10 @@ const InputWrapper = styled.div<{
   ${(props) =>
     props.isError &&
     css`
-      border-color: #ff5724;
+      border-color: #F37165;
       &:hover,
       &:focus-within {
-        border-color: #ff5724;
+        border-color: #F37165;
       }
     `}
 
@@ -206,7 +206,11 @@ const InputCore = styled.input<IOverrideStyle>`
     props.placeholderColor &&
     css`
       &::placeholder {
+        font-family: 'Spoqa Han Sans Neo Regular';
         color: ${props.placeholderColor};
       }
     `}
+  &::placeholder {
+    color: #C9C8C7;
+  }
 `;

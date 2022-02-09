@@ -54,6 +54,7 @@ const Dropdown2 = React.forwardRef(
             {...props}
             ref={wrapperDom}
             onClick={(event) => {
+              if (isDisabled) return;
               setShowList((value) => !value);
               if (props.onClick) props.onClick(event);
             }}
@@ -70,7 +71,13 @@ const Dropdown2 = React.forwardRef(
                 icon="arrow"
                 width={18}
                 rotate={!showList ? 90 : 270}
-                color={preset === 'primary-yellow' ? '#FAC62D' : ''}
+                color={
+                  isDisabled
+                    ? '#DFDEDD'
+                    : preset === 'primary-yellow'
+                    ? '#FAC62D'
+                    : '#2B2E33'
+                }
               />
             </S.DropdownBox>
           </S.DropdownWrapper>
