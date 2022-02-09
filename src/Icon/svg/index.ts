@@ -117,3 +117,6 @@ export { ReactComponent as paginationDoubleLeft } from './pagination_doubleleft.
 export { ReactComponent as paginationDoubleRight } from './pagination_doubleright.svg';
 export { ReactComponent as unlink } from './unlink.svg';
 export { ReactComponent as bullet } from './bullet.svg';
+export { ReactComponent as warning } from './warning.svg';
+export { ReactComponent as error } from './error.svg';
+export { ReactComponent as complete } from './complete.svg';
