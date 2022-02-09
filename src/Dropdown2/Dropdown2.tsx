@@ -23,7 +23,7 @@ const Dropdown2 = React.forwardRef(
       value,
       ...props
     }: IDropdownProps,
-    ref: React.Ref<HTMLDivElement>,
+    ref: React.Ref<ImperativeType>,
   ) => {
     const [showList, setShowList] = useState<boolean>(false);
     const widthValue = getStyle.getSize(width ?? 'auto');
@@ -31,7 +31,6 @@ const Dropdown2 = React.forwardRef(
     const wrapperDom = useRef<HTMLDivElement>(null);
     const groupDom = useRef<HTMLDivElement>(null);
 
-    //@ts-ignore
     React.useImperativeHandle(ref, () => ({
       setRawShowList: (v: boolean) => setShowList(v),
     }));
@@ -140,7 +139,7 @@ Dropdown2.Group = DropdownSelectionGroup;
 
 type ForwardRefSubComponent<T, U> = Combine<
   React.ForwardRefExoticComponent<
-    Combine<T, React.RefAttributes<HTMLDivElement>>
+    Combine<T, React.RefAttributes<ImperativeType>>
   >,
   U
 >;

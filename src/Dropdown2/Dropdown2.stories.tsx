@@ -17,12 +17,12 @@ export default {
 export const DropdownPreview = () => {
   const selectionList = ['가', '나', '다', '라', '마', '바'];
   const [value, setValue] = useState<string>('가');
-  const dropdownRef = React.useRef<ImperativeType>(null);
+  const dropdownRef = React.useRef<ImperativeType>();
 
   return (
     <>
       <h1>Group 없이 HTML요소 직접 렌더링</h1>
-      <Dropdown width={100} value={value}>
+      <Dropdown width={100} value={value} ref={dropdownRef}>
         <div
           onClick={() => {
             console.log('1');
