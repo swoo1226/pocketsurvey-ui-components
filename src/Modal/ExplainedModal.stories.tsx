@@ -30,10 +30,9 @@ export function Index() {
         discript={discript}
         onLeftClick={() => alert('네! 더볼래요')}
         onRightClick={() => alert('네! 이해했어요!')}
-        callOutText={`설명텍스트\n설명텍스트\n설명텍스트`}
-        tagColor={'#fac62d'}
+        callOutText={`주소록 연동 방법 👉\n구글 > 주소록 > 불러오기 > Vcard 파일 선택\n\n휴대폰 연락처 연동방법 👉\n연락처 > 관리/설정 > 가져오기 > VCF(Vcard) 파일 선택`}
         tagText="사용Tip"
-        buttonText={['더 알아볼래요', '네!이해했어요']}
+        buttonText={['취소','내보내기']}
         onCancel={() => console.log("cancel!")}
       ></ExplainedModal>
       {/* <ExplainedModal

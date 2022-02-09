@@ -1,7 +1,7 @@
 import React from 'react';
+import * as S from './styles';
+import { Button2 } from '..';
 import styled from 'styled-components';
-import Tag from '../Tag/Tag';
-import Button from '../Button/Button';
 
 type ExplainedModalPropsType = {
   img: string;
@@ -10,7 +10,6 @@ type ExplainedModalPropsType = {
   onRightClick: () => void;
   callOutText?: string;
   title: string;
-  tagColor: string;
   tagText: string;
   buttonText: string[];
   onCancel: () => void;
@@ -23,7 +22,6 @@ function ExplainedModal({
   onRightClick,
   callOutText,
   title,
-  tagColor,
   tagText,
   buttonText,
   onCancel,
@@ -39,39 +37,27 @@ function ExplainedModal({
         </ImageContainer>
         <DiscriptContainer>
           <div className="DiscriptContainer">
-            <Tag
-              className="tag"
-              mode="pastellBlue"
-              backgroundColor={tagColor}
-              disabled
-            >
-              {tagText}
-            </Tag>
+            <ExplainTag>
+              <ExplainTagName>{tagText}</ExplainTagName>
+            </ExplainTag>
             <Title>{title}</Title>
             <Description>{discript}</Description>
             {callOutText && <CallOut>{callOutText}</CallOut>}
-            <BtnContainer>
-              <Button
-                className="leftButton"
-                mode="White"
-                size="medium"
-                shape="square"
-                onClick={() => onLeftClick()}
-              >
-                {buttonText[0]}
-              </Button>
-              <Button
-                className="rightButton"
-                mode="Yellow"
-                size="medium"
-                shape="square"
-                onClick={() => onRightClick()}
-              >
-                {buttonText[1]}
-              </Button>
-            </BtnContainer>
           </div>
         </DiscriptContainer>
+        <ButtonsWrapper>
+          <BtnContainer>
+            <Button2
+              preset="tertiary-text"
+              onClick={() => onLeftClick()}
+            >
+              {buttonText[0]}
+            </Button2>
+            <Button2 preset="primary-main" onClick={() => onRightClick()}>
+              {buttonText[1]}
+            </Button2>
+          </BtnContainer>
+        </ButtonsWrapper>
       </ModalContainer>
     </ModalBackground>
   );
@@ -100,8 +86,8 @@ const ImageContainer = styled.div`
 
 const DiscriptContainer = styled.div`
   background-color: #ffffff;
-  border-radius: 0px 0px 4px 4px;
-  padding: 28px;
+
+  padding: 24px;
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-style: normal;
@@ -111,21 +97,27 @@ const DiscriptContainer = styled.div`
 
 const BtnContainer = styled.div`
   display: flex;
-  margin-top: 28px;
+  padding: 16px 24px 16px 0;
   justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid #f0f0f0;
   .rightButton {
     margin-left: 7px;
   }
 `;
 const CallOut = styled.div`
   border-radius: 4px;
-  font-weight: 400;
-  line-height: 24px;
-  padding: 21px;
+  font-weight: normal;
+  color: #2b2e33;
+
+  padding: 21px 55px;
   background-color: #f0f0f0;
   margin-top: 14px;
   white-space: pre-wrap;
   word-break: keep-all;
+  font-size: 14px;
+  line-height: 170%;
+  letter-spacing: -0.5px;
 `;
 
 const Title = styled.div`
@@ -163,6 +155,29 @@ const ModalBlackCurtain = styled.div`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
+`;
+
+const ExplainTag = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f8fc;
+  border: 1px solid #dfe9f6;
+  box-sizing: border-box;
+  border-radius: 3px;
+  width: 58px;
+  height: 24px;
+  font-size: 12px;
+  padding: 6px 8px;
+`;
+
+const ExplainTagName = styled.p`
+  color: #57adf2;
+`;
+
+const ButtonsWrapper = styled.div`
+  background-color: #ffffff;
+  border-radius: 0px 0px 4px 4px;
 `;
 
 export default ExplainedModal;
