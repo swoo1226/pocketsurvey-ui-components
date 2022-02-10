@@ -25,6 +25,16 @@ export const ButtonPreview = () => {
   return (
     <PreviewWrapper>
       <h1>primary-main</h1>
+      <Button2
+        preset="primary-main"
+        isDisabled
+        onClick={() => {
+          alert('!');
+        }}
+      >
+        엄청 긴 텍스트입니다.
+      </Button2>
+
       <Button2 preset="primary-main" isLoading>
         엄청 긴 텍스트입니다.
       </Button2>

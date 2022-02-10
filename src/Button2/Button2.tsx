@@ -43,6 +43,12 @@ const Button = forwardRef(
         size={size}
         preset={preset}
         isDisabled={isDisabled}
+        onClick={(event) => {
+          if (props.onClick) {
+            if (isDisabled) return;
+            props.onClick(event);
+          }
+        }}
       >
         <ChildrenWrapper isLoading={isLoading}>{children}</ChildrenWrapper>
         {isLoading && <Loader />}
