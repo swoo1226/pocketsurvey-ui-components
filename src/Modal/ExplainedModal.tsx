@@ -165,7 +165,7 @@ const ExplainTag = styled.div`
   border: 1px solid #dfe9f6;
   box-sizing: border-box;
   border-radius: 3px;
-  width: 58px;
+  width: 62px;
   height: 24px;
   font-size: 12px;
   padding: 6px 8px;
