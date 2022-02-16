@@ -10,15 +10,19 @@ export interface IDropdownProps
   isDisabled?: boolean;
   placeholder?: string;
   preset?: PresetType;
+  size?: SizeType;
+  position?: PositionType;
 }
 
-export type PresetType = 'primary-main' | 'primary-yellow'
+export type PresetType = 'primary-main' | 'primary-yellow' | 'secondary-text';
+export type SizeType = 'large' | 'medium' | 'small';
+export type PositionType = 'left' | 'right' | 'up';
 
 export interface IDropdownContext {
   showList: boolean;
   width?: number | string;
   height?: number | string;
-  preset?: PresetType
+  preset?: PresetType;
 }
 
 export interface IDropDownSelectionProps
