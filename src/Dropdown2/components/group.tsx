@@ -1,35 +1,47 @@
-import * as S from '../styles';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useRef } from 'react';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { DropdownContext } from '../Dropdown2';
-import useAbsoluteStyle from '../hooks/useAbsoluteStyle';
+import { useGroupComponentStyle } from '../style';
+import useSize from '@react-hook/size';
 
-const DropdownSelectionGroup = ({
-  children,
-  maxHeight,
-}: {
+interface IGroupProps {
   children: React.ReactNode;
-  maxHeight?: string | number;
-}) => {
+  extraCSS?: FlattenSimpleInterpolation;
+}
+
+const Group = (props: IGroupProps) => {
   const cxt = useContext(DropdownContext);
   if (!cxt) return <></>;
 
-  const { top, left } = useAbsoluteStyle(
-    cxt.position,
-    cxt.groupDom,
-    cxt.dropdownBoxSize,
-    cxt.setShowChildren,
-  );
+  const [groupWidth, groupHeight] = useSize(cxt.groupWrapperRef);
+  const sizeCSS = useGroupComponentStyle(cxt, groupWidth, groupHeight);
 
   return (
-    <S.DropdownSelectionGroup
-      ref={cxt.groupDom}
-      maxHeight={maxHeight}
-      top={top}
-      left={left}
+    <GroupWrapper
+      sizeCSS={sizeCSS}
+      extraCSS={props.extraCSS}
+      ref={cxt.groupWrapperRef}
     >
-      {children}
-    </S.DropdownSelectionGroup>
+      {props.children}
+    </GroupWrapper>
   );
 };
+export default Group;
 
-export default DropdownSelectionGroup;
+const GroupWrapper = styled.div<{
+  sizeCSS: FlattenSimpleInterpolation;
+  extraCSS?: FlattenSimpleInterpolation;
+}>`
+  position: absolute;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid #dfdedd;
+  border-radius: 3px;
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  z-index: 999;
+
+  ${(props) => props.sizeCSS}
+  ${(props) => props.extraCSS}
+`;
