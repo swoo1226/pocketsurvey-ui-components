@@ -1,4 +1,4 @@
-import { ReactComponent } from "../../@types/assets/index.d";
+import { ReactComponent } from '../../@types/assets/index.d';
 /* eslint-disable semi */
 export { ReactComponent as chartLine } from './100Chartline.svg';
 export { ReactComponent as arrow } from './arrow.svg';
@@ -120,3 +120,4 @@ export { ReactComponent as bullet } from './bullet.svg';
 export { ReactComponent as warning } from './warning.svg';
 export { ReactComponent as error } from './error.svg';
 export { ReactComponent as complete } from './complete.svg';
+export { ReactComponent as MoreInfo } from './moreInfo.svg';
