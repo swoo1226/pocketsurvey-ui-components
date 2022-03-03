@@ -3,8 +3,7 @@ import getStyle from '../style/getStyle';
 import { PresetType } from './types';
 
 export const DropdownBox = styled.div<{
-  width: string;
-  height: string;
+  height?: string;
   isFocused: boolean;
   isDisabled: boolean;
   preset: PresetType;
@@ -18,14 +17,13 @@ export const DropdownBox = styled.div<{
   border-radius: 3px;
   font-size: 14px;
   font-family: 'Spoqa Han Sans Neo Regular';
-  cursor: ${(props)=> props.isDisabled ? 'not-allowed' : 'pointer'};
+  cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
   z-index: 19;
   align-items: center;
+  width: fit-content;
 
-  ${(props) => css`
-    width: ${props.width};
-  `}
   ${(props) =>
+    props.height &&
     css`
       height: ${props.height};
     `}
@@ -34,45 +32,43 @@ export const DropdownBox = styled.div<{
 `;
 
 export const DropdownSelectionGroup = styled.div<{
-  height?: number | string;
-  width: string;
+  maxHeight?: number | string;
+  top: number;
+  left: number;
 }>`
-  width: ${(props) => props.width};
-  z-index: 20;
+  min-width: 240px;
   position: absolute;
-  box-shadow: rgb(210 203 192) 0px 3px 6px;
-  color: rgb(17, 17, 17);
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid #dfdedd;
   border-radius: 3px;
-  padding: 8px 0px;
-  max-height: 428px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background: rgb(255, 255, 255);
-  margin: 7px 0px;
-  font-size: 14px;
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  z-index: 999;
 
   ${(props) =>
-    props.height &&
+    props.maxHeight &&
     css`
-      height: ${getStyle.getSize(props.height)};
+      max-height: ${getStyle.getSize(props.maxHeight)};
     `}
 `;
 
 export const DropdownSelectionWrapper = styled.div<{
   isSelected: boolean;
-  width: string;
-  height?: string | number;
 }>`
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0px 13px;
-  height: 34px;
+  color: #2b2e33;
+  font-size: 14px;
+  padding: 11px 16px;
   background-color: white;
   cursor: pointer;
+  height: 36px;
+  box-sizing: border-box;
 
   &:hover {
-    background-color: #fef4ce;
+    background-color: #f0f0f0;
   }
 
   ${(props) =>
@@ -80,21 +76,11 @@ export const DropdownSelectionWrapper = styled.div<{
     css`
       background-color: #f0f0f0;
     `}
-
-  ${(props) =>
-    props.width &&
-    css`
-      width: ${props.width};
-    `}
-
-  ${(props) =>
-    props.height &&
-    css`
-      height: ${getStyle.getSize(props.height)};
-    `}
 `;
 
-export const DropdownWrapper = styled.div``;
+export const DropdownWrapper = styled.div`
+  width: fit-content;
+`;
 
 const getDropdownBoxCSS = (
   preset: PresetType,
@@ -115,6 +101,7 @@ const getDropdownBoxCSS = (
         background: #fef4ce;
         border: 1px solid #f2ab28;
       `;
+
     return css`
       color: #2b2e33;
       background: #ffffff;
@@ -141,6 +128,7 @@ const getDropdownBoxCSS = (
         background: #fef4ce;
         border: 1px solid #fac62d;
       `;
+
     return css`
       color: #f2ab28;
       background: #ffffff;
