@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import styled, { FlattenSimpleInterpolation } from 'styled-components';
+import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
 import { useSelectionComponentStyle } from '../style';
 import { DropdownContext } from '../Dropdown2';
 import { textEllipsis } from '../style/utils';
@@ -7,9 +7,15 @@ import { textEllipsis } from '../style/utils';
 export interface ISelectionProps extends React.ComponentPropsWithoutRef<'div'> {
   children: React.ReactChild;
   extraCSS?: FlattenSimpleInterpolation;
+  isSelected?: boolean;
 }
 
-const Selection = ({ children, extraCSS, ...props }: ISelectionProps) => {
+const Selection = ({
+  children,
+  extraCSS,
+  isSelected,
+  ...props
+}: ISelectionProps) => {
   const cxt = useContext(DropdownContext);
   if (!cxt) return <></>;
 
@@ -25,6 +31,7 @@ const Selection = ({ children, extraCSS, ...props }: ISelectionProps) => {
       sizeCSS={sizeCSS}
       extraCSS={extraCSS}
       onClick={handleClick}
+      isSelected={isSelected}
     >
       <SelectionChildrenWrapper>{children}</SelectionChildrenWrapper>
     </SelectionWrapper>
@@ -36,6 +43,7 @@ export default Selection;
 const SelectionWrapper = styled.div<{
   sizeCSS: FlattenSimpleInterpolation;
   extraCSS?: FlattenSimpleInterpolation;
+  isSelected?: boolean;
 }>`
   font-family: 'Spoqa Han Sans Neo Regular';
   padding-left: 16px;
@@ -46,6 +54,11 @@ const SelectionWrapper = styled.div<{
   &:hover {
     background: #f0f0f0;
   }
+  ${(props) =>
+    props.isSelected &&
+    css`
+      background: #f0f0f0;
+    `}
   ${(props) => props.sizeCSS}
   ${(props) => props.extraCSS}
 `;

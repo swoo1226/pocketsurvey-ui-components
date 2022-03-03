@@ -38,6 +38,7 @@ export const DropdownPreview = () => {
             <Dropdown2.Selection
               key={selection}
               onClick={() => setValue(selection)}
+              isSelected={selection === value}
             >
               {selection}
             </Dropdown2.Selection>
