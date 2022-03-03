@@ -51,7 +51,11 @@ export const useGroupComponentStyle = (
     () =>
       mergeCSS([
         groupStyleSheet['size'][cxt.size](cxt.domSize.base),
-        groupStyleSheet['top'](cxt.position, groupHeight),
+        groupStyleSheet['top'](
+          cxt.position,
+          groupHeight,
+          cxt.domSize.base.height,
+        ),
         groupStyleSheet['left'](
           cxt.position,
           cxt.domSize.base.width,

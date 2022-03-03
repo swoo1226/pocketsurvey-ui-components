@@ -11,6 +11,7 @@ const groupStyleSheet: {
   top: (
     position: IDropdownContextProps['position'],
     groupHeight: number,
+    baseHeigt: number,
   ) => FlattenSimpleInterpolation;
   left: (
     position: IDropdownContextProps['position'],
@@ -40,7 +41,7 @@ const groupStyleSheet: {
       `}
     `,
   },
-  top: (position, groupHeight) => {
+  top: (position, groupHeight, baseHeigt) => {
     if (position === 'up') {
       return css`
         top: ${(groupHeight + 8) * -1}px;

@@ -29,37 +29,13 @@ export const DropdownPreview = () => {
   ];
   const [value, setValue] = useState<string>(null);
 
-  // 예전 방식
-  const CustomDropdown = styled(Dropdown)`
-    width: 300px;
-    background-color: yellow;
-  `;
-
-  // 새로운 방식
-  const customCSS = css`
-    width: 300px;
-    background-color: yellow;
-  `;
-
-  return (
-    <Dropdown value={value} extraCSS={customCSS}>
-      <Group>
-        {selectionList.map((selection) => (
-          <Selection key={selection} onClick={() => setValue(selection)}>
-            {selection}
-          </Selection>
-        ))}
-      </Group>
-    </Dropdown>
-  );
-
   return (
     <div
       style={{
         padding: 200,
       }}
     >
-      <Dropdown value={value} position="up" placeholder="">
+      <Dropdown value={value} position="right" placeholder="">
         <Group>
           {selectionList.map((selection) => (
             <Selection key={selection} onClick={() => setValue(selection)}>
