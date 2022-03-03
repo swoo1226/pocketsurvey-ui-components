@@ -4,7 +4,7 @@ import { DropdownContext } from '../Dropdown2';
 import { useGroupComponentStyle } from '../style';
 import useSize from '@react-hook/size';
 
-interface IGroupProps {
+export interface IGroupProps {
   children: React.ReactNode;
   extraCSS?: FlattenSimpleInterpolation;
 }

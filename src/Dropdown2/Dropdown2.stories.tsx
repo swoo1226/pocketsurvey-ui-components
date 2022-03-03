@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from './Dropdown2';
-import styled, { css } from 'styled-components';
-import Group from './components/group';
-import Selection from './components/selection';
+import Dropdown2 from './Dropdown2';
 
 export default {
   title: 'Components/Dropdown2',
@@ -35,15 +32,18 @@ export const DropdownPreview = () => {
         padding: 200,
       }}
     >
-      <Dropdown value={value} position="right" placeholder="">
-        <Group>
+      <Dropdown2 value={value} position="right" placeholder="">
+        <Dropdown2.Group>
           {selectionList.map((selection) => (
-            <Selection key={selection} onClick={() => setValue(selection)}>
+            <Dropdown2.Selection
+              key={selection}
+              onClick={() => setValue(selection)}
+            >
               {selection}
-            </Selection>
+            </Dropdown2.Selection>
           ))}
-        </Group>
-      </Dropdown>
+        </Dropdown2.Group>
+      </Dropdown2>
     </div>
   );
 };

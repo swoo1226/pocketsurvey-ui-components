@@ -4,6 +4,8 @@ import { PresetType, SizeType, PositionType } from './types';
 import Base from './components/base';
 import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
 import useOnClickOutside from './hooks/useOnClickOutside';
+import Group from './components/group';
+import Selection from './components/selection';
 export interface IDropdownProps extends React.ComponentPropsWithoutRef<'div'> {
   value: string | number | React.ReactNode;
   children: React.ReactNode;
@@ -99,6 +101,9 @@ const Dropdown2 = ({
     </DropdownContext.Provider>
   );
 };
+
+Dropdown2.Group = Group;
+Dropdown2.Selection = Selection;
 
 export default Dropdown2;
 

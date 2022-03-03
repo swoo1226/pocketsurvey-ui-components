@@ -4,7 +4,7 @@ import { useSelectionComponentStyle } from '../style';
 import { DropdownContext } from '../Dropdown2';
 import { textEllipsis } from '../style/utils';
 
-interface ISelectionProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface ISelectionProps extends React.ComponentPropsWithoutRef<'div'> {
   children: React.ReactChild;
   extraCSS?: FlattenSimpleInterpolation;
 }
