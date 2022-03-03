@@ -42,6 +42,9 @@ const GroupWrapper = styled.div<{
   box-sizing: border-box;
   z-index: 999;
 
+  max-height: 400px;
+  overflow-y: auto;
+
   ${(props) => props.sizeCSS}
   ${(props) => props.extraCSS}
 `;

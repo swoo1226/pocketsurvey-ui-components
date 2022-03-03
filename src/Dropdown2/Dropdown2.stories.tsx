@@ -21,18 +21,16 @@ export const DropdownPreview = () => {
     '나',
     '다',
     '라',
-    '마',
-    '바',
   ];
   const [value, setValue] = useState<string>(null);
 
   return (
     <div
       style={{
-        padding: 200,
+        padding: 0,
       }}
     >
-      <Dropdown2 value={value} position="right" placeholder="">
+      <Dropdown2 value={value} position="left">
         <Dropdown2.Group>
           {selectionList.map((selection) => (
             <Dropdown2.Selection
