@@ -113,9 +113,9 @@ export function mouseover() {
 
 
 export function test() {
-  const theme = select("icon name", iconTypes, "warning");
+  const theme = select("icon name", iconTypes, "phonebook");
   const width = number("width", 50);
-  const color = text("color", "black");
+  const color = text("color", "red");
   const rotate = number("rotate", 0);
 
   return (
