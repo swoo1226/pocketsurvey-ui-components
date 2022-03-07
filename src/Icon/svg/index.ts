@@ -121,3 +121,5 @@ export { ReactComponent as warning } from './warning.svg';
 export { ReactComponent as error } from './error.svg';
 export { ReactComponent as complete } from './complete.svg';
 export { ReactComponent as MoreInfo } from './moreInfo.svg';
+export { ReactComponent as phonebook } from './phonebook.svg';
+export { ReactComponent as pulse } from './pulse.svg';
