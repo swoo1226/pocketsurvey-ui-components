@@ -65,7 +65,7 @@ const Input = forwardRef(
       borderColor = '#FAC609',
       onChange,
       wrapperProps,
-      fontSize,
+      fontSize = 12,
       isDisabled = false,
       isError = false,
       size = 'medium',
@@ -171,10 +171,10 @@ const InputWrapper = styled.div<{
   ${(props) =>
     props.isError &&
     css`
-      border-color: #F37165;
+      border-color: #f37165;
       &:hover,
       &:focus-within {
-        border-color: #F37165;
+        border-color: #f37165;
       }
     `}
 
@@ -191,10 +191,18 @@ const InputCore = styled.input<IOverrideStyle>`
   outline: none;
   border: none;
   background-color: ${(props) => (props.isDisabled ? '#f0f0f0' : 'fffff')};
+  font-family: 'Spoqa Han Sans Neo Regular';
   &:focus {
     outline: none;
     border: none;
   }
+
+  ${(props) =>
+    props.fontSize &&
+    css`
+      font-size: ${getStyle.getSize(props.fontSize)};
+    `}
+
 
   ${(props) =>
     props.color &&
@@ -206,11 +214,10 @@ const InputCore = styled.input<IOverrideStyle>`
     props.placeholderColor &&
     css`
       &::placeholder {
-        font-family: 'Spoqa Han Sans Neo Regular';
         color: ${props.placeholderColor};
       }
     `}
   &::placeholder {
-    color: #C9C8C7;
+    color: #c9c8c7;
   }
 `;
