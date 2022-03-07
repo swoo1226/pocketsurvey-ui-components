@@ -7,8 +7,25 @@ type CustomTooltipPropsType = {
   className?: string;
   distance?: number;
   tipContentClassName?: string;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'middle' | undefined;
+  direction?:
+    | 'up'
+    | 'down'
+    | 'left'
+    | 'right'
+    | 'middle'
+    | 'up-start'
+    | 'down-start'
+    | 'left-start'
+    | 'right-start'
+    | 'middle-start'
+    | 'up-end'
+    | 'down-end'
+    | 'left-end'
+    | 'right-end'
+    | 'middle-end'
+    | undefined;
   useHover?: boolean;
+  arrowSize?: number;
 };
 
 function CustomTooltip({
@@ -19,6 +36,7 @@ function CustomTooltip({
   tipContentClassName = 'custom-tooltip',
   direction = 'middle',
   useHover = true,
+  arrowSize = 10,
 }: CustomTooltipPropsType) {
   return (
     <Tooltip
@@ -29,6 +47,7 @@ function CustomTooltip({
       distance={distance}
       direction={direction}
       useHover={useHover}
+      arrowSize={arrowSize}
     >
       {children}
     </Tooltip>
