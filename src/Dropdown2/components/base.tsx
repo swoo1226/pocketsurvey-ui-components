@@ -69,6 +69,7 @@ const BaseWrapper = styled.div<{
 
 const IconWrapper = styled.div`
   width: 18px;
+  padding-top: 4px;
 `;
 
 const ChildrenWrapper = styled.div`
