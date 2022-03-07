@@ -40,6 +40,7 @@ const Base = React.forwardRef(
                 ? '#FAC62D'
                 : '#2B2E33'
             }
+            useCursor
           />
         </IconWrapper>
       </BaseWrapper>
