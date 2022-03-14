@@ -179,6 +179,7 @@ function BarHorizontalBase({
         labelOption,
       })}
       opts={{ renderer: 'svg' }}
+      notMerge={true}
     />
   );
 }
