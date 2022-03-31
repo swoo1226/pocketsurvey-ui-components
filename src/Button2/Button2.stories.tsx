@@ -16,6 +16,7 @@ export default {
 };
 
 const PreviewWrapper = styled.div`
+
   button {
     margin-bottom: 10px;
   }
