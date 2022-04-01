@@ -22,9 +22,6 @@ export const Index = () => {
             onMouseLeave: () => {
               console.log('onMouseLeave!');
             },
-            style: {
-              color: 'red',
-            },
           },
           {
             title: 'middle',

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import text from '../style/text';
 
 interface ISelection extends React.ComponentPropsWithoutRef<'div'> {
   title: string;
@@ -71,15 +72,14 @@ const Selection = styled.div<ISelectionProps>`
   align-items: center;
   justify-content: center;
 
-  ${(props) => getSelectionCSS(props)}
-`;
-
-// TODO: 아래 코드 활성화
-/* ${text({
+  ${text({
     weight: 'medium',
     size: 14,
     color: 'gray05',
-  })}; */
+  })};
+
+  ${(props) => getSelectionCSS(props)}
+`;
 
 const getSelectionCSS = (props: ISelectionProps) => {
   const CSSArr: FlattenSimpleInterpolation[] = [];
