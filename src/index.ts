@@ -34,3 +34,4 @@ export { default as Input2 } from './Input2/input2';
 export { default as Dropdown2 } from './Dropdown2/Dropdown2';
 export { default as Alert } from './Alert/Alert';
 export { default as Pagination2 } from './Pagination2/Pagination2';
+export { default as GroupButton } from './GroupButton/groupButton';
