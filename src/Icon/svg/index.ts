@@ -29,6 +29,7 @@ export { ReactComponent as send } from './send.svg';
 export { ReactComponent as timePicker } from './timePicker.svg';
 export { ReactComponent as addImage } from './addImage.svg';
 export { ReactComponent as check } from './check.svg';
+export { ReactComponent as check2 } from './check2.svg';
 export { ReactComponent as frequencySolid } from './frequencySolid.svg';
 export { ReactComponent as multipleSolid } from './multipleSolid.svg';
 export { ReactComponent as plus } from './plus.svg';
