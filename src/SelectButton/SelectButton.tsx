@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { SelectButtonWrapper, ValueWrapper } from './styled';
-import SelectButtonUIModule from './uiModule';
+import SelectButtonUIModule from './SelectButtonModule';
 
 interface ISelectButtonProps
   extends Omit<React.ComponentPropsWithoutRef<'button'>, 'disabled'> {
@@ -30,7 +30,7 @@ const SelectButton = forwardRef(
           module.handleClick(e);
         }}
       >
-        <ValueWrapper>
+        <ValueWrapper withIcon={withIcon}>
           {module.IconModule()}
           {children}
         </ValueWrapper>

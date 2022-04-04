@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Icon from '../Icon/Icon';
 
-class SelectButtonUIModule {
+class SelectButtonModule {
   constructor(
     private readonly isSelected: boolean,
     private readonly withIcon: boolean,
@@ -42,4 +42,4 @@ const CustomIcon = styled(Icon)`
   margin-top: 2px;
 `;
 
-export default SelectButtonUIModule;
+export default SelectButtonModule;
