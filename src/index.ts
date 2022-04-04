@@ -1,6 +1,8 @@
 export { default as Button } from './Button/Button';
 export { default as CheckBox } from './CheckBox/CheckBox';
+export { default as CheckBox2 } from './CheckBox2/CheckBox2';
 export { default as Radio } from './Radio/Radio';
+export { default as Radio2 } from './Radio2/Radio2';
 export { default as DropDown } from './DropDown/DropDown';
 export { default as Textarea } from './Textarea/Textarea';
 export { default as Font } from './Typography/Font';
@@ -28,8 +30,9 @@ export { default as Loading } from './Loading/Loading';
 export { default as WholeLoading } from './WholeLoading/WholeLoading';
 export { default as ExplainedModal } from './Modal/ExplainedModal';
 export { default as Label } from './Label/Label';
-
 export { default as Button2 } from './Button2/Button2';
 export { default as Input2 } from './Input2/input2';
 export { default as Dropdown2 } from './Dropdown2/Dropdown2';
 export { default as Alert } from './Alert/Alert';
+export { default as Pagination2 } from './Pagination2/Pagination2';
+export { default as GroupButton } from './GroupButton/groupButton';
