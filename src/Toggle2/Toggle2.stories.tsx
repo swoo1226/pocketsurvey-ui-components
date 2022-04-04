@@ -20,7 +20,7 @@ export const Index = () => {
         }}
       />
       <Toggle2
-        disable
+        isDisable
         active={active}
         onClick={(e) => {
           setActive(!active);
