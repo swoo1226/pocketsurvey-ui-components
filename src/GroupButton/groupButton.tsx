@@ -95,6 +95,7 @@ const getSelectionCSS = (props: ISelectionProps) => {
     CSSArr.push(
       css`
         border-radius: 0px 3px 3px 0px;
+        border-right: 1px solid #dfdedd;
       `,
     );
 
