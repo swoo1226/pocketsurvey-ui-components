@@ -17,10 +17,14 @@ const Stepper = ({ stepperList, currentIndex }: IStepperProps) => {
           const isVisited = index <= currentIndex;
           return (
             <StepperItem key={index}>
-              <ItemNumber isVisited={isVisited}>
-                {isPrevious ? <Icon icon="check2" width={12} /> : index + 1}
+              <ItemWrapper isVisited={isVisited}>
+                {isPrevious ? (
+                  <Icon icon="check2" width={12} />
+                ) : (
+                  <ItemNumber>{index + 1}</ItemNumber>
+                )}
                 <ItemName isVisited={isVisited}>{item}</ItemName>
-              </ItemNumber>
+              </ItemWrapper>
               {index !== stepperList.length - 1 && (
                 <StepperLink isPrevious={isPrevious} />
               )}
@@ -54,7 +58,7 @@ const StepperItem = styled.div`
   align-items: center;
 `;
 
-const ItemNumber = styled.div<{
+const ItemWrapper = styled.div<{
   isVisited: boolean;
 }>`
   position: relative;
@@ -76,6 +80,11 @@ const ItemNumber = styled.div<{
           border: 1px solid #dfdedd;
           color: #818282;
         `}
+`;
+
+const ItemNumber = styled.div`
+  transform: translateY(1px);
+  font-size: 12px;
 `;
 
 const ItemName = styled.div<{
