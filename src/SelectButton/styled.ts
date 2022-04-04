@@ -21,10 +21,10 @@ export const SelectButtonWrapper = styled.button<{
   ${(props) =>
     props.withIcon
       ? css`
-          padding: 9px 16px 7px 16px;
+          padding: 9px 16px 7px 14px;
         `
       : css`
-          padding: 9px 16px ;
+          padding: 9px 16px;
         `}
 
   ${(props) =>
@@ -37,7 +37,21 @@ export const SelectButtonWrapper = styled.button<{
         `}
 `;
 
-export const ValueWrapper = styled.div`
+export const ValueWrapper = styled.div<{
+  withIcon: boolean;
+}>`
   display: flex;
-  gap: 3px;
+  gap: 4px;
+
+  ${(props) =>
+    props.withIcon
+      ? css``
+      : css`
+          margin-top: 2px;
+        `}
+
+  svg {
+    margin-top: 0;
+    margin-bottom: 1px;
+  }
 `;
