@@ -11,11 +11,20 @@ export default {
 
 export const Index = () => {
   const [value, setValue] = useState<string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   return (
     <>
       <h1>{value}</h1>
+      <button
+        onClick={() => {
+          setIsDisabled((v) => !v);
+        }}
+      >
+        setIsDisabled
+      </button>
       <GroupButton
+        isDisabled={isDisabled}
         selections={[
           {
             title: '첫 선택지',
