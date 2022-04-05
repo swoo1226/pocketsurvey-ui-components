@@ -62,7 +62,11 @@ const Alert = ({
               const item = child as ReactElement<
                 PropsWithChildren<IAlertButton>
               >;
-              return cloneElement(item, { index });
+              return (
+                <React.Fragment key={index}>
+                  {cloneElement(item, { index })}
+                </React.Fragment>
+              );
             })}
           </AlertLayout.Footer>
         </AlertLayout.Wrapper>
