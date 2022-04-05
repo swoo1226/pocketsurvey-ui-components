@@ -4,12 +4,12 @@ import getRadio2CSS from './style';
 
 interface IRadio2Props extends React.ComponentPropsWithoutRef<'div'> {
   isSelected: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }
 
 const Radio2 = ({
   isSelected,
-  isDisabled,
+  isDisabled = false,
   onClick,
   ...props
 }: IRadio2Props) => {

@@ -1,9 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import text from '../style/text';
 
 export const SelectButtonWrapper = styled.button<{
   withIcon: boolean;
   isSelected: boolean;
+  extraCSS?: FlattenSimpleInterpolation;
 }>`
   box-sizing: border-box;
   height: 32px;
@@ -35,6 +36,8 @@ export const SelectButtonWrapper = styled.button<{
       : css`
           border: 1px solid #dfdedd;
         `}
+
+  ${(props) => props.extraCSS}
 `;
 
 export const ValueWrapper = styled.div<{
