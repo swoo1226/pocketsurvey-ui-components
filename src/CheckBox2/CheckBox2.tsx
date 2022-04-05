@@ -6,13 +6,13 @@ import getCheckBox2CSS from './style';
 interface ICheckBox2Props extends React.ComponentPropsWithoutRef<'div'> {
   isSelected: boolean;
   children?: React.ReactNode;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }
 
 const CheckBox2 = ({
   isSelected,
   children = <Icon icon={'check2'} width={12} />,
-  isDisabled,
+  isDisabled = false,
   onClick,
   ...props
 }: ICheckBox2Props) => {
