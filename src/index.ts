@@ -36,3 +36,7 @@ export { default as Dropdown2 } from './Dropdown2/Dropdown2';
 export { default as Alert } from './Alert/Alert';
 export { default as Pagination2 } from './Pagination2/Pagination2';
 export { default as GroupButton } from './GroupButton/groupButton';
+export { default as Toggle2 } from './Toggle2/Toggle2';
+export { default as NumberInputButton } from './NumberInputButton/NumberInputButton';
+export { default as SelectButton } from './SelectButton/SelectButton';
+export { default as Stepper } from './Stepper/Stepper';
