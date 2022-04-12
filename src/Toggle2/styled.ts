@@ -17,6 +17,7 @@ export const Frame = styled.div<{
   position: relative;
 
   cursor: pointer;
+  transition: background-color 0.1s;
 
   ${toggle2StyleModule.getFrameCss}
 
