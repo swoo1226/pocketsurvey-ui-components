@@ -16,6 +16,8 @@ export const Frame = styled.div<{
   height: 24px;
   position: relative;
 
+  cursor: pointer;
+
   ${toggle2StyleModule.getFrameCss}
 
   :hover {
