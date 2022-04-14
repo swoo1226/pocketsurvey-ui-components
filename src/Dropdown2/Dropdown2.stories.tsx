@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Dropdown2 from './Dropdown2';
+import React, { useState, useRef } from 'react';
+import Dropdown2, { IDropdownContextProps } from './Dropdown2';
 
 export default {
   title: 'Components/Dropdown2',
@@ -23,6 +23,7 @@ export const DropdownPreview = () => {
     '라',
   ];
   const [value, setValue] = useState<string>(null);
+  const ref = useRef(null);
 
   return (
     <div
@@ -30,12 +31,15 @@ export const DropdownPreview = () => {
         padding: 0,
       }}
     >
-      <Dropdown2 value={value} position="left">
+      <Dropdown2 value={value} position="left" ref={ref}>
         <Dropdown2.Group>
           {selectionList.map((selection) => (
             <Dropdown2.Selection
               key={selection}
-              onClick={() => setValue(selection)}
+              onClick={() => {
+                console.log('ref:', ref);
+                setValue(selection);
+              }}
               isSelected={selection === value}
             >
               {selection}
