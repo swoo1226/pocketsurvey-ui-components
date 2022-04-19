@@ -11,7 +11,7 @@ interface ICheckBox2Props extends React.ComponentPropsWithoutRef<'div'> {
 
 const CheckBox2 = ({
   isSelected,
-  children = <Icon icon={'check2'} width={12} />,
+  children = <Icon icon={'check2'} width={12} useCursor />,
   isDisabled = false,
   onClick,
   ...props

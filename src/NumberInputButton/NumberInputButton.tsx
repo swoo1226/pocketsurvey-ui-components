@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 import { NumberInputButtonModule } from './NumberInputButtonMudule';
 import { Selection, NumberInputButtonWrapper, InnerInput } from './styled';
@@ -39,6 +39,12 @@ const NumberInputButton = forwardRef(
       setIsEditMode(false);
     });
 
+    useEffect(() => {
+      if (isEditMode === true) {
+        inputDom.current?.focus();
+      }
+    }, [isEditMode]);
+
     return (
       <NumberInputButtonWrapper {...props} ref={ref}>
         <Selection
@@ -53,7 +59,7 @@ const NumberInputButton = forwardRef(
         </Selection>
         <Selection
           name="value"
-          width={53}
+          width={70}
           isDisabled={isDisabled}
           onClick={() => {
             module.handleInputSelectionClick(setIsEditMode);

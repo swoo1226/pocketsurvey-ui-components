@@ -22,7 +22,7 @@ const Pagination2 = ({ count, onChange }: IPagination2Props) => {
   return (
     <HStack>
       {items.map((item, index) => (
-        <PaginationSwitcher item={item} />
+        <PaginationSwitcher item={item} key={index} />
       ))}
     </HStack>
   );
