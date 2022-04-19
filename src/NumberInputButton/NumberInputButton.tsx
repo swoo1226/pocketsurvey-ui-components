@@ -9,8 +9,8 @@ interface INumberInputButton
   value: number;
   minusButtonClick: () => void;
   plusButtonClick: () => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   formatter?: (value: number) => number | string;
+  handleValueChange: (valueTemp: number) => void;
 }
 
 const NumberInputButton = forwardRef(
@@ -21,7 +21,7 @@ const NumberInputButton = forwardRef(
       formatter,
       minusButtonClick,
       plusButtonClick,
-      onChange,
+      handleValueChange,
       ...props
     }: INumberInputButton,
     ref: React.Ref<HTMLDivElement>,
@@ -42,6 +42,17 @@ const NumberInputButton = forwardRef(
     useEffect(() => {
       if (isEditMode === true) {
         inputDom.current?.focus();
+      }
+    }, [isEditMode]);
+
+    const [valueTemp, setValueTemp] = useState(value);
+    useEffect(() => {
+      setValueTemp(value);
+    }, [value]);
+
+    useEffect(() => {
+      if (isEditMode === false) {
+        handleValueChange(valueTemp);
       }
     }, [isEditMode]);
 
@@ -67,13 +78,15 @@ const NumberInputButton = forwardRef(
         >
           {isEditMode ? (
             <InnerInput
-              type="number"
+              type="text"
               ref={inputDom}
-              value={value}
+              value={valueTemp}
               onKeyDown={(e) => {
                 module.handleInputOnKeyDown(e, setIsEditMode);
               }}
-              onChange={onChange}
+              onChange={(e) => {
+                module.handleInputChange(e, setValueTemp);
+              }}
             />
           ) : (
             <>{formatter ? formatter(value) : value}</>

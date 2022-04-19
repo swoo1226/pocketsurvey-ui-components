@@ -33,6 +33,15 @@ export class NumberInputButtonModule {
       update(false);
     }
   }
+
+  handleInputChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    update: React.Dispatch<React.SetStateAction<number>>,
+  ) {
+    const { value } = e.target;
+    if (/^[0-9\s]*$/.test(e.target.value) === false) return;
+    update(Number(value));
+  }
 }
 
 export const numberInputButtonStyleModule = {
