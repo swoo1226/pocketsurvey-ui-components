@@ -53,6 +53,8 @@ const NumberInputButton = forwardRef(
     useEffect(() => {
       if (isEditMode === false) {
         handleValueChange(valueTemp);
+      } else {
+        setValueTemp(value);
       }
     }, [isEditMode]);
 
