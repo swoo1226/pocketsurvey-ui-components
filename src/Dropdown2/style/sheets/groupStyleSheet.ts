@@ -1,6 +1,5 @@
-import { SizeType } from '../../types';
+import { SizeType, IDropdownContextProps } from '../../types';
 import { FlattenSimpleInterpolation, css } from 'styled-components';
-import { IDropdownContextProps } from '../../Dropdown2';
 
 const groupStyleSheet: {
   size: {

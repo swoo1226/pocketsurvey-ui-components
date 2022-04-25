@@ -1,6 +1,6 @@
 {
   "name": "@earlysloth/pocketsurvey-ui-components",
-  "version": "0.16.11",
+  "version": "0.16.12",
   "homepage": "https://earlysloth-devteam.github.io/pocketsurvey-ui-components",
   "module": "dist/index.js",
   "repository": "https://github.com/FJOQWIERMDNKFAJ/pocketsurvey-ui-components.git",
@@ -47,7 +47,6 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
-    "@earlysloth/pocketsurvey-ui-components": "^0.16.4",
     "@material-ui/core": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@react-hook/size": "^2.1.2",

@@ -1,19 +1,23 @@
 import React, {
   useRef,
-  useEffect,
   useState,
   forwardRef,
   useImperativeHandle,
-  useContext,
 } from 'react';
 import useSize from '@react-hook/size';
-import { PresetType, SizeType, PositionType } from './types';
+import {
+  PresetType,
+  SizeType,
+  PositionType,
+  IDropdownContextProps,
+} from './types';
 import Base from './components/base';
 import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
 import useOnClickOutside from './hooks/useOnClickOutside';
 import Group from './components/group';
 import Selection from './components/selection';
 import { Combine } from '../@types/utils';
+
 export interface IDropdownProps extends React.ComponentPropsWithoutRef<'div'> {
   value: string | number | React.ReactNode;
   children: React.ReactNode;
@@ -23,23 +27,8 @@ export interface IDropdownProps extends React.ComponentPropsWithoutRef<'div'> {
   size?: SizeType;
   position?: PositionType;
   extraCSS?: FlattenSimpleInterpolation;
-}
 
-export interface IDropdownContextProps {
-  domSize: {
-    base: {
-      width: number;
-      height: number;
-    };
-  };
-  preset: PresetType;
-  size: SizeType;
-  position: PositionType;
-  isDisabled?: boolean;
-  isFocused?: boolean;
-  showList: boolean;
-  groupWrapperRef: React.RefObject<HTMLDivElement>;
-  setShowList: React.Dispatch<React.SetStateAction<boolean>>;
+  disableAutoClose?: boolean;
 }
 
 export const DropdownContext = React.createContext<IDropdownContextProps | null>(
@@ -56,6 +45,7 @@ const Dropdown2 = forwardRef(
       placeholder = '',
       children,
       value,
+      disableAutoClose = false,
       ...props
     }: IDropdownProps,
     ref: React.Ref<IDropdownContextProps | null>,
@@ -66,7 +56,7 @@ const Dropdown2 = forwardRef(
 
     const [baseWidth, baseHeight] = useSize(baseRef);
     const [showList, setShowList] = useState<boolean>(false);
-    const cxt = useContext(DropdownContext);
+
     useImperativeHandle(ref, () => ({
       domSize: {
         base: {
@@ -82,6 +72,7 @@ const Dropdown2 = forwardRef(
       showList,
       groupWrapperRef,
       setShowList,
+      baseRef,
     }));
 
     useOnClickOutside(relativeWrapperRef, (event: MouseEvent) => {
@@ -90,6 +81,8 @@ const Dropdown2 = forwardRef(
         if (groupWrapperRef.current && event.target instanceof Node) {
           if (groupWrapperRef.current.contains(event.target)) return;
         }
+
+        if (disableAutoClose) return;
         setShowList(false);
       }
     });
@@ -98,8 +91,13 @@ const Dropdown2 = forwardRef(
       event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     ) => {
       if (isDisabled) return;
-      setShowList((value) => !value);
       if (props.onClick) props.onClick(event);
+
+      if (disableAutoClose) {
+        // 드롭다운을 켜는 경우만 허용한다. (끄는 경우는 무시)
+        if (showList) return;
+      }
+      setShowList((value) => !value);
     };
 
     return (
@@ -119,6 +117,7 @@ const Dropdown2 = forwardRef(
           showList,
           groupWrapperRef,
           setShowList,
+          baseRef,
         }}
       >
         <RelativeWrapper ref={relativeWrapperRef}>
@@ -149,6 +148,7 @@ export default Dropdown2;
 
 const RelativeWrapper = styled.div`
   position: relative;
+  width: fit-content;
 `;
 
 const DisplayWrapper = styled.div<{ showList: boolean }>`

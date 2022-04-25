@@ -8,12 +8,14 @@ export interface ISelectionProps extends React.ComponentPropsWithoutRef<'div'> {
   children: React.ReactChild;
   extraCSS?: FlattenSimpleInterpolation;
   isSelected?: boolean;
+  disableAutoClose?: boolean;
 }
 
 const Selection = ({
   children,
   extraCSS,
   isSelected,
+  disableAutoClose = false,
   ...props
 }: ISelectionProps) => {
   const cxt = useContext(DropdownContext);
@@ -23,6 +25,8 @@ const Selection = ({
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (props.onClick) props.onClick(event);
+
+    if (disableAutoClose) return;
     cxt.setShowList(false);
   };
 

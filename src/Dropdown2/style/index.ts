@@ -1,10 +1,9 @@
-import { PresetType, SizeType, PositionType } from '../types';
+import { IDropdownContextProps } from '../types';
 import { FlattenSimpleInterpolation, css } from 'styled-components';
 import basePresetStyleSheet from './sheets/baseStyleSheet';
 import { getDropdownState, mergeCSS } from './utils';
 import { useMemo } from 'react';
 import groupStyleSheet from './sheets/groupStyleSheet';
-import { IDropdownContextProps } from '../Dropdown2';
 import selectionStyleSheet from './sheets/selectionStyleSheet';
 
 export type StateType = 'disabled' | 'focused' | 'normal';

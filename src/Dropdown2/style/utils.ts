@@ -1,9 +1,10 @@
-import { IUseStyleProps, StateType } from '.';
+import { StateType } from '.';
 import { FlattenSimpleInterpolation, css } from 'styled-components';
 
-export const getDropdownState = (
-  props: Pick<IUseStyleProps, 'isDisabled' | 'isFocused'>,
-): StateType => {
+export const getDropdownState = (props: {
+  isDisabled?: boolean;
+  isFocused?: boolean;
+}): StateType => {
   if (props.isDisabled) return 'disabled';
   if (props.isFocused) return 'focused';
   return 'normal';

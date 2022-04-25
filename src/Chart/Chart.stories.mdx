@@ -1,5 +1,5 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
-import Chart from "./Chart";
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Chart from './Chart';
 
 <Meta title="MDX/Chart" component={Chart} />
 
@@ -20,7 +20,7 @@ import Chart from "./Chart";
 사용하는 차트들을 따로 가져오는 구조를 방지하기 위해서 Chart를 가져오고 `Chart.{차트의 타입}` 으로 사용할 수 있도록 만들었습니다. 다음과 같은 구조입니다.
 
 ```jsx
-import { Chart } from "@earlysloth/pocketsurvey-ui-components";
+import { Chart } from '@earlysloth/pocketsurvey-ui-components';
 <Chart.BarHorizontalBase />;
 ```
 
@@ -35,12 +35,12 @@ import { Chart } from "@earlysloth/pocketsurvey-ui-components";
 ```jsx
 <Chart.BarHorizontalBase
   labels={[
-    "인터넷 검색",
-    "네이버 블로그",
-    "브런치",
-    "페이스북 페이지",
-    "지인 소개",
-    "뉴스기사",
+    '인터넷 검색',
+    '네이버 블로그',
+    '브런치',
+    '페이스북 페이지',
+    '지인 소개',
+    '뉴스기사',
   ]}
   series={[74, 24, 5, 2, 23, 5, 2]}
   override={{
@@ -56,12 +56,12 @@ import { Chart } from "@earlysloth/pocketsurvey-ui-components";
     <p>예시) yAxis.show를 false로 덮어씌운 차트</p>
     <Chart.BarHorizontalBase
       labels={[
-        "인터넷 검색",
-        "네이버 블로그",
-        "브런치",
-        "페이스북 페이지",
-        "지인 소개",
-        "뉴스기사",
+        '인터넷 검색',
+        '네이버 블로그',
+        '브런치',
+        '페이스북 페이지',
+        '지인 소개',
+        '뉴스기사',
       ]}
       series={[74, 24, 5, 2, 23, 5, 2]}
       override={{
