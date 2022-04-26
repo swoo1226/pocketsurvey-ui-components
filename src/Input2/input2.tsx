@@ -190,7 +190,7 @@ const InputCore = styled.input<IOverrideStyle>`
   width: 100%;
   outline: none;
   border: none;
-  background-color: ${(props) => (props.isDisabled ? '#f0f0f0' : 'fffff')};
+  background-color: 'fffff';
   font-family: 'Spoqa Han Sans Neo Regular';
   &:focus {
     outline: none;
@@ -217,7 +217,16 @@ const InputCore = styled.input<IOverrideStyle>`
         color: ${props.placeholderColor};
       }
     `}
+
+  ${(props) => 
+    props.isDisabled &&
+    css`
+      color: #C9C8C7;
+      background-color: #f0f0f0;
+    `
+  }
   &::placeholder {
     color: #c9c8c7;
   }
+
 `;
