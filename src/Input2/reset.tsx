@@ -37,7 +37,7 @@ const InputClear = forwardRef(
               value: '',
             },
           });
-          if (props.onChange) props.onChange(event);
+          if (props.onClick) props.onClick(event);
         }}
         size={size}
       >
@@ -58,7 +58,7 @@ const ResetWrapper = styled.div<{ size: InputSizeType }>`
   height: 16px;
   cursor: pointer;
 
-  ${props =>
+  ${(props) =>
     props.size === 'small' &&
     css`
       width: 14px;
