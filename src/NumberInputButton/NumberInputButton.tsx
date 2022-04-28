@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 import { NumberInputButtonModule } from './NumberInputButtonMudule';
 import { Selection, NumberInputButtonWrapper, InnerInput } from './styled';
+import useDidUpdateEffect from '../utils/useDidUpdateEffect';
 
 interface INumberInputButton
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'disabled'> {
@@ -39,21 +40,16 @@ const NumberInputButton = forwardRef(
       setIsEditMode(false);
     });
 
-    useEffect(() => {
-      if (isEditMode === true) {
-        inputDom.current?.focus();
-      }
-    }, [isEditMode]);
-
     const [valueTemp, setValueTemp] = useState(value);
     useEffect(() => {
       setValueTemp(value);
     }, [value]);
 
-    useEffect(() => {
+    useDidUpdateEffect(() => {
       if (isEditMode === false) {
         handleValueChange(valueTemp);
       } else {
+        inputDom.current?.focus();
         setValueTemp(value);
       }
     }, [isEditMode]);
