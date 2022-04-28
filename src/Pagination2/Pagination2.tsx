@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { usePagination } from '@material-ui/lab/Pagination';
 import PaginationSwitcher from './Switcher';
@@ -13,10 +13,15 @@ const Pagination2 = ({ count, onChange }: IPagination2Props) => {
   const { items } = usePagination({
     count,
   });
+  const isInitial = useRef<boolean>(true);
 
   useEffect(() => {
     const item = items.find((item) => item.selected);
-    if (item) onChange(item.page);
+    if (!isInitial.current && item) onChange(item.page);
+
+    if (isInitial.current === true) {
+      isInitial.current = false;
+    }
   }, [items]);
 
   return (
