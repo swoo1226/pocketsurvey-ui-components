@@ -2,7 +2,9 @@ import React, { forwardRef, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Combine3 } from '../@types/utils';
 import getStyle from '../style/getStyle';
+import IconFlex from './iconFlex';
 import InputClear from './reset';
+import InputSearch from './search';
 
 export type InputSizeType = 'medium' | 'small';
 type InputType = React.ForwardRefExoticComponent<
@@ -130,11 +132,15 @@ interface ISubComponent {
   Clear: typeof InputClear;
   Container: typeof HStack;
   Message: typeof Message;
+  Search: typeof InputSearch;
+  Flex: typeof IconFlex;
 }
 
 Input.Clear = InputClear;
 Input.Container = HStack;
 Input.Message = Message;
+Input.Search = InputSearch;
+Input.Flex = IconFlex;
 export default Input;
 
 const InputWrapper = styled.div<{
@@ -218,13 +224,12 @@ const InputCore = styled.input<IOverrideStyle>`
       }
     `}
 
-  ${(props) => 
+  ${(props) =>
     props.isDisabled &&
     css`
-      color: #C9C8C7;
+      color: #c9c8c7;
       background-color: #f0f0f0;
-    `
-  }
+    `}
   &::placeholder {
     color: #c9c8c7;
   }

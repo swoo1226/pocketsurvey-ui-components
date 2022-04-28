@@ -43,21 +43,24 @@ export const InputPreview = () => {
         <Input2
           width={283}
           ref={dom}
-          color={"green"}
+          color={'green'}
           placeholder="안녕하세요"
-          placeholderColor={"red"}
+          placeholderColor={'red'}
           isError={isError}
           value={v}
-          size='small'
+          size="small"
           onChange={(event) => setV(event.target.value)}
-          onMouseLeave={() => console.log("input onMouseLeave")}
+          onMouseLeave={() => console.log('input onMouseLeave')}
           wrapperProps={{
-            onMouseLeave: () => console.log("div onMouseLeave"),
+            onMouseLeave: () => console.log('div onMouseLeave'),
           }}
         >
-          <Input2.Clear icon="circle" />
+          <Input2.Flex>
+            <Input2.Clear icon="circle" />
+            <Input2.Search onClick={() => console.log('abc')} />
+          </Input2.Flex>
         </Input2>
-        <Input2.Message mode={"error"}>에러 메세지</Input2.Message>
+        <Input2.Message mode={'error'}>에러 메세지</Input2.Message>
       </Input2.Container>
     </>
   );
