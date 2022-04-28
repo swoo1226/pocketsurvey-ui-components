@@ -12,17 +12,10 @@ interface IPagination2Props {
 const Pagination2 = ({ count, onChange }: IPagination2Props) => {
   const { items } = usePagination({
     count,
+    onChange: (_, page) => {
+      onChange(page);
+    },
   });
-  const isInitial = useRef<boolean>(true);
-
-  useEffect(() => {
-    const item = items.find((item) => item.selected);
-    if (!isInitial.current && item) onChange(item.page);
-
-    if (isInitial.current === true) {
-      isInitial.current = false;
-    }
-  }, [items]);
 
   return (
     <HStack>
