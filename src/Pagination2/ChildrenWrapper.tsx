@@ -19,6 +19,7 @@ const ChildrenWrapper = styled.div<IChildrenWrapperProps>`
 
   cursor: pointer;
   border-radius: 3px;
+  font-size: 14px;
 
   ${(props) => getChildrenWrapperCSS(props)}
 `;

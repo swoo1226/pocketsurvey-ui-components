@@ -4,6 +4,7 @@ import { DropdownContext } from '../Dropdown2';
 import { useBaseComponentStyle } from '../style';
 import { Icon } from '../..';
 import { textEllipsis } from '../style/utils';
+import { IDropdownContextProps } from '../types';
 
 interface IBaseProps extends React.ComponentPropsWithoutRef<'div'> {
   children: React.ReactChild;
@@ -31,7 +32,7 @@ const Base = React.forwardRef(
         <IconWrapper>
           <Icon
             icon="arrow"
-            width={18}
+            width={getIconSize(cxt?.size)}
             rotate={!cxt.showList ? 90 : 270}
             color={
               cxt.isDisabled
@@ -76,3 +77,12 @@ const IconWrapper = styled.div`
 const ChildrenWrapper = styled.div`
   ${textEllipsis}
 `;
+
+const getIconSize = (size: IDropdownContextProps['size']) => {
+  if (size === 'large') return 16;
+  if (size === 'medium') return 14;
+  if (size == 'small') return 13;
+
+  // size값이 없다면 기본 값은 medium
+  return 14;
+};

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Dropdown2 from './Dropdown2';
 import CheckBox2 from '../CheckBox2/CheckBox2';
 import styled, { css } from 'styled-components';
-import { IDropdownContextProps } from './types';
+import { IDropdownContextProps, SizeType } from './types';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
 
 export default {
@@ -30,6 +30,7 @@ export const DropdownPreview = () => {
 
   const dom = useRef<IDropdownContextProps | null>(null);
   const depth2Dom = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState<SizeType>('medium');
 
   const hideDepth2Dropdown = () => {
     dom.current.setShowList(false);
@@ -47,7 +48,12 @@ export const DropdownPreview = () => {
   return (
     <Root>
       <h1>기본 드롭다운</h1>
-      <Dropdown2 value={value}>
+      <p>size: {size}</p>
+      <button onClick={() => setSize('small')}>small</button>
+      <button onClick={() => setSize('medium')}>medium</button>
+      <button onClick={() => setSize('large')}>large</button>
+
+      <Dropdown2 value={value} size={size}>
         <Dropdown2.Group>
           {selectionList.map((selection) => (
             <Dropdown2.Selection

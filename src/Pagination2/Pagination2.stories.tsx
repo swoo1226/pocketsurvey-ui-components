@@ -14,7 +14,7 @@ export const Index = () => {
   return (
     <>
       <h1>{page}</h1>
-      <Pagination2 count={1999} onChange={(page) => setPage(page)} />
+      <Pagination2 count={5} onChange={(page) => setPage(page)} />
     </>
   );
 };

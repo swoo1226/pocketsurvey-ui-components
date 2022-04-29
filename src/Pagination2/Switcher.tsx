@@ -57,6 +57,7 @@ const PaginationSwitcher = ({ item }: IPaginationSwitcherProps) => {
         <Icon
           icon={'arrow'}
           width={18}
+          color={props.disabled ? '#C9C8C7' : '#818282'}
           onClick={() => {
             if (props.disabled) return;
             props.onClick({} as React.SyntheticEvent<Element, Event>);
