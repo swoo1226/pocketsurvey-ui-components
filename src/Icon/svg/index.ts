@@ -128,3 +128,4 @@ export { ReactComponent as email } from './email.svg';
 export { ReactComponent as upload } from './upload.svg';
 export { ReactComponent as checkWide } from './check_wide.svg';
 export { ReactComponent as plusBold } from './plusBold.svg';
+export { ReactComponent as alimtalkUser } from './alimtalkUser.svg';
