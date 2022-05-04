@@ -34,8 +34,8 @@ export interface IRadio2WrapperProps {
 }
 
 const Radio2Wrapper = styled.div<IRadio2WrapperProps>`
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background: #ffffff;
   box-sizing: border-box;
   border-radius: 50%;
