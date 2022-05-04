@@ -46,8 +46,8 @@ export interface ICheckBox2WrapperProps {
 }
 
 const CheckBox2Wrapper = styled.div<ICheckBox2WrapperProps>`
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background: #ffffff;
   box-sizing: border-box;
   border-radius: 3px;
