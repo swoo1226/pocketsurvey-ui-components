@@ -42,6 +42,7 @@ export const AlertLayout = {
     width?: number | string;
     height?: number | string;
   }>`
+    min-width: 364px;
     width: fit-content;
     display: flex;
     flex-direction: column;
