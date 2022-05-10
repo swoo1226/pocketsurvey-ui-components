@@ -49,7 +49,6 @@ export default GroupButton;
 
 const SelectionWrapper = styled.div`
   display: flex;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   width: fit-content;
   height: fit-content;
   margin: auto 0px;
@@ -110,7 +109,7 @@ const getSelectionCSS = (props: ISelectionProps) => {
       CSSArr.push(
         css`
           cursor: pointer;
-          background: #fbfaf8;
+          background: #dfdedd;
         `,
       );
     else
