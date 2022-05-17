@@ -27,8 +27,8 @@ export interface IDropdownProps extends React.ComponentPropsWithoutRef<'div'> {
   size?: SizeType;
   position?: PositionType;
   extraCSS?: FlattenSimpleInterpolation;
-
   disableAutoClose?: boolean;
+  onClickOutsideCallBack?: () => void;
 }
 
 export const DropdownContext = React.createContext<IDropdownContextProps | null>(
@@ -46,6 +46,7 @@ const Dropdown2 = forwardRef(
       children,
       value,
       disableAutoClose = false,
+      onClickOutsideCallBack,
       ...props
     }: IDropdownProps,
     ref: React.Ref<IDropdownContextProps | null>,
@@ -83,6 +84,7 @@ const Dropdown2 = forwardRef(
         }
 
         if (disableAutoClose) return;
+        onClickOutsideCallBack?.();
         setShowList(false);
       }
     });
