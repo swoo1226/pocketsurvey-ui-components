@@ -7,14 +7,16 @@ import styled from 'styled-components';
 interface IPagination2Props {
   count: number;
   onChange: (page: number) => void;
+  page?: number;
 }
 
-const Pagination2 = ({ count, onChange }: IPagination2Props) => {
+const Pagination2 = ({ count, onChange, page }: IPagination2Props) => {
   const { items } = usePagination({
     count,
-    onChange: (_, page) => {
-      onChange(page);
+    onChange: (_, nextPage) => {
+      onChange(nextPage);
     },
+    page,
   });
 
   return (

@@ -11,10 +11,12 @@ export default {
 
 export const Index = () => {
   const [page, setPage] = useState(1);
+
   return (
     <>
       <h1>{page}</h1>
-      <Pagination2 count={5} onChange={(page) => setPage(page)} />
+      <input value={page} onChange={(e) => setPage(Number(e.target.value))} />
+      <Pagination2 count={5} onChange={(page) => setPage(page)} page={page} />
     </>
   );
 };
