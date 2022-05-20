@@ -38,3 +38,20 @@ export const CenterAlign = ({ status, title, children }: IAlertAlign) => {
     </AlertLayout.CenterAlign>
   );
 };
+
+export const LeftAlignNoGap =  ({ status, title, children }: IAlertAlign) => {
+  return (
+    <AlertLayout.LeftAlignNoGap>
+      <div>
+        <AlertIcon status={status} />
+      </div>
+
+      <div>
+        <AlertTitle>{title}</AlertTitle>
+        <AlertLayout.AlertLayoutContent>
+          {children}
+        </AlertLayout.AlertLayoutContent>
+      </div>
+    </AlertLayout.LeftAlignNoGap>
+  );
+};
