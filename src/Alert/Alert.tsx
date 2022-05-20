@@ -6,14 +6,14 @@ import React, {
   cloneElement,
 } from 'react';
 import { Button2 } from '..';
-import { LeftAlign, CenterAlign } from './AlertAlign';
+import { LeftAlign, CenterAlign, LeftAlignNoGap } from './AlertAlign';
 import { AlertLayout } from './style';
 import AlertContent from './AlertContent';
 import { Combine } from '../@types/utils';
 
 export interface IAlertProps {
   status: 'normal' | 'error' | 'complete' | 'warning';
-  align: 'center' | 'left';
+  align: 'center' | 'left' | 'left-noGap';
   title: string;
   contentChildren: React.ReactNode[];
   footerChildren: React.ReactNode[];
@@ -55,6 +55,11 @@ const Alert = ({
               <LeftAlign title={title} status={status}>
                 {contentChildren}
               </LeftAlign>
+            )}
+            {align === 'left-noGap' && (
+              <LeftAlignNoGap title={title} status={status}>
+                {contentChildren}
+              </LeftAlignNoGap>
             )}
           </AlertLayout.Content>
           <AlertLayout.Footer align={align}>

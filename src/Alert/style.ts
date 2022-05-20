@@ -110,6 +110,10 @@ export const AlertLayout = {
     flex-direction: row;
     gap: 25px;
   `,
+  LeftAlignNoGap: styled.div`
+    display: flex;
+    flex-direction: row;
+  `,
   AlertLayoutContent: styled.div`
     display: flex;
     flex-direction: column;
