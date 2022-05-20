@@ -82,7 +82,7 @@ export const AlertLayout = {
     padding-bottom: 32px;
 
     ${(props) =>
-      props.align === 'left' &&
+      (props.align === 'left' || props.align === 'left-noGap') &&
       css`
         padding-left: 34px;
         padding-right: 60px;
@@ -98,7 +98,7 @@ export const AlertLayout = {
     gap: 8px;
 
     ${(props) =>
-      props.align === 'left' &&
+      (props.align === 'left' || props.align === 'left-noGap') &&
       css`
         justify-content: flex-end;
         padding-right: 16px;
@@ -110,6 +110,7 @@ export const AlertLayout = {
     flex-direction: row;
     gap: 25px;
   `,
+
   LeftAlignNoGap: styled.div`
     display: flex;
     flex-direction: row;
