@@ -41,7 +41,11 @@ const InputClear = forwardRef(
         }}
         size={size}
       >
-        <Icon icon="titleInputX" width={cxt.size === 'small' ? 14 : 16} />
+        <Icon
+          icon="titleInputX"
+          width={cxt.size === 'small' ? 14 : 16}
+          useCursor
+        />
       </ResetWrapper>
     );
   },
