@@ -3,7 +3,6 @@ import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 import styled from 'styled-components';
 
 import Button from './Button';
-import Font from '../Typography/Font';
 import { Meta } from '@storybook/react/types-6-0';
 
 export default {
@@ -24,31 +23,11 @@ export function Index(): JSX.Element {
 
   return (
     <>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="500"
-        fontSize="24px"
-        fontColor="black"
-      >
-        포켓서베이에서 사용하는 버튼 컴포넌트
-      </Font>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
+      <p>포켓서베이에서 사용하는 버튼 컴포넌트</p>
+      <p>
         Square , Medium 버튼
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="300"
-          fontSize="16px"
-          fontColor="#818282"
-          isInline={true}
-        >
-          (mode 지원이 되는)
-        </Font>
-      </Font>
+        <p>(mode 지원이 되는)</p>
+      </p>
 
       <BasicButtonContainer style={{ display: 'block' }}>
         <Button
@@ -103,14 +82,7 @@ export function Index(): JSX.Element {
         </Button>
       </BasicButtonContainer>
       <BasicButtonContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          Small, Round 버튼
-        </Font>
+        <p>Small, Round 버튼</p>
         <Button
           shape="round"
           mode="Yellow"
@@ -139,14 +111,7 @@ export function Index(): JSX.Element {
           Gray
         </Button>
       </BasicButtonContainer>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        버튼은 텍스트 길이에 맞게 크기가 달라집니다
-      </Font>
+      <p>버튼은 텍스트 길이에 맞게 크기가 달라집니다</p>
       <Button
         mode="Yellow"
         size="small"
@@ -156,14 +121,7 @@ export function Index(): JSX.Element {
       >
         Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       </Button>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        로딩 버튼
-      </Font>
+      <p>로딩 버튼</p>
       <div style={{ display: 'block' }}>
         <Button
           mode="Yellow"
@@ -175,14 +133,7 @@ export function Index(): JSX.Element {
         >
           버튼
         </Button>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          비활성화된 버튼
-        </Font>
+        <p>비활성화된 버튼</p>
         <Button
           mode="Yellow"
           size="small"
@@ -194,15 +145,10 @@ export function Index(): JSX.Element {
           버튼
         </Button>
       </div>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
+      <p>
         버튼의 배경 색을 직접 지정할 수도 있습니다. 하지만 hover시 배경색이
         동일하게 적용됩니다
-      </Font>
+      </p>
       <BasicButtonContainer style={{ display: 'flex' }}>
         <Button
           className="margins"

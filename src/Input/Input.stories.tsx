@@ -7,7 +7,6 @@ import {
   color,
 } from '@storybook/addon-knobs';
 import Input from './Input';
-import Font from '../Typography/Font';
 import { Meta } from '@storybook/react/types-6-0';
 import styled from 'styled-components';
 
@@ -29,90 +28,32 @@ const InputContainer = styled.div`
 export function Index() {
   return (
     <>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="500"
-        fontSize="24px"
-        fontColor="black"
-      >
-        포켓서베이에서 사용하는 Input 컴포넌트
-      </Font>
+      <p>포켓서베이에서 사용하는 Input 컴포넌트</p>
       <p>x 버튼이 밀리는 현상은 웹설문에서는 정상적으로 보입니다.</p>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          기본적인 Input
-        </Font>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="300"
-          fontSize="16px"
-          fontColor="#818282"
-          isInline={true}
-        >
-          인풋 메세지
-        </Font>
+        <p>기본적인 Input</p>
+        <p>인풋 메세지</p>
         <Default />
       </InputContainer>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          이메일 Input
-        </Font>
+        <p>이메일 Input</p>
         <Email />
       </InputContainer>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          계좌번호 Input
-        </Font>
+        <p>계좌번호 Input</p>
         <Account />
       </InputContainer>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          전화번호 Input
-        </Font>
+        <p>전화번호 Input</p>
         <Phone />
       </InputContainer>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          숫자 Input
-        </Font>
+        <p>숫자 Input</p>
         <Number />
       </InputContainer>
       <InputContainer>
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="400"
-          fontSize="16px"
-          fontColor="black"
-        >
-          URL Input
-        </Font>
+        <p>URL Input</p>
         <URL />
-        
       </InputContainer>
     </>
   );
@@ -133,22 +74,8 @@ function Default() {
 
   return (
     <div>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="500"
-        fontSize="24px"
-        fontColor="black"
-      >
-        포켓서베이에서 사용하는 기본 인풋 컴포넌트
-      </Font>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        라인형 인풋
-      </Font>
+      <p>포켓서베이에서 사용하는 기본 인풋 컴포넌트</p>
+      <p>라인형 인풋</p>
       <Input
         mode={'line'}
         placeholder={placeholder}
@@ -181,14 +108,7 @@ function Default() {
         textColor={textColor}
         buttonAlways={!!value}
       />
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        박스형 인풋
-      </Font>
+      <p>박스형 인풋</p>
       <Input
         mode={'basic'}
         placeholder={placeholder}
@@ -221,22 +141,8 @@ function Default() {
         textColor={textColor}
         buttonAlways={!!value}
       />
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="20px"
-        fontColor="black"
-      >
-        비활성화된 인풋
-      </Font>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        라인형 비활성화 인풋
-      </Font>
+      <p>비활성화된 인풋</p>
+      <p>라인형 비활성화 인풋</p>
       <Input
         mode={'line'}
         placeholder={placeholder}
@@ -264,14 +170,7 @@ function Default() {
         borderColor={borderColor}
         textColor={textColor}
       />
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        박스형 비활성화 인풋
-      </Font>
+      <p>박스형 비활성화 인풋</p>
       <Input
         mode={'basic'}
         placeholder={placeholder}
@@ -299,14 +198,7 @@ function Default() {
         borderColor={borderColor}
         textColor={textColor}
       />
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="20px"
-        fontColor="black"
-      >
-        인풋 에러 메시지
-      </Font>
+      <p>인풋 에러 메시지</p>
       <Input
         mode={'basic'}
         placeholder={placeholder}

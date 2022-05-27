@@ -5,7 +5,6 @@ export { default as Radio } from './Radio/Radio';
 export { default as Radio2 } from './Radio2/Radio2';
 export { default as DropDown } from './DropDown/DropDown';
 export { default as Textarea } from './Textarea/Textarea';
-export { default as Font } from './Typography/Font';
 export { default as Icon } from './Icon/Icon';
 export { default as Input } from './Input/Input';
 export { default as Toggle } from './Toggle/Toggle';
@@ -40,3 +39,4 @@ export { default as Toggle2 } from './Toggle2/Toggle2';
 export { default as NumberInputButton } from './NumberInputButton/NumberInputButton';
 export { default as SelectButton } from './SelectButton/SelectButton';
 export { default as Stepper } from './Stepper/Stepper';
+export {default as Typography} from './Typography/Typography'
