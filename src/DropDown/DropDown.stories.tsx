@@ -8,7 +8,6 @@ import {
 } from '@storybook/addon-knobs';
 import styled from 'styled-components';
 import DropDown from './DropDown';
-import Font from '../Typography/Font';
 import { Meta } from '@storybook/react/types-6-0';
 export default {
   component: DropDown,
@@ -31,31 +30,11 @@ export function Index() {
   return (
     <>
       <button onClick={() => setSelected(100)}>selected를 100으로 설정</button>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="500"
-        fontSize="24px"
-        fontColor="black"
-      >
-        포켓서베이에서 사용하는 드롭다운 컴포넌트
-      </Font>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
+      <p>포켓서베이에서 사용하는 드롭다운 컴포넌트</p>
+      <p>
         기본적인 드롭다운
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="300"
-          fontSize="16px"
-          fontColor="#818282"
-          isInline={true}
-        >
-          (선택지마다 아이콘을 곁들인)
-        </Font>
-      </Font>
+        <p>(선택지마다 아이콘을 곁들인)</p>
+      </p>
       <DropDownContainer>
         <DropDown
           list={[
@@ -82,34 +61,14 @@ export function Index() {
           iconColor="#FAC62D"
         />
       </DropDownContainer>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
-        기본 선택값이 없을 경우 placeholder가 적용된 드롭다운
-      </Font>
+      <p>기본 선택값이 없을 경우 placeholder가 적용된 드롭다운</p>
       <DropDownContainer>
         <BranchSelector />
       </DropDownContainer>
-      <Font
-        fontFace="Noto Sans CJK KR"
-        fontWeight="400"
-        fontSize="16px"
-        fontColor="black"
-      >
+      <p>
         구간을 나눌 수 있는 형태의 드롭다운
-        <Font
-          fontFace="Noto Sans CJK KR"
-          fontWeight="300"
-          fontSize="16px"
-          fontColor="#818282"
-          isInline={true}
-        >
-          (target 숫자에 따라 구간 시작점이 변경됩니다.)
-        </Font>
-      </Font>
+        <p>(target 숫자에 따라 구간 시작점이 변경됩니다.)</p>
+      </p>
       <DropDownContainer>
         <HrSelector />
       </DropDownContainer>

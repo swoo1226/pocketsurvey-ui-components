@@ -3,8 +3,8 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import theme from './theme';
 
 
-type Weight = keyof typeof theme.font;
-type Colors = keyof typeof theme.colors;
+export type Weight = keyof typeof theme.font;
+export type Colors = keyof typeof theme.colors;
 type Typography = keyof typeof theme.preset.typography;
 
 interface ITextUtilProps {
