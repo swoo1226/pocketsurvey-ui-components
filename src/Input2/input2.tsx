@@ -229,7 +229,9 @@ const InputCore = styled.input<IOverrideStyle>`
     css`
       color: #c9c8c7;
       background-color: #f0f0f0;
+      border-color: #dfdedd;
     `}
+    
   &::placeholder {
     color: #c9c8c7;
   }
