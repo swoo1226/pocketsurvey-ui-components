@@ -47,10 +47,7 @@ function ExplainedModal({
         </DiscriptContainer>
         <ButtonsWrapper>
           <BtnContainer>
-            <Button2
-              preset="tertiary-text"
-              onClick={() => onLeftClick()}
-            >
+            <Button2 preset="tertiary-text" onClick={() => onLeftClick()}>
               {buttonText[0]}
             </Button2>
             <Button2 preset="primary-main" onClick={() => onRightClick()}>
@@ -67,7 +64,7 @@ const ModalContainer = styled.div`
   width: 460px;
   .tag {
     color: white;
-    font-family: Spoqa Han Sans Neo;
+    font-family: Pretendard;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -88,7 +85,7 @@ const DiscriptContainer = styled.div`
   background-color: #ffffff;
 
   padding: 24px;
-  font-family: Spoqa Han Sans Neo;
+  font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   text-align: left;

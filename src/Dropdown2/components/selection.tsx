@@ -49,7 +49,7 @@ const SelectionWrapper = styled.div<{
   extraCSS?: FlattenSimpleInterpolation;
   isSelected?: boolean;
 }>`
-  font-family: 'Spoqa Han Sans Neo Regular';
+  font-family: 'Pretendard Regular';
   padding-left: 16px;
   padding-right: 16px;
   display: flex;

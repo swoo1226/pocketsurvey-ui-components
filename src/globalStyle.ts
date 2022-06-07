@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
 const font = {
-  regular: 'Spoqa Han Sans Neo Regular',
-  medium: 'Spoqa Han Sans Neo Medium',
-  bold: 'Spoqa Han Sans Neo Bold',
+  regular: 'Pretendard Regular',
+  medium: 'Pretendard Medium',
+  bold: 'Pretendard Bold',
 };
 
 const colors = {

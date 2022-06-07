@@ -30,7 +30,7 @@ const option: EChartsOption = {
     show: true,
   },
   textStyle: {
-    fontFamily: 'Spoqa Han Sans Neo Regular',
+    fontFamily: 'Pretendard Regular',
   },
 };
 

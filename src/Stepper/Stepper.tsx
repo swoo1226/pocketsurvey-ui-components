@@ -83,7 +83,6 @@ const ItemWrapper = styled.div<{
 `;
 
 const ItemNumber = styled.div`
-  transform: translateY(1px);
   font-size: 12px;
 `;
 
@@ -93,7 +92,7 @@ const ItemName = styled.div<{
   position: absolute;
   top: 30px;
   font-size: 10px;
-  font-family: 'Spoqa Han Sans Neo Medium';
+  font-family: 'Pretendard Medium';
   white-space: nowrap;
   line-height: 100%;
   ${({ isVisited }) =>

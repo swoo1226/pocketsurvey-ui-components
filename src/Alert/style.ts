@@ -3,7 +3,7 @@ import { IAlertProps } from './Alert';
 import getStyle from '../style/getStyle';
 
 export const AlertTitle = styled.h1<{ marginTop?: number }>`
-  font-family: 'Spoqa Han Sans Neo';
+  font-family: 'Pretendard';
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -21,7 +21,7 @@ export const AlertTitle = styled.h1<{ marginTop?: number }>`
 `;
 
 export const AlertText = styled.p<{ align: IAlertProps['align'] }>`
-  font-family: 'Spoqa Han Sans Neo';
+  font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

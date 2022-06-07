@@ -4,7 +4,7 @@ export const ModalContainer = styled.div`
   width: 460px;
   .tag {
     color: white;
-    font-family: Spoqa Han Sans Neo;
+    font-family: Pretendard;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -25,7 +25,7 @@ export const DiscriptContainer = styled.div`
   background-color: #ffffff;
   border-radius: 0px 0px 4px 4px;
   padding: 24px;
-  font-family: Spoqa Han Sans Neo;
+  font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   text-align: left;
@@ -113,4 +113,4 @@ export const ExplainTagName = styled.p`
   color: #57adf2;
 `;
 
-export const ButtonsWrapper = styled.div``
+export const ButtonsWrapper = styled.div``;
