@@ -111,7 +111,7 @@ const ButtonWrapper = styled.button<{
   border-radius: 3px;
   border: none;
   background: transparent;
-  font-family: "Spoqa Han Sans Neo Medium";
+  font-family: "Pretendard Medium";
 
   ${(props) => getButtonCSS(props.preset, props.isDisabled)}
   ${(props) => getButtonSizeCSS(props.size)}

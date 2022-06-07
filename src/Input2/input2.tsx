@@ -197,7 +197,7 @@ const InputCore = styled.input<IOverrideStyle>`
   outline: none;
   border: none;
   background-color: 'fffff';
-  font-family: 'Spoqa Han Sans Neo Regular';
+  font-family: 'Pretendard Regular';
   &:focus {
     outline: none;
     border: none;

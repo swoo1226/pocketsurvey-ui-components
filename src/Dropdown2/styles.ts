@@ -16,7 +16,7 @@ export const DropdownBox = styled.div<{
   padding: 13px;
   border-radius: 3px;
   font-size: 14px;
-  font-family: 'Spoqa Han Sans Neo Regular';
+  font-family: 'Pretendard Regular';
   cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
   z-index: 19;
   align-items: center;

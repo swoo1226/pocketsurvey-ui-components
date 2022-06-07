@@ -38,7 +38,7 @@ const Image = styled.div`
     text-align: center;
     justify-content: center;
     align-items: center;
-    font-family: 'Spoqa Han Sans Neo Medium';
+    font-family: 'Pretendard Medium';
     color: grey;
     font-size: 11.9px;
     cursor: pointer;
@@ -75,7 +75,7 @@ const AddIamgeBox = styled.div`
 function RadioImageSelection() {
   const [value, setValue] = useState<string>('');
   const [iconShow, setIconShow] = useState<boolean>(false);
-    
+
   return (
     <InnerSelection>
       <ImageItemDraggable>

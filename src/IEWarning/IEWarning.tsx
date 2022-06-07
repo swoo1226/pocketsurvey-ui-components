@@ -22,7 +22,7 @@ const IEWarningMessage = styled.div`
   font-size: 13.5px;
   display: flex;
   align-items: center;
-  font-family: 'Spoqa Han Sans Neo Regular';
+  font-family: 'Pretendard Regular';
 `;
 
 const Normal = styled.div`
@@ -30,7 +30,7 @@ const Normal = styled.div`
 `;
 
 const Emphasized = styled.div`
-  font-family: 'Spoqa Han Sans Neo Medium';
+  font-family: 'Pretendard Medium';
   margin-left: 3px;
 `;
 

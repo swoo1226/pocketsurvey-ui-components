@@ -61,7 +61,7 @@ const BaseWrapper = styled.div<{
   padding: 13px;
   border-radius: 3px;
   font-size: 14px;
-  font-family: 'Spoqa Han Sans Neo Regular';
+  font-family: 'Pretendard Regular';
   z-index: 19;
   align-items: center;
 
