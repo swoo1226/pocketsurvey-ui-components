@@ -11,7 +11,7 @@ interface IAlertAlign {
 
 export const LeftAlign = ({ status, title, children }: IAlertAlign) => {
   return (
-    <AlertLayout.LeftAlign>
+    <AlertLayout.LeftAlign className="alert-leftAlign">
       <div>
         <AlertIcon status={status} />
       </div>
@@ -28,7 +28,7 @@ export const LeftAlign = ({ status, title, children }: IAlertAlign) => {
 
 export const CenterAlign = ({ status, title, children }: IAlertAlign) => {
   return (
-    <AlertLayout.CenterAlign>
+    <AlertLayout.CenterAlign className="alert-centerAlign">
       <AlertIcon status={status} />
 
       <AlertTitle marginTop={14}>{title}</AlertTitle>
@@ -39,9 +39,9 @@ export const CenterAlign = ({ status, title, children }: IAlertAlign) => {
   );
 };
 
-export const LeftAlignNoGap =  ({ status, title, children }: IAlertAlign) => {
+export const LeftAlignNoGap = ({ status, title, children }: IAlertAlign) => {
   return (
-    <AlertLayout.LeftAlignNoGap>
+    <AlertLayout.LeftAlignNoGap className="alert-leftAlignNoGap">
       <div>
         <AlertIcon status={status} />
       </div>

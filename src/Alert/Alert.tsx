@@ -43,9 +43,9 @@ const Alert = ({
           align,
         }}
       >
-        <AlertLayout.Wrapper>
-          <AlertLayout.TopLine status={status} />
-          <AlertLayout.Content align={align}>
+        <AlertLayout.Wrapper className="alert-wrapper">
+          <AlertLayout.TopLine status={status} className="alert-topline" />
+          <AlertLayout.Content align={align} className="alert-content">
             {align === 'center' && (
               <CenterAlign title={title} status={status}>
                 {contentChildren}
@@ -62,7 +62,7 @@ const Alert = ({
               </LeftAlignNoGap>
             )}
           </AlertLayout.Content>
-          <AlertLayout.Footer align={align}>
+          <AlertLayout.Footer align={align} className="alert-footer">
             {Children.map(footerChildren, (child, index) => {
               const item = child as ReactElement<
                 PropsWithChildren<IAlertButton>
