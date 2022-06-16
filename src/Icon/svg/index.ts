@@ -135,3 +135,4 @@ export { ReactComponent as circleThree } from './circleThree.svg';
 export { ReactComponent as circleOneActive } from './circleOneActive.svg';
 export { ReactComponent as circleTwoActive } from './circleTwoActive.svg';
 export { ReactComponent as circleThreeActive } from './circleThreeActive.svg';
+export { ReactComponent as detail } from './detail.svg';
