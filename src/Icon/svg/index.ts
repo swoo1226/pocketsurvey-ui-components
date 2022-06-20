@@ -137,3 +137,4 @@ export { ReactComponent as circleTwoActive } from './circleTwoActive.svg';
 export { ReactComponent as circleThreeActive } from './circleThreeActive.svg';
 export { ReactComponent as detail } from './detail.svg';
 export { ReactComponent as newTab } from './newTab.svg';
+export { ReactComponent as arrow2 } from './arrow2.svg';
