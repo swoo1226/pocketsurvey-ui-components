@@ -62,6 +62,7 @@ export const DropdownPreview = () => {
                 setValue(selection);
               }}
               isSelected={selection === value}
+              isDisable={selection === "나"}
             >
               {selection}
             </Dropdown2.Selection>
